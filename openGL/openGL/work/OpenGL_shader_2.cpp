@@ -13,9 +13,9 @@ int _shader_2_main()
 	GLFWwindow* window = createOpenGLWindow();
 
 	float vertices[] = {
-		0.0, 0.5, 0.0, 1.0, 0.0, 0.0,
-		-0.5, -0.5, 0.0, 0.0, 1.0, 0.0,
-		0.5, -0.5, 0.0, 0.0, 0.0, 1.0,
+		0.0f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
 	};
 
 	unsigned int VAO, VBO;
@@ -31,8 +31,8 @@ int _shader_2_main()
 	glEnableVertexAttribArray(1);
 
 	//着色器
-	std::string vsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/ShaderLearn/changeColor_2/vertex.vs";
-	std::string fsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/ShaderLearn/changeColor_2/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/ShaderLearn/changeColor_2/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/ShaderLearn/changeColor_2/fragment.fs";
 	MyShader changeColorShader(vsPath.data(), fsPath.data());
 
 	//使用着色器
@@ -40,7 +40,7 @@ int _shader_2_main()
 
 	//获取uniform
 	int locationNum = glGetUniformLocation(changeColorShader.ID, "addX");
-	glUniform1f(locationNum, 0.1);
+	glUniform1f(locationNum, 0.1f);
 
 	//循环函数
 	//检查GLFW是否被要求退出

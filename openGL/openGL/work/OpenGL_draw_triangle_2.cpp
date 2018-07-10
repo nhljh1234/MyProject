@@ -13,21 +13,21 @@ int _draw_triangle_2_main()
 	GLFWwindow* window = createOpenGLWindow();
 
 	float vertices_1[] = {
-		0.1, 0.0, 0.0,
-		0.5, 0.5, 0.0,
-		0.5, -0.5, 0.0
+		0.1f, 0.0f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f
 	};
 
 	float vertices_2[] = {
-		-0.1, 0.0, 0.0,
-		-0.5, 0.5, 0.0,
-		-0.5, -0.5, 0.0
+		-0.1f, 0.0f, 0.0f,
+		-0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f
 	};
 
 	float vertices_3[] = {
-		0.0, 0.1, 0.0,
-		-0.4, 0.4, 0.0,
-		0.4, 0.4, 0.0
+		0.0f, 0.1f, 0.0f,
+		-0.4f, 0.4f, 0.0f,
+		0.4f, 0.4f, 0.0f
 	};
 
 	unsigned int VAO_1, VAO_2, VAO_3;
@@ -63,12 +63,12 @@ int _draw_triangle_2_main()
 	glEnableVertexAttribArray(0);
 
 	//着色器
-	std::string vsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/DrawTriangle/orange/vertex.vs";
-	std::string fsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/DrawTriangle/orange/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/DrawTriangle/orange/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/DrawTriangle/orange/fragment.fs";
 	MyShader orangeShader(vsPath.data(), fsPath.data());
 
-	vsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/DrawTriangle/black/vertex.vs";
-	fsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/DrawTriangle/black/fragment.fs";
+	vsPath = "./work/ShaderFile/DrawTriangle/black/vertex.vs";
+	fsPath = "./work/ShaderFile/DrawTriangle/black/fragment.fs";
 	MyShader blackShader(vsPath.data(), fsPath.data());
 
 	//循环函数

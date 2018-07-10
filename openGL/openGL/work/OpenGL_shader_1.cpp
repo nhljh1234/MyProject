@@ -13,9 +13,9 @@ int _shader_1_main()
 	GLFWwindow* window = createOpenGLWindow();
 
 	float vertices[] = {
-		0.0, 0.5, 0.0,
-		-0.5, -0.5, 0.0,
-		0.5, -0.5, 0.0
+		0.0f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f
 	};
 
 	unsigned int VAO, VBO;
@@ -28,8 +28,8 @@ int _shader_1_main()
 	glEnableVertexAttribArray(0);
 
 	//着色器
-	std::string vsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/ShaderLearn/changeColor/vertex.vs";
-	std::string fsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/ShaderLearn/changeColor/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/ShaderLearn/changeColor/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/ShaderLearn/changeColor/fragment.fs";
 	MyShader changeColorShader(vsPath.data(), fsPath.data());
 
 	//使用着色器
@@ -48,7 +48,7 @@ int _shader_1_main()
 		//清除缓冲，这边的缓冲还有GL_DEPTH_BUFFER_BIT和GL_STENCIL_BUFFER_BIT
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		time = glfwGetTime();
+		time = float(glfwGetTime());
 		greenValue = sin(time) / 2.0f + 0.5f;
 		glUniform3f(location, 0.0f, greenValue, 0.0f);
 

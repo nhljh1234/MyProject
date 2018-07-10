@@ -13,11 +13,11 @@ int _draw_triangle_1_main()
 	GLFWwindow* window = createOpenGLWindow();
 
 	float vertices[] = {
-		0.0, 0.0, 0.0,
-		0.5, -0.5, 0.0,
-		0.5, 0.5, 0.0,
-		-0.5, 0.5, 0.0,
-		-0.5, -0.5, 0.0
+		0.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+		-0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f
 	};
 
 	//创建一个VAO数据
@@ -62,8 +62,8 @@ int _draw_triangle_1_main()
 	glEnableVertexAttribArray(0);
 
 	//着色器
-	std::string vsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/DrawTriangle/vertex.vs";
-	std::string fsPath = "E:/MyCode/openGL/openGL/work/ShaderFile/DrawTriangle/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/DrawTriangle/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/DrawTriangle/fragment.fs";
 	MyShader orangeShader(vsPath.data(), fsPath.data());
 
 	//循环函数
