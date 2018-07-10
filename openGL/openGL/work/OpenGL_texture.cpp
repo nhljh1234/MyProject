@@ -11,6 +11,18 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <img/stb_image.h>
 
+void processInputTexture(GLFWwindow* window, float* mixNum)
+{
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		*mixNum = *mixNum + 0.01f;
+	else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		*mixNum = *mixNum - 0.01f;
+	if (*mixNum > 1.0f)
+		*mixNum = 1.0f;
+	else if (*mixNum < 0.0f)
+		*mixNum = 0.0f;
+}
+
 int main()
 {
 	GLFWwindow* window = createOpenGLWindow();
@@ -102,13 +114,19 @@ int main()
 	std::string fsPath = "./work/ShaderFile/Texture/1/fragment.fs";
 	MyShader textureShader(vsPath.data(), fsPath.data());
 	textureShader.use();
+	glUniform1f(glGetUniformLocation(textureShader.ID, "mixNum"), 0.0f);
 	glUniform1i(glGetUniformLocation(textureShader.ID, "ourTexture1"), 0);
 	glUniform1i(glGetUniformLocation(textureShader.ID, "ourTexture2"), 1);
+
+	float mix = 0.0;
+	float* mixNum = &mix;
 
 	//循环函数
 	//检查GLFW是否被要求退出
 	while (!glfwWindowShouldClose(window))
 	{
+		processInputTexture(window, mixNum);
+
 		//设置清空屏幕颜色
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		//清除缓冲，这边的缓冲还有GL_DEPTH_BUFFER_BIT和GL_STENCIL_BUFFER_BIT
@@ -120,6 +138,7 @@ int main()
 		glBindTexture(GL_TEXTURE_2D, texture_2);
 
 		textureShader.use();
+		glUniform1f(glGetUniformLocation(textureShader.ID, "mixNum"), *mixNum);
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
