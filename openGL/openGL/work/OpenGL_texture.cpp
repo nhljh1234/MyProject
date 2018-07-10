@@ -118,7 +118,7 @@ int main()
 	glUniform1i(glGetUniformLocation(textureShader.ID, "ourTexture1"), 0);
 	glUniform1i(glGetUniformLocation(textureShader.ID, "ourTexture2"), 1);
 
-	float mix = 0.0;
+	float mix = 0.0f;
 	float* mixNum = &mix;
 
 	//循环函数
