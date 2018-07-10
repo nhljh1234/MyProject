@@ -29,8 +29,6 @@ cc.Class({
 
         this.schedule(function () {
             this._glProgram.clear();
-            this._glProgram.setUniformLocationWith1f("waveNum", this.waveNum);
-            this._glProgram.setUniformLocationWith1f("waveMoveNum", this.waveMoveNum);
             this._glProgram.setUniformLocationWith1f("addX", this._posX);
             this._posX = this._posX + 0.1;
             if (this._posX >= 2 * Shader.COW_NUM) {

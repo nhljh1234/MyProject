@@ -17,11 +17,6 @@ outModule.getCodeStr = () => {
         {
             gl_FragColor = v_fragmentColor * texture2D(CC_Texture0, v_texCoord);
             vec2 newPos = vec2(v_texCoord.x - oneWidth, v_texCoord.y - oneHeight);
-            //if (newPos.x < 0.0 || newPos.y < 0.0)
-            //{
-            //    gl_FragColor = gl_FragColor + vec4(embossColor.rgb, 1.0);
-            //    return;
-            //}
             vec4 FragColor_left = v_fragmentColor * texture2D(CC_Texture0, newPos);
             gl_FragColor = vec4((gl_FragColor.rgb - FragColor_left.rgb + embossColor), 1.0);
         }

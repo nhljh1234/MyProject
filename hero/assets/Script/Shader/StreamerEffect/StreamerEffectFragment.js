@@ -11,12 +11,11 @@ outModule.getCodeStr = () => {
         
         uniform float lightWidth;
         uniform float startX;
-        uniform float cow;
+        uniform float tanNum;
         uniform vec3 lightColor;
 
         bool judgePos(vec2 pos)
         {
-            float tanNum = tan(cow);
             return (pos.x >= startX - (pos.y / tanNum)) && (pos.x <= (startX - pos.y / tanNum) + lightWidth);
         }
 
