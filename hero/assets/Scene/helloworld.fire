@@ -248,7 +248,7 @@
       "__id__": 4
     },
     "_enabled": true,
-    "waveNum": 15,
+    "waveNum": 8,
     "waveMoveNum": 0.005,
     "speed": 0.01,
     "_posX": null
