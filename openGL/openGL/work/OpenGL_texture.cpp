@@ -28,7 +28,7 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	int width, height, colorChannelNum;
 	std::string imgPath;
-	imgPath = "./img/wall.jpg";
+	imgPath = "./img/container.jpg";
 	unsigned char *data;
 	data = stbi_load(imgPath.data(), &width, &height, &colorChannelNum, 0);
 	if (data)
@@ -56,11 +56,11 @@ int main()
 	//设置纹理过滤方式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	imgPath = "./img/awesomeface.jpg";
+	imgPath = "./img/awesomeface.png";
 	data = stbi_load(imgPath.data(), &width, &height, &colorChannelNum, 0);
 	if (data)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	}
 	//生成以后记得释放
 	stbi_image_free(data);
@@ -119,6 +119,7 @@ int main()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture_2);
 
+		textureShader.use();
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
