@@ -28,6 +28,7 @@
     <ClCompile Include="work\OpenGL_shader_1.cpp" />
     <ClCompile Include="work\OpenGL_shader_2.cpp" />
     <ClCompile Include="work\OpenGL_texture.cpp" />
+    <ClCompile Include="work\OpenGL_transfer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\my\BuildWindow.h" />

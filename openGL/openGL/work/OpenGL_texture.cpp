@@ -23,7 +23,7 @@ void processInputTexture(GLFWwindow* window, float* mixNum)
 		*mixNum = 0.0f;
 }
 
-int main()
+int _texture_main()
 {
 	GLFWwindow* window = createOpenGLWindow();
 	//定义纹理类型
@@ -37,7 +37,7 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	//设置纹理过滤方式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	int width, height, colorChannelNum;
 	std::string imgPath;
 	imgPath = "./img/container.jpg";
@@ -67,7 +67,7 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	//设置纹理过滤方式
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	imgPath = "./img/awesomeface.png";
 	data = stbi_load(imgPath.data(), &width, &height, &colorChannelNum, 0);
 	if (data)
@@ -118,6 +118,11 @@ int main()
 	glUniform1i(glGetUniformLocation(textureShader.ID, "ourTexture1"), 0);
 	glUniform1i(glGetUniformLocation(textureShader.ID, "ourTexture2"), 1);
 
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture_1);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture_2);
+
 	float mix = 0.0f;
 	float* mixNum = &mix;
 
@@ -131,15 +136,8 @@ int main()
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		//清除缓冲，这边的缓冲还有GL_DEPTH_BUFFER_BIT和GL_STENCIL_BUFFER_BIT
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture_1);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, texture_2);
 
-		textureShader.use();
 		glUniform1f(glGetUniformLocation(textureShader.ID, "mixNum"), *mixNum);
-		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		//交换颜色缓冲
