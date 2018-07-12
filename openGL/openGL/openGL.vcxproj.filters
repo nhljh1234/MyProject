@@ -44,5 +44,8 @@
     <ClInclude Include="include\my\MyShader.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\my\MyCamera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

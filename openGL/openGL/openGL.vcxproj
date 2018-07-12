@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\my\BuildWindow.h" />
+    <ClInclude Include="include\my\MyCamera.h" />
     <ClInclude Include="include\my\MyShader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>

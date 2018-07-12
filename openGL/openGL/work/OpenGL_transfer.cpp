@@ -150,6 +150,7 @@ int main()
 		glm::mat4 trans_1(1.0f);
 		trans_1 = glm::scale(trans_1, glm::vec3(0.5f, 0.5f, 1.0f));
 		trans_1 = glm::translate(trans_1, glm::vec3(0.5f, 0.5f, 0.0f));
+		//glfwGetTime表示的是运行的总时间
 		trans_1 = glm::rotate(trans_1, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(glGetUniformLocation(transfereShader.ID, "transform"), 1, GL_FALSE, glm::value_ptr(trans_1));
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
