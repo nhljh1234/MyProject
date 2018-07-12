@@ -139,8 +139,8 @@ int main()
 	glEnableVertexAttribArray(1);
 
 	//着色器
-	std::string vsPath = "./work/ShaderFile/Position/1/vertex.vs";
-	std::string fsPath = "./work/ShaderFile/Position/1/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/Camera/1/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/Camera/1/fragment.fs";
 	MyShader transferShader(vsPath.data(), fsPath.data());
 	transferShader.use();
 	//写入数据
