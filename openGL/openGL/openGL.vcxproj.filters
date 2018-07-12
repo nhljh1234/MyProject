@@ -21,15 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="work\OpenGL_build_window.cpp">
-      <Filter>源文件\work</Filter>
-    </ClCompile>
-    <ClCompile Include="work\OpenGL_draw_triangle_1.cpp">
-      <Filter>源文件\work</Filter>
-    </ClCompile>
-    <ClCompile Include="work\OpenGL_draw_triangle_2.cpp">
-      <Filter>源文件\work</Filter>
-    </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -39,16 +30,7 @@
     <ClCompile Include="include\my\MyShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="work\OpenGL_shader_1.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="work\OpenGL_shader_2.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="work\OpenGL_texture.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="work\OpenGL_transfer.cpp">
+    <ClCompile Include="work\OpenGL_position.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

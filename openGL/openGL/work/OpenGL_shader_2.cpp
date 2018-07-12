@@ -8,7 +8,7 @@
 #include <my/BuildWindow.h>
 #include <my/MyShader.h>
 
-int _shader_2_main()
+int main()
 {
 	GLFWwindow* window = createOpenGLWindow();
 

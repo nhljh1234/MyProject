@@ -8,7 +8,7 @@
 #include <my/BuildWindow.h>
 #include <my/MyShader.h>
 
-int _draw_triangle_1_main()
+int main()
 {
 	GLFWwindow* window = createOpenGLWindow();
 

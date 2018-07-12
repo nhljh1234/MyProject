@@ -23,7 +23,7 @@ void processInputTexture(GLFWwindow* window, float* mixNum)
 		*mixNum = 0.0f;
 }
 
-int _texture_main()
+int main()
 {
 	GLFWwindow* window = createOpenGLWindow();
 	//定义纹理类型
