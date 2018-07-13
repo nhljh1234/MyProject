@@ -1,4 +1,7 @@
-﻿#include <glad/glad.h>
+﻿/*
+ *环境光照
+ */
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -160,7 +163,7 @@ int main()
 		glUniform3f(glGetUniformLocation(toyShader.ID, "lightColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(toyShader.ID, "toyColor"), 1.0f, 0.5f, 0.31f);
 		//环境光的强度
-		glUniform1f(glGetUniformLocation(toyShader.ID, "ambientStrength"), 0.1f);
+		glUniform1f(glGetUniformLocation(toyShader.ID, "ambientStrength"), 0.05f);
 		model = glm::mat4(1.0f);
 		glUniformMatrix4fv(glGetUniformLocation(toyShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(toyShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(myCamera.GetViewMatrix()));
