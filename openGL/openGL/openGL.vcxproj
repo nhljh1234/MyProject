@@ -22,7 +22,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="include\my\BuildWindow.cpp" />
     <ClCompile Include="include\my\MyShader.cpp" />
-    <ClCompile Include="work\OpenGL_specular_light.cpp" />
+    <ClCompile Include="work\OpenGL_lighting_maps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\my\BuildWindow.h" />

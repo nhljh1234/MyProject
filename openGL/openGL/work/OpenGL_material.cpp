@@ -134,12 +134,12 @@ int main()
 	glm::mat4 view(1.0f);
 	glm::mat4 projection(1.0);
 
-	std::string vsPath = "./work/ShaderFile/Light/SpecularLight/lamp/vertex.vs";
-	std::string fsPath = "./work/ShaderFile/Light/SpecularLight/lamp/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/Material/lamp/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/Material/lamp/fragment.fs";
 	MyShader lampShader(vsPath.data(), fsPath.data());
 
-	vsPath = "./work/ShaderFile/Light/SpecularLight/toy/vertex.vs";
-	fsPath = "./work/ShaderFile/Light/SpecularLight/toy/fragment.fs";
+	vsPath = "./work/ShaderFile/Material/toy/vertex.vs";
+	fsPath = "./work/ShaderFile/Material/toy/fragment.fs";
 	MyShader toyShader(vsPath.data(), fsPath.data());
 
 	//循环函数
@@ -164,13 +164,20 @@ int main()
 		toyShader.use();
 		glUniform3f(glGetUniformLocation(toyShader.ID, "lightColor"), 1.0f, 1.0f, 1.0f);
 		glUniform3f(glGetUniformLocation(toyShader.ID, "toyColor"), 1.0f, 0.5f, 0.31f);
-		//环境光的强度
-		glUniform1f(glGetUniformLocation(toyShader.ID, "ambientStrength"), 0.1f);
-		glUniform3f(glGetUniformLocation(toyShader.ID, "lightPos"), 1.2f, 1.0f, 2.0f);
 		//反射光相关
 		glUniform3f(glGetUniformLocation(toyShader.ID, "viewPos"), myCamera.Position.x, myCamera.Position.y, myCamera.Position.z);
-		glUniform1f(glGetUniformLocation(toyShader.ID, "specularStrength"), 0.5f);
-		glUniform1i(glGetUniformLocation(toyShader.ID, "shininessNum"), 32);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "material.ambient"), 1.0f, 0.5f, 0.31f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "material.diffuse"), 1.0f, 0.5f, 0.31f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "material.specular"), 0.5f, 0.5f, 0.5f);
+		glUniform1f(glGetUniformLocation(toyShader.ID, "material.ambientStrength"), 0.4f);
+		glUniform1f(glGetUniformLocation(toyShader.ID, "material.diffuseStrength"), 0.9f);
+		glUniform1f(glGetUniformLocation(toyShader.ID, "material.specularStrength"), 1.0f);
+		glUniform1f(glGetUniformLocation(toyShader.ID, "material.shininess"), 32.0f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "light.ambient"), 0.2f, 0.2f, 0.2f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "light.diffuse"), 0.5f, 0.5f, 0.5f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "light.specular"), 1.0f, 1.0f, 1.0f);
+		//光源的位置
+		glUniform3f(glGetUniformLocation(toyShader.ID, "light.position"), 1.2f, 1.0f, 2.0f);
 		model = glm::mat4(1.0f);
 		glUniformMatrix4fv(glGetUniformLocation(toyShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(toyShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(myCamera.GetViewMatrix()));
