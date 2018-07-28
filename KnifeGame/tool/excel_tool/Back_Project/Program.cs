@@ -10,7 +10,7 @@ namespace Back_Project
         {
             string workDir = Environment.CurrentDirectory;
             DirectoryInfo workDirInfo = new DirectoryInfo(workDir);
-            string translateFilePath = workDirInfo.Parent.Parent.Parent.Parent.Parent.FullName + @"\excel\_translate.xml";
+            string translateFilePath = @".\_translate.xml";
             //读取文件
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(translateFilePath);
@@ -38,15 +38,13 @@ namespace Back_Project
             //先获取和处理translate文件
             translateFileRead();
             //先清除原有的配置数据
-            string workDir = Environment.CurrentDirectory;
-            DirectoryInfo workDirInfo = new DirectoryInfo(workDir);
+            //string workDir = Environment.CurrentDirectory;
+            //DirectoryInfo workDirInfo = new DirectoryInfo(workDir);
             //客户端数据文件夹
-            string excelDataDirPathClient = workDirInfo.Parent.Parent.Parent.Parent.Parent.FullName +
-                @"\client\cocos\CocosProject\assets\resources\Excel_Data";
+            string excelDataDirPathClient = @"..\KnifeGame\assets\resources\Excel_Data";
             //服务端数据库文件夹
-            string excelDataDirPathServer = workDirInfo.Parent.Parent.Parent.Parent.Parent.FullName +
-                @"\node\project_code\server\Excel";
-            DirectoryInfo workExcelDirInfo = new DirectoryInfo(workDirInfo.Parent.Parent.Parent.Parent.Parent.FullName + @"\excel");
+            string excelDataDirPathServer = @"..\serverData";
+            DirectoryInfo workExcelDirInfo = new DirectoryInfo(@"..\excel");
             if (Directory.Exists(excelDataDirPathClient))
             {
                 Directory.Delete(excelDataDirPathClient, true);
