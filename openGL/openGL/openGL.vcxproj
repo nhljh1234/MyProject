@@ -22,15 +22,11 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="include\my\BuildWindow.cpp" />
     <ClCompile Include="include\my\MyShader.cpp" />
-    <ClCompile Include="work\OpenGL_build_window.cpp" />
-    <ClCompile Include="work\OpenGL_draw_triangle_1.cpp" />
-    <ClCompile Include="work\OpenGL_draw_triangle_2.cpp" />
-    <ClCompile Include="work\OpenGL_shader_1.cpp" />
-    <ClCompile Include="work\OpenGL_shader_2.cpp" />
-    <ClCompile Include="work\OpenGL_texture.cpp" />
+    <ClCompile Include="work\OpenGL_lighting_maps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\my\BuildWindow.h" />
+    <ClInclude Include="include\my\MyCamera.h" />
     <ClInclude Include="include\my\MyShader.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>

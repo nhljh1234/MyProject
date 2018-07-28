@@ -13,7 +13,7 @@ void processInputBuildWindow(GLFWwindow* window)
 		glfwSetWindowShouldClose(window, true);
 }
 
-int _build_window_main()
+int main()
 {
 	GLFWwindow* window = createOpenGLWindow();
 
