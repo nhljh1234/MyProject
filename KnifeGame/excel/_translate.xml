@@ -1,0 +1,12 @@
+﻿<note>
+	<file oldName="event" newName="event">
+		<table oldName="事件" newName="event" use="server"/>
+		<table oldName="对话" newName="talk" use="server"/>
+	</file>
+	<file oldName="head_icon" newName="head_icon">
+		<table oldName="头像" newName="icon" use="client"/>
+	</file>
+	<file oldName="people" newName="people">
+		<table oldName="角色" newName="hero"/>
+	</file>
+</note>
