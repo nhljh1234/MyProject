@@ -28,8 +28,19 @@ struct Light {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+    float constant;
+    float linear;
+    float quadratic;
 };
 uniform Light light;
+
+/**
+    衰减系数F：F = 1.0 / (constant + linear * dis + quadratic * dis * dis)
+    1.常数项通常保持为1.0，它的主要作用是保证分母永远不会比1小，否则的话在某些距离上它反而会增加强度，这肯定不是我们想要的效果。
+    2.一次项会与距离值相乘，以线性的方式减少强度。
+    3.二次项会与距离的平方相乘，让光源以二次递减的方式减少强度。二次项在距离比较小的时候影响会比一次项小很多，但当距离值比较大的时候它就会比一次项更大了。
+**/
 
 void main()
 {
@@ -38,6 +49,7 @@ void main()
 
     //漫反射
     vec3 lightDir = normalize(light.position - fragPos);
+    //vec3 lightDir = normalize(-light.direction);
     vec3 norm = normalize(normal);
     //dot 向量x，y之间的点积
     float diff = max(dot(norm, lightDir), 0.0f);
@@ -54,7 +66,12 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specularLight = lightColor * light.specular * (spec * vec3(texture(material.specular, texCoords)));
 
-    vec3 result = (ambientLight + diffuseLight + specularLight);
+    //点光源衰减系数
+    float dis = length(light.position - fragPos);
+    dis = abs(dis);
+    float attenuation = 1.0 / (light.constant + light.linear * dis + light.quadratic * dis * dis);
+
+    vec3 result = (ambientLight * attenuation + diffuseLight * attenuation + specularLight * attenuation);
 
     //计算纹理颜色
     vec4 textureColor = texture(material.diffuse, texCoords);

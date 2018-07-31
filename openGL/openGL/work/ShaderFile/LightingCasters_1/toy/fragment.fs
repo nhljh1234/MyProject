@@ -24,7 +24,8 @@ struct Material {
 uniform Material material;
 
 struct Light {
-    vec3 position;
+    //vec3 position;
+    vec3 direction;
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -37,7 +38,8 @@ void main()
     vec3 ambientLight = lightColor * light.ambient * vec3(texture(material.diffuse, texCoords));
 
     //漫反射
-    vec3 lightDir = normalize(light.position - fragPos);
+    //vec3 lightDir = normalize(light.position - fragPos);
+    vec3 lightDir = normalize(-light.direction);
     vec3 norm = normalize(normal);
     //dot 向量x，y之间的点积
     float diff = max(dot(norm, lightDir), 0.0f);
