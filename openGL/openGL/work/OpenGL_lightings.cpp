@@ -186,12 +186,12 @@ int main()
 	glm::mat4 view(1.0f);
 	glm::mat4 projection(1.0);
 
-	std::string vsPath = "./work/ShaderFile/LightingCasters_3/lamp/vertex.vs";
-	std::string fsPath = "./work/ShaderFile/LightingCasters_3/lamp/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/Lightings/lamp/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/Lightings/lamp/fragment.fs";
 	MyShader lampShader(vsPath.data(), fsPath.data());
 
-	vsPath = "./work/ShaderFile/LightingCasters_3/toy/vertex.vs";
-	fsPath = "./work/ShaderFile/LightingCasters_3/toy/fragment.fs";
+	vsPath = "./work/ShaderFile/Lightings/toy/vertex.vs";
+	fsPath = "./work/ShaderFile/Lightings/toy/fragment.fs";
 	MyShader toyShader(vsPath.data(), fsPath.data());
 
 	//循环函数
@@ -234,7 +234,6 @@ int main()
 		glUniform1f(glGetUniformLocation(toyShader.ID, "light.constant"), 1.0f);
 		glUniform1f(glGetUniformLocation(toyShader.ID, "light.linear"), 0.09f);
 		glUniform1f(glGetUniformLocation(toyShader.ID, "light.quadratic"), 0.032f);
-
 		//光源的位置
 		glUniform3f(glGetUniformLocation(toyShader.ID, "light.position"), myCamera.Position.x, myCamera.Position.y, myCamera.Position.z);
 		glUniform3f(glGetUniformLocation(toyShader.ID, "light.direction"), myCamera.Front.x, myCamera.Front.y, myCamera.Front.z);
