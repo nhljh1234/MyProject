@@ -226,16 +226,19 @@ int main()
 		//反射光相关
 		glUniform3f(glGetUniformLocation(toyShader.ID, "viewPos"), myCamera.Position.x, myCamera.Position.y, myCamera.Position.z);
 		glUniform3f(glGetUniformLocation(toyShader.ID, "material.specular"), 0.5f, 0.5f, 0.5f);
-		glUniform1f(glGetUniformLocation(toyShader.ID, "material.shininess"), 16.0f);
-		glUniform3f(glGetUniformLocation(toyShader.ID, "light.ambient"), 0.2f, 0.2f, 0.2f);
-		glUniform3f(glGetUniformLocation(toyShader.ID, "light.diffuse"), 0.5f, 0.5f, 0.5f);
+		glUniform1f(glGetUniformLocation(toyShader.ID, "material.shininess"), 32.0f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "light.ambient"), 0.1f, 0.1f, 0.1f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "light.diffuse"), 0.8f, 0.8f, 0.8f);
 		glUniform3f(glGetUniformLocation(toyShader.ID, "light.specular"), 1.0f, 1.0f, 1.0f);
 		//点光源衰减系数
 		glUniform1f(glGetUniformLocation(toyShader.ID, "light.constant"), 1.0f);
 		glUniform1f(glGetUniformLocation(toyShader.ID, "light.linear"), 0.09f);
 		glUniform1f(glGetUniformLocation(toyShader.ID, "light.quadratic"), 0.032f);
 		//光源的位置
-		glUniform3f(glGetUniformLocation(toyShader.ID, "light.position"), 1.2f, 1.0f, 2.0f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "light.position"), myCamera.Position.x, myCamera.Position.y, myCamera.Position.z);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "light.direction"), myCamera.Front.x, myCamera.Front.y, myCamera.Front.z);
+		glUniform1f(glGetUniformLocation(toyShader.ID, "light.cutOff"), glm::cos(glm::radians(12.5f)));
+		glUniform1f(glGetUniformLocation(toyShader.ID, "light.outerCutOff"), glm::cos(glm::radians(17.5f)));
 		model = glm::mat4(1.0f);
 		//glUniformMatrix4fv(glGetUniformLocation(toyShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(glGetUniformLocation(toyShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(myCamera.GetViewMatrix()));
@@ -263,7 +266,7 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(lampShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(myCamera.GetViewMatrix()));
 		projection = glm::perspective(glm::radians(myCamera.Zoom), 800.0f / 600.0f, 0.1f, 100.0f);
 		glUniformMatrix4fv(glGetUniformLocation(lampShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		//交换颜色缓冲
 		glfwSwapBuffers(window);

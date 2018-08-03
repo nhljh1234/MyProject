@@ -61,5 +61,5 @@ void main()
     //计算纹理颜色
     vec4 textureColor = texture(material.diffuse, texCoords);
 
-    FragColor = vec4(result * textureColor.rgb, 1.0f);
+    FragColor = vec4(result, 1.0f);
 } 

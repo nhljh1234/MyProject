@@ -25,6 +25,10 @@ uniform Material material;
 
 struct Light {
     vec3 position;
+    vec3 direction;
+    float cutOff;
+    float outerCutOff;
+
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
@@ -47,8 +51,25 @@ void main()
     //环境光
     vec3 ambientLight = lightColor * light.ambient * vec3(texture(material.diffuse, texCoords));
 
+    //点光源衰减系数
+    float dis = length(light.position - fragPos);
+    dis = abs(dis);
+    float attenuation = 1.0 / (light.constant + light.linear * dis + light.quadratic * dis * dis);
+
     //漫反射
     vec3 lightDir = normalize(light.position - fragPos);
+
+    float theta = dot(lightDir, normalize(-light.direction));
+    if (theta < light.outerCutOff)
+    {
+        FragColor = vec4(ambientLight * attenuation, 1.0f);
+        return;
+    }
+    float ratio = 1.0f;
+    if (theta < light.cutOff) {
+        ratio = (theta - light.outerCutOff) / (light.cutOff - light.outerCutOff);
+    }
+
     //vec3 lightDir = normalize(-light.direction);
     vec3 norm = normalize(normal);
     //dot 向量x，y之间的点积
@@ -66,15 +87,7 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specularLight = lightColor * light.specular * (spec * vec3(texture(material.specular, texCoords)));
 
-    //点光源衰减系数
-    float dis = length(light.position - fragPos);
-    dis = abs(dis);
-    float attenuation = 1.0 / (light.constant + light.linear * dis + light.quadratic * dis * dis);
+    vec3 result = (ambientLight * attenuation + diffuseLight * attenuation * ratio + specularLight * attenuation * ratio);
 
-    vec3 result = (ambientLight * attenuation + diffuseLight * attenuation + specularLight * attenuation);
-
-    //计算纹理颜色
-    vec4 textureColor = texture(material.diffuse, texCoords);
-
-    FragColor = vec4(result * textureColor.rgb, 1.0f);
+    FragColor = vec4(result, 1.0f);
 } 
