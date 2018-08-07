@@ -82,7 +82,7 @@ vec3 getDirLight(DirLight light, vec3 normal, vec3 viewDir)
     
     vec3 lightDir = normalize(-light.direction);
 
-    float diff = dot(normal, lightDir);
+    float diff = max(dot(normal, lightDir), 0.0);
     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords));
 
     vec3 reflectDir = reflect(-lightDir, normal);
@@ -109,7 +109,7 @@ vec3 getPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 
     vec3 lightDir = normalize(light.position - fragPos);
 
-    float diff = dot(normal, lightDir);
+    float diff = max(dot(normal, lightDir), 0.0);
     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords)) * F;
 
     vec3 reflectDir = reflect(-lightDir, normal);
@@ -147,7 +147,7 @@ vec3 getSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
         ratio = (theta - light.outerCutOff) / (light.cutOff - light.outerCutOff);
     }
 
-    float diff = dot(normal, lightDir);
+    float diff = max(dot(normal, lightDir), 0.0);
     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords)) * F * ratio;
 
     vec3 reflectDir = reflect(-lightDir, normal);
