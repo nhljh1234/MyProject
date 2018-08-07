@@ -232,13 +232,13 @@ int main()
 		glUniform3f(glGetUniformLocation(toyShader.ID, "lightColor"), 1.0f, 1.0f, 1.0f);
 		//反射光相关
 		glUniform3f(glGetUniformLocation(toyShader.ID, "viewPos"), myCamera.Position.x, myCamera.Position.y, myCamera.Position.z);
-		glUniform3f(glGetUniformLocation(toyShader.ID, "material.specular"), 0.5f, 0.5f, 0.5f);
+		//glUniform3f(glGetUniformLocation(toyShader.ID, "material.specular"), 0.5f, 0.5f, 0.5f);
 		glUniform1f(glGetUniformLocation(toyShader.ID, "material.shininess"), 32.0f);
 
 		//平行光源
-		glUniform3f(glGetUniformLocation(toyShader.ID, "dirLight.ambient"), 0.1f, 0.1f, 0.1f);
-		glUniform3f(glGetUniformLocation(toyShader.ID, "dirLight.diffuse"), 0.8f, 0.8f, 0.8f);
-		glUniform3f(glGetUniformLocation(toyShader.ID, "dirLight.specular"), 1.0f, 1.0f, 1.0f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "dirLight.ambient"), 0.05f, 0.05f, 0.05f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "dirLight.diffuse"), 0.4f, 0.4f, 0.4f);
+		glUniform3f(glGetUniformLocation(toyShader.ID, "dirLight.specular"), 0.5f, 0.5f, 0.5f);
 		glUniform3f(glGetUniformLocation(toyShader.ID, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
 
 		//点光源衰减系数
