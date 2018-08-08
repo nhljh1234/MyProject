@@ -16,6 +16,42 @@ cc.Class({
         if ((typeof this.dataInit) === 'function') {
             this.dataInit();
         }
+        //初始化
+        this.buttonTravelRegister(this.node);
+    },
+
+    /**
+     * 数据初始化
+     * @constructor
+     */
+    dataInit: function () {
+
+    },
+
+    /**
+     * UI初始化
+     * @constructor
+     */
+    UIInit: function () {
+
+    },
+
+    /**
+     * 隐藏UI
+     */
+    hide: function (deleteFlag) {
+        this.node.active = false;
+        if (deleteFlag) {
+            this.node.removeFromParent(true);
+            this.node.destroy();
+        }
+    },
+
+    /**
+     * 销毁UI
+     */
+    onDestroy: function () {
+
     },
 
     /**
@@ -34,6 +70,25 @@ cc.Class({
         //遍历执行
         node.children.forEach(function (childNode) {
             this.buttonTravelRegister(childNode);
+        }.bind(this));
+    },
+
+    /**
+     * 这个函数会注册指定结点下所有的结点
+     * 需要避免多次时间注册的情况
+     * @param node cc.Node
+     */
+    buttonTravelUnRegister: function (node) {
+        if (!node) {
+            return;
+        }
+        if (node.getComponent(cc.Button)) {
+            //注册事件
+            node.off('click', this.buttonClickCb, this);
+        }
+        //遍历执行
+        node.children.forEach(function (childNode) {
+            this.buttonTravelUnRegister(childNode);
         }.bind(this));
     },
 

@@ -1,4 +1,6 @@
 /*global module, require, cc, client */
+//先加载这一个脚本，脚本中定义了全局的东西
+require('Game');
 var BaseUI = require('BaseUI');
 cc.Class({
     extends: BaseUI,
@@ -45,6 +47,7 @@ cc.Class({
      * @constructor
      */
     dataInit: function () {
+        this._super();
         this._loadFinish = false;
         this._askLoadFlag = false;
     },
@@ -54,7 +57,24 @@ cc.Class({
      * @constructor
      */
     UIInit: function () {
+        this._super();
         var testButtonNode = cc.find('button', this.node);
         this.buttonTravelRegister(testButtonNode);
+    },
+
+    /**
+     * UI隐藏
+     * @constructor
+     */
+    hide: function () {
+        this._super();
+    },
+
+    /**
+     * UI销毁
+     * @constructor
+     */
+    onDestroy: function () {
+        this._super();
     }
 });
