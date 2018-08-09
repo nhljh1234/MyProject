@@ -7,8 +7,8 @@ cc.Class({
 
     properties: {
         _loadFinish: undefined,
-        //是否请求切换界面
-        _askLoadFlag: undefined
+        //加载中句号显示的个数
+        _strNum: undefined
     },
 
     onLoad() {
@@ -21,10 +21,13 @@ cc.Class({
                 return;
             }
             this._loadFinish = true;
-            if (this._askLoadFlag) {
-                cc.director.loadScene('Game');
-            }
+            this.unschedule(this.updateLabel);
+            //改变显示
+            cc.find('label_bg/load_label', this.node).active = false;
+            cc.find('label_bg/game_label', this.node).active = true;
         }.bind(this));
+        //开始的时候显示加载中
+        this.schedule(this.updateLabel, 0.4, cc.macro.REPEAT_FOREVER);
     },
 
     /**
@@ -32,11 +35,9 @@ cc.Class({
      */
     onButtonClick: function (name, node, component) {
         switch (name) {
-            case 'button':
+            case 'label_bg':
                 if (this._loadFinish) {
                     cc.director.loadScene('Game');
-                } else {
-                    this._askLoadFlag = true;
                 }
                 break;
         }
@@ -49,7 +50,7 @@ cc.Class({
     dataInit: function () {
         this._super();
         this._loadFinish = false;
-        this._askLoadFlag = false;
+        this._strNum = 0;
     },
 
     /**
@@ -58,8 +59,14 @@ cc.Class({
      */
     UIInit: function () {
         this._super();
-        var testButtonNode = cc.find('button', this.node);
-        this.buttonTravelRegister(testButtonNode);
+        //初始化显示界面
+        let loadLabelNode = cc.find('label_bg/load_label', this.node);
+        let gameLabelNode = cc.find('label_bg/game_label', this.node);
+        loadLabelNode.getComponent(cc.Label).string = Global.LanguageTool.getStr('load_load_str', '');
+        gameLabelNode.getComponent(cc.Label).string = Global.LanguageObj.load_game_str;
+        //初始化的时候先显示加载中
+        loadLabelNode.active = true;
+        gameLabelNode.active = false;
     },
 
     /**
@@ -76,5 +83,32 @@ cc.Class({
      */
     onDestroy: function () {
         this._super();
+    },
+
+    /**
+     * 句号数量规律变化
+     */
+    updateLabel: function () {
+        this._strNum++;
+        if (this._strNum > 3) {
+            this._strNum = 0;
+        }
+        let addStr;
+        switch (this._strNum) {
+            case 0:
+                addStr = '';
+                break;
+            case 1:
+                addStr = '.';
+                break;
+            case 2:
+                addStr = '..';
+                break;
+            case 3:
+                addStr = '...';
+                break;
+        }
+        cc.find('label_bg/load_label', this.node).getComponent(cc.Label).string =
+            Global.LanguageTool.getStr('load_load_str', addStr);
     }
 });

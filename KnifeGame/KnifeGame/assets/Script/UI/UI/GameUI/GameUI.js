@@ -13,7 +13,7 @@ cc.Class({
         this._super();
 
         //显示界面
-        window.Global.GameSceneManager.addNode('Prefab/test', Global.GAME_SCENE_UI_NODE,
+        Global.GameSceneManager.addNode('Prefab/test', Global.GAME_SCENE_UI_NODE,
             'test', false, false, undefined, undefined);
     },
 
@@ -41,10 +41,10 @@ cc.Class({
     UIInit: function () {
         this._super();
         //先把这几个结点存在全局的对象中
-        window.Global.GameScene = {};
-        window.Global.GameScene.UINode = this.node.getChildByName('UINode');
-        window.Global.GameScene.AlertNode = this.node.getChildByName('AlertNode');
-        window.Global.GameScene.NetNode = this.node.getChildByName('NetNode');
+        Global.GameScene = {};
+        Global.GameScene.UINode = this.node.getChildByName('UINode');
+        Global.GameScene.AlertNode = this.node.getChildByName('AlertNode');
+        Global.GameScene.NetNode = this.node.getChildByName('NetNode');
     },
 
     /**

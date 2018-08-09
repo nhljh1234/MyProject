@@ -11,6 +11,20 @@ cc.Class({
 
     onLoad() {
         this._super();
+
+        let scrollViewNode = this.node.getChildByName('scrollview');
+        let tmpNode = cc.find('view/content/item', scrollViewNode);
+
+        Global.ScrollViewTool.buildScrollView(scrollViewNode,
+            Global.ScrollViewTool.SCROLL_TYPE_VERTICAL, tmpNode, function (childNode, data) {
+                childNode.getComponent(cc.Label).string = data;
+            }.bind(this), [
+                '111111111111111',
+                '222222222222222',
+                '333333333333333',
+                '444444444444444',
+                '555555555555555'
+            ]);
     },
 
     /**
@@ -18,9 +32,7 @@ cc.Class({
      */
     onButtonClick: function (name, node, component) {
         switch (name) {
-            case 'button':
-                this.hide(false);
-                break;
+
         }
     },
 
