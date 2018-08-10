@@ -14,7 +14,7 @@ window.Global.LanguageType.CHS = 'CHS';
 window.Global.LanguageType.EN = 'EN';
 
 //这边开始判断是哪个语言
-window.Global.LanguageTypeSelect = window.Global.LanguageType.EN;
+window.Global.LanguageTypeSelect = window.Global.LanguageType.CHS;
 window.Global.LanguageObj = require(`Language_${window.Global.LanguageTypeSelect}`);
 
 window.Global.LanguageTool = require('LanguageTool');
@@ -22,3 +22,4 @@ window.Global.PrefabManager = require('PrefabManager');
 window.Global.GameSceneManager = require('GameSceneManager');
 window.Global.ScrollViewTool = require('ScrollViewTool');
 window.Global.LogTool = require('LogTool');
+window.Global.SpriteFrameManager = require('SpriteFrameManager');

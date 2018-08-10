@@ -66,10 +66,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 13
+        "__id__": 14
       },
       {
-        "__id__": 14
+        "__id__": 15
       }
     ],
     "_prefab": null,
@@ -170,7 +170,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "0cd29a05-957d-4c1a-b2c8-fd418c674f1d"
+      "__uuid__": "3bc77e60-b391-4367-b72f-a6f6b1535c60"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -206,13 +206,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 10
-      },
-      {
         "__id__": 11
       },
       {
         "__id__": 12
+      },
+      {
+        "__id__": 13
       }
     ],
     "_prefab": null,
@@ -233,17 +233,17 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 697,
-      "height": 50
+      "width": 578,
+      "height": 195
     },
     "_rotationX": 0,
     "_rotationY": 0,
     "_scaleX": 1,
-    "_scaleY": 2,
+    "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -710
+      "y": -735
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -314,8 +314,8 @@
     "_enabled": true,
     "_useOriginalSize": false,
     "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_fontSize": 90,
+    "_lineHeight": 100,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -339,6 +339,9 @@
     "_components": [
       {
         "__id__": 9
+      },
+      {
+        "__id__": 10
       }
     ],
     "_prefab": null,
@@ -359,8 +362,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
-      "height": 40
+      "width": 360,
+      "height": 100
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -387,9 +390,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_actualFontSize": 90,
+    "_fontSize": 90,
+    "_lineHeight": 100,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -401,6 +404,16 @@
     "_N$overflow": 0
   },
   {
+    "__type__": "f4da3ZD+ZpKErY53P4bDNdB",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 8
+    },
+    "_enabled": true,
+    "label_key": "load_game_str"
+  },
+  {
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
@@ -409,7 +422,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "5ee991a8-39d6-44dd-9953-5eab6cf58b09"
+      "__uuid__": "bf15787c-994d-4a92-8d85-5e33785b9ef2"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -424,7 +437,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "c7bdaed0-06f3-4908-a444-28ed93edce12"
+    }
   },
   {
     "__type__": "cc.Button",
@@ -492,7 +507,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": 200,
+    "_bottom": 127.5,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
