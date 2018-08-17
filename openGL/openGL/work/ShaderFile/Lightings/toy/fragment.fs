@@ -69,6 +69,29 @@ uniform SpotLight spotLight;
     3.二次项会与距离的平方相乘，让光源以二次递减的方式减少强度。二次项在距离比较小的时候影响会比一次项小很多，但当距离值比较大的时候它就会比一次项更大了。
 **/
 
+// vec3 getDirLight(DirLight light, vec3 normal, vec3 viewDir)
+// {
+//     //环境光
+//     vec3 ambientLight;
+//     //漫反射光
+//     vec3 diffuseLight;
+//     //镜面放射光
+//     vec3 specularLight;
+
+//     ambientLight = light.ambient * vec3(texture(material.diffuse, texCoords));
+    
+//     vec3 lightDir = normalize(-light.direction);
+
+//     float diff = max(dot(normal, lightDir), 0.0);
+//     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords));
+
+//     vec3 reflectDir = reflect(-lightDir, normal);
+//     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+//     specularLight = spec * light.specular * vec3(texture(material.specular, texCoords));
+
+//     return ambientLight + diffuseLight + specularLight;
+// }
+
 vec3 getDirLight(DirLight light, vec3 normal, vec3 viewDir)
 {
     //环境光
@@ -79,18 +102,45 @@ vec3 getDirLight(DirLight light, vec3 normal, vec3 viewDir)
     vec3 specularLight;
 
     ambientLight = light.ambient * vec3(texture(material.diffuse, texCoords));
-    
+
     vec3 lightDir = normalize(-light.direction);
 
-    float diff = max(dot(normal, lightDir), 0.0);
+    float diff = max(dot(normal, lightDir), 0.0f);
     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords));
 
-    vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    specularLight = spec * light.specular * vec3(texture(material.specular, texCoords));
+    vec3 reflectDir = reflect(lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shininess);
+    specularLight = spec * light.specular * vec3(texture(material.diffuse, texCoords));
 
     return ambientLight + diffuseLight + specularLight;
 }
+
+// vec3 getPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+// {
+//     //环境光
+//     vec3 ambientLight;
+//     //漫反射光
+//     vec3 diffuseLight;
+//     //镜面放射光
+//     vec3 specularLight;
+
+//     float dis = length(light.position - fragPos);
+//     dis = abs(dis);
+//     float F = 1.0 / (light.constant + dis * light.linear + dis * dis * light.quadratic);
+
+//     ambientLight = light.ambient * vec3(texture(material.diffuse, texCoords)) * F;
+
+//     vec3 lightDir = normalize(light.position - fragPos);
+
+//     float diff = max(dot(normal, lightDir), 0.0);
+//     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords)) * F;
+
+//     vec3 reflectDir = reflect(-lightDir, normal);
+//     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+//     specularLight = spec * light.specular * vec3(texture(material.specular, texCoords)) * F;
+
+//     return ambientLight + diffuseLight + specularLight;
+// }
 
 vec3 getPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
@@ -101,23 +151,60 @@ vec3 getPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     //镜面放射光
     vec3 specularLight;
 
+    vec3 lightDir = normalize(light.position - fragPos);
     float dis = length(light.position - fragPos);
     dis = abs(dis);
-    float F = 1.0 / (light.constant + dis * light.linear + dis * dis * light.quadratic);
+    float F = 1.0f / (light.constant + dis * light.linear + dis * dis * light.quadratic);
 
     ambientLight = light.ambient * vec3(texture(material.diffuse, texCoords)) * F;
 
-    vec3 lightDir = normalize(light.position - fragPos);
-
-    float diff = max(dot(normal, lightDir), 0.0);
+    float diff = max(dot(normal, lightDir), 0.0f);
     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords)) * F;
 
     vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shininess);
     specularLight = spec * light.specular * vec3(texture(material.specular, texCoords)) * F;
 
     return ambientLight + diffuseLight + specularLight;
 }
+
+// vec3 getSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+// {
+//     //环境光
+//     vec3 ambientLight;
+//     //漫反射光
+//     vec3 diffuseLight;
+//     //镜面放射光
+//     vec3 specularLight;
+
+//     float dis = length(light.position - fragPos);
+//     dis = abs(dis);
+//     float F = 1.0 / (light.constant + dis * light.linear + dis * dis * light.quadratic);
+
+//     ambientLight = light.ambient * vec3(texture(material.diffuse, texCoords)) * F;
+    
+//     //计算余弦值
+//     vec3 lightDir = normalize(light.position - fragPos);
+//     float theta = dot(lightDir, normalize(-light.direction));
+//     if (theta < light.outerCutOff)
+//     {   
+//         return light.ambient * vec3(texture(material.diffuse, texCoords)) * F;
+//     }
+//     float ratio = 1.0f;
+//     if(theta < light.cutOff)
+//     {
+//         ratio = (theta - light.outerCutOff) / (light.cutOff - light.outerCutOff);
+//     }
+
+//     float diff = max(dot(normal, lightDir), 0.0);
+//     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords)) * F * ratio;
+
+//     vec3 reflectDir = reflect(-lightDir, normal);
+//     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
+//     specularLight = spec * light.specular * vec3(texture(material.specular, texCoords)) * F * ratio;
+
+//     return ambientLight + diffuseLight + specularLight; 
+// }
 
 vec3 getSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
@@ -128,15 +215,14 @@ vec3 getSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
     //镜面放射光
     vec3 specularLight;
 
+    vec3 lightDir = normalize(light.position - fragPos);
     float dis = length(light.position - fragPos);
     dis = abs(dis);
-    float F = 1.0 / (light.constant + dis * light.linear + dis * dis * light.quadratic);
+    float F = 1.0f / (light.constant + dis * light.linear + dis * dis * light.quadratic);
 
     ambientLight = light.ambient * vec3(texture(material.diffuse, texCoords)) * F;
-    
-    //计算余弦值
-    vec3 lightDir = normalize(light.position - fragPos);
-    float theta = dot(lightDir, normalize(-light.direction));
+
+    float theta = dot(normal, normalize(-light.direction));
     if (theta < light.outerCutOff)
     {   
         return light.ambient * vec3(texture(material.diffuse, texCoords)) * F;
