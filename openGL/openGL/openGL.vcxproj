@@ -22,10 +22,12 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="include\my\BuildWindow.cpp" />
     <ClCompile Include="include\my\MyShader.cpp" />
-    <ClCompile Include="work\OpenGL_lightings.cpp" />
+    <ClCompile Include="work\OpenGL_assimp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\my\BuildWindow.h" />
+    <ClInclude Include="include\my\mesh.h" />
+    <ClInclude Include="include\my\model.h" />
     <ClInclude Include="include\my\MyCamera.h" />
     <ClInclude Include="include\my\MyShader.h" />
     <ClInclude Include="stb_image.h" />
@@ -82,7 +84,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>E:\MyProject\openGL\openGL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\MyProject\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <LibraryPath>E:\MyProject\openGL\openGL\lib;E:\MyProject\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <LibraryWPath>$(LibraryWPath)</LibraryWPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>E:\MyCode\openGL\openGL\include;$(IncludePath)</IncludePath>
@@ -96,7 +99,8 @@
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

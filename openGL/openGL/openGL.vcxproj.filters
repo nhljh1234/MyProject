@@ -30,7 +30,7 @@
     <ClCompile Include="include\my\MyShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="work\OpenGL_lightings.cpp">
+    <ClCompile Include="work\OpenGL_assimp.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +45,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\my\MyCamera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\my\mesh.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\my\model.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
