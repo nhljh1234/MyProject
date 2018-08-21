@@ -35,9 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stb_image.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\my\BuildWindow.h">
       <Filter>头文件</Filter>
     </ClInclude>

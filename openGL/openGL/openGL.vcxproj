@@ -30,7 +30,6 @@
     <ClInclude Include="include\my\model.h" />
     <ClInclude Include="include\my\MyCamera.h" />
     <ClInclude Include="include\my\MyShader.h" />
-    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A20D82A9-1B8E-4800-9470-29277ED86B10}</ProjectGuid>
@@ -101,6 +100,7 @@
     <Link>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
