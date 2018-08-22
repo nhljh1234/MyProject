@@ -26,9 +26,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\my\BuildWindow.h" />
-    <ClInclude Include="include\my\mesh.h" />
     <ClInclude Include="include\my\model.h" />
     <ClInclude Include="include\my\MyCamera.h" />
+    <ClInclude Include="include\my\MyMesh.h" />
     <ClInclude Include="include\my\MyShader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

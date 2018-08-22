@@ -16,124 +16,132 @@
 using namespace std;
 
 struct Vertex {
-	// position
+	//位置
 	glm::vec3 Position;
-	// normal
+	//法线
 	glm::vec3 Normal;
-	// texCoords
+	//纹理位置
 	glm::vec2 TexCoords;
-	// tangent
+	//切线
 	glm::vec3 Tangent;
-	// bitangent
+	//
 	glm::vec3 Bitangent;
+	//我们称tangant轴（T）、bitangent轴（B）及Normal轴（N）所组成的坐标系，即切线空间（TBN）。
+	//切线空间是辅助纹理坐标的
 };
 
 struct Texture {
+	//纹理id
 	unsigned int id;
 	string type;
+	//存储纹理路径用于判断是否加载过了
 	string path;
 };
 
-class Mesh {
+class MyMesh {
 public:
-	/*  Mesh Data  */
+	//顶点集合
 	vector<Vertex> vertices;
+	//索引集合
 	vector<unsigned int> indices;
+	//纹理集合
 	vector<Texture> textures;
+	//顶点数组对象
 	unsigned int VAO;
-
-	/*  Functions  */
-	// constructor
-	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
+	//构造函数
+	MyMesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures)
 	{
 		this->vertices = vertices;
 		this->indices = indices;
 		this->textures = textures;
 
-		// now that we have all the required data, set the vertex buffers and its attribute pointers.
 		setupMesh();
 	}
-
-	// render the mesh
+	//绘制函数
+	//规范化命名
+	/*
+		uniform sampler2D texture_diffuse_1;
+		uniform sampler2D texture_diffuse_2;
+		uniform sampler2D texture_diffuse_3;
+		uniform sampler2D texture_specular_1;
+		uniform sampler2D texture_specular_2;
+	*/
 	void Draw(MyShader shader)
 	{
-		// bind appropriate textures
-		unsigned int diffuseNr = 1;
-		unsigned int specularNr = 1;
-		unsigned int normalNr = 1;
-		unsigned int heightNr = 1;
-		for (unsigned int i = 0; i < textures.size(); i++)
-		{
-			glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
-											  // retrieve texture number (the N in diffuse_textureN)
+		//计数
+		unsigned int diffuseCount = 1;
+		unsigned int specularCount = 1;
+		unsigned int normalCount = 1;
+		unsigned int heightCount = 1;
+		//设置纹理
+		for (unsigned int i = 0; i < textures.size(); i++) {
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+
 			string number;
 			string name = textures[i].type;
-			if (name == "texture_diffuse")
-				number = std::to_string(diffuseNr++);
-			else if (name == "texture_specular")
-				number = std::to_string(specularNr++); // transfer unsigned int to stream
-			else if (name == "texture_normal")
-				number = std::to_string(normalNr++); // transfer unsigned int to stream
-			else if (name == "texture_height")
-				number = std::to_string(heightNr++); // transfer unsigned int to stream
+			if (name == "texture_diffuse") {
+				number = std::to_string(diffuseCount++);
+			}
+			else if (name == "texture_specular") {
+				number = std::to_string(specularCount++);
+			}
+			else if (name == "texture_normal") {
+				number = std::to_string(normalCount++);
+			}
+			else if (name == "texture_height") {
+				number = std::to_string(heightCount++);
+			}
 
-													 // now set the sampler to the correct texture unit
-			glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
-			// and finally bind the texture
-			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+			glUniform1i(glGetUniformLocation(shader.ID, (name + "_" + number).c_str()), i);
 		}
-
-		// draw mesh
+		//开始绘制
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
-
-		// always good practice to set everything back to defaults once configured.
 		glActiveTexture(GL_TEXTURE0);
 	}
-
 private:
-	/*  Render data  */
+	//渲染参数
 	unsigned int VBO, EBO;
-
-	/*  Functions    */
-	// initializes all the buffer objects/arrays
+	//使用初始化
 	void setupMesh()
 	{
-		// create buffers/arrays
+		//初始化
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
 		glGenBuffers(1, &EBO);
 
+		//绑定
 		glBindVertexArray(VAO);
-		// load data into vertex buffers
+
+		//写入数据
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		// A great thing about structs is that their memory layout is sequential for all its items.
-		// The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
-		// again translates to 3/2 floats which translates to a byte array.
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
+		//写入数据
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
-		// set the vertex attribute pointers
-		// vertex Positions
+		//写入顶点数据
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
-		// vertex normals
+		//法线
 		glEnableVertexAttribArray(1);
+		//offsetof 会生成一个类型为 size_t 的整型常量，它是一个结构成员相对于结构开头的字节偏移量
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
-		// vertex texture coords
+		//纹理坐标
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-		// vertex tangent
+		//切线向量
 		glEnableVertexAttribArray(3);
 		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-		// vertex bitangent
 		glEnableVertexAttribArray(4);
 		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
 
+		//取消绑定
 		glBindVertexArray(0);
 	}
 };
+
 #endif

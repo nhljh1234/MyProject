@@ -13,7 +13,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <my/mesh.h>
+#include <my/MyMesh.h>
 #include <my/MyShader.h>
 
 #include <string>
@@ -31,7 +31,7 @@ class Model
 public:
 	/*  Model Data */
 	vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-	vector<Mesh> meshes;
+	vector<MyMesh> meshes;
 	string directory;
 	bool gammaCorrection;
 
@@ -89,7 +89,7 @@ private:
 
 	}
 
-	Mesh processMesh(aiMesh *mesh, const aiScene *scene)
+	MyMesh processMesh(aiMesh *mesh, const aiScene *scene)
 	{
 		// data to fill
 		vector<Vertex> vertices;
@@ -166,7 +166,7 @@ private:
 		textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
 		// return a mesh object created from the extracted mesh data
-		return Mesh(vertices, indices, textures);
+		return MyMesh(vertices, indices, textures);
 	}
 
 	// checks all material textures of a given type and loads the textures if they're not loaded yet.
