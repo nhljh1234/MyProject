@@ -192,7 +192,7 @@ int main()
 		//模型视图
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
 		glUniformMatrix4fv(glGetUniformLocation(objShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		ourModel.Draw(objShader);
 
@@ -232,13 +232,13 @@ void processInput(GLFWwindow *window)
 		glfwSetWindowShouldClose(window, true);
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		camera.ProcessKeyboard(FORWARD, deltaTime / 5);
+		camera.ProcessKeyboard(FORWARD, deltaTime / 3);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		camera.ProcessKeyboard(BACKWARD, deltaTime / 5);
+		camera.ProcessKeyboard(BACKWARD, deltaTime / 3);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		camera.ProcessKeyboard(LEFT, deltaTime / 5);
+		camera.ProcessKeyboard(LEFT, deltaTime / 3);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		camera.ProcessKeyboard(RIGHT, deltaTime / 5);
+		camera.ProcessKeyboard(RIGHT, deltaTime / 3);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
