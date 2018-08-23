@@ -164,7 +164,10 @@ local.findPath = function (x, y) {
         if (!local.mazeMap.getDataByPos(x, y).left && local.judgeGo(x - 1, y)) {
             if (local.findPath(x - 1, y)) {
                 local.mazeMap.getDataByPos(x, y).inPath = true;
+                local.mazeMap.getDataByPos(x, y).use_left = true;
+                local.mazeMap.getDataByPos(x - 1, y).use_right = true;
                 local.cb(x, y);
+                local.cb(x - 1, y);
                 return true;
             }
         }
@@ -174,7 +177,10 @@ local.findPath = function (x, y) {
         if (!local.mazeMap.getDataByPos(x, y).top && local.judgeGo(x, y - 1)) {
             if (local.findPath(x, y - 1)) {
                 local.mazeMap.getDataByPos(x, y).inPath = true;
+                local.mazeMap.getDataByPos(x, y).use_top = true;
+                local.mazeMap.getDataByPos(x, y - 1).use_bottom = true;
                 local.cb(x, y);
+                local.cb(x, y - 1);
                 return true;
             }
         }
@@ -184,7 +190,10 @@ local.findPath = function (x, y) {
         if (!local.mazeMap.getDataByPos(x, y).right && local.judgeGo(x + 1, y)) {
             if (local.findPath(x + 1, y)) {
                 local.mazeMap.getDataByPos(x, y).inPath = true;
+                local.mazeMap.getDataByPos(x, y).use_right = true;
+                local.mazeMap.getDataByPos(x + 1, y).use_left = true;
                 local.cb(x, y);
+                local.cb(x + 1, y);
                 return true;
             }
         }
@@ -194,7 +203,10 @@ local.findPath = function (x, y) {
         if (!local.mazeMap.getDataByPos(x, y).bottom && local.judgeGo(x, y + 1)) {
             if (local.findPath(x, y + 1)) {
                 local.mazeMap.getDataByPos(x, y).inPath = true;
+                local.mazeMap.getDataByPos(x, y).use_bottom = true;
+                local.mazeMap.getDataByPos(x, y + 1).use_top = true;
                 local.cb(x, y);
+                local.cb(x, y + 1);
                 return true;
             }
         }

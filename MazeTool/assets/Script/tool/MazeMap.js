@@ -29,7 +29,12 @@ outModule.getMazeMap = function (width, height, entryNum) {
                 bottom: true,
                 visitFlag: false,
                 //是否在寻路路径上
-                inPath: false
+                inPath: false,
+                //寻路
+                use_left: false,
+                use_top: false,
+                use_right: false,
+                use_bottom: false,
             });
         }
     }
@@ -37,6 +42,11 @@ outModule.getMazeMap = function (width, height, entryNum) {
     this.clear = function () {
         this.map.forEach(function (oneData) {
             oneData.visitFlag = false;
+            oneData.use_left = false;
+            oneData.use_top = false;
+            oneData.use_right = false;
+            oneData.use_bottom = false;
+            oneData.inPath = false;
         });
         this.visitNum = 0;
     }
@@ -59,7 +69,7 @@ outModule.getMazeMap = function (width, height, entryNum) {
     //获取单位宽度
     this.getOneWidth = function () {
         let max = Math.max(this.width, this.height);
-        return 1500 / max;
+        return 3000 / max;
     }
     //获取入口
     this.getEntryArr = function () {

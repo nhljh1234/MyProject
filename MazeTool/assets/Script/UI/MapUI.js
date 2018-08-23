@@ -33,8 +33,8 @@ cc.Class({
                 logTool.saveLog('存在不合法数值！');
                 return;
             }
-            if (width > 85 || height > 85) {
-                logTool.saveLog('长度或宽度不能超过85！');
+            if (width > 75 || height > 75) {
+                logTool.saveLog('长度或宽度不能超过75！');
                 return;
             }
             this._mazeMap = new MazeMap.getMazeMap(width, height, entryNum);
@@ -58,8 +58,15 @@ cc.Class({
             }
             this._findPathIndex++;
             if (this._findPathIndex >= this._mazeMap.entryNum) {
-                this._findPathIndex = 0; 
+                this._findPathIndex = 0;
             }
+            let mapNode = this.node.getChildByName('Map');
+            mapNode.children.forEach(function (childNode) {
+                childNode.getChildByName('path_left').active = false;
+                childNode.getChildByName('path_top').active = false;
+                childNode.getChildByName('path_right').active = false;
+                childNode.getChildByName('path_bottom').active = false;
+            });
             buildToolDepth.buildPath(this._mazeMap, this._findPathIndex, function (x, y) {
                 let index = x * this._mazeMap.width + y;
                 let mapNode = this.node.getChildByName('Map');
@@ -68,6 +75,25 @@ cc.Class({
             }.bind(this), function () {
                 logTool.saveLog('寻路完成');
             }.bind(this));
+        }.bind(this));
+        //截图
+        var buttonImgNode = this.node.getChildByName('buttonImg');
+        buttonImgNode.on('click', function () {
+            this.node.children.forEach((childNode) => {
+                if (childNode.name !== 'Map') {
+                    childNode.active = false;
+                }
+            });
+            function callback() {
+                var canvas = document.getElementById("GameCanvas");
+                var base64 = canvas.toDataURL("image/png");
+                cc.director.off(cc.Director.EVENT_AFTER_DRAW);
+                window.open(base64);
+                this.node.children.forEach((childNode) => {
+                    childNode.active = true;
+                });
+            };
+            cc.director.on(cc.Director.EVENT_AFTER_DRAW, callback.bind(this));
         }.bind(this));
         //初始化log
         logTool.init(function (logString) {
@@ -81,7 +107,10 @@ cc.Class({
         itemNode.getChildByName('wall_top').active = data.top;
         itemNode.getChildByName('wall_right').active = data.right;
         itemNode.getChildByName('wall_bottom').active = data.bottom;
-        itemNode.getChildByName('point').active = data.inPath;
+        itemNode.getChildByName('path_left').active = data.use_left;
+        itemNode.getChildByName('path_top').active = data.use_top;
+        itemNode.getChildByName('path_right').active = data.use_right;
+        itemNode.getChildByName('path_bottom').active = data.use_bottom;
     },
 
     /**
@@ -107,9 +136,6 @@ cc.Class({
                 itemNodeClone.x = i * oneWidth + 0.5 * oneWidth;
                 itemNodeClone.y = -1 * (j * oneWidth + 0.5 * oneWidth);
                 itemNodeClone.name = 'item_' + (i * width + j);
-                if (i === this._mazeMap.goalX && j === this._mazeMap.goalY) {
-                    itemNodeClone.color = cc.Color.RED;
-                }
             }
         }
     },
