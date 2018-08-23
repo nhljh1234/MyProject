@@ -108,7 +108,7 @@ vec3 getDirLight(DirLight light, vec3 normal, vec3 viewDir)
     float diff = max(dot(normal, lightDir), 0.0f);
     diffuseLight = diff * light.diffuse * vec3(texture(material.diffuse, texCoords));
 
-    vec3 reflectDir = reflect(lightDir, normal);
+    vec3 reflectDir = reflect(-lightDir, normal);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0f), material.shininess);
     specularLight = spec * light.specular * vec3(texture(material.diffuse, texCoords));
 

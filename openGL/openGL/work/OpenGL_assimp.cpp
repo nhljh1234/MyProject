@@ -7,7 +7,8 @@
 
 #include <my/MyShader.h>
 #include <my/MyCamera.h>
-#include <my/model.h>
+#include <my/MyModel.h>
+#include <my/BuildWindow.h>
 
 #include <iostream>
 
@@ -32,98 +33,49 @@ float lastFrame = 0.0f;
 
 int main()
 {
-	// glfw: initialize and configure
-	// ------------------------------
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
-#endif
-
-														 // glfw window creation
-														 // --------------------
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
+	//创建窗口
+	GLFWwindow* window = createOpenGLWindow();
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
-
-	// tell GLFW to capture our mouse
+	glEnable(GL_DEPTH_TEST);
+	
+	//启动光标
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	// glad: load all OpenGL function pointers
-	// ---------------------------------------
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
-	}
-
-	// configure global opengl state
-	// -----------------------------
-	glEnable(GL_DEPTH_TEST);
-
-	// build and compile shaders
-	// -------------------------
 	std::string vsPath = "./work/ShaderFile/Assimp/vertex.vs";
 	std::string fsPath = "./work/ShaderFile/Assimp/fragment.fs";
 	MyShader objShader(vsPath.data(), fsPath.data());
 
-	// load models
-	// -----------
-	Model ourModel("./resources/nanosuit/nanosuit.obj");
+	MyModel ourModel("./resources/nanosuit/nanosuit.obj");
 
 
-	// draw in wireframe
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-	// render loop
-	// -----------
 	while (!glfwWindowShouldClose(window))
 	{
-		// per-frame time logic
-		// --------------------
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		// input
-		// -----
 		processInput(window);
 
-		// render
-		// ------
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// don't forget to enable shader before setting uniforms
 		objShader.use();
 
-		// view/projection transformations
+		// 摄像机视图
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
 		glUniformMatrix4fv(glGetUniformLocation(objShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(objShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
-		// render the loaded model
+		//模型视图
 		glm::mat4 model;
-		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
+		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
 		glUniformMatrix4fv(glGetUniformLocation(objShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		ourModel.Draw(objShader);
 
-
-		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}

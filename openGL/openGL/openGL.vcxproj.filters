@@ -47,7 +47,7 @@
     <ClInclude Include="include\my\MyMesh.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="include\my\model.h">
+    <ClInclude Include="include\my\MyModel.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
