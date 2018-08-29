@@ -17,19 +17,20 @@ cc.Class({
 
     onLoad() {
         //注册按钮
-        var buttonNode = this.node.getChildByName('button');
+        //深度搜索算法
+        var buttonNode = this.node.getChildByName('buttonBuild_1');
         buttonNode.on('click', function () {
             var widthNode = this.node.getChildByName('box_width');
             var heightNode = this.node.getChildByName('box_height');
-            var entryNumNode = this.node.getChildByName('box_num');
-            let width, height, entryNum;
+            var hardNode = this.node.getChildByName('box_easy');
+            let width, height, hardNum;
             width = widthNode.getComponent(cc.EditBox).string;
             height = heightNode.getComponent(cc.EditBox).string;
-            entryNum = entryNumNode.getComponent(cc.EditBox).string;
+            hardNum = hardNode.getComponent(cc.EditBox).string;
             width = parseInt(width);
             height = parseInt(height);
-            entryNum = parseInt(entryNum);
-            if (isNaN(width) || isNaN(height) || isNaN(entryNum)) {
+            hardNum = parseInt(hardNum);
+            if (isNaN(width) || isNaN(height)) {
                 logTool.saveLog('存在不合法数值！');
                 return;
             }
@@ -37,7 +38,11 @@ cc.Class({
                 logTool.saveLog('长度或宽度不能超过75！');
                 return;
             }
-            this._mazeMap = new MazeMap.getMazeMap(width, height, entryNum);
+            if (width % 2 === 1 || height % 2 === 1) {
+                logTool.saveLog('长度或宽度不能为奇数！');
+                return;
+            }
+            this._mazeMap = new MazeMap.getMazeMap(width, height, hardNum);
             this.buildMapUI();
             buildToolDepth.build(this._mazeMap, function (x, y) {
                 let index = x * this._mazeMap.width + y;
@@ -48,17 +53,48 @@ cc.Class({
                 logTool.saveLog('生成完成');
             }.bind(this));
         }.bind(this));
-        var buttonPathNode = this.node.getChildByName('buttonPath');
+        //Prim搜索算法
+        var buttonNode = this.node.getChildByName('buttonBuild_2');
+        buttonNode.on('click', function () {
+            var widthNode = this.node.getChildByName('box_width');
+            var heightNode = this.node.getChildByName('box_height');
+            var hardNode = this.node.getChildByName('box_easy');
+            let width, height, hardNum;
+            width = widthNode.getComponent(cc.EditBox).string;
+            height = heightNode.getComponent(cc.EditBox).string;
+            hardNum = hardNode.getComponent(cc.EditBox).string;
+            width = parseInt(width);
+            height = parseInt(height);
+            hardNum = parseInt(hardNum);
+            if (isNaN(width) || isNaN(height)) {
+                logTool.saveLog('存在不合法数值！');
+                return;
+            }
+            if (width > 75 || height > 75) {
+                logTool.saveLog('长度或宽度不能超过75！');
+                return;
+            }
+            if (width % 2 === 1 || height % 2 === 1) {
+                logTool.saveLog('长度或宽度不能为奇数！');
+                return;
+            }
+            this._mazeMap = new MazeMap.getMazeMap(width, height, hardNum);
+            this.buildMapUI();
+            buildToolDepth.buildByPrim(this._mazeMap, function (x, y) {
+                let index = x * this._mazeMap.width + y;
+                let mapNode = this.node.getChildByName('Map');
+                let itemNode = mapNode.getChildByName('item_' + index);
+                this.updateItemNode(itemNode, this._mazeMap.getDataByPos(x, y));
+            }.bind(this), function () {
+                logTool.saveLog('生成完成');
+            }.bind(this));
+        }.bind(this));
         //一个出口一个出口显示
-        this._findPathIndex = 0;
+        var buttonPathNode = this.node.getChildByName('buttonPath');
         buttonPathNode.on('click', function () {
             if (!this._mazeMap) {
                 logTool.saveLog('还没有生成');
                 return;
-            }
-            this._findPathIndex++;
-            if (this._findPathIndex >= this._mazeMap.entryNum) {
-                this._findPathIndex = 0;
             }
             let mapNode = this.node.getChildByName('Map');
             mapNode.children.forEach(function (childNode) {
@@ -67,14 +103,25 @@ cc.Class({
                 childNode.getChildByName('path_right').active = false;
                 childNode.getChildByName('path_bottom').active = false;
             });
-            buildToolDepth.buildPath(this._mazeMap, this._findPathIndex, function (x, y) {
+            buildToolDepth.buildPath(this._mazeMap, function (x, y, i) {
                 let index = x * this._mazeMap.width + y;
                 let mapNode = this.node.getChildByName('Map');
                 let itemNode = mapNode.getChildByName('item_' + index);
-                this.updateItemNode(itemNode, this._mazeMap.getDataByPos(x, y));
+                this.updateItemNode(itemNode, this._mazeMap.getDataByPos(x, y), i);
             }.bind(this), function () {
                 logTool.saveLog('寻路完成');
             }.bind(this));
+        }.bind(this));
+        //清除
+        var buttonClearNode = this.node.getChildByName('buttonClear');
+        buttonClearNode.on('click', function () {
+            let mapNode = this.node.getChildByName('Map');
+            mapNode.children.forEach((childNode) => {
+                childNode.getChildByName('path_left').active = false;
+                childNode.getChildByName('path_top').active = false;
+                childNode.getChildByName('path_right').active = false;
+                childNode.getChildByName('path_bottom').active = false;
+            });
         }.bind(this));
         //截图
         var buttonImgNode = this.node.getChildByName('buttonImg');
@@ -102,7 +149,7 @@ cc.Class({
     },
 
     //更新一个单元
-    updateItemNode: function (itemNode, data) {
+    updateItemNode: function (itemNode, data, i) {
         itemNode.getChildByName('wall_left').active = data.left;
         itemNode.getChildByName('wall_top').active = data.top;
         itemNode.getChildByName('wall_right').active = data.right;
@@ -111,6 +158,32 @@ cc.Class({
         itemNode.getChildByName('path_top').active = data.use_top;
         itemNode.getChildByName('path_right').active = data.use_right;
         itemNode.getChildByName('path_bottom').active = data.use_bottom;
+        switch (i) {
+            case 0:
+                itemNode.getChildByName('path_left').color = cc.Color.RED;
+                itemNode.getChildByName('path_top').color = cc.Color.RED;
+                itemNode.getChildByName('path_right').color = cc.Color.RED;
+                itemNode.getChildByName('path_bottom').color = cc.Color.RED;
+                break;
+            case 1:
+                itemNode.getChildByName('path_left').color = cc.Color.GREEN;
+                itemNode.getChildByName('path_top').color = cc.Color.GREEN;
+                itemNode.getChildByName('path_right').color = cc.Color.GREEN;
+                itemNode.getChildByName('path_bottom').color = cc.Color.GREEN;
+                break;
+            case 2:
+                itemNode.getChildByName('path_left').color = cc.Color.BLUE;
+                itemNode.getChildByName('path_top').color = cc.Color.BLUE;
+                itemNode.getChildByName('path_right').color = cc.Color.BLUE;
+                itemNode.getChildByName('path_bottom').color = cc.Color.BLUE;
+                break;
+            case 3:
+                itemNode.getChildByName('path_left').color = cc.Color.WHITE;
+                itemNode.getChildByName('path_top').color = cc.Color.WHITE;
+                itemNode.getChildByName('path_right').color = cc.Color.WHITE;
+                itemNode.getChildByName('path_bottom').color = cc.Color.WHITE;
+                break;
+        }
     },
 
     /**
@@ -136,6 +209,7 @@ cc.Class({
                 itemNodeClone.x = i * oneWidth + 0.5 * oneWidth;
                 itemNodeClone.y = -1 * (j * oneWidth + 0.5 * oneWidth);
                 itemNodeClone.name = 'item_' + (i * width + j);
+                this.updateItemNode(itemNodeClone, this._mazeMap.getDataByPos(i, j));
             }
         }
     },
