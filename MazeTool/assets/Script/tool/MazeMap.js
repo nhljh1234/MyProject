@@ -4,13 +4,15 @@ var outModule = {};
  * 新建一个迷宫地图
  * @param {Number} width 宽度
  * @param {Number} height 高度
+ * @param {Number} hardNum 难度
+ * @param {Boolean} isCenterType 是否是中心点事终点
  */
-outModule.getMazeMap = function (width, height, hardNum) {
+outModule.getMazeMap = function (width, height, hardNum, isCenterType) {
     this.map = [];
     this.width = width;
     this.height = height;
-    if (hardNum > 10 || hardNum < 0) {
-        hardNum = 1;
+    if (isNaN(hardNum) || hardNum > 10 || hardNum < 0) {
+        hardNum = 7;
     }
     this.hardNum = hardNum;
     this.visitNum = 0;
@@ -29,18 +31,20 @@ outModule.getMazeMap = function (width, height, hardNum) {
             let top = true;
             let right = true;
             let bottom = true;
-            if (i === this.width / 2 && j === this.height / 2) {
-                left = false;
-                top = false;
-            } else if (i === this.width / 2 - 1 && j === this.height / 2) {
-                right = false;
-                top = false;
-            } else if (i === this.width / 2 - 1 && j === this.height / 2 - 1) {
-                right = false;
-                bottom = false;
-            } else if (i === this.width / 2 && j === this.height / 2 - 1) {
-                left = false;
-                bottom = false;
+            if (isCenterType) {
+                if (i === this.width / 2 && j === this.height / 2) {
+                    left = false;
+                    top = false;
+                } else if (i === this.width / 2 - 1 && j === this.height / 2) {
+                    right = false;
+                    top = false;
+                } else if (i === this.width / 2 - 1 && j === this.height / 2 - 1) {
+                    right = false;
+                    bottom = false;
+                } else if (i === this.width / 2 && j === this.height / 2 - 1) {
+                    left = false;
+                    bottom = false;
+                }
             }
             this.map.push({
                 index: index,
@@ -72,6 +76,14 @@ outModule.getMazeMap = function (width, height, hardNum) {
         }
         return false;
     }
+    this.judgeGetGoal_2 = function (x, y , i) {
+        if (x === this.width / 2 && y === this.height - 1 && i === 0) {
+            return true;
+        } else if (x === this.width - 1 && y === this.height / 2 && i === 1) {
+            return true;
+        }
+        return false;
+    }
     //寻路清除visitFlag
     this.clear = function () {
         this.map.forEach(function (oneData) {
@@ -87,6 +99,10 @@ outModule.getMazeMap = function (width, height, hardNum) {
     //判断是否全部访问了
     this.judgeAllVisit = function () {
         return this.visitNum >= this.width * this.height / 4;
+    }
+    //判断是否全部访问了
+    this.judgeAllVisit_2 = function () {
+        return this.visitNum >= this.width * this.height;
     }
     //访问一个节点
     this.visitOnePos = function (x, y) {

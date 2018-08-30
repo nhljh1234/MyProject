@@ -1,6 +1,7 @@
 var MazeMap = require('MazeMap');
 var logTool = require('logTool');
-var buildToolDepth = require('buildToolDepth');
+var buildTool = require('buildTool');
+var buildTool_2 = require('buildTool_2');
 
 cc.Class({
     extends: cc.Component,
@@ -20,31 +21,14 @@ cc.Class({
         //深度搜索算法
         var buttonNode = this.node.getChildByName('buttonBuild_1');
         buttonNode.on('click', function () {
-            var widthNode = this.node.getChildByName('box_width');
-            var heightNode = this.node.getChildByName('box_height');
-            var hardNode = this.node.getChildByName('box_easy');
             let width, height, hardNum;
-            width = widthNode.getComponent(cc.EditBox).string;
-            height = heightNode.getComponent(cc.EditBox).string;
-            hardNum = hardNode.getComponent(cc.EditBox).string;
-            width = parseInt(width);
-            height = parseInt(height);
-            hardNum = parseInt(hardNum);
-            if (isNaN(width) || isNaN(height)) {
-                logTool.saveLog('存在不合法数值！');
+            [width, height, hardNum] = this.getData();
+            if (!this.judgeSize(width, height)) {
                 return;
             }
-            if (width > 75 || height > 75) {
-                logTool.saveLog('长度或宽度不能超过75！');
-                return;
-            }
-            if (width % 2 === 1 || height % 2 === 1) {
-                logTool.saveLog('长度或宽度不能为奇数！');
-                return;
-            }
-            this._mazeMap = new MazeMap.getMazeMap(width, height, hardNum);
+            this._mazeMap = new MazeMap.getMazeMap(width, height, hardNum, true);
             this.buildMapUI();
-            buildToolDepth.build(this._mazeMap, function (x, y) {
+            buildTool.build(this._mazeMap, function (x, y) {
                 let index = x * this._mazeMap.width + y;
                 let mapNode = this.node.getChildByName('Map');
                 let itemNode = mapNode.getChildByName('item_' + index);
@@ -56,31 +40,14 @@ cc.Class({
         //Prim搜索算法
         var buttonNode = this.node.getChildByName('buttonBuild_2');
         buttonNode.on('click', function () {
-            var widthNode = this.node.getChildByName('box_width');
-            var heightNode = this.node.getChildByName('box_height');
-            var hardNode = this.node.getChildByName('box_easy');
             let width, height, hardNum;
-            width = widthNode.getComponent(cc.EditBox).string;
-            height = heightNode.getComponent(cc.EditBox).string;
-            hardNum = hardNode.getComponent(cc.EditBox).string;
-            width = parseInt(width);
-            height = parseInt(height);
-            hardNum = parseInt(hardNum);
-            if (isNaN(width) || isNaN(height)) {
-                logTool.saveLog('存在不合法数值！');
+            [width, height, hardNum] = this.getData();
+            if (!this.judgeSize(width, height)) {
                 return;
             }
-            if (width > 75 || height > 75) {
-                logTool.saveLog('长度或宽度不能超过75！');
-                return;
-            }
-            if (width % 2 === 1 || height % 2 === 1) {
-                logTool.saveLog('长度或宽度不能为奇数！');
-                return;
-            }
-            this._mazeMap = new MazeMap.getMazeMap(width, height, hardNum);
+            this._mazeMap = new MazeMap.getMazeMap(width, height, hardNum, true);
             this.buildMapUI();
-            buildToolDepth.buildByPrim(this._mazeMap, function (x, y) {
+            buildTool.buildByPrim(this._mazeMap, function (x, y) {
                 let index = x * this._mazeMap.width + y;
                 let mapNode = this.node.getChildByName('Map');
                 let itemNode = mapNode.getChildByName('item_' + index);
@@ -89,8 +56,46 @@ cc.Class({
                 logTool.saveLog('生成完成');
             }.bind(this));
         }.bind(this));
-        //一个出口一个出口显示
-        var buttonPathNode = this.node.getChildByName('buttonPath');
+        //深度搜索算法2
+        var buttonNode = this.node.getChildByName('buttonBuild_3');
+        buttonNode.on('click', function () {
+            let width, height, hardNum;
+            [width, height, hardNum] = this.getData();
+            if (!this.judgeSize(width, height)) {
+                return;
+            }
+            this._mazeMap = new MazeMap.getMazeMap(width, height, hardNum, false);
+            this.buildMapUI();
+            buildTool_2.build(this._mazeMap, function (x, y) {
+                let index = x * this._mazeMap.width + y;
+                let mapNode = this.node.getChildByName('Map');
+                let itemNode = mapNode.getChildByName('item_' + index);
+                this.updateItemNode(itemNode, this._mazeMap.getDataByPos(x, y));
+            }.bind(this), function () {
+                logTool.saveLog('生成完成');
+            }.bind(this));
+        }.bind(this));
+        //Prim搜索算法2
+        var buttonNode = this.node.getChildByName('buttonBuild_4');
+        buttonNode.on('click', function () {
+            let width, height, hardNum;
+            [width, height, hardNum] = this.getData();
+            if (!this.judgeSize(width, height)) {
+                return;
+            }
+            this._mazeMap = new MazeMap.getMazeMap(width, height, hardNum, false);
+            this.buildMapUI();
+            buildTool_2.buildByPrim(this._mazeMap, function (x, y) {
+                let index = x * this._mazeMap.width + y;
+                let mapNode = this.node.getChildByName('Map');
+                let itemNode = mapNode.getChildByName('item_' + index);
+                this.updateItemNode(itemNode, this._mazeMap.getDataByPos(x, y));
+            }.bind(this), function () {
+                logTool.saveLog('生成完成');
+            }.bind(this));
+        }.bind(this));
+        //寻路显示
+        var buttonPathNode = this.node.getChildByName('buttonPath_1');
         buttonPathNode.on('click', function () {
             if (!this._mazeMap) {
                 logTool.saveLog('还没有生成');
@@ -103,7 +108,30 @@ cc.Class({
                 childNode.getChildByName('path_right').active = false;
                 childNode.getChildByName('path_bottom').active = false;
             });
-            buildToolDepth.buildPath(this._mazeMap, function (x, y, i) {
+            buildTool.buildPath(this._mazeMap, function (x, y, i) {
+                let index = x * this._mazeMap.width + y;
+                let mapNode = this.node.getChildByName('Map');
+                let itemNode = mapNode.getChildByName('item_' + index);
+                this.updateItemNode(itemNode, this._mazeMap.getDataByPos(x, y), i);
+            }.bind(this), function () {
+                logTool.saveLog('寻路完成');
+            }.bind(this));
+        }.bind(this));
+        //寻路显示
+        var buttonPathNode = this.node.getChildByName('buttonPath_2');
+        buttonPathNode.on('click', function () {
+            if (!this._mazeMap) {
+                logTool.saveLog('还没有生成');
+                return;
+            }
+            let mapNode = this.node.getChildByName('Map');
+            mapNode.children.forEach(function (childNode) {
+                childNode.getChildByName('path_left').active = false;
+                childNode.getChildByName('path_top').active = false;
+                childNode.getChildByName('path_right').active = false;
+                childNode.getChildByName('path_bottom').active = false;
+            });
+            buildTool_2.buildPath(this._mazeMap, function (x, y, i) {
                 let index = x * this._mazeMap.width + y;
                 let mapNode = this.node.getChildByName('Map');
                 let itemNode = mapNode.getChildByName('item_' + index);
@@ -146,6 +174,37 @@ cc.Class({
         logTool.init(function (logString) {
             this.node.getChildByName('log').getComponent(cc.Label).string = logString;
         }.bind(this));
+    },
+
+    //判断尺寸
+    judgeSize: function (width, height) {
+        if (isNaN(width) || isNaN(height)) {
+            logTool.saveLog('存在不合法数值！');
+            return false;
+        }
+        if (width > 75 || height > 75) {
+            logTool.saveLog('长度或宽度不能超过75！');
+            return false;
+        }
+        if (width % 2 === 1 || height % 2 === 1) {
+            logTool.saveLog('长度或宽度不能为奇数！');
+            return false;
+        }
+        return true;
+    },
+
+    getData: function () {
+        var widthNode = this.node.getChildByName('box_width');
+        var heightNode = this.node.getChildByName('box_height');
+        var hardNode = this.node.getChildByName('box_easy');
+        let width, height, hardNum;
+        width = widthNode.getComponent(cc.EditBox).string;
+        height = heightNode.getComponent(cc.EditBox).string;
+        hardNum = hardNode.getComponent(cc.EditBox).string;
+        width = parseInt(width);
+        height = parseInt(height);
+        hardNum = parseInt(hardNum);
+        return [width, height, hardNum];
     },
 
     //更新一个单元
