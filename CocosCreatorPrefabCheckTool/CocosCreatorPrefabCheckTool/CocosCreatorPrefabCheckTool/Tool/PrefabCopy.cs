@@ -18,18 +18,18 @@ namespace CocosCreatorPrefabCheckTool.Tool
                 if (fileInfo.Extension == ".prefab")
                 {
                     //拷贝
-                    File.Copy(fileInfo.FullName, this._prefabDirPath + @"/" + pathStr + @"__" + fileInfo.Name, true);
+                    File.Copy(fileInfo.FullName, this._prefabDirPath + @"/" + pathStr + @"____" + fileInfo.Name, true);
                 }
                 else if (fileInfo.Extension == ".fire")
                 {
                     //拷贝
-                    File.Copy(fileInfo.FullName, this._sceneDirPath + @"/" + pathStr + @"__" + fileInfo.Name, true);
+                    File.Copy(fileInfo.FullName, this._sceneDirPath + @"/" + pathStr + @"____" + fileInfo.Name, true);
                 }
             }
             //遍历文件夹
             foreach (DirectoryInfo childDirInfo in dirInfo.GetDirectories())
             {
-                this.visitDir(childDirInfo.FullName, pathStr + @"__" + childDirInfo.Name);
+                this.visitDir(childDirInfo.FullName, pathStr + @"____" + childDirInfo.Name);
             }
         }
 

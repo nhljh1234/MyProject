@@ -300,11 +300,11 @@ outModule.buildByPrim = function (mazeMap, cb, finishCb) {
     local.finishCb = finishCb;
     local.mazeMap = mazeMap;
     //开始创建
-    let i, len, entryPos = [0, 0];
-    let outPos_1 = [local.mazeMap.width - 1, local.mazeMap.height / 2];
-    let outPos_2 = [local.mazeMap.width / 2, local.mazeMap.height - 1];
+    let i, len, entryPos = [local.mazeMap.width - 1, local.mazeMap.height - 1];
+    let outPos_1 = [local.mazeMap.width - 1, 0];
+    let outPos_2 = [0, local.mazeMap.height - 1];
 
-    local.mazeMap.getDataByPos(entryPos[0], entryPos[1]).left = false;
+    local.mazeMap.getDataByPos(0, 0).left = false;
     local.cb(entryPos[0], entryPos[1]);
     local.wallArr = [];
     local.visitPrim(entryPos[0], entryPos[1]);

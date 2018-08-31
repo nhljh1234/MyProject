@@ -76,10 +76,12 @@ outModule.getMazeMap = function (width, height, hardNum, isCenterType) {
         }
         return false;
     }
-    this.judgeGetGoal_2 = function (x, y , i) {
-        if (x === this.width / 2 && y === this.height - 1 && i === 0) {
+    this.judgeGetGoal_2 = function (x, y, i) {
+        let outPos_1 = [this.width - 1, 0];
+        let outPos_2 = [0, this.height - 1];
+        if (x === outPos_1[0] && y === outPos_1[1] && i === 0) {
             return true;
-        } else if (x === this.width - 1 && y === this.height / 2 && i === 1) {
+        } else if (x === outPos_2[0] && y === outPos_2[1] && i === 1) {
             return true;
         }
         return false;
