@@ -1,0 +1,11 @@
+window.GlobalData = {
+    LEFT_TOP: 0,
+    RIGHT_TOP: 1,
+    RIGHT_BOTTOM: 2,
+    LEFT_BOTTOM: 3,
+
+    DIRECTION_LEFT: 0,
+    DIRECTION_TOP: 1,
+    DIRECTION_RIGHT: 2,
+    DIRECTION_BOTTOM: 3,
+};

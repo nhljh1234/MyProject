@@ -24,7 +24,6 @@ struct Vertex {
 	glm::vec2 TexCoords;
 	//切线
 	glm::vec3 Tangent;
-	//
 	glm::vec3 Bitangent;
 	//我们称tangant轴（T）、bitangent轴（B）及Normal轴（N）所组成的坐标系，即切线空间（TBN）。
 	//切线空间是辅助纹理坐标的
