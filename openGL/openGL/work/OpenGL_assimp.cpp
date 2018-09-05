@@ -43,8 +43,8 @@ int main()
 	//启动光标
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	std::string vsPath = "./work/ShaderFile/Assimp/vertex.vs";
-	std::string fsPath = "./work/ShaderFile/Assimp/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/OpenGLTest/DepthTest/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/OpenGLTest/DepthTest/fragment.fs";
 	MyShader objShader(vsPath.data(), fsPath.data());
 
 	MyModel ourModel("./resources/nanosuit/nanosuit.obj");
