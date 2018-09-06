@@ -88,6 +88,8 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_STENCIL_TEST);
+	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 	//启动光标
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -204,6 +206,7 @@ int main()
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
 		//先画地面
+		glStencilMask(0x00);
 		CubeShader.use();
 		glBindVertexArray(planeVAO);
 		glBindTexture(GL_TEXTURE_2D, planeTexture);
@@ -218,7 +221,6 @@ int main()
 		//第三个参数：设置一个掩码，它将会与参考值和储存的模板值在测试比较它们之前进行与(AND)运算。初始情况下所有位都为1。
 		glStencilFunc(GL_ALWAYS, 1, 0xFF);
 		glStencilMask(0xFF);
-		glEnable(GL_DEPTH_TEST);
 		CubeShader.use();
 		glBindVertexArray(cubeVAO);
 		glActiveTexture(GL_TEXTURE0);
@@ -253,6 +255,9 @@ int main()
 		model = glm::scale(model, glm::vec3(scale, scale, scale));
 		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//需要设置可以写入，不然不能清除缓存
+		glStencilMask(0xFF);
+		glEnable(GL_DEPTH_TEST);
 
 
 		glBindVertexArray(0);
