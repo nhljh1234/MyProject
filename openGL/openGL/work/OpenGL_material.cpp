@@ -11,9 +11,7 @@
 #include <my/BuildWindow.h>
 #include <my/MyShader.h>
 #include <my/MyCamera.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include <img/stb_image.h>
+#include <my/Tool.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

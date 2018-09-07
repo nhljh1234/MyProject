@@ -22,7 +22,7 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-const unsigned int speed = 3;
+const unsigned int speed = 2;
 
 // camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -42,9 +42,6 @@ int main()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_STENCIL_TEST);
-	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 	//启动光标
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -130,20 +127,22 @@ int main()
 	glBindVertexArray(0);
 
 	std::string imgPath;
-	imgPath = "./img/marble.jpg";
+	imgPath = "./img/container.jpg";
 	unsigned int cubeTexture = loadTexture(imgPath.data());
 	imgPath = "./img/metal.png";
 	unsigned int planeTexture = loadTexture(imgPath.data());
 
-	std::string vsPath = "./work/ShaderFile/OpenGLTest/StencilTest/Cube/vertex.vs";
-	std::string fsPath = "./work/ShaderFile/OpenGLTest/StencilTest/Cube/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/FrameBuffer/Cube/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/FrameBuffer/Cube/fragment.fs";
 	MyShader CubeShader(vsPath.data(), fsPath.data());
 
-	vsPath = "./work/ShaderFile/OpenGLTest/StencilTest/Line/vertex.vs";
-	fsPath = "./work/ShaderFile/OpenGLTest/StencilTest/Line/fragment.fs";
-	MyShader LineShader(vsPath.data(), fsPath.data());
+	vsPath = "./work/ShaderFile/FrameBuffer/Grass/vertex.vs";
+	fsPath = "./work/ShaderFile/FrameBuffer/Grass/fragment.fs";
+	MyShader GrassShader(vsPath.data(), fsPath.data());
 
-	//glDepthFunc(GL_ALWAYS);
+	unsigned int FBO;
+	glGenFramebuffers(1, &FBO);
+	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -154,14 +153,13 @@ int main()
 		processInput(window);
 
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glm::mat4 model;
 		glm::mat4 view = camera.GetViewMatrix();
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
 		//先画地面
-		glStencilMask(0x00);
 		CubeShader.use();
 		glBindVertexArray(planeVAO);
 		glBindTexture(GL_TEXTURE_2D, planeTexture);
@@ -174,8 +172,6 @@ int main()
 		//第一个参数：设置模板缓冲的函数，GL_NEVER、GL_LESS、GL_LEQUAL、GL_GREATER、GL_GEQUAL、GL_EQUAL、GL_NOTEQUAL和GL_ALWAYS
 		//第二个参数：设置了模板测试的参考值(Reference Value)。模板缓冲的内容将会与这个值进行比较。
 		//第三个参数：设置一个掩码，它将会与参考值和储存的模板值在测试比较它们之前进行与(AND)运算。初始情况下所有位都为1。
-		glStencilFunc(GL_ALWAYS, 1, 0xFF);
-		glStencilMask(0xFF);
 		CubeShader.use();
 		glBindVertexArray(cubeVAO);
 		glActiveTexture(GL_TEXTURE0);
@@ -191,29 +187,6 @@ int main()
 		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(glGetUniformLocation(CubeShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		//画一个大的Cube，用模板检测来描边
-		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-		glStencilMask(0x00);
-		glDisable(GL_DEPTH_TEST);
-		float scale = 1.1;
-		LineShader.use();
-		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		//需要设置可以写入，不然不能清除缓存
-		glStencilMask(0xFF);
-		glEnable(GL_DEPTH_TEST);
-
 
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);

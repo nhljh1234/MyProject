@@ -22,7 +22,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="include\my\BuildWindow.cpp" />
     <ClCompile Include="include\my\MyShader.cpp" />
-    <ClCompile Include="work\OpenGL_StencilTest.cpp" />
+    <ClCompile Include="work\OpenGL_transfer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\my\BuildWindow.h" />
@@ -30,6 +30,7 @@
     <ClInclude Include="include\my\MyMesh.h" />
     <ClInclude Include="include\my\MyModel.h" />
     <ClInclude Include="include\my\MyShader.h" />
+    <ClInclude Include="include\my\Tool.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A20D82A9-1B8E-4800-9470-29277ED86B10}</ProjectGuid>

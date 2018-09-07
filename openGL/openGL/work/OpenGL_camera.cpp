@@ -8,9 +8,7 @@
 #include <my/BuildWindow.h>
 #include <my/MyShader.h>
 #include <my/MyCamera.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include <img/stb_image.h>
+#include <my/Tool.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -77,35 +75,11 @@ int main()
 	int width, height, colorChannelNum;
 
 	unsigned int texture_1, texture_2;
-	glGenTextures(1, &texture_1);
-	glBindTexture(GL_TEXTURE_2D, texture_1);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	imgPath = "./img/container.jpg";
-	data = stbi_load(imgPath.data(), &width, &height, &colorChannelNum, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-	}
-	//生成以后记得释放
-	stbi_image_free(data);
+	texture_1 = loadTexture(imgPath.data());
 
-	glGenTextures(1, &texture_2);
-	glBindTexture(GL_TEXTURE_2D, texture_2);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	imgPath = "./img/awesomeface.png";
-	data = stbi_load(imgPath.data(), &width, &height, &colorChannelNum, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-	}
-	//生成以后记得释放
-	stbi_image_free(data);
+	texture_2 = loadTexture(imgPath.data());
 
 	float vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,

@@ -42,9 +42,6 @@ int main()
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_STENCIL_TEST);
-	glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 	//启动光标
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -105,6 +102,17 @@ int main()
 		5.0f, -0.5f, -5.0f,  2.0f, 2.0f
 	};
 
+	float transparentVertices[] = {
+		// positions         // texture Coords (swapped y coordinates because texture is flipped upside down)
+		0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+		0.0f, -0.5f,  0.0f,  0.0f,  1.0f,
+		1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+
+		0.0f,  0.5f,  0.0f,  0.0f,  0.0f,
+		1.0f, -0.5f,  0.0f,  1.0f,  1.0f,
+		1.0f,  0.5f,  0.0f,  1.0f,  0.0f
+	};
+
 	unsigned int cubeVAO, cubeVBO;
 	glGenVertexArrays(1, &cubeVAO);
 	glBindVertexArray(cubeVAO);
@@ -129,21 +137,40 @@ int main()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glBindVertexArray(0);
 
+	unsigned int grassVAO, grassVBO;
+	glGenVertexArrays(1, &grassVAO);
+	glBindVertexArray(grassVAO);
+	glGenBuffers(1, &grassVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, grassVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(transparentVertices), transparentVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glBindVertexArray(0);
+
+	vector<glm::vec3> vegetation;
+	vegetation.push_back(glm::vec3(-1.5f, 0.0f, -0.48f));
+	vegetation.push_back(glm::vec3(1.5f, 0.0f, 0.51f));
+	vegetation.push_back(glm::vec3(0.0f, 0.0f, 0.7f));
+	vegetation.push_back(glm::vec3(-0.3f, 0.0f, -2.3f));
+	vegetation.push_back(glm::vec3(0.5f, 0.0f, -0.6f));
+
 	std::string imgPath;
 	imgPath = "./img/marble.jpg";
 	unsigned int cubeTexture = loadTexture(imgPath.data());
 	imgPath = "./img/metal.png";
 	unsigned int planeTexture = loadTexture(imgPath.data());
+	imgPath = "./img/grass.png";
+	unsigned int grassTexture = loadTexture(imgPath.data(), GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
 
-	std::string vsPath = "./work/ShaderFile/OpenGLTest/StencilTest/Cube/vertex.vs";
-	std::string fsPath = "./work/ShaderFile/OpenGLTest/StencilTest/Cube/fragment.fs";
+	std::string vsPath = "./work/ShaderFile/BlendDiscard/Cube/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/BlendDiscard/Cube/fragment.fs";
 	MyShader CubeShader(vsPath.data(), fsPath.data());
 
-	vsPath = "./work/ShaderFile/OpenGLTest/StencilTest/Line/vertex.vs";
-	fsPath = "./work/ShaderFile/OpenGLTest/StencilTest/Line/fragment.fs";
-	MyShader LineShader(vsPath.data(), fsPath.data());
-
-	//glDepthFunc(GL_ALWAYS);
+	vsPath = "./work/ShaderFile/BlendDiscard/Grass/vertex.vs";
+	fsPath = "./work/ShaderFile/BlendDiscard/Grass/fragment.fs";
+	MyShader GrassShader(vsPath.data(), fsPath.data());
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -154,14 +181,13 @@ int main()
 		processInput(window);
 
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glm::mat4 model;
 		glm::mat4 view = camera.GetViewMatrix();
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 
 		//先画地面
-		glStencilMask(0x00);
 		CubeShader.use();
 		glBindVertexArray(planeVAO);
 		glBindTexture(GL_TEXTURE_2D, planeTexture);
@@ -174,8 +200,6 @@ int main()
 		//第一个参数：设置模板缓冲的函数，GL_NEVER、GL_LESS、GL_LEQUAL、GL_GREATER、GL_GEQUAL、GL_EQUAL、GL_NOTEQUAL和GL_ALWAYS
 		//第二个参数：设置了模板测试的参考值(Reference Value)。模板缓冲的内容将会与这个值进行比较。
 		//第三个参数：设置一个掩码，它将会与参考值和储存的模板值在测试比较它们之前进行与(AND)运算。初始情况下所有位都为1。
-		glStencilFunc(GL_ALWAYS, 1, 0xFF);
-		glStencilMask(0xFF);
 		CubeShader.use();
 		glBindVertexArray(cubeVAO);
 		glActiveTexture(GL_TEXTURE0);
@@ -192,28 +216,21 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(CubeShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//画一个大的Cube，用模板检测来描边
-		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-		glStencilMask(0x00);
-		glDisable(GL_DEPTH_TEST);
-		float scale = 1.1;
-		LineShader.use();
-		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
-		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(-1.0f, 0.0f, -1.0f));
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		model = glm::mat4();
-		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(scale, scale, scale));
-		glUniformMatrix4fv(glGetUniformLocation(LineShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		//需要设置可以写入，不然不能清除缓存
-		glStencilMask(0xFF);
-		glEnable(GL_DEPTH_TEST);
-
+		//画草
+		GrassShader.use();
+		glBindVertexArray(grassVAO);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, grassTexture);
+		glUniform1i(glGetUniformLocation(GrassShader.ID, "textureImg"), 1);
+		glUniformMatrix4fv(glGetUniformLocation(CubeShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(CubeShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		for (GLuint i = 0; i < vegetation.size(); i++)
+		{
+			model = glm::mat4();
+			model = glm::translate(model, vegetation[i]);
+			glUniformMatrix4fv(glGetUniformLocation(CubeShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
+			glDrawArrays(GL_TRIANGLES, 0, 6);
+		}
 
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);

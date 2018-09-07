@@ -7,9 +7,7 @@
 
 #include <my/BuildWindow.h>
 #include <my/MyShader.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include <img/stb_image.h>
+#include <my/Tool.h>
 
 void processInputTexture(GLFWwindow* window, float* mixNum)
 {
@@ -28,54 +26,12 @@ int main()
 	GLFWwindow* window = createOpenGLWindow();
 	//定义纹理类型
 	unsigned int texture_1, texture_2;
-	glGenTextures(1, &texture_1);
-
-	//写入数据
-	glBindTexture(GL_TEXTURE_2D, texture_1);
-	//设置纹理环绕方式
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	//设置纹理过滤方式
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	int width, height, colorChannelNum;
 	std::string imgPath;
 	imgPath = "./img/container.jpg";
-	unsigned char *data;
-	data = stbi_load(imgPath.data(), &width, &height, &colorChannelNum, 0);
-	if (data)
-	{
-		//写入纹理数据
-		//第一个参数：指向纹理目标，设置为GL_TEXTURE_2D意味着会生成与当前绑定的纹理对象在同一个目标上的纹理
-		//第二个参数：指定多级渐远纹理（MipMap）的级别
-		//第三个参数：纹理的存储格式
-		//第四、五个参数：纹理的长和宽
-		//第六个参数：总是被设置为0，历史遗留问题
-		//第七、八个参数：源图的格式和数据类型
-		//第九个参数：真正的图像数据
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-	}
-	//生成以后记得释放
-	stbi_image_free(data);
+	texture_1 = loadTexture(imgPath.data());
 
-
-	glGenTextures(1, &texture_2);
-	//写入数据
-	glBindTexture(GL_TEXTURE_2D, texture_2);
-	//设置纹理环绕方式
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	//设置纹理过滤方式
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	imgPath = "./img/awesomeface.png";
-	data = stbi_load(imgPath.data(), &width, &height, &colorChannelNum, 0);
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-	}
-	//生成以后记得释放
-	stbi_image_free(data);
+	texture_2 = loadTexture(imgPath.data());
 
 	float vertices[] = {
 		//     ---- 位置 ----       ---- 颜色 ----     - 纹理坐标 -
