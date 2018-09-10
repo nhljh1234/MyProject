@@ -11,7 +11,6 @@ outModule.getCodeStr = () => {
         
         uniform vec3 skyColor;
         uniform vec3 cloudColor;
-        uniform vec2 resolution;
         uniform float cloudSize;
         uniform float time;
 
@@ -32,16 +31,17 @@ outModule.getCodeStr = () => {
             // 柏林噪声
             float total = 0.0;
             vec2 pos = v_texCoord * cloudSize;
-            pos.x = (resolution.x / resolution.y - 1.0) / 2.0;
             total += noise(pos * 1.0 + vec2(time * 2.0, 0.0));
             total += noise(pos * 2.0 + vec2(0.0, time * 3.0)) * 0.5;
             total += noise(pos * 4.0 + vec2(time * 4.0, 0.0)) * 0.25;
             total += noise(pos * 8.0 + vec2(0.0, time * 5.0)) * 0.125;
-            vec3 color = mix(skyColor, cloudColor, total);
+            //vec3 color = mix(skyColor, cloudColor, total);
+            vec3 color = mix(skyColor, cloudColor, 1.0 - total);
          
             // 越边缘越透明
-            vec2 alpha = 1.0 - abs(v_texCoord - vec2(0.5)) * 2.0;
-            gl_FragColor = vec4(color, alpha.x * alpha.y);
+            //vec2 alpha = 1.0 - abs(v_texCoord - vec2(0.5)) * 2.0;
+            //gl_FragColor = vec4(color, alpha.x * alpha.y);
+            gl_FragColor = vec4(color, 1.0 - total);
         }        
     `;
 };
