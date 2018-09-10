@@ -102,6 +102,17 @@ int main()
 		5.0f, -0.5f, -5.0f,  2.0f, 2.0f
 	};
 
+	float quadVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+							 // positions   // texCoords
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		-1.0f, -1.0f,  0.0f, 0.0f,
+		1.0f, -1.0f,  1.0f, 0.0f,
+
+		-1.0f,  1.0f,  0.0f, 1.0f,
+		1.0f, -1.0f,  1.0f, 0.0f,
+		1.0f,  1.0f,  1.0f, 1.0f
+	};
+
 	unsigned int cubeVAO, cubeVBO;
 	glGenVertexArrays(1, &cubeVAO);
 	glBindVertexArray(cubeVAO);
@@ -126,6 +137,18 @@ int main()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
 	glBindVertexArray(0);
 
+	unsigned int quadVAO, quadVBO;
+	glGenVertexArrays(1, &quadVAO);
+	glBindVertexArray(quadVAO);
+	glGenBuffers(1, &quadVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+	glBindVertexArray(0); 
+
 	std::string imgPath;
 	imgPath = "./img/container.jpg";
 	unsigned int cubeTexture = loadTexture(imgPath.data());
@@ -140,9 +163,47 @@ int main()
 	fsPath = "./work/ShaderFile/FrameBuffer/Grass/fragment.fs";
 	MyShader GrassShader(vsPath.data(), fsPath.data());
 
+	vsPath = "./work/ShaderFile/FrameBuffer/Frame/vertex.vs";
+	fsPath = "./work/ShaderFile/FrameBuffer/Frame/fragment.fs";
+	MyShader FrameShader(vsPath.data(), fsPath.data());
+
 	unsigned int FBO;
 	glGenFramebuffers(1, &FBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+	/*
+		附加至少一个缓冲（颜色、深度或模板缓冲）。
+		至少有一个颜色附件(Attachment)。
+		所有的附件都必须是完整的（保留了内存）。
+		每个缓冲都应该有相同的样本数。
+	*/
+	//选择帧缓存的附件，是纹理或者渲染缓冲对象
+	//新建一个空的纹理
+	unsigned int nullTextureID = getNullTexture(SCR_WIDTH, SCR_HEIGHT);
+	//附加到帧缓存上
+	//第一个参数：
+	//第二个参数：我们想要附加的附件类型。当前我们正在附加一个颜色附件。注意最后的0意味着我们可以附加多个颜色附件
+	//第三个参数：希望附加的纹理类型
+	//第四个参数：
+	//第五个参数：多级渐远纹理的级别
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, nullTextureID, 0);
+	//附加深度缓冲纹理
+	//unsigned int nullDepthTextureID = getNullDepthTexture(SCR_WIDTH, SCR_HEIGHT);
+	//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, nullDepthTextureID, 0);
+	//渲染缓冲附件，这边用于深度缓冲
+	unsigned int RBO;
+	glGenRenderbuffers(1, &RBO);
+	glBindRenderbuffer(GL_RENDERBUFFER, RBO);
+	//创建一个深度和模板渲染缓冲对象
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, SCR_WIDTH, SCR_HEIGHT);
+	//附加到渲染缓冲对象中
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, RBO);
+	//检查帧缓冲是否完整
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
+	{
+		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
+		return 0;
+	}
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -151,6 +212,10 @@ int main()
 		lastFrame = currentFrame;
 
 		processInput(window);
+
+		//启动帧缓冲
+		glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+		glEnable(GL_DEPTH_TEST);
 
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -187,6 +252,21 @@ int main()
 		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(glGetUniformLocation(CubeShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+
+
+		//解除绑定
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glDisable(GL_DEPTH_TEST);
+		//清除屏幕
+		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		FrameShader.use();
+		glBindVertexArray(quadVAO);
+		glBindTexture(GL_TEXTURE_2D, nullTextureID);
+		glUniform1i(glGetUniformLocation(FrameShader.ID, "screenTexture"), 0);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 		glBindVertexArray(0);
 		glfwSwapBuffers(window);

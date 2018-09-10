@@ -49,16 +49,44 @@ unsigned int loadTexture(const char* path, GLint SWrap = GL_REPEAT, GLint TWrap 
 }
 
 //获取一个空的纹理数据
-unsigned int getNullTexture(int width, int height)
+unsigned int getNullTexture(int width, int height, int colorChannelNum = 3)
 {
 	unsigned int textureID;
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 600, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+	GLenum format;
+	if (colorChannelNum == 1)
+	{
+		format = GL_RED;
+	}
+	else if (colorChannelNum == 3)
+	{
+		format = GL_RGB;
+	}
+	else if (colorChannelNum == 4)
+	{
+		format = GL_RGBA;
+	}
+
+	//仅仅分配了内存而没有填充
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, NULL);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	return textureID;
+}
+
+//获取一个空的深度缓冲纹理数据
+unsigned int getNullDepthTexture(int width, int height)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	//仅仅分配了内存而没有填充
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
 
 	return textureID;
 }
