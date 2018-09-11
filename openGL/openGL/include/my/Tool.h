@@ -6,6 +6,11 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <img/stb_image.h>
 
+#include <string>
+#include <map>
+#include <vector>
+using namespace std;
+
 unsigned int loadTexture(const char* path, GLint SWrap = GL_REPEAT, GLint TWrap = GL_REPEAT)
 {
 	unsigned int textureID;
@@ -45,6 +50,53 @@ unsigned int loadTexture(const char* path, GLint SWrap = GL_REPEAT, GLint TWrap 
 	}
 	stbi_image_free(imageData);
 	glBindTexture(GL_TEXTURE0, textureID);
+	return textureID;
+}
+
+//获取立方体贴图
+unsigned int loadCubeMap(vector<string> imgPathVector)
+{
+	unsigned int textureID;
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, colorChannelNum;
+	unsigned char* imgData;
+	for (int i = 0; i < imgPathVector.size(); i++)
+	{
+		unsigned char*  imageData = stbi_load(imgPathVector[i].c_str(), &width, &height, &colorChannelNum, 0);
+		if (imageData)
+		{
+			GLenum format;
+			if (colorChannelNum == 1)
+			{
+				format = GL_RED;
+			}
+			else if (colorChannelNum == 3)
+			{
+				format = GL_RGB;
+			}
+			else if (colorChannelNum == 4)
+			{
+				format = GL_RGBA;
+			}
+
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, imageData);
+
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		}
+		else
+		{
+			std::cout << "Texture failed to load at path: " << imgPathVector[i] << std::endl;
+		}
+		stbi_image_free(imageData);
+	}
+
 	return textureID;
 }
 
