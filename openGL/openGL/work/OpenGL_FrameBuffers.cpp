@@ -167,6 +167,31 @@ int main()
 	fsPath = "./work/ShaderFile/FrameBuffer/Frame/fragment.fs";
 	MyShader FrameShader(vsPath.data(), fsPath.data());
 
+	//反向着色器
+	vsPath = "./work/ShaderFile/FrameBuffer/Inversion/vertex.vs";
+	fsPath = "./work/ShaderFile/FrameBuffer/Inversion/fragment.fs";
+	MyShader InversionShader(vsPath.data(), fsPath.data());
+
+	//灰度着色器
+	vsPath = "./work/ShaderFile/FrameBuffer/Grayscale/vertex.vs";
+	fsPath = "./work/ShaderFile/FrameBuffer/Grayscale/fragment.fs";
+	MyShader GrayscaleShader(vsPath.data(), fsPath.data());
+
+	//锐化着色器
+	vsPath = "./work/ShaderFile/FrameBuffer/Sharpen/vertex.vs";
+	fsPath = "./work/ShaderFile/FrameBuffer/Sharpen/fragment.fs";
+	MyShader SharpenShader(vsPath.data(), fsPath.data());
+
+	//模糊着色器
+	vsPath = "./work/ShaderFile/FrameBuffer/Blur/vertex.vs";
+	fsPath = "./work/ShaderFile/FrameBuffer/Blur/fragment.fs";
+	MyShader BlurShader(vsPath.data(), fsPath.data());
+
+	//边缘检测着色器
+	vsPath = "./work/ShaderFile/FrameBuffer/EdgeDetection/vertex.vs";
+	fsPath = "./work/ShaderFile/FrameBuffer/EdgeDetection/fragment.fs";
+	MyShader EdgeDetectionShader(vsPath.data(), fsPath.data());
+
 	unsigned int FBO;
 	glGenFramebuffers(1, &FBO);
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
@@ -262,7 +287,16 @@ int main()
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		FrameShader.use();
+		//反相着色器
+		//InversionShader.use();
+		//灰度着色器
+		//GrayscaleShader.use();
+		//锐化着色器
+		//SharpenShader.use();
+		//模糊着色器
+		BlurShader.use();
+		//边缘检测
+		//EdgeDetectionShader.use();
 		glBindVertexArray(quadVAO);
 		glBindTexture(GL_TEXTURE_2D, nullTextureID);
 		glUniform1i(glGetUniformLocation(FrameShader.ID, "screenTexture"), 0);
