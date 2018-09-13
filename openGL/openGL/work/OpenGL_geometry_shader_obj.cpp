@@ -45,9 +45,20 @@ int main()
 	//启动光标
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-	std::string vsPath = "./work/ShaderFile/OpenGLTest/DepthTest/vertex.vs";
-	std::string fsPath = "./work/ShaderFile/OpenGLTest/DepthTest/fragment.fs";
-	MyShader objShader(vsPath.data(), fsPath.data());
+	std::string vsPath = "./work/ShaderFile/GeometryShader/obj/vertex.vs";
+	std::string fsPath = "./work/ShaderFile/GeometryShader/obj/fragment.fs";
+	std::string gsPath = "./work/ShaderFile/GeometryShader/obj/geometry.gs";
+	MyShader objShader(vsPath.data(), fsPath.data(), gsPath.data());
+
+	vsPath = "./work/ShaderFile/GeometryShader/objExplode/vertex.vs";
+	fsPath = "./work/ShaderFile/GeometryShader/objExplode/fragment.fs";
+	gsPath = "./work/ShaderFile/GeometryShader/objExplode/geometry.gs";
+	MyShader objExplodeShader(vsPath.data(), fsPath.data(), gsPath.data());
+
+	vsPath = "./work/ShaderFile/GeometryShader/objNormal/vertex.vs";
+	fsPath = "./work/ShaderFile/GeometryShader/objNormal/fragment.fs";
+	gsPath = "./work/ShaderFile/GeometryShader/objNormal/geometry.gs";
+	MyShader objNormalShader(vsPath.data(), fsPath.data(), gsPath.data());
 
 	MyModel ourModel("./resources/nanosuit/nanosuit.obj");
 
@@ -64,19 +75,29 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		objShader.use();
-
 		// 摄像机视图
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
 		glUniformMatrix4fv(glGetUniformLocation(objShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(objShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
-
 		//模型视图
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
 		glUniformMatrix4fv(glGetUniformLocation(objShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1f(glGetUniformLocation(objShader.ID, "time"), glfwGetTime());
 		ourModel.Draw(objShader);
+
+		objNormalShader.use();
+		// 摄像机视图
+		glUniformMatrix4fv(glGetUniformLocation(objNormalShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		glUniformMatrix4fv(glGetUniformLocation(objNormalShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		//模型视图
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));
+		glUniformMatrix4fv(glGetUniformLocation(objNormalShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		ourModel.Draw(objNormalShader);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();

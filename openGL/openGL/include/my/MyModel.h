@@ -26,6 +26,8 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 
 class MyModel {
 public:
+	//网格集合
+	vector<MyMesh> meshses;
 	//构造函数
 	MyModel(string modelPath)
 	{
@@ -42,8 +44,6 @@ public:
 		}
 	}
 private:
-	//网格集合
-	vector<MyMesh> meshses;
 	string directory;
 	vector<Texture> textures_loaded;
 	//加载模型
