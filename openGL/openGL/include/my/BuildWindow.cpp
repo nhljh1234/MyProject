@@ -9,7 +9,7 @@ void changeWindowSizeCallBack(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-GLFWwindow* createOpenGLWindow()
+GLFWwindow* createOpenGLWindow(bool useAntiAliasing, int samplesNum)
 {
 	//初始化GLFW
 	glfwInit();
@@ -20,6 +20,11 @@ GLFWwindow* createOpenGLWindow()
 	//设置编程模式为核心模式
 	//介绍：https://learnopengl-cn.github.io/01%20Getting%20started/01%20OpenGL/
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	if (useAntiAliasing)
+	{
+		glfwWindowHint(GLFW_SAMPLES, samplesNum);
+	}
 
 	//创建窗口
 	GLFWwindow *window = glfwCreateWindow(800, 600, "build_window", NULL, NULL);

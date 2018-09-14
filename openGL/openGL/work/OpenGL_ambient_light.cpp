@@ -66,10 +66,12 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 
 int main()
 {
-	GLFWwindow* window = createOpenGLWindow();
+	GLFWwindow* window = createOpenGLWindow(true, 4);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
 	glEnable(GL_DEPTH_TEST);
+	//启动多重采样
+	glEnable(GL_MULTISAMPLE);
 	//启动光标
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	

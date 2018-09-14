@@ -27,7 +27,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 class MyModel {
 public:
 	//网格集合
-	vector<MyMesh> meshses;
+	vector<MyMesh> meshes;
 	//构造函数
 	MyModel(string modelPath)
 	{
@@ -38,9 +38,9 @@ public:
 	{
 		//对每个网格进行绘制
 		unsigned int i;
-		for (i = 0; i < meshses.size(); i++)
+		for (i = 0; i < meshes.size(); i++)
 		{
-			meshses[i].Draw(shader);
+			meshes[i].Draw(shader);
 		}
 	}
 private:
@@ -78,7 +78,7 @@ private:
 		for (i = 0; i < node->mNumMeshes; i++)
 		{
 			aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-			meshses.push_back(processMesh(mesh, scene));
+			meshes.push_back(processMesh(mesh, scene));
 		}
 		//递归子节点
 		for (i = 0; i < node->mNumChildren; i++)

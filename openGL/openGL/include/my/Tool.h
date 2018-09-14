@@ -130,6 +130,33 @@ unsigned int getNullTexture(int width, int height, int colorChannelNum = 3)
 	return textureID;
 }
 
+//获取一个空的多重采样纹理数据
+unsigned int getNullMultiSampledTexture(int width, int height, int colorChannelNum = 3, int samples = 4)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, textureID);
+
+	GLenum format;
+	if (colorChannelNum == 1)
+	{
+		format = GL_RED;
+	}
+	else if (colorChannelNum == 3)
+	{
+		format = GL_RGB;
+	}
+	else if (colorChannelNum == 4)
+	{
+		format = GL_RGBA;
+	}
+
+	//仅仅分配了内存而没有填充
+	glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, colorChannelNum, width, height, GL_TRUE);
+
+	return textureID;
+}
+
 //获取一个空的深度缓冲纹理数据
 unsigned int getNullDepthTexture(int width, int height)
 {

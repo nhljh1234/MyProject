@@ -118,20 +118,43 @@ int main()
 		glUniformMatrix4fv(glGetUniformLocation(rockShder.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(glGetUniformLocation(rockShder.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
 		//模型视图
-		for (unsigned int i = 0; i < amount; i++)
+		for (unsigned int i = 0; i < rockModel.meshes.size(); i++)
 		{
-			model = modelMatrices[i];
-			std::stringstream stream;
-			stream << i;
-			std::string index = stream.str();
-			glUniformMatrix4fv(glGetUniformLocation(rockShder.ID, ("model[" + index + "]").c_str()), 1,
-				GL_FALSE, glm::value_ptr(model));
+			unsigned int buffer;
+			glGenBuffers(1, &buffer);
+			glBindBuffer(GL_ARRAY_BUFFER, buffer);
+			glBufferData(GL_ARRAY_BUFFER, amount * sizeof(glm::mat4), &modelMatrices[0], GL_STATIC_DRAW);
+
+			for (unsigned int i = 0; i < rockModel.meshes.size(); i++)
+			{
+				unsigned int VAO = rockModel.meshes[i].VAO;
+				glBindVertexArray(VAO);
+				// 顶点属性
+				GLsizei vec4Size = sizeof(glm::vec4);
+				glEnableVertexAttribArray(3);
+				glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)0);
+				glEnableVertexAttribArray(4);
+				glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(vec4Size));
+				glEnableVertexAttribArray(5);
+				glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(2 * vec4Size));
+				glEnableVertexAttribArray(6);
+				glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, 4 * vec4Size, (void*)(3 * vec4Size));
+
+				//glVertexAttribDivisor(GLuint index, GLuint divisor)函数可以把序数为index的属性指定为instance属性
+				//每隔divisor个instance，vertex shader中注进buffer一个新的属性值
+				glVertexAttribDivisor(3, 1);
+				glVertexAttribDivisor(4, 1);
+				glVertexAttribDivisor(5, 1);
+				glVertexAttribDivisor(6, 1);
+
+				glBindVertexArray(0);
+			}
 		}
-		for (unsigned int i = 0; i < rockModel.meshses.size(); i++)
+		for (unsigned int i = 0; i < rockModel.meshes.size(); i++)
 		{
-			MyMesh mesh = rockModel.meshses[i];
+			MyMesh mesh = rockModel.meshes[i];
 			glBindVertexArray(mesh.VAO);
-			//glDrawElementsInstanced(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0, amount);
+			glDrawElementsInstanced(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0, amount);
 		}
 
 		glfwSwapBuffers(window);
