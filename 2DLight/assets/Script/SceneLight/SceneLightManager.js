@@ -10,6 +10,8 @@ local.shadowArr = [];
 local.GroundNodeShader;
 local.GroundShaderMinNum;
 local.GroundNode;
+local.GroundMinColorNum;
+outModule.GroundMinColorNum;
 
 local.buildVec3Data = (x, y, z) => {
     return { x: x, y: y, z: z }
@@ -23,10 +25,16 @@ outModule.getLightDataArr = () => {
     return local.lightDataArr;
 };
 
-outModule.setBgNode = (shader, node, minNum) => {
+outModule.changeGroundMinColorNum = (minNum) => {
+    local.GroundMinColorNum = minNum;
+};
+
+outModule.setBgNode = (shader, node, minNum, minColorNum) => {
     local.GroundNodeShader = shader;
     local.GroundShaderMinNum = minNum;
     local.GroundNode = node;
+    local.GroundMinColorNum = minColorNum;
+    outModule.GroundMinColorNum = minColorNum;
 };
 
 outModule.addShadow = (node, data) => {
@@ -37,12 +45,15 @@ outModule.addShadow = (node, data) => {
 };
 
 //设置点光源的方向
-outModule.addLight = (x, y, z, lightColor, lightWidth, node) => {
+outModule.addLight = (x, y, z, lightColor, lightWidth, node, diffNum) => {
     local.lightDataArr.push({
         pos: local.buildVec3Data(x, y, z),
         color: lightColor,
         lightWidth: lightWidth,
-        node: node
+        lightWidthSave: lightWidth,
+        node: node,
+        diffNum: diffNum,
+        diffNumSave: diffNum,
     });
 };
 
@@ -75,6 +86,7 @@ outModule.drawLight = () => {
             shaderData.shader.setUniformLocationWith3f("lightColor_" + (i + 1),
                 lightData.color.r / 255, lightData.color.g / 255, lightData.color.b / 255);
             shaderData.shader.setUniformLocationWith1f("lightWidth_" + (i + 1), lightData.lightWidth);
+            shaderData.shader.setUniformLocationWith1f("lightDiffNum_" + (i + 1), lightData.diffNum);
             lightCount++;
         }
         shaderData.shader.setUniformLocationWith1i("lightNum", lightCount);
@@ -153,6 +165,7 @@ outModule.drawLight = () => {
     local.GroundNodeShader.setUniformLocationWith1i("lightNum", lightCount);
     //local.GroundNodeShader.setUniformLocationWith1i("type", 2);
     local.GroundNodeShader.setUniformLocationWith1f("minNum", local.GroundShaderMinNum);
+    local.GroundNodeShader.setUniformLocationWith1f("minColorNum", local.GroundMinColorNum);
     local.GroundNodeShader.setUniformLocationWith2f("ResolutionSize",
         local.GroundNode.width, local.GroundNode.height);
     local.GroundNodeShader.useInNode(local.GroundNode.getComponent(cc.Sprite));

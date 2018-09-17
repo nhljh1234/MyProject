@@ -6,11 +6,14 @@ cc.Class({
     properties: {
         //最暗的亮度
         minLightNum: 0.1,
+        //地面颜色系数
+        minColorNum: 1,
     },
 
     // use this for initialization
     onLoad: function () {
-        SceneLightManager.setBgNode(Shader.getShaderByName("NormalShader"), this.node, this.minLightNum);
+        this.minLightNum = 0.2;
+        SceneLightManager.setBgNode(Shader.getShaderByName("GroundShader"), this.node, this.minLightNum, this.minColorNum);
     },
 
     // called every frame
@@ -18,4 +21,3 @@ cc.Class({
 
     },
 });
-

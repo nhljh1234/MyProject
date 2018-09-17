@@ -14,7 +14,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this.minLightNum = 0.2;
+        this.minLightNum = 0;
         SceneLightManager.setLightNodeShader(Shader.getShaderByName("NormalShader"), this.node, this.minLightNum);
         this.node.active = false;
 
