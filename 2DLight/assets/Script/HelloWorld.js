@@ -55,7 +55,7 @@ cc.Class({
         }
 
         window.global = {z : 1 * this._testNum + 10};
-        lightData.diffNum = lightData.diffNumSave * this._testNum;
+        lightData.diffNum = lightData.diffNumSave * this._testNum * 3;
         SceneLightManager.changeGroundMinColorNum(SceneLightManager.GroundMinColorNum * this._testNum);
         //lightData.lightWidth = lightData.lightWidthSave * this._testNum;
         SceneLightManager.drawLight();
