@@ -3,7 +3,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        worldNode: {
+            default: null,
+            type: cc.Node
+        }
     },
 
     // use this for initialization
@@ -11,7 +14,7 @@ cc.Class({
         let data = {};
         data.scaleX = this.node.scaleX;
         data.height = this.node.height;
-        SceneLightManager.addShadow(this.node, data);
+        SceneLightManager.addShadow(this.node, data, this.worldNode);
     },
 
     // called every frame

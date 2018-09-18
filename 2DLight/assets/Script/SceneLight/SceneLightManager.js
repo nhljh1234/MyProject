@@ -48,10 +48,11 @@ outModule.setTotalNode = (shader, node, minNum) => {
     local.TotalNode = node;
 };
 
-outModule.addShadow = (node, data) => {
+outModule.addShadow = (node, data, worldNode) => {
     local.shadowArr.push({
         node: node,
-        data: data
+        data: data,
+        worldNode: worldNode
     });
 };
 
@@ -69,11 +70,12 @@ outModule.addLight = (x, y, z, lightColor, lightWidth, node, diffNum) => {
 };
 
 //加入一个需要光照渲染的结点上绑定的shader
-outModule.setLightNodeShader = (shader, node, minNum) => {
+outModule.setLightNodeShader = (shader, node, minNum, useShadowJudge) => {
     local.lightShaderArr.push({
         shader: shader,
         node: node,
-        minNum: minNum
+        minNum: minNum,
+        useShadowJudge: useShadowJudge
     });
     node.active = false;
 };
@@ -101,7 +103,7 @@ outModule.drawLight = () => {
             lightCount++;
         }
         shaderData.shader.setUniformLocationWith1i("lightNum", lightCount);
-        shaderData.shader.setUniformLocationWith1i("type", 1);
+        shaderData.shader.setUniformLocationWith1i("useShadowJudge", shaderData.useShadowJudge);
         shaderData.shader.setUniformLocationWith1f("minNum", shaderData.minNum);
         shaderData.shader.setUniformLocationWith2f("ResolutionSize",
             shaderData.node.width, shaderData.node.height);
@@ -116,9 +118,10 @@ outModule.drawLight = () => {
     local.shadowArr.forEach((oneData) => {
         let node = oneData.node;
         let data = oneData.data;
-        let centerX, centerY;
-        centerX = node.x + node.parent.x;
-        centerY = node.y + node.parent.y + data.height / 2;
+        let centerX, centerY, worldPos;
+        worldPos = node.convertToWorldSpace(cc.v2(node.x, node.y));
+        centerX = worldPos.x + oneData.worldNode.x;
+        centerY = worldPos.y + oneData.worldNode.y;
         //计算角度
         let dis = Math.sqrt((lightData.pos.x - centerX) * (lightData.pos.x - centerX) +
             (lightData.pos.y - centerY) * (lightData.pos.y - centerY));
@@ -175,7 +178,6 @@ outModule.drawLight = () => {
             local.GroundNodeShader.setUniformLocationWith1f("lightWidth_" + (i + 1), lightData.lightWidth);
         }
         local.GroundNodeShader.setUniformLocationWith1i("lightNum", lightCount);
-        //local.GroundNodeShader.setUniformLocationWith1i("type", 2);
         local.GroundNodeShader.setUniformLocationWith1f("minNum", local.GroundShaderMinNum);
         local.GroundNodeShader.setUniformLocationWith1f("minColorNum", local.GroundMinColorNum);
         local.GroundNodeShader.setUniformLocationWith2f("ResolutionSize",

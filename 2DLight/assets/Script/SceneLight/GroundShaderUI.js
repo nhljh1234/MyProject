@@ -8,11 +8,17 @@ cc.Class({
         minLightNum: 0.1,
         //地面颜色系数
         minColorNum: 1,
+        //是否启动遮挡检测
+        useShadowJudge: 0,
     },
 
     // use this for initialization
     onLoad: function () {
-        SceneLightManager.setBgNode(Shader.getShaderByName("GroundShader"), this.node, this.minLightNum, this.minColorNum);
+        if (this.useShadowJudge) {
+            SceneLightManager.setBgNode(Shader.getShaderByName("GroundShadowShader"), this.node, this.minLightNum, this.minColorNum);
+        } else {
+            SceneLightManager.setBgNode(Shader.getShaderByName("GroundShader"), this.node, this.minLightNum, this.minColorNum);
+        }
     },
 
     // called every frame

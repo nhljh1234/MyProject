@@ -22,7 +22,6 @@ outModule.getCodeStr = () => {
         uniform float lightWidth_3;
 
         uniform int lightNum;
-        uniform int type;
 
         uniform float minNum;
         uniform float minColorNum;

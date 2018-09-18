@@ -492,15 +492,16 @@
     "_atlas": null
   },
   {
-    "__type__": "e4d7aRuGGJLb44QFxQxWWm1",
+    "__type__": "9aa02zOuH1DsrnPIE7d3W4e",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 6
     },
     "_enabled": true,
-    "minLightNum": 0.2,
-    "minColorNum": 1
+    "minLightNum": 0.1,
+    "minColorNum": 1,
+    "useShadowJudge": 0
   },
   {
     "__type__": "cc.Node",
@@ -7930,14 +7931,14 @@
     "_atlas": null
   },
   {
-    "__type__": "27f61fIFRhDXpoayVBw57lg",
+    "__type__": "e176aLbENtEbLa5VMQVg7Dt",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 215
     },
     "_enabled": true,
-    "minLightNum": 0
+    "minLightNum": 0.1
   },
   {
     "__type__": "cc.Node",
@@ -8021,14 +8022,15 @@
     "_atlas": null
   },
   {
-    "__type__": "abed3CeBR9KsKhlyAxTdT74",
+    "__type__": "d2977gJQ5ZP7pmGQmJzKwZW",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 218
     },
     "_enabled": true,
-    "minLightNum": 0.1
+    "minLightNum": 0.1,
+    "useShadowJudge": 0
   },
   {
     "__type__": "cc.Node",

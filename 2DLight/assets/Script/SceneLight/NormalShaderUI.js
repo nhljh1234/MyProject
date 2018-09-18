@@ -5,12 +5,14 @@ cc.Class({
 
     properties: {
         //超出光照范围时显示的比例
-        minLightNum: 0.5
+        minLightNum: 0.5,
+        //是否启动遮挡检测
+        useShadowJudge: 0,
     },
 
     // use this for initialization
     onLoad: function () {
-        SceneLightManager.setLightNodeShader(Shader.getShaderByName("NormalShader"), this.node, this.minLightNum);
+        SceneLightManager.setLightNodeShader(Shader.getShaderByName("NormalShader"), this.node, this.minLightNum, this.useShadowJudge);
         this.node.active = false;
     },
 
