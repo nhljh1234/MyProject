@@ -25,7 +25,6 @@ outModule.getCodeStr = () => {
         uniform int type;
 
         uniform float minNum;
-        uniform float minColorNum;
 
         uniform vec2 ResolutionSize;
 
@@ -61,21 +60,26 @@ outModule.getCodeStr = () => {
             float dis = length(lightPos - vec3(x, y, 0.0));
             dis = abs(dis);
 
-            float minNumResult = minNum;
-            //过渡距离
-            float disNum = 100.0;
+
+            vec4 color = texture2D(CC_Texture0, v_texCoord);
+
             if (lightWidth < dis) 
             {
-                return vec4(0.0, 0.0, 0.0, 1.0);
-                //minNumResult = (1.0 - (dis + disNum - lightWidth) / disNum) * minNum;
-            }
-            else if (lightWidth < dis + disNum) 
-            {
-                minNumResult = (1.0 - (dis + disNum - lightWidth) / disNum) * minNum;
+                if (color.a < 0.1)
+                {
+                    return color;
+                }
+                else
+                {
+                    return vec4(color.rgb, minNum);
+                }
             }
 
-            float radio = 1.0 - (dis / lightWidth);
-            return vec4(lightColor * radio * 0.2 * minColorNum * (minNumResult + (1.0 - minNum)), 1.0 - minNumResult);
+            if (color.a < 0.1)
+            {
+                return color;
+            }
+            return vec4(color.rgb, 1.0);
         }
 
         void main()
@@ -95,7 +99,15 @@ outModule.getCodeStr = () => {
                 gl_FragColor = getResultColor(1) + getResultColor(2) + getResultColor(3);
                 return;
             }
-            gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0 - minNum);
+            vec4 color = texture2D(CC_Texture0, v_texCoord);
+            if (color.a < 0.1)
+            {
+                gl_FragColor = color;
+            }
+            else
+            {
+                gl_FragColor = vec4(color.rgb, minNum);
+            }
         }
     `;
 };

@@ -13,6 +13,11 @@ local.GroundNode;
 local.GroundMinColorNum;
 outModule.GroundMinColorNum;
 
+//所有物体渲染出来的一张图
+local.TotalNodeShader;
+local.TotalShaderMinNum;
+local.TotalNode;
+
 local.buildVec3Data = (x, y, z) => {
     return { x: x, y: y, z: z }
 };
@@ -35,6 +40,12 @@ outModule.setBgNode = (shader, node, minNum, minColorNum) => {
     local.GroundNode = node;
     local.GroundMinColorNum = minColorNum;
     outModule.GroundMinColorNum = minColorNum;
+};
+
+outModule.setTotalNode = (shader, node, minNum) => {
+    local.TotalNodeShader = shader;
+    local.TotalShaderMinNum = minNum;
+    local.TotalNode = node;
 };
 
 outModule.addShadow = (node, data) => {
@@ -95,7 +106,7 @@ outModule.drawLight = () => {
         shaderData.shader.setUniformLocationWith2f("ResolutionSize",
             shaderData.node.width, shaderData.node.height);
         shaderData.shader.setUniformLocationWith2f("ResolutionPos",
-            shaderData.node.parent.x, shaderData.node.parent.y);
+            shaderData.node.x, shaderData.node.y);
         shaderData.shader.useInNode(shaderData.node.getComponent(cc.Sprite));
     });
 
@@ -149,26 +160,51 @@ outModule.drawLight = () => {
     });
 
     //地表
-    local.GroundNodeShader.use();
-    local.GroundNodeShader.clear();
-    for (let i = 0; i < 3 && i < local.lightDataArr.length; i++) {
-        let lightData = local.lightDataArr[i];
-        let zNum = window.global ? (window.global.z / 10) : lightData.pos.z;
-        //shaderData.shader.setUniformLocationWith3f("lightPos_" + (i + 1),
-        //    lightData.pos.x, lightData.pos.y, lightData.pos.z);
-        local.GroundNodeShader.setUniformLocationWith3f("lightPos_" + (i + 1),
-            lightData.pos.x, lightData.pos.y, zNum);
-        local.GroundNodeShader.setUniformLocationWith3f("lightColor_" + (i + 1),
-            lightData.color.r / 255, lightData.color.g / 255, lightData.color.b / 255);
-        local.GroundNodeShader.setUniformLocationWith1f("lightWidth_" + (i + 1), lightData.lightWidth);
+    if (local.GroundNodeShader) {
+        local.GroundNodeShader.use();
+        local.GroundNodeShader.clear();
+        for (let i = 0; i < 3 && i < local.lightDataArr.length; i++) {
+            let lightData = local.lightDataArr[i];
+            let zNum = window.global ? (window.global.z / 10) : lightData.pos.z;
+            //shaderData.shader.setUniformLocationWith3f("lightPos_" + (i + 1),
+            //    lightData.pos.x, lightData.pos.y, lightData.pos.z);
+            local.GroundNodeShader.setUniformLocationWith3f("lightPos_" + (i + 1),
+                lightData.pos.x, lightData.pos.y, zNum);
+            local.GroundNodeShader.setUniformLocationWith3f("lightColor_" + (i + 1),
+                lightData.color.r / 255, lightData.color.g / 255, lightData.color.b / 255);
+            local.GroundNodeShader.setUniformLocationWith1f("lightWidth_" + (i + 1), lightData.lightWidth);
+        }
+        local.GroundNodeShader.setUniformLocationWith1i("lightNum", lightCount);
+        //local.GroundNodeShader.setUniformLocationWith1i("type", 2);
+        local.GroundNodeShader.setUniformLocationWith1f("minNum", local.GroundShaderMinNum);
+        local.GroundNodeShader.setUniformLocationWith1f("minColorNum", local.GroundMinColorNum);
+        local.GroundNodeShader.setUniformLocationWith2f("ResolutionSize",
+            local.GroundNode.width, local.GroundNode.height);
+        local.GroundNodeShader.useInNode(local.GroundNode.getComponent(cc.Sprite));
     }
-    local.GroundNodeShader.setUniformLocationWith1i("lightNum", lightCount);
-    //local.GroundNodeShader.setUniformLocationWith1i("type", 2);
-    local.GroundNodeShader.setUniformLocationWith1f("minNum", local.GroundShaderMinNum);
-    local.GroundNodeShader.setUniformLocationWith1f("minColorNum", local.GroundMinColorNum);
-    local.GroundNodeShader.setUniformLocationWith2f("ResolutionSize",
-        local.GroundNode.width, local.GroundNode.height);
-    local.GroundNodeShader.useInNode(local.GroundNode.getComponent(cc.Sprite));
+
+    //所有物体
+    if (local.TotalNodeShader) {
+        local.TotalNodeShader.use();
+        local.TotalNodeShader.clear();
+        for (let i = 0; i < 3 && i < local.lightDataArr.length; i++) {
+            let lightData = local.lightDataArr[i];
+            let zNum = window.global ? (window.global.z / 10) : lightData.pos.z;
+            //shaderData.shader.setUniformLocationWith3f("lightPos_" + (i + 1),
+            //    lightData.pos.x, lightData.pos.y, lightData.pos.z);
+            local.TotalNodeShader.setUniformLocationWith3f("lightPos_" + (i + 1),
+                lightData.pos.x, lightData.pos.y, zNum);
+            local.TotalNodeShader.setUniformLocationWith3f("lightColor_" + (i + 1),
+                lightData.color.r / 255, lightData.color.g / 255, lightData.color.b / 255);
+            local.TotalNodeShader.setUniformLocationWith1f("lightWidth_" + (i + 1), lightData.lightWidth);
+        }
+        local.TotalNodeShader.setUniformLocationWith1i("lightNum", lightCount);
+        //local.GroundNodeShader.setUniformLocationWith1i("type", 2);
+        local.TotalNodeShader.setUniformLocationWith1f("minNum", local.TotalShaderMinNum);
+        local.TotalNodeShader.setUniformLocationWith2f("ResolutionSize",
+            local.GroundNode.width, local.TotalNode.height);
+        local.TotalNodeShader.useInNode(local.TotalNode.getComponent(cc.Sprite));
+    }
 };
 
 module.exports = outModule;

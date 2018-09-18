@@ -65,8 +65,8 @@ outModule.getCodeStr = () => {
             }
 
             float x, y;
-            x = ResolutionPos.x - (v_texCoord.x - 0.5) * ResolutionSize.x;
-            y = ResolutionPos.y - (v_texCoord.y - 0.5) * ResolutionSize.y;
+            x = (v_texCoord.x - 0.5) * ResolutionSize.x;
+            y = -1.0 * (v_texCoord.y - 0.5) * ResolutionSize.y;
 
             vec3 diffuseLight;
             float dis = length(lightPos - vec3(x, y, 0.0));

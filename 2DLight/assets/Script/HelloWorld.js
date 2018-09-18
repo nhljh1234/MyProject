@@ -23,14 +23,14 @@ cc.Class({
         }.bind(this));
         this.node.getChildByName('button_add').on('click', function () {
             window.global.z++;
-            SceneLightManager.drawLight();
+            //SceneLightManager.drawLight();
         });
         this.node.getChildByName('button_reduce').on('click', function () {
             window.global.z--;
             if (window.global.z < 10) {
                 window.global.z = 10;
             }
-            SceneLightManager.drawLight();
+            //SceneLightManager.drawLight();
         });
 
         this._testNum = 1;
@@ -48,9 +48,9 @@ cc.Class({
 
     
         this._testNum = this._testNum - 0.01 * this._dir;
-        if (this._testNum < 0.5) {
+        if (this._testNum < 1) {
             this._dir = -1;
-        } else if (this._testNum > 1) {
+        } else if (this._testNum > 1.5) {
             this._dir = 1;
         }
 
