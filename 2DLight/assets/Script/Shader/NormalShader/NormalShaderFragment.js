@@ -33,6 +33,8 @@ outModule.getCodeStr = () => {
 
         uniform int useShadowJudge;
 
+        uniform sampler2D texture;
+
         int judgeIsShadow(float x, float y)
         {
             if(texture2D(CC_Texture0, vec2(x, y)).a > 0.1)
@@ -187,7 +189,7 @@ outModule.getCodeStr = () => {
             //将法线贴图里的rgb数据转换成真正的法线数据，并归一化
             vec3 normal = normalize(NormalMap * 2.0 - 1.0);
             float diff = max(dot(normal, lightDir), 0.0) * lightDiffNum;
-            diffuseLight = diff * lightColor * F;
+            diffuseLight = diff * lightColor * F * vec3(texture2D(texture, v_texCoord).rgb);
             if (diff == 0.0 && texture2D(CC_Texture0, v_texCoord).a > 0.1) 
             {
                 return vec4(0.0, 0.0, 0.0, 1.0 - minNum);

@@ -70,12 +70,13 @@ outModule.addLight = (x, y, z, lightColor, lightWidth, node, diffNum) => {
 };
 
 //加入一个需要光照渲染的结点上绑定的shader
-outModule.setLightNodeShader = (shader, node, minNum, useShadowJudge) => {
+outModule.setLightNodeShader = (shader, node, minNum, useShadowJudge, spriteFrame) => {
     local.lightShaderArr.push({
         shader: shader,
         node: node,
         minNum: minNum,
-        useShadowJudge: useShadowJudge
+        useShadowJudge: useShadowJudge,
+        spriteFrame: spriteFrame
     });
     node.active = false;
 };
@@ -109,6 +110,12 @@ outModule.drawLight = () => {
             shaderData.node.width, shaderData.node.height);
         shaderData.shader.setUniformLocationWith2f("ResolutionPos",
             shaderData.node.x, shaderData.node.y);
+        if (!cc.sys.isNative) {
+            cc.gl.bindTexture2DN(1, shaderData.spriteFrame.getTexture());
+        } else {
+
+        }
+        shaderData.shader.setUniformLocationWith1i("texture", 1);
         shaderData.shader.useInNode(shaderData.node.getComponent(cc.Sprite));
     });
 
