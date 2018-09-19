@@ -181,7 +181,7 @@ outModule.getCodeStr = () => {
 
             vec3 lightDir = normalize(vec3(lightPos - vec3(x, y, 0.0)));
             //float F = 1.0;
-            float F = 1.0 / (1.0 + dis * 0.0009 + dis  * dis * 0.00001);
+            float F = 1.0 / (1.0 + dis * 0.0009 + dis  * dis * 0.0005);
             //2.得到法线贴图的法线数据
             vec3 NormalMap = texture2D(CC_Texture0, v_texCoord).rgb;
             //将法线贴图里的rgb数据转换成真正的法线数据，并归一化

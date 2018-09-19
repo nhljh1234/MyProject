@@ -165,7 +165,7 @@ cc.Class({
         let lightDataArr = SceneLightManager.getLightDataArr();
         if (lightDataArr[0]) {
             lightDataArr[0].pos.x = pos.x - this.node.width / 2 + this._player.width * this._player.scaleX / 2;
-            lightDataArr[0].pos.y = pos.y - this.node.height / 2 + 38;
+            lightDataArr[0].pos.y = pos.y - this.node.height / 2 + this._player.height * this._player.scaleY / 2;
             //lightDataArr[0].pos.x = pos.x - this.node.width / 2;
             //lightDataArr[0].pos.y = pos.y - this.node.height / 2
         }

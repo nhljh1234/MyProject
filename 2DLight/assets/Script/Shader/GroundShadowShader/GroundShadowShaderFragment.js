@@ -155,25 +155,25 @@ outModule.getCodeStr = () => {
 
             float minNumResult = minNum;
             //过渡距离
-            float disNum = 100.0;
+            float disNum = 0.5 * lightWidth;
             if (lightWidth < dis) 
             {
                 return vec4(0.0, 0.0, 0.0, 1.0);
                 //minNumResult = (1.0 - (dis + disNum - lightWidth) / disNum) * minNum;
             }
 
-            if (judgeHaveShadow(x, y, lightPos.x, lightPos.y) == 0)
-            {
-                return vec4(0.0, 0.0, 0.0, 1.0 - minNum);
-            }
-
             if (lightWidth < dis + disNum) 
             {
-                minNumResult = (1.0 - (dis + disNum - lightWidth) / disNum) * minNum;
+                minNumResult = ((lightWidth - dis) / disNum) * minNum;
+            }
+
+            if (judgeHaveShadow(x, y, lightPos.x, lightPos.y) == 0)
+            {
+                return vec4(0.0, 0.0, 0.0, 1.0);
             }
 
             float radio = 1.0 - (dis / lightWidth);
-            return vec4(lightColor * radio * 0.2 * minColorNum * (minNumResult + (1.0 - minNum)), 0.8 - minNumResult);
+            return vec4(lightColor * radio * minColorNum * minNumResult, 1.0 - minNumResult);
         }
 
         void main()

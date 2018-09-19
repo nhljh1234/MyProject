@@ -399,8 +399,8 @@
       "__id__": 7
     },
     "_enabled": true,
-    "minLightNum": 0,
-    "minColorNum": 1,
+    "minLightNum": 0.2,
+    "minColorNum": 0.1,
     "useShadowJudge": 1
   },
   {
@@ -703,7 +703,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 17
@@ -833,7 +833,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 16,
-      "y": 38
+      "y": 16
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -879,13 +879,13 @@
     "z": 0,
     "lightColor": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 255,
-      "b": 245,
+      "r": 255,
+      "g": 133,
+      "b": 0,
       "a": 255
     },
-    "lightWidth": 200,
-    "diffNum": 1
+    "lightWidth": 150,
+    "diffNum": 3
   },
   {
     "__type__": "cc.Node",
