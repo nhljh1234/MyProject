@@ -112,10 +112,10 @@ outModule.drawLight = () => {
             shaderData.node.x, shaderData.node.y);
         if (!cc.sys.isNative) {
             cc.gl.bindTexture2DN(1, shaderData.spriteFrame.getTexture());
+            shaderData.shader.setUniformLocationWith1i("texture", 1);
         } else {
-
+            shaderData.shader.setUniformTexture("texture", shaderData.spriteFrame.getTexture());
         }
-        shaderData.shader.setUniformLocationWith1i("texture", 1);
         shaderData.shader.useInNode(shaderData.node.getComponent(cc.Sprite));
     });
 

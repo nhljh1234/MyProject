@@ -880,8 +880,8 @@
     "lightColor": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 122,
+      "b": 0,
       "a": 255
     },
     "lightWidth": 150,
@@ -1203,7 +1203,7 @@
     },
     "_enabled": true,
     "minLightNum": 0.5,
-    "useShadowJudge": 0,
+    "useShadowJudge": 1,
     "spriteFrame": {
       "__uuid__": "527e7f94-e29a-4a9c-a860-bc0ef0aeac3b"
     }

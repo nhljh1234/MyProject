@@ -58,6 +58,14 @@ local.createTJShader = function (shaderName) {
             cc.log('_sgNode is undefined');
         }
     };
+
+    //cc.sys.isNative专用
+    this.setUniformTexture = function (name, texture) {
+        if (cc.sys.isNative) {
+            this.glProgramState.setUniformTexture(name, texture);
+        }
+    };
+
     /**
      * 更新着色器
      * 需要在更新着色器后再使用
