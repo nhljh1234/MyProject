@@ -76,10 +76,10 @@ local.drawSkewShadow = () => {
     local.shadowArr.forEach((oneData) => {
         let node = oneData.node;
         let data = oneData.data;
-        let centerX, centerY, worldPos;
-        worldPos = node.convertToWorldSpace(cc.v2(node.x, node.y));
-        centerX = worldPos.x + oneData.worldNode.x;
-        centerY = worldPos.y + oneData.worldNode.y;
+        let centerX, centerY;
+        //这个坐标值需要和光源坐标值保持一致
+        centerX = oneData.node.parent.x;
+        centerY = oneData.node.parent.y;
         //计算角度
         let dis = Math.sqrt((lightData.pos.x - centerX) * (lightData.pos.x - centerX) +
             (lightData.pos.y - centerY) * (lightData.pos.y - centerY));
@@ -185,11 +185,10 @@ outModule.setTotalNode = (shader, node, minNum) => {
     local.TotalNode = node;
 };
 
-outModule.addShadow = (node, data, worldNode) => {
+outModule.addShadow = (node, data) => {
     local.shadowArr.push({
         node: node,
-        data: data,
-        worldNode: worldNode
+        data: data
     });
 };
 

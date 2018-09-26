@@ -36,6 +36,9 @@ outModule.getCodeStr = () => {
         //抗锯齿程度
         uniform float AntiAliasingNum;
 
+        //是否启用遮挡检测
+        uniform int useShadowMath;
+
         //遮挡检测的话需要一张遮挡图，像素点alpha > 0.1 表示是遮挡物
         //这张一般是法线贴图
         uniform sampler2D texture;
@@ -177,7 +180,7 @@ outModule.getCodeStr = () => {
                 return vec4(envLightColor * vec3(texture2D(CC_Texture0, v_texCoord).rgb), 1.0);
             }
 
-            if (judgeHaveShadow(x, y, lightPos.x, lightPos.y) == 0)
+            if (useShadowMath == 1 && judgeHaveShadow(x, y, lightPos.x, lightPos.y) == 0)
             {
                 return vec4(envLightColor * vec3(texture2D(CC_Texture0, v_texCoord).rgb), 1.0);
             }
