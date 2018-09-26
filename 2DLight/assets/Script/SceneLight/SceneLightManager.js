@@ -8,10 +8,12 @@ local.lightShaderArr = [];
 local.shadowArr = [];
 
 local.GroundNodeShader;
-local.GroundShaderMinNum;
 local.GroundNode;
-local.GroundMinColorNum;
-outModule.GroundMinColorNum;
+local.GroundReduceNum;
+local.GroundAntiAliasingNum;
+local.GroundUseShadowMath;
+local.GroundNormalSpriteFrame;
+
 
 //所有物体渲染出来的一张图
 local.TotalNodeShader;
@@ -66,77 +68,8 @@ local.drawNormalNode = () => {
     });
 };
 
-//设置环境光
-outModule.setEnvLight = (color) => {
-    local.envLightColor = color;
-};
-
-outModule.lightDataArrClear = () => {
-    local.lightDataArr = [];
-};
-
-outModule.getLightDataArr = () => {
-    return local.lightDataArr;
-};
-
-outModule.changeGroundMinColorNum = (minNum) => {
-    local.GroundMinColorNum = minNum;
-};
-
-outModule.setBgNode = (shader, node, minNum, minColorNum) => {
-    local.GroundNodeShader = shader;
-    local.GroundShaderMinNum = minNum;
-    local.GroundNode = node;
-    local.GroundMinColorNum = minColorNum;
-    outModule.GroundMinColorNum = minColorNum;
-};
-
-outModule.setTotalNode = (shader, node, minNum) => {
-    local.TotalNodeShader = shader;
-    local.TotalShaderMinNum = minNum;
-    local.TotalNode = node;
-};
-
-outModule.addShadow = (node, data, worldNode) => {
-    local.shadowArr.push({
-        node: node,
-        data: data,
-        worldNode: worldNode
-    });
-};
-
-//设置点光源的方向
-outModule.addLight = (x, y, z, lightColor, lightWidth, node, lightStrength, lightAttenuation) => {
-    local.lightDataArr.push({
-        pos: local.buildVec3Data(x, y, z),
-        color: lightColor,
-        lightWidth: lightWidth,
-        lightWidthSave: lightWidth,
-        node: node,
-        lightStrength: lightStrength,
-        lightStrengthSave: lightStrength,
-        lightAttenuation: lightAttenuation
-    });
-};
-
-//加入一个需要光照渲染的结点
-outModule.addNormalNode = (shader, node, AntiAliasingNum, tiltNum, useShadowMath, normalSpriteFrame) => {
-    local.lightShaderArr.push({
-        shader: shader,
-        node: node,
-        AntiAliasingNum: AntiAliasingNum,
-        tiltNum: tiltNum,
-        useShadowMath: useShadowMath,
-        normalSpriteFrame: normalSpriteFrame
-    });
-};
-
-//绘制一个光照节点
-outModule.drawLight = () => {
-    //光照
-    local.drawNormalNode();
-    return;
-
+//斜切阴影
+local.drawSkewShadow = () => {
     //阴影
     let lightData = local.lightDataArr[0];
     let zNum = window.global ? (window.global.z / 10) : lightData.pos.z;
@@ -186,9 +119,11 @@ outModule.drawLight = () => {
         }
         node.height = node.height / (zNum < 1 ? 1 : zNum);
     });
+};
 
-    //地表
+local.drawGround = () => {
     if (local.GroundNodeShader) {
+        let lightCount = 0;
         local.GroundNodeShader.use();
         local.GroundNodeShader.clear();
         for (let i = 0; i < 3 && i < local.lightDataArr.length; i++) {
@@ -202,37 +137,96 @@ outModule.drawLight = () => {
                 lightData.color.r / 255, lightData.color.g / 255, lightData.color.b / 255);
             local.GroundNodeShader.setUniformLocationWith1f("lightWidth_" + (i + 1), lightData.lightWidth);
             local.GroundNodeShader.setUniformLocationWith1f("lightStrength_" + (i + 1), lightData.lightStrength);
+            lightCount++;
         }
         local.GroundNodeShader.setUniformLocationWith1i("lightNum", lightCount);
-        local.GroundNodeShader.setUniformLocationWith1f("minNum", local.GroundShaderMinNum);
-        local.GroundNodeShader.setUniformLocationWith1f("minColorNum", local.GroundMinColorNum);
+        local.GroundNodeShader.setUniformLocationWith1f("reduceNum", local.GroundReduceNum);
+        local.GroundNodeShader.setUniformLocationWith1f("AntiAliasingNum", local.GroundAntiAliasingNum);
+        local.GroundNodeShader.setUniformLocationWith3f("envLightColor",
+            local.envLightColor.r / 255, local.envLightColor.g / 255, local.envLightColor.b / 255);
         local.GroundNodeShader.setUniformLocationWith2f("ResolutionSize",
             local.GroundNode.width, local.GroundNode.height);
+        //加入法线贴图
+        if (!cc.sys.isNative) {
+            cc.gl.bindTexture2DN(1, local.GroundNormalSpriteFrame.getTexture());
+            local.GroundNodeShader.setUniformLocationWith1i("texture", 1);
+        } else {
+            local.GroundNodeShader.setUniformTexture("texture", local.GroundNormalSpriteFrame.getTexture());
+        }
         local.GroundNodeShader.useInNode(local.GroundNode.getComponent(cc.Sprite));
     }
+};
 
-    //所有物体
-    if (local.TotalNodeShader) {
-        local.TotalNodeShader.use();
-        local.TotalNodeShader.clear();
-        for (let i = 0; i < 3 && i < local.lightDataArr.length; i++) {
-            let lightData = local.lightDataArr[i];
-            let zNum = window.global ? (window.global.z / 10) : lightData.pos.z;
-            //shaderData.shader.setUniformLocationWith3f("lightPos_" + (i + 1),
-            //    lightData.pos.x, lightData.pos.y, lightData.pos.z);
-            local.TotalNodeShader.setUniformLocationWith3f("lightPos_" + (i + 1),
-                lightData.pos.x, lightData.pos.y, zNum);
-            local.TotalNodeShader.setUniformLocationWith3f("lightColor_" + (i + 1),
-                lightData.color.r / 255, lightData.color.g / 255, lightData.color.b / 255);
-            local.TotalNodeShader.setUniformLocationWith1f("lightWidth_" + (i + 1), lightData.lightWidth);
-        }
-        local.TotalNodeShader.setUniformLocationWith1i("lightNum", lightCount);
-        //local.GroundNodeShader.setUniformLocationWith1i("type", 2);
-        local.TotalNodeShader.setUniformLocationWith1f("minNum", local.TotalShaderMinNum);
-        local.TotalNodeShader.setUniformLocationWith2f("ResolutionSize",
-            local.GroundNode.width, local.TotalNode.height);
-        local.TotalNodeShader.useInNode(local.TotalNode.getComponent(cc.Sprite));
-    }
+//设置环境光
+outModule.setEnvLight = (color) => {
+    local.envLightColor = color;
+};
+
+outModule.lightDataArrClear = () => {
+    local.lightDataArr = [];
+};
+
+outModule.getLightDataArr = () => {
+    return local.lightDataArr;
+};
+
+outModule.setBgNode = (shader, node, reduceNum, AntiAliasingNum, useShadowMath, normalSpriteFrame) => {
+    local.GroundNodeShader = shader;
+    local.GroundNode = node;
+    local.GroundReduceNum = reduceNum;
+    local.GroundAntiAliasingNum = AntiAliasingNum;
+    local.GroundUseShadowMath = useShadowMath;
+    local.GroundNormalSpriteFrame = normalSpriteFrame;
+};
+
+outModule.setTotalNode = (shader, node, minNum) => {
+    local.TotalNodeShader = shader;
+    local.TotalShaderMinNum = minNum;
+    local.TotalNode = node;
+};
+
+outModule.addShadow = (node, data, worldNode) => {
+    local.shadowArr.push({
+        node: node,
+        data: data,
+        worldNode: worldNode
+    });
+};
+
+//设置点光源的方向
+outModule.addLight = (x, y, z, lightColor, lightWidth, node, lightStrength, lightAttenuation) => {
+    local.lightDataArr.push({
+        pos: local.buildVec3Data(x, y, z),
+        color: lightColor,
+        lightWidth: lightWidth,
+        lightWidthSave: lightWidth,
+        node: node,
+        lightStrength: lightStrength,
+        lightStrengthSave: lightStrength,
+        lightAttenuation: lightAttenuation
+    });
+};
+
+//加入一个需要光照渲染的结点
+outModule.addNormalNode = (shader, node, AntiAliasingNum, tiltNum, useShadowMath, normalSpriteFrame) => {
+    local.lightShaderArr.push({
+        shader: shader,
+        node: node,
+        AntiAliasingNum: AntiAliasingNum,
+        tiltNum: tiltNum,
+        useShadowMath: useShadowMath,
+        normalSpriteFrame: normalSpriteFrame
+    });
+};
+
+//绘制一个光照节点
+outModule.drawLight = () => {
+    //光照
+    local.drawNormalNode();
+    //斜切阴影
+    local.drawSkewShadow();
+    //地表
+    local.drawGround();
 };
 
 module.exports = outModule;

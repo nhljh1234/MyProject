@@ -53,7 +53,7 @@ outModule.getCodeStr = () => {
         uniform int tiltNum;
 
         //遮挡检测的话需要一张遮挡图，像素点alpha > 0.1 表示是遮挡物
-        //这张一般是发现贴图
+        //这张一般是法线贴图
         uniform sampler2D texture;
 
         int judgeIsShadow(float x, float y)

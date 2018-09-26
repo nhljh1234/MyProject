@@ -38,6 +38,8 @@ cc.Class({
         this._testNum = 1;
         this._dir = 1;
         this._start = true;
+
+        SceneLightManager.setEnvLight(this.lightColor);
     },
 
     // called every frame
@@ -57,8 +59,9 @@ cc.Class({
         }
 
         window.global = { z: 1 * this._testNum + 10 };
-        lightData.lightStrength = lightData.lightStrengthSave * this._testNum;
-        SceneLightManager.changeGroundMinColorNum(SceneLightManager.GroundMinColorNum * this._testNum);
+        if (lightData) {
+            lightData.lightStrength = lightData.lightStrengthSave * this._testNum;   
+        }
         //lightData.lightWidth = lightData.lightWidthSave * this._testNum;
         SceneLightManager.drawLight();
     },

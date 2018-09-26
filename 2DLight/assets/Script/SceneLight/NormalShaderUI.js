@@ -10,7 +10,7 @@ cc.Class({
         tiltNum: 2,
         //是否启动遮挡检测
         useShadowMath: 0,
-        //法线贴图
+        //法线贴图，只画法线贴图有透明度的地方
         normalSpriteFrame: {
             default: null,
             type: cc.SpriteFrame
