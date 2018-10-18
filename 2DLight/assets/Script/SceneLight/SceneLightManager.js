@@ -58,12 +58,7 @@ local.drawNormalNode = () => {
         shaderData.shader.setUniformLocationWith1f("AntiAliasingNum", shaderData.AntiAliasingNum);
         shaderData.shader.setUniformLocationWith1i("tiltNum", shaderData.tiltNum);
         //加入法线贴图
-        if (!cc.sys.isNative) {
-            cc.gl.bindTexture2DN(1, shaderData.normalSpriteFrame.getTexture());
-            shaderData.shader.setUniformLocationWith1i("texture", 1);
-        } else {
-            shaderData.shader.setUniformTexture("texture", shaderData.normalSpriteFrame.getTexture());
-        }
+        shaderData.shader.bindTexture("texture", shaderData.normalSpriteFrame.getTexture(), 1);
         shaderData.shader.useInNode(shaderData.node.getComponent(cc.Sprite));
     });
 };
@@ -144,15 +139,11 @@ local.drawGround = () => {
         local.GroundNodeShader.setUniformLocationWith1f("AntiAliasingNum", local.GroundAntiAliasingNum);
         local.GroundNodeShader.setUniformLocationWith3f("envLightColor",
             local.envLightColor.r / 255, local.envLightColor.g / 255, local.envLightColor.b / 255);
+        local.GroundNodeShader.setUniformLocationWith1i("useShadowMath", local.GroundUseShadowMath);
         local.GroundNodeShader.setUniformLocationWith2f("ResolutionSize",
             local.GroundNode.width, local.GroundNode.height);
         //加入法线贴图
-        if (!cc.sys.isNative) {
-            cc.gl.bindTexture2DN(1, local.GroundNormalSpriteFrame.getTexture());
-            local.GroundNodeShader.setUniformLocationWith1i("texture", 1);
-        } else {
-            local.GroundNodeShader.setUniformTexture("texture", local.GroundNormalSpriteFrame.getTexture());
-        }
+        local.GroundNodeShader.bindTexture("texture", local.GroundNormalSpriteFrame.getTexture(), 1);
         local.GroundNodeShader.useInNode(local.GroundNode.getComponent(cc.Sprite));
     }
 };

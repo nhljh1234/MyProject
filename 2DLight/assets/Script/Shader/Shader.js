@@ -59,13 +59,6 @@ local.createTJShader = function (shaderName) {
         }
     };
 
-    //cc.sys.isNative专用
-    this.setUniformTexture = function (name, texture) {
-        if (cc.sys.isNative) {
-            this.glProgramState.setUniformTexture(name, texture);
-        }
-    };
-
     /**
      * 更新着色器
      * 需要在更新着色器后再使用
@@ -145,6 +138,15 @@ local.createTJShader = function (shaderName) {
                 this.UniformLocationNameObj[name] = uniformName;
             }
             this.glProgram.setUniformLocationWith4f(uniformName, value_1, value_2, value_3, value_4);
+        }
+    };
+
+    this.bindTexture = function (name, texture, imgCount) {
+        if (!cc.sys.isNative) {
+            cc.gl.bindTexture2DN(imgCount, texture);
+            this.setUniformLocationWith1i(name, imgCount);
+        } else {
+            this.setUniformTexture(name, texture);
         }
     };
 
