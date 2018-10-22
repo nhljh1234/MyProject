@@ -23,14 +23,14 @@ outModule.addNode = (prefabPath, parentNodeType, nodeName, addMoreFlag, deleteFl
     let parentNode;
     //确定要加入的结点
     switch (parentNodeType) {
-        case Global.GAME_SCENE_UI_NODE:
-            parentNode = Global.GameScene ? Global.GameScene.UINode : undefined;
+        case g_GAME_SCENE_UI_NODE:
+            parentNode = g_GameScene ? g_GameScene.UINode : undefined;
             break;
-        case Global.GAME_SCENE_ALERT_NODE:
-            parentNode = Global.GameScene ? Global.GameScene.AlertNode : undefined;
+        case g_GAME_SCENE_ALERT_NODE:
+            parentNode = g_GameScene ? g_GameScene.AlertNode : undefined;
             break;
-        case Global.GAME_SCENE_NET_NODE:
-            parentNode = Global.GameScene ? Global.GameScene.NetNode : undefined;
+        case g_GAME_SCENE_NET_NODE:
+            parentNode = g_GameScene ? g_GameScene.NetNode : undefined;
             break;
     }
     if (!parentNode) {
@@ -51,7 +51,7 @@ outModule.addNode = (prefabPath, parentNodeType, nodeName, addMoreFlag, deleteFl
         }
     }
     //判断有没有这个结点
-    Global.PrefabManager.loadPrefab(prefabPath, deleteFlag, (prefab) => {
+    g_PrefabManager.loadPrefab(prefabPath, deleteFlag, (prefab) => {
         var node = cc.instantiate(prefab);
         node.name = nodeName;
         parentNode.addChild(node);

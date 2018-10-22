@@ -16,6 +16,6 @@ cc.Class({
         if (!labelComponent) {
             return;
         }
-        labelComponent.string = Global.LanguageTool.getStr(this.label_key) || "";
+        labelComponent.string = g_LanguageTool.getStr(this.label_key) || "";
     }
 });

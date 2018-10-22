@@ -17,18 +17,18 @@ cc.Class({
         //设置名字
         this._uiName = "GameUI";
         //先执行这个
-        Global.GameScene.UINode = this.node.getChildByName("UINode");
-        Global.GameScene.AlertNode = this.node.getChildByName("AlertNode");
-        Global.GameScene.NetNode = this.node.getChildByName("NetNode");
+        g_GameScene.UINode = this.node.getChildByName("UINode");
+        g_GameScene.AlertNode = this.node.getChildByName("AlertNode");
+        g_GameScene.NetNode = this.node.getChildByName("NetNode");
         //初始化
         this._super();
         //加入一个测试结点
-        Global.GameSceneManager.addNode("Prefab/label", Global.GAME_SCENE_UI_NODE, "label", false, true, function () {
-            Global.LogTool.showLog("success");
-            var labelNode = Global.GameScene.UINode.getChildByName("label");
-            labelNode.getComponent(cc.Label).string = Global.LanguageTool.getLanguageStr("load_game_str");
+        g_GameSceneManager.addNode("Prefab/label", g_GAME_SCENE_UI_NODE, "label", false, true, function () {
+            g_LogTool.showLog("success");
+            var labelNode = g_GameScene.UINode.getChildByName("label");
+            labelNode.getComponent(cc.Label).string = g_LanguageTool.getLanguageStr("load_game_str");
         }, function () {
-            Global.LogTool.showLog("fail");
+            g_LogTool.showLog("fail");
         });
     },
 

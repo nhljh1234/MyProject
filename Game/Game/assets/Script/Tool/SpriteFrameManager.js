@@ -29,7 +29,7 @@ outModule.init = (cb) => {
                 }
             }
         }, (error) => {
-            Global.LogTool.showLog(`PrefabManager init error! path is ${path}, error is ${error}`);
+            g_LogTool.showLog(`PrefabManager init error! path is ${path}, error is ${error}`);
             loadedCount++;
             if (loadedCount === SPRITE_FRAME_INIT_LOAD_ARR.length) {
                 if (cb) {

@@ -31,7 +31,7 @@ outModule.buildScrollView = (scrollViewNode, scrollType, tmpNode, buildFunc, dat
     let contentNode = scrollViewComponent.content;
     if (!contentNode) {
         //cc.ScrollView没有绑定对应的显示内容的节点
-        Global.LogTool.showLog('buildScrollView: contentNode is null');
+        g_LogTool.showLog('buildScrollView: contentNode is null');
         return;
     }
     //设定滑动类型

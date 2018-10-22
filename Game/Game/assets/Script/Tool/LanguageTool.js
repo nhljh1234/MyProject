@@ -12,7 +12,7 @@ var outModule = {};
 outModule.getLanguageStr = function () {
     let key = arguments[0];
     //新建一个字符串
-    let string = '' + Global.LanguageObj[key];
+    let string = '' + g_LanguageObj[key];
     let i, len;
     for (i = 1, len = arguments.length; i < len; i++) {
         string = string.replace('%s', arguments[i]);
