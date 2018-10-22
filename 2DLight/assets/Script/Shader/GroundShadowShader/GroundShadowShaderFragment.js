@@ -21,16 +21,31 @@ outModule.getCodeStr = () => {
         uniform vec3 lightColor_3;
         uniform float lightWidth_3;
 
+        //光源数量
         uniform int lightNum;
 
-        uniform float minNum;
-        uniform float minColorNum;
+        //光源快速衰减的距离，按reduceNum * lightWidth计算的
+        uniform float reduceNum;
 
+        //环境光相关
+        uniform vec3 envLightColor;
+
+        //图片的尺寸
         uniform vec2 ResolutionSize;
+
+        //抗锯齿程度
+        uniform float AntiAliasingNum;
+
+        //是否启用遮挡检测
+        uniform int useShadowMath;
+
+        //遮挡检测的话需要一张遮挡图，像素点alpha > 0.1 表示是遮挡物
+        //这张一般是法线贴图
+        uniform sampler2D texture;
 
         int judgeIsShadow(float x, float y)
         {
-            if(texture2D(CC_Texture0, vec2(x, y)).a > 0.1)
+            if(texture2D(texture, vec2(x, y)).a > 0.1)
             {
                 return 1;
             }
@@ -51,8 +66,8 @@ outModule.getCodeStr = () => {
             //开始for循环
             float addX, addY, xDis, yDis, addCount;
 
-            float addNumX = 0.002;
-            float addNumY = 0.002;
+            float addNumX = AntiAliasingNum;
+            float addNumY = AntiAliasingNum;
 
             xDis = abs(texCoordLightPosX - texCoordX);
             yDis = abs(texCoordLightPosY - texCoordY);
@@ -88,7 +103,6 @@ outModule.getCodeStr = () => {
 
             int haveGet = 0;
             int selfIsShadow = judgeIsShadow(texCoordX, texCoordY);
-            int maxShadowNum = 2;
             int meetShadowCount = 0;
             float addAmount = 0.0;
 
@@ -123,6 +137,11 @@ outModule.getCodeStr = () => {
 
         vec4 getResultColor(int count)
         {
+            //有法线贴图的地方需要NormalShader来计算
+            if (texture2D(texture, v_texCoord).a > 0.1) 
+            {
+                return vec4(0.0);
+            }
             vec3 lightPos;
             vec3 lightColor;
             float lightWidth;
@@ -153,27 +172,27 @@ outModule.getCodeStr = () => {
             float dis = length(lightPos - vec3(x, y, 0.0));
             dis = abs(dis);
 
-            float minNumResult = minNum;
+            float minNumResult = 1.0;
             //过渡距离
-            float disNum = 100.0;
+            float disNum = reduceNum * lightWidth;
             if (lightWidth < dis) 
             {
-                return vec4(0.0, 0.0, 0.0, 1.0);
-                //minNumResult = (1.0 - (dis + disNum - lightWidth) / disNum) * minNum;
+                return vec4(envLightColor * vec3(texture2D(CC_Texture0, v_texCoord).rgb), 1.0);
             }
 
-            if (judgeHaveShadow(x, y, lightPos.x, lightPos.y) == 0)
+            if (useShadowMath == 1 && judgeHaveShadow(x, y, lightPos.x, lightPos.y) == 0)
             {
-                return vec4(0.0, 0.0, 0.0, 1.0 - minNum);
+                return vec4(envLightColor * vec3(texture2D(CC_Texture0, v_texCoord).rgb), 1.0);
             }
 
+            
             if (lightWidth < dis + disNum) 
             {
-                minNumResult = (1.0 - (dis + disNum - lightWidth) / disNum) * minNum;
+                minNumResult = ((lightWidth - dis) / disNum);
             }
 
             float radio = 1.0 - (dis / lightWidth);
-            return vec4(lightColor * radio * 0.2 * minColorNum * (minNumResult + (1.0 - minNum)), 0.8 - minNumResult);
+            return vec4(lightColor * radio * minNumResult * vec3(texture2D(CC_Texture0, v_texCoord).rgb), 1.0) + vec4(envLightColor * vec3(texture2D(CC_Texture0, v_texCoord).rgb), 1.0);
         }
 
         void main()
@@ -193,7 +212,7 @@ outModule.getCodeStr = () => {
                 gl_FragColor = getResultColor(1) + getResultColor(2) + getResultColor(3);
                 return;
             }
-            gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0 - minNum);
+            gl_FragColor = vec4(envLightColor * vec3(texture2D(CC_Texture0, v_texCoord).rgb), 1.0);
         }
     `;
 };

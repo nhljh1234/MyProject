@@ -4,21 +4,22 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        //最暗的亮度
-        minLightNum: 0.1,
-        //地面颜色系数
-        minColorNum: 1,
+        //开始衰减的距离，1表示不衰减
+        reduceNum: 0.5,
+        //抗锯齿程度，值越小锯齿越少
+        AntiAliasingNum: 0.001,
         //是否启动遮挡检测
-        useShadowJudge: 0,
+        useShadowMath: 0,
+        //法线贴图，只画法线贴图没有透明度的地方
+        normalSpriteFrame: {
+            default: null,
+            type: cc.SpriteFrame
+        },
     },
 
     // use this for initialization
     onLoad: function () {
-        if (this.useShadowJudge) {
-            SceneLightManager.setBgNode(Shader.getShaderByName("GroundShadowShader"), this.node, this.minLightNum, this.minColorNum);
-        } else {
-            SceneLightManager.setBgNode(Shader.getShaderByName("GroundShader"), this.node, this.minLightNum, this.minColorNum);
-        }
+        SceneLightManager.setBgNode(Shader.getShaderByName("GroundShadowShader"), this.node, this.reduceNum, this.AntiAliasingNum, this.useShadowMath, this.normalSpriteFrame);
     },
 
     // called every frame

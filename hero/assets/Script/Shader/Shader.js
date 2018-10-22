@@ -44,6 +44,9 @@ local.createTJShader = function (shaderName) {
         this.glProgram.use();
         //this.glProgram.updateUniforms();
     };
+    this.updateUniforms = function () {
+        this.glProgram.updateUniforms();
+    };
     /**
      * 在指定节点上使用着色器
      * @param {cc.Sprite} node 
@@ -55,6 +58,7 @@ local.createTJShader = function (shaderName) {
             cc.log('_sgNode is undefined');
         }
     };
+
     /**
      * 更新着色器
      * 需要在更新着色器后再使用
@@ -137,16 +141,17 @@ local.createTJShader = function (shaderName) {
         }
     };
 
+    this.bindTexture = function (name, texture, imgCount) {
+        if (!cc.sys.isNative) {
+            cc.gl.bindTexture2DN(imgCount, texture);
+            this.setUniformLocationWith1i(name, imgCount);
+        } else {
+            this.setUniformTexture(name, texture);
+        }
+    };
+
     this.clear = function () {
         this.UniformLocationNameObj = {};
-    };
-    
-    /**
-     * 使用初始化的Shader
-     */
-    this.useNormalShader = function (node) {
-        var shader = outModule.getShaderByName('Normal');
-        shader.useInNode(node);
     };
 
     //执行初始化

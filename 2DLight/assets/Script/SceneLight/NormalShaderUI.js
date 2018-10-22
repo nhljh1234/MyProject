@@ -4,16 +4,27 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        //超出光照范围时显示的比例
-        minLightNum: 0.5,
+        //抗锯齿程度，值越小锯齿越少
+        AntiAliasingNum: 0.005,
+        //穿透程度，这个值越大，遮挡像素点会被渲染得越多
+        tiltNum: 2,
         //是否启动遮挡检测
-        useShadowJudge: 0,
+        useShadowMath: 0,
+        //法线贴图，只画法线贴图有透明度的地方
+        normalSpriteFrame: {
+            default: null,
+            type: cc.SpriteFrame
+        },
     },
 
     // use this for initialization
     onLoad: function () {
-        SceneLightManager.setLightNodeShader(Shader.getShaderByName("NormalShader"), this.node, this.minLightNum, this.useShadowJudge);
-        this.node.active = false;
+        if (!this.normalSpriteFrame) {
+            //法线贴图是必须的
+            return;
+        }
+        SceneLightManager.addNormalNode(Shader.getShaderByName("NormalShader"), this.node, 
+            this.AntiAliasingNum, this.tiltNum, this.useShadowMath, this.normalSpriteFrame);
     },
 
     onDestroy: function () {
