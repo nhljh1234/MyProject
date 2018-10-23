@@ -17,6 +17,17 @@ outModule.getCodeStr = () => {
             if (gl_FragColor.r < num) 
             {
                 gl_FragColor = vec4(0.0);
+                return;
+            }
+            if (gl_FragColor.r < num + 0.05) 
+            {
+                gl_FragColor = vec4(1.0);
+                return;
+            }
+            else if (gl_FragColor.r < num + 0.1)
+            {
+                gl_FragColor = vec4(0.5, 0.5, 0.5, 1.0);
+                return;
             }
         }
     `;

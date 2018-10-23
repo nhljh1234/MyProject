@@ -8,7 +8,7 @@ cc.Class({
 
     properties: {
         //浮雕的背景颜色
-        speed: 0.01,
+        speed: 0.1,
         _num: null,
         _glProgram: null,
     },
