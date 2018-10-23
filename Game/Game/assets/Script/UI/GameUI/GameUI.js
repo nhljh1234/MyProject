@@ -3,7 +3,6 @@
  * 本游戏的主场景，现在只有一个场景
  */
 var BaseUI = require("BaseUI");
-var Game = require("Game");
 cc.Class({
     extends: BaseUI,
 
@@ -12,8 +11,6 @@ cc.Class({
     },
 
     onLoad () {
-        //全局初始化
-        Game.init();
         //设置名字
         this._uiName = "GameUI";
         //先执行这个
@@ -26,7 +23,7 @@ cc.Class({
         g_GameSceneManager.addNode("Prefab/label", g_GAME_SCENE_UI_NODE, "label", false, true, function () {
             g_LogTool.showLog("success");
             var labelNode = g_GameScene.UINode.getChildByName("label");
-            labelNode.getComponent(cc.Label).string = g_LanguageTool.getLanguageStr("load_game_str");
+            labelNode.getComponent(cc.Label).string = g_JsonDataTool.getDataById('_table_head_icon_icon', 1).name;
         }, function () {
             g_LogTool.showLog("fail");
         });

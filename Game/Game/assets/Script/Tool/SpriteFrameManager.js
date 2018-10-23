@@ -7,7 +7,7 @@ var outModule = {};
 var spriteFrameSave = {};
 
 const SPRITE_FRAME_INIT_LOAD_ARR = [
-    'ui/icon'
+  
 ];
 
 outModule.getIcon = (key) => {
@@ -17,23 +17,30 @@ outModule.getIcon = (key) => {
     }
 };
 
-outModule.init = (cb) => {
+outModule.init = (finishCb) => {
     let loadedCount = 0;
+    //处理加载选项数量为0的情况
+    if (loadedCount === SPRITE_FRAME_INIT_LOAD_ARR.length) {
+        if (finishCb) {
+            finishCb();
+        }
+        return;
+    }
     SPRITE_FRAME_INIT_LOAD_ARR.forEach((path) => {
         outModule.loadSpriteFrame(path, (spriteAtlas) => {
             spriteFrameSave[path] = spriteAtlas;
             loadedCount++;
             if (loadedCount === SPRITE_FRAME_INIT_LOAD_ARR.length) {
-                if (cb) {
-                    cb();
+                if (finishCb) {
+                    finishCb();
                 }
             }
         }, (error) => {
-            g_LogTool.showLog(`PrefabManager init error! path is ${path}, error is ${error}`);
+            g_LogTool.showLog(`SpriteFrameManager init error! path is ${path}, error is ${error}`);
             loadedCount++;
             if (loadedCount === SPRITE_FRAME_INIT_LOAD_ARR.length) {
-                if (cb) {
-                    cb();
+                if (finishCb) {
+                    finishCb();
                 }
             }
         });

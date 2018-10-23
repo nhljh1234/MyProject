@@ -46,24 +46,31 @@ outModule.clearPrefab = (prefabPath) => {
  * 加载初始化需要的预制体
  * @param cb
  */
-outModule.init = (cb) => {
+outModule.init = (finishCb) => {
     var loadedCount = 0;
+    //处理加载选项数量为0的情况
+    if (loadedCount === PREFAB_INIT_LOAD_ARR.length) {
+        if (finishCb) {
+            finishCb();
+        }
+        return;
+    }
     PREFAB_INIT_LOAD_ARR.forEach((path) => {
         outModule.loadPrefab(path, false, (prefab) => {
             //判断是否加入了，有的话会覆盖原先的
             prefabSave[path] = prefab;
             loadedCount++;
             if (loadedCount === PREFAB_INIT_LOAD_ARR.length) {
-                if (cb) {
-                    cb();
+                if (finishCb) {
+                    finishCb();
                 }
             }
         }, (error) => {
             g_LogTool.showLog(`PrefabManager init error! path is ${path}, error is ${error}`);
             loadedCount++;
             if (loadedCount === PREFAB_INIT_LOAD_ARR.length) {
-                if (cb) {
-                    cb();
+                if (finishCb) {
+                    finishCb();
                 }
             }
         });
