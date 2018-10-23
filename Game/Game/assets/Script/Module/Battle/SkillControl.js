@@ -3,13 +3,14 @@
  * @desc 技能控制处理
  * @author Administrator
  */
+require('Game');
 var BattleManager = require("BattleManager");
 var outModule = {};
 var local = {};
 
 //所有的技能数据
 local.judgeFuncObj = {};
-local.judgeFuncObj[window.AUTOMATIC_TYPE_OBJ.TYPE_1] = function (skillData) {
+local.judgeFuncObj[g_AUTOMATIC_TYPE_OBJ.TYPE_1] = function (skillData) {
     return true;
 };
 

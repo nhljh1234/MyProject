@@ -31,7 +31,7 @@ window.g_GameScene.NetNode = undefined;
 
 //自动技能的选项
 window.g_AUTOMATIC_TYPE_OBJ = {};
-window.g_AUTOMATIC_TYPE_OBJ.TYPE_1 = 1;
+window.g_AUTOMATIC_TYPE_OBJ.TYPE_1 = "TYPE_1";
 
 //战斗场景的定时器间隔
 window.g_BATTLE_TIMER_TIME = 0.01;
