@@ -1,0 +1,97 @@
+{
+    "object" : {
+        "1" : {
+            "unitName" : "曹操",
+            "unitType" : 2,
+            "attributeType" : 2,
+            "icon" : 1,
+            "unitRes" : 11,
+            "mainSkillId" : "<11,101,11,11,111>",
+            "attackId" : 100,
+            "attackList" : 100,
+            "attackRange" : 1
+        },    
+        "2" : {
+            "unitName" : "吕布",
+            "unitType" : 2,
+            "attributeType" : 2,
+            "icon" : 2,
+            "unitRes" : 12,
+            "mainSkillId" : "<12,112,12,12,122>",
+            "attackId" : 100,
+            "attackList" : 50,
+            "attackRange" : 1
+        },    
+        "3" : {
+            "unitName" : "诸葛",
+            "unitType" : 2,
+            "attributeType" : 5,
+            "icon" : 3,
+            "unitRes" : 13,
+            "mainSkillId" : "<13,113,13,13,123>",
+            "attackId" : 200,
+            "attackList" : 100,
+            "attackRange" : 1
+        },    
+        "4" : {
+            "unitName" : "黄巾军",
+            "unitType" : 1,
+            "attributeType" : 1,
+            "icon" : 5001,
+            "unitRes" : 5002,
+            "mainSkillId" : 100,
+            "attackId" : 100,
+            "attackList" : 2
+        }    
+    },
+
+    "array" : [
+        {
+            "main_id" : 1,
+            "unitName" : "曹操",
+            "unitType" : 2,
+            "attributeType" : 2,
+            "icon" : 1,
+            "unitRes" : 11,
+            "mainSkillId" : "<11,101,11,11,111>",
+            "attackId" : 100,
+            "attackList" : 100,
+            "attackRange" : 1
+        },    
+        {
+            "main_id" : 2,
+            "unitName" : "吕布",
+            "unitType" : 2,
+            "attributeType" : 2,
+            "icon" : 2,
+            "unitRes" : 12,
+            "mainSkillId" : "<12,112,12,12,122>",
+            "attackId" : 100,
+            "attackList" : 50,
+            "attackRange" : 1
+        },    
+        {
+            "main_id" : 3,
+            "unitName" : "诸葛",
+            "unitType" : 2,
+            "attributeType" : 5,
+            "icon" : 3,
+            "unitRes" : 13,
+            "mainSkillId" : "<13,113,13,13,123>",
+            "attackId" : 200,
+            "attackList" : 100,
+            "attackRange" : 1
+        },    
+        {
+            "main_id" : 4,
+            "unitName" : "黄巾军",
+            "unitType" : 1,
+            "attributeType" : 1,
+            "icon" : 5001,
+            "unitRes" : 5002,
+            "mainSkillId" : 100,
+            "attackId" : 100,
+            "attackList" : 2
+        }    
+    ]
+}

@@ -2,4 +2,7 @@
 	<file oldName="head_icon" newName="head_icon">
 		<table oldName="头像" newName="icon" use="client"/>
 	</file>
+	<file oldName="hero" newName="hero">
+		<table oldName="英雄" newName="hero" use="client"/>
+	</file>
 </note>
