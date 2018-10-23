@@ -22,7 +22,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="include\my\BuildWindow.cpp" />
     <ClCompile Include="include\my\MyShader.cpp" />
-    <ClCompile Include="work\OpenGL_cube_map_reflex.cpp" />
+    <ClCompile Include="work\OpenGL_assimp_dissolution.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\my\BuildWindow.h" />
