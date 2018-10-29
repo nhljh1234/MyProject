@@ -1,0 +1,230 @@
+fileFormatVersion: 2
+guid: 5294eca107ed1fa4ead8416231112a35
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: AssaultGun
+    100002: AssaultGun 1
+    100004: AssaultTroop
+    100006: AssaultTroop 1
+    100008: Bip01
+    100010: Bip01_Head
+    100012: Bip01_L_Calf
+    100014: Bip01_L_Clavicle
+    100016: Bip01_L_Finger0
+    100018: Bip01_L_Finger01
+    100020: Bip01_L_Finger02
+    100022: Bip01_L_Finger1
+    100024: Bip01_L_Finger11
+    100026: Bip01_L_Finger12
+    100028: Bip01_L_Finger2
+    100030: Bip01_L_Finger21
+    100032: Bip01_L_Finger22
+    100034: Bip01_L_Foot
+    100036: Bip01_L_Forearm
+    100038: Bip01_L_ForeTwist
+    100040: Bip01_L_ForeTwist1
+    100042: Bip01_L_Hand
+    100044: Bip01_L_Thigh
+    100046: Bip01_L_Toe0
+    100048: Bip01_L_UpperArm
+    100050: Bip01_Neck
+    100052: Bip01_Pelvis
+    100054: Bip01_R_Calf
+    100056: Bip01_R_Clavicle
+    100058: Bip01_R_Finger0
+    100060: Bip01_R_Finger01
+    100062: Bip01_R_Finger02
+    100064: Bip01_R_Finger1
+    100066: Bip01_R_Finger11
+    100068: Bip01_R_Finger12
+    100070: Bip01_R_Finger2
+    100072: Bip01_R_Finger21
+    100074: Bip01_R_Finger22
+    100076: Bip01_R_Foot
+    100078: Bip01_R_Forearm
+    100080: Bip01_R_ForeTwist
+    100082: Bip01_R_ForeTwist1
+    100084: Bip01_R_Hand
+    100086: Bip01_R_Thigh
+    100088: Bip01_R_Toe0
+    100090: Bip01_R_UpperArm
+    100092: Bip01_Spine
+    100094: Bip01_Spine1
+    100096: Bip01_Spine2
+    100098: m_16
+    100100: //RootNode
+    400000: AssaultGun
+    400002: AssaultGun 1
+    400004: AssaultTroop
+    400006: AssaultTroop 1
+    400008: Bip01
+    400010: Bip01_Head
+    400012: Bip01_L_Calf
+    400014: Bip01_L_Clavicle
+    400016: Bip01_L_Finger0
+    400018: Bip01_L_Finger01
+    400020: Bip01_L_Finger02
+    400022: Bip01_L_Finger1
+    400024: Bip01_L_Finger11
+    400026: Bip01_L_Finger12
+    400028: Bip01_L_Finger2
+    400030: Bip01_L_Finger21
+    400032: Bip01_L_Finger22
+    400034: Bip01_L_Foot
+    400036: Bip01_L_Forearm
+    400038: Bip01_L_ForeTwist
+    400040: Bip01_L_ForeTwist1
+    400042: Bip01_L_Hand
+    400044: Bip01_L_Thigh
+    400046: Bip01_L_Toe0
+    400048: Bip01_L_UpperArm
+    400050: Bip01_Neck
+    400052: Bip01_Pelvis
+    400054: Bip01_R_Calf
+    400056: Bip01_R_Clavicle
+    400058: Bip01_R_Finger0
+    400060: Bip01_R_Finger01
+    400062: Bip01_R_Finger02
+    400064: Bip01_R_Finger1
+    400066: Bip01_R_Finger11
+    400068: Bip01_R_Finger12
+    400070: Bip01_R_Finger2
+    400072: Bip01_R_Finger21
+    400074: Bip01_R_Finger22
+    400076: Bip01_R_Foot
+    400078: Bip01_R_Forearm
+    400080: Bip01_R_ForeTwist
+    400082: Bip01_R_ForeTwist1
+    400084: Bip01_R_Hand
+    400086: Bip01_R_Thigh
+    400088: Bip01_R_Toe0
+    400090: Bip01_R_UpperArm
+    400092: Bip01_Spine
+    400094: Bip01_Spine1
+    400096: Bip01_Spine2
+    400098: m_16
+    400100: //RootNode
+    2100000: AssaultTroop
+    2100002: AssaultGun
+    4300000: AssaultTroop
+    4300002: AssaultGun
+    7400000: Combat_mode
+    7400002: Butt_kick
+    7400004: FireReady_standing
+    7400006: Fire_standing
+    7400008: Reload_standing
+    7400010: Fire_lying
+    7400012: Dying_lying
+    7400014: From_Laying_to_Standing
+    7400016: From_standing_to_squat
+    7400018: FromSquat_toLaying
+    7400020: FromLaying_toSquat
+    7400022: LookingAround_SquatA
+    7400024: FireReady_squat
+    7400026: Fire_squat
+    7400028: Reload_squat
+    7400030: Dying_squat
+    7400032: From_squat_to_standing
+    7400034: Grenade_throw
+    7400036: Moving_left
+    7400038: Moving_right
+    7400040: Jump
+    7400042: Run
+    7400044: Walking
+    7400046: Walking_back
+    7400048: Dying_on_back
+    7400050: Dying_on_belt
+    7400052: Fire_Runing
+    7400054: Fire_walking
+    7400056: Climbing_wall_idle
+    7400058: Climbing_wall_right
+    7400060: Climbing_wall_left
+    7400062: Climbing_rope
+    7400064: Climbing_ladder_up
+    7400066: Climbing_ladder_down
+    9500000: //RootNode
+    13700000: AssaultGun
+    13700002: AssaultTroop 1
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
