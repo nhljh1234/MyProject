@@ -16,4 +16,10 @@ void main()
     {
         discard;
     }
+
+    if (FragColor.r < num + 0.1 && num > 0.1) 
+    {
+        float addNum = (FragColor.r - num) / 0.1;
+        FragColor = vec4(addNum, addNum, addNum, 1.0);
+    }
 }

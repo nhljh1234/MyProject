@@ -30,7 +30,7 @@
     <ClCompile Include="include\my\MyShader.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="work\OpenGL_assimp_dissolution.cpp">
+    <ClCompile Include="work\OpenGL_assimp_outLight.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
