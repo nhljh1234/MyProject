@@ -19,23 +19,10 @@ cc.Class({
         g_GameScene.NetNode = this.node.getChildByName("NetNode");
         //初始化
         this._super();
-        //加入一个测试结点
-        g_GameSceneManager.addNode("Prefab/label", g_GAME_SCENE_UI_NODE, "label", false, true, function () {
-            g_LogTool.showLog("success");
-            var labelNode = g_GameScene.UINode.getChildByName("label");
-            labelNode.getComponent(cc.Label).string = g_JsonDataTool.getDataById('_table_head_icon_icon', 1).name;
-        }, function () {
-            g_LogTool.showLog("fail");
-        });
+        g_GameSceneManager.addNode("Prefab/Battle/HeroSelect", g_GAME_SCENE_UI_NODE, "HeroSelectUI", false, undefined, undefined);
     },
 
-    //结点初始化
-    UIInit: function () {
-
-    },
-
-    //数据初始化
-    dataInit: function () {
+    onShow: function () {
 
     }
 });

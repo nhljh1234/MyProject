@@ -17,6 +17,10 @@ outModule.getIcon = (key) => {
     }
 };
 
+/**
+ * 初始化函数，会预先吧SPRITE_FRAME_INIT_LOAD_ARR下的图集全部加载起来
+ * @param {Function} finishCb 
+ */
 outModule.init = (finishCb) => {
     let loadedCount = 0;
     //处理加载选项数量为0的情况
@@ -47,6 +51,12 @@ outModule.init = (finishCb) => {
     });
 };
 
+/**
+ * 动态加载一个图集
+ * @param {String} path 
+ * @param {Function} successCb 
+ * @param {Function} failCb 
+ */
 outModule.loadSpriteFrame = (path, successCb, failCb) => {
     if (!path) {
         return;
@@ -64,6 +74,7 @@ outModule.loadSpriteFrame = (path, successCb, failCb) => {
             }
             return;
         }
+        spriteFrameSave[path] = spriteAtlas;
         if (successCb) {
             successCb(spriteAtlas);
         }

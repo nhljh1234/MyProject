@@ -5,8 +5,10 @@
  */
 var outModule = {};
 
+//这个记得是全局定义是否在控制台显示log的标记
 const SHOW_FLAG = true;
 
+//显示日志
 outModule.showLog = (obj) => {
     if (!SHOW_FLAG) {
         return;

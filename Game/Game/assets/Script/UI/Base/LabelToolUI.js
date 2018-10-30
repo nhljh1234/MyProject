@@ -1,6 +1,6 @@
 /*global module, require, cc, client */
 /**
- * @desc 模块描述
+ * @desc 多语言模块
  * @author Administrator
  */
 cc.Class({

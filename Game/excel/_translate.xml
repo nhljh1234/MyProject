@@ -1,8 +1,14 @@
-﻿<note>
-	<file oldName="head_icon" newName="head_icon">
-		<table oldName="头像" newName="icon" use="client"/>
+<note>
+	<file oldName="attribute" newName="attribute">
+		<table oldName="属性模板" newName="attribute" use="client"/>
 	</file>
-	<file oldName="hero" newName="hero">
-		<table oldName="英雄" newName="hero" use="client"/>
+	<file oldName="unit" newName="unit">
+		<table oldName="unit" newName="unit" use="client"/>
+	</file>
+	<file oldName="skill" newName="skill">
+		<table oldName="技能" newName="skill" use="client"/>
+	</file>
+	<file oldName="skill_process" newName="skill_process">
+		<table oldName="技能过程" newName="skill_process" use="client"/>
 	</file>
 </note>

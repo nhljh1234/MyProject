@@ -5,7 +5,9 @@
  */
 var outModule = {};
 
+//水平
 outModule.SCROLL_TYPE_HORIZONTAL = 1;
+//垂直
 outModule.SCROLL_TYPE_VERTICAL = 2;
 outModule.SCROLL_TYPE_BOTH = 3;
 

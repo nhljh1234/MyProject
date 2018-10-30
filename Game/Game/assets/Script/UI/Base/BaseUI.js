@@ -3,7 +3,12 @@ cc.Class({
 
     properties: {
         //UI的名字
-        _uiName: undefined
+        _uiName: null,
+        _leftNode: null,
+        _topNode: null,
+        _rightNode: null,
+        _bottomNode: null,
+        _midNode: null
     },
 
     /**
@@ -14,29 +19,19 @@ cc.Class({
         if (this._uiName) {
             this.node.name = this._uiName;
         }
-        if ((typeof this.UIInit) === 'function') {
-            this.UIInit();
-        }
-        if ((typeof this.dataInit) === 'function') {
-            this.dataInit();
-        }
+        //初始化五个节点
+        this._leftNode = this.node.getChildByName('Left');
+        this._topNode = this.node.getChildByName('Top');
+        this._rightNode = this.node.getChildByName('Right');
+        this._bottomNode = this.node.getChildByName('Bottom');
+        this._midNode = this.node.getChildByName('Mid');
         //初始化
         this.buttonTravelRegister(this.node);
+        this.onShow();
     },
 
-    /**
-     * 数据初始化
-     * @constructor
-     */
-    dataInit: function () {
-
-    },
-
-    /**
-     * UI初始化
-     * @constructor
-     */
-    UIInit: function () {
+    //重新显示的时候会调用这个
+    onShow: function () {
 
     },
 
