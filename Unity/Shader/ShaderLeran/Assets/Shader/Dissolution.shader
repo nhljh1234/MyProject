@@ -62,12 +62,18 @@ Shader "MyShader/Dissolution"
 				// sample the texture
 				fixed4 color = tex2D(_MainTex, i.uv);
 				fixed4 noiseColor = tex2D(_NoiseTex, i.uv);
-				if (noiseColor.r <= _DissolutionNum) {
+				if (noiseColor.r <= _DissolutionNum) 
+				{
 					discard;
-				} else if (noiseColor.r > _DissolutionOutNum) {
-					if (noiseColor.r < _DissolutionNum + _DissolutionInNum) {
+				} 
+				else if (noiseColor.r > _DissolutionOutNum) 
+				{
+					if (noiseColor.r < _DissolutionNum + _DissolutionInNum) 
+					{
 						return _DissolutionInColor;
-					} else if (noiseColor.r < _DissolutionNum + _DissolutionOutNum) {
+					} 
+					else if (noiseColor.r < _DissolutionNum + _DissolutionOutNum) 
+					{
 						return _DissolutionOutColor;
 					}
 				}
