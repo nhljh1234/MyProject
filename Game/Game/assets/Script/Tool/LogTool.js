@@ -9,14 +9,17 @@ var outModule = {};
 const SHOW_FLAG = true;
 
 //显示日志
-outModule.showLog = (obj) => {
+/**
+ * @param {String} string 
+ */
+outModule.showLog = (string) => {
     if (!SHOW_FLAG) {
         return;
     }
     if (cc.sys.isNative) {
-        cc.log(obj);
+        cc.log(string);
     } else {
-        console.log(obj);
+        console.log(string);
     }
 };
 

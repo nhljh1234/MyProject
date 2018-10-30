@@ -50,7 +50,12 @@ outModule.init = (finishCb) => {
     });
 };
 
-//根据一个key值来获取数据，返回一个数组
+/**
+ * 根据一个key值来获取数据，返回一个数组
+ * @param {String} tableName 
+ * @param {String} key 
+ * @param {Number | String} value 
+ */
 outModule.getDataByKey = (tableName, key, value) => {
     let table = outModule.getTableByName(tableName);
     if (table && table[key]) {
@@ -61,12 +66,19 @@ outModule.getDataByKey = (tableName, key, value) => {
     return [];
 };
 
-//返回一个指定的数据表
+/**
+ * 返回一个指定的数据表
+ * @param {String} tableName 
+ */
 outModule.getTableByName = (tableName) => {
     return localJsonDataSave[tableName];
 };
 
-//返回一个指定id的数据
+/**
+ * 返回一个指定id的数据
+ * @param {String} tableName 
+ * @param {Number} id 
+ */
 outModule.getDataById = (tableName, id) => {
     if (localJsonDataSave[tableName]) {
         return localJsonDataSave[tableName].object[id];

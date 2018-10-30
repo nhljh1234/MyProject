@@ -10,6 +10,10 @@ const SPRITE_FRAME_INIT_LOAD_ARR = [
   
 ];
 
+/**
+ * 获取icon下的一个图片
+ * @param {String} key 
+ */
 outModule.getIcon = (key) => {
     let spriteAtlas = spriteFrameSave['ui/icon'];
     if (spriteAtlas) {

@@ -31,6 +31,14 @@ window.g_SpriteFrameManager = require('SpriteFrameManager');
 window.g_JsonDataTool = require('JsonDataTool');
 //客户端事件工具
 window.g_EventManager = require('EventManager');
+//内存管理工具
+window.g_MemoryManager = require('MemoryManager');
+
+//内存管理选项
+//内存使用超过600MB开始自动清除内存
+window.g_MAX_MEMORY_NUM = 600;
+//使用开启自动清理内存
+window.g_AUTO_CLEAR_MEMORY_FLAG = true;
 
 //主场景相关结点缓存
 window.g_GameScene = {};

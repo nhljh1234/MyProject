@@ -19,7 +19,7 @@ cc.Class({
         g_GameScene.NetNode = this.node.getChildByName("NetNode");
         //初始化
         this._super();
-        g_GameSceneManager.addNode("Prefab/Battle/HeroSelect", g_GAME_SCENE_UI_NODE, "HeroSelectUI", false, undefined, undefined);
+        g_GameSceneManager.addNode("Prefab/Battle/HeroSelect", g_GAME_SCENE_UI_NODE, "HeroSelectUI", false, undefined, undefined, 1);
     },
 
     onShow: function () {
