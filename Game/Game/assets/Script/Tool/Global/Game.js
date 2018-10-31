@@ -39,6 +39,8 @@ window.g_MemoryManager = require('MemoryManager');
 window.g_MAX_MEMORY_NUM = 600;
 //使用开启自动清理内存
 window.g_AUTO_CLEAR_MEMORY_FLAG = true;
+//是否启动强清除模式，这种模式下所有的隐藏的界面都会被清除
+window.g_USE_STRONG_CLEAR_MODE = true;
 
 //主场景相关结点缓存
 window.g_GameScene = {};

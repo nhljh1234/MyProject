@@ -43,6 +43,8 @@ cc.Class({
         if (deleteFlag) {
             this.node.removeFromParent(true);
             this.node.destroy();
+            this.node._tj_isDestroy = true;
+            g_SpriteFrameManager.clearDestroyNode();
         }
     },
 
