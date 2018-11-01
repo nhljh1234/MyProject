@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: modelMaterial
-  m_Shader: {fileID: 4800000, guid: 2208809b865495f4b9df074ff6532c64, type: 3}
+  m_Shader: {fileID: 4800000, guid: b7b0642586fd52a418ebceff91ff323d, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -114,7 +114,8 @@ Material:
     - _NormalMoveNum: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Scale: 0
+    - _PlayTime: 0
+    - _Scale: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

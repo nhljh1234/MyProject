@@ -46,9 +46,8 @@ Shader "MyShader/RimLight"
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				//o.worldNormal = normalize(mul(v.normal, (float3x3)unity_WorldToObject));
-				o.worldNormal = normalize(UnityObjectToWorldNormal(v.normal));
-				float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
-				o.worldViewDir = normalize(_WorldSpaceCameraPos.xyz - worldPos);
+				o.worldNormal = UnityObjectToWorldNormal(v.normal);
+				o.worldViewDir = WorldSpaceViewDir(v.vertex);
 				return o;
 			}
 			
