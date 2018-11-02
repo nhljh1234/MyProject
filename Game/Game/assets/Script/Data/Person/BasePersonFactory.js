@@ -3,7 +3,7 @@ var outModule = {};
 var local = {};
 
 /**
- * @param person 已经加好数据的商品，再增加一些操作函数
+ * @param person 已经加好数据的人物，再增加一些操作函数
  */
 local.buildFunc = (person) => {
     
