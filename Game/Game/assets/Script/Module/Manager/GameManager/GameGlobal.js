@@ -15,19 +15,12 @@ outModule.nowTimeHour = 0;
 //分钟
 outModule.nowTimeMinute = 0;
 
-//选择的剧本Id
-outModule.scriptId;
-
-outModule.allForce = [];
-outModule.allCity = [];
-outModule.allPerson = [];
-
 /**
  * 数据初始化
  * @param {Object} saveData 存储的数据
  * @param {Object} scriptData 剧本数据，没有存储的数据就认为是新开的局，需要使用剧本数据
  */
-outModule.init = (saveData, scriptData) => {
+outModule.init = (saveData, month, day) => {
     if (saveData) {
         outModule.nowTimeYear = saveData.nowTimeYear;
         outModule.nowTimeMonth = saveData.nowTimeMonth;
@@ -36,11 +29,13 @@ outModule.init = (saveData, scriptData) => {
         outModule.nowTimeMinute = saveData.nowTimeMinute;
         return;
     }
-    outModule.nowTimeYear = scriptData.year;
-    outModule.nowTimeMonth = scriptData.month;
-    outModule.nowTimeDay = scriptData.day;
-    outModule.nowTimeHour = scriptData.hour;
-    outModule.nowTimeMinute = scriptData.minute;
+    //这边这个按照一个虚拟的年号来做
+    outModule.nowTimeYear = 1;
+    //这边设置可以选择出生年月日
+    outModule.nowTimeMonth = month || 6;
+    outModule.nowTimeDay = day || 1;
+    outModule.nowTimeHour = 8;
+    outModule.nowTimeMinute = 0;
 };
 
 module.exports = outModule;

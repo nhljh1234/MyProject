@@ -25,9 +25,6 @@ local.findFuncIndex = function (eventName, func) {
     return undefined;
 };
 
-//函数名需要在这边注册，方便查阅
-outModule.SELECT_HERO_FINISH = "SELECT_HERO_FINISH";//英雄选择完成
-
 /**
  * 同一个函数在一个事件下只能监听一次
  * @param {String} eventName 
