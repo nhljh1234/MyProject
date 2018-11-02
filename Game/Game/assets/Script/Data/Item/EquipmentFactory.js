@@ -5,7 +5,7 @@ var outModule = {};
 var local = {};
 
 /**
- * @param sellGood 已经加好数据的商品，再增加一些操作函数
+ * @param sellGood 已经加好数据的装备，再增加一些操作函数
  */
 local.buildFunc = (sellGood) => {
     /**
