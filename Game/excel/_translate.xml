@@ -1,14 +1,11 @@
 <note>
-	<file oldName="attribute" newName="attribute">
-		<table oldName="属性模板" newName="attribute" use="client"/>
+	<file oldName="person" newName="person">
+		<table oldName="人物" newName="person" use="client"/>
 	</file>
-	<file oldName="unit" newName="unit">
-		<table oldName="unit" newName="unit" use="client"/>
+	<file oldName="script" newName="script">
+		<table oldName="剧本" newName="script" use="client"/>
 	</file>
-	<file oldName="skill" newName="skill">
-		<table oldName="技能" newName="skill" use="client"/>
-	</file>
-	<file oldName="skill_process" newName="skill_process">
-		<table oldName="技能过程" newName="skill_process" use="client"/>
+	<file oldName="item" newName="item">
+		<table oldName="商品" newName="sellGood" use="client"/>
 	</file>
 </note>
