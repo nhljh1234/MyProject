@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/MainScene.unity
+- path: Assets/Spine Examples/Other Examples/Sprite Shaders.unity
   isLoaded: 1
   isActive: 1
