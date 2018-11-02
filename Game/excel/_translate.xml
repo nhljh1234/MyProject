@@ -2,9 +2,6 @@
 	<file oldName="person" newName="person">
 		<table oldName="人物" newName="person" use="client"/>
 	</file>
-	<file oldName="script" newName="script">
-		<table oldName="剧本" newName="script" use="client"/>
-	</file>
 	<file oldName="item" newName="item">
 		<table oldName="商品" newName="sellGood" use="client"/>
 	</file>
