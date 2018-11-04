@@ -29,6 +29,7 @@ outModule.initAllNameArr = (allPersonArr) => {
 
 /**
  * 生成一个随机的人名
+ * 如果量很大的话需要优化
  * @param isMan 是否是男性角色
  */
 outModule.getRandomName = (isMan) => {
