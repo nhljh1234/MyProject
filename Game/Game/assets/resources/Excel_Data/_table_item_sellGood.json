@@ -1,0 +1,81 @@
+{
+    "object" : {
+        "1" : {
+            "name" : "鱼肉",
+            "price" : 10,
+            "overdue" : 5,
+            "overdueGood" : 5
+        },    
+        "2" : {
+            "name" : "小鱼干",
+            "price" : 20,
+            "overdue" : 100,
+            "overdueGood" : 5
+        },    
+        "3" : {
+            "name" : "鹿肉",
+            "price" : 10,
+            "overdue" : 5,
+            "overdueGood" : 6
+        },    
+        "4" : {
+            "name" : "鹿肉干",
+            "price" : 20,
+            "overdue" : 100,
+            "overdueGood" : 6
+        },    
+        "5" : {
+            "name" : "坏掉的鱼肉",
+            "price" : 1,
+            "overdue" : -1
+        },    
+        "6" : {
+            "name" : "坏掉的鹿肉",
+            "price" : 1,
+            "overdue" : -1
+        }    
+    },
+
+    "array" : [
+        {
+            "main_id" : 1,
+            "name" : "鱼肉",
+            "price" : 10,
+            "overdue" : 5,
+            "overdueGood" : 5
+        },    
+        {
+            "main_id" : 2,
+            "name" : "小鱼干",
+            "price" : 20,
+            "overdue" : 100,
+            "overdueGood" : 5
+        },    
+        {
+            "main_id" : 3,
+            "name" : "鹿肉",
+            "price" : 10,
+            "overdue" : 5,
+            "overdueGood" : 6
+        },    
+        {
+            "main_id" : 4,
+            "name" : "鹿肉干",
+            "price" : 20,
+            "overdue" : 100,
+            "overdueGood" : 6
+        },    
+        {
+            "main_id" : 5,
+            "name" : "坏掉的鱼肉",
+            "price" : 1,
+            "overdue" : -1
+        },    
+        {
+            "main_id" : 6,
+            "name" : "坏掉的鹿肉",
+            "price" : 1,
+            "overdue" : -1
+        }    
+    ]
+}

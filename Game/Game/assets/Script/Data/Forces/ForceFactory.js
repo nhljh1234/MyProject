@@ -7,23 +7,23 @@ var local = {};
 /**
  * @param force 为割据数据绑定相应的函数
  */
-local.buildFunc = (force) => {
+local.buildFunc = function (force) {
 
 };
 
 /**
  * @param saveData 存储的数据
  */
-local.createOneForceBySaveData = (saveData) => {
+local.createOneForceBySaveData = function (saveData) {
 
     local.buildFunc(this);
-};  
+};
 
 /**
- * @param forceId 城市id
+ * @param forceId 割据势力id
  * 新建一个城市数据
  */
-local.createOneForce = (forceId) => {
+local.createOneForce = function (forceId) {
 
     local.buildFunc(this);
 };

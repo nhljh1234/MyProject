@@ -5,8 +5,8 @@ var local = {};
 /**
  * @param person 已经加好数据的人物，再增加一些操作函数
  */
-local.buildFunc = (person) => {
-    
+local.buildFunc = function (person) {
+
 };
 
 /**
@@ -39,7 +39,7 @@ local.createOneBasePerson = function (personId) {
     this._battleSkillId = jsonData.battleSkillId;
     //TODO 需要新建一个技能
 
-    
+
     //这边是存储的配置
     //武器装备
     this._equipAttack = undefined;
@@ -58,7 +58,7 @@ local.createOneBasePerson = function (personId) {
 /**
  * @param saveData 根据存储的数据生成一个角色
  */
-local.createOneBasePersonBySaveData = (saveData) => {
+local.createOneBasePersonBySaveData = function (saveData) {
 
     local.buildFunc(this);
 };

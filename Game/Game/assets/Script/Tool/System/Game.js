@@ -49,6 +49,11 @@ window.g_GameScene.UINode = undefined;
 window.g_GameScene.AlertNode = undefined;
 window.g_GameScene.NetNode = undefined;
 
+//************************************************************
+//游戏相关
+//************************************************************
+window.g_GameGlobalManager = require('GameGlobalManager');
+
 var outModule = {};
 
 /**
@@ -89,9 +94,3 @@ outModule.init = function (oneTaskFinishCb, finishCb) {
 };
 
 module.exports = outModule;
-
-
-
-
-//游戏相关
-window.g_GameGlobal = require('GameGlobal');

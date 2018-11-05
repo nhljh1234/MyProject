@@ -7,7 +7,7 @@ var local = {};
 /**
  * @param sellGood 已经加好数据的装备，再增加一些操作函数
  */
-local.buildFunc = (sellGood) => {
+local.buildFunc = function (sellGood) {
     /**
      * 使用物品
      */
@@ -26,7 +26,7 @@ local.buildFunc = (sellGood) => {
 /**
  * 新建一个人物
  */
-local.createOneEquipment = (equipmentId) => {
+local.createOneEquipment = function (equipmentId) {
 
     //新增函数
     local.buildFunc(this);
@@ -35,7 +35,7 @@ local.createOneEquipment = (equipmentId) => {
 /**
  * @param saveData 存储的数据
  */
-local.createOneEquipmentSaveData = (saveData) => {
+local.createOneEquipmentSaveData = function (saveData) {
 
     //新增函数
     local.buildFunc(this);

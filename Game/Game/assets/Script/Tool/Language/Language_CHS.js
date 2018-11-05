@@ -16,5 +16,6 @@ outModule.not_auto = '手动';
 outModule.return = '返回';
 outModule.clear = '清除';
 outModule.change = '更换';
+outModule.era_name = '大盛';
 
 module.exports = outModule;

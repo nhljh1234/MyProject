@@ -7,7 +7,7 @@ var local = {};
 /**
  * @param sellGood 已经加好数据的商品，再增加一些操作函数
  */
-local.buildFunc = (sellGood) => {
+local.buildFunc = function (sellGood) {
     /**
      * 每天的更新函数
      */
@@ -33,7 +33,7 @@ local.buildFunc = (sellGood) => {
 /**
  * 新建一个人物
  */
-local.createOneSellGood = (sellGoodId) => {
+local.createOneSellGood = function (sellGoodId) {
     //存储id
     this._sellGoodId = sellGoodId;
     //数据
@@ -56,7 +56,7 @@ local.createOneSellGood = (sellGoodId) => {
 /**
  * @param saveData 存储的数据
  */
-local.createOneSellGoodBySaveData = (saveData) => {
+local.createOneSellGoodBySaveData = function (saveData) {
 
     //新增函数
     local.buildFunc(this);

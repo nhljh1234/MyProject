@@ -7,23 +7,23 @@ var local = {};
 /**
  * @param city 为城市数据绑定相应的函数
  */
-local.buildFunc = (city) => {
+local.buildFunc = function (city) {
 
 };
 
 /**
  * @param saveData 存储的数据
  */
-local.createOneCityBySaveData = (saveData) => {
+local.createOneCityBySaveData = function (saveData) {
 
     local.buildFunc(this);
-};  
+};
 
 /**
  * @param cityId 城市id
  * 新建一个城市数据
  */
-local.createOneCity = (cityId) => {
+local.createOneCity = function (cityId) {
 
     //人物列表
     this._personArr = [];
