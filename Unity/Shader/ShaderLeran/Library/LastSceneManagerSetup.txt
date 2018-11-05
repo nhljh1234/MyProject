@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Spine Examples/Other Examples/Sprite Shaders.unity
+- path: Assets/LearnProject/Clock/Clock.unity
   isLoaded: 1
   isActive: 1
