@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\LearnProject\Clock\Script\ClockScript.cs" />
+     <Compile Include="Assets\LearnProject\Graph\Script\GraphPosControl.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\AttackSpineboy.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DataAssetsFromExportsExample.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DraggableTransform.cs" />
@@ -230,6 +231,7 @@
      <None Include="Assets\Shader\Dissolution.shader" />
      <None Include="Assets\Spine\spine-unity\version.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritesPixelLit.shader" />
+     <None Include="Assets\LearnProject\Graph\Shader\Color.shader" />
      <None Include="Assets\Spine Examples\Spine\Raggedy Spineboy\Raggedy Spineboy.atlas.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Spine-Skeleton-Tint.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritesUnlit.shader" />
