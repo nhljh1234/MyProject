@@ -24,7 +24,7 @@ local.buildFunc = function (sellGood) {
 };
 
 /**
- * 新建一个人物
+ * 新建一个装备
  */
 local.createOneEquipment = function (equipmentId) {
 

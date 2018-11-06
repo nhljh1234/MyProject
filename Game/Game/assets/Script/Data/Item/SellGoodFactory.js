@@ -31,7 +31,7 @@ local.buildFunc = function (sellGood) {
 };
 
 /**
- * 新建一个人物
+ * 新建一个商品
  */
 local.createOneSellGood = function (sellGoodId) {
     //存储id

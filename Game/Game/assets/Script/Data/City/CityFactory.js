@@ -8,7 +8,12 @@ var local = {};
  * @param city 为城市数据绑定相应的函数
  */
 local.buildFunc = function (city) {
-
+    //根据建筑id获取一个建筑
+    city.getBuildingById = function (buildingId) {
+        return this._buildingArr.find((oneBuildingData) => {
+            return oneBuildingData._id === buildingId;
+        });
+    };
 };
 
 /**
@@ -45,7 +50,9 @@ local.createOneCity = function (cityId) {
     this._linkCityArr = [];
     //城市名字
     this._cityName;
-    //
+    //城市位置
+    //用两个元素表示，类似于经纬度
+    this._cityPos = [];
 
     local.buildFunc(this);
 };

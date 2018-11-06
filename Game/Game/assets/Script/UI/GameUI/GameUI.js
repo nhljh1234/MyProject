@@ -3,7 +3,6 @@
  * 本游戏的主场景，现在只有一个场景
  */
 var BaseUI = require("BaseUI");
-var BasePersonFactory = require("BasePersonFactory");
 var GameFactory = require("GameFactory");
 var GameGlobalManager = require("GameGlobalManager");
 var EventName = require("EventName");

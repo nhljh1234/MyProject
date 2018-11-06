@@ -47,7 +47,29 @@ local.buildFunc = function (game) {
             game._allPersonData[onePersonData._id] = onePersonData;
         });
     };
-    //
+    //根据id查找人物数据
+    game.getPersonById = function (personId) {
+        return this._allPersonArr.find((onePersonData) => {
+            return onePersonData._id === personId;
+        });
+    };
+    //获取一个新的人物id
+    game.getNewPersonId = function () {
+        game._maxPersonId++;
+        return game._maxPersonId - 1;
+    };
+    //根据id查找势力数据
+    game.getForceById = function (forceId) {
+        return this._allForceArr.find((oneForceData) => {
+            return oneForceData._id === forceId;
+        });
+    };
+    //根据id查找城市数据
+    game.getCityById = function (cityId) {
+        return this._allCityArr.find((oneCityData) => {
+            return oneCityData._id === cityId;
+        });
+    };
 };
 
 /**
@@ -64,9 +86,11 @@ local.createOneGameBySaveData = function (saveData) {
 local.createOneGame = function (month, day) {
 
     //割据势力的列表
-    this._forceArr = [];
+    this._allForceArr = [];
     //全部人物
     this._allPersonArr = [];
+    //全部城市
+    this._allCityArr = [];
     //这边这个按照一个虚拟的年号来做
     this._nowTimeYear = 1;
     //这边设置可以选择出生年月日
@@ -74,6 +98,8 @@ local.createOneGame = function (month, day) {
     this._nowTimeDay = day || 1;
     this._nowTimeHour = 8;
     this._nowTimeMinute = 0;
+    //已用的最大人物id
+    this._maxPersonId = 1;
 
     local.buildFunc(this);
 };
