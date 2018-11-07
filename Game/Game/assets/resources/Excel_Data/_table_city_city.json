@@ -1,0 +1,34 @@
+{
+    "object" : {
+        "1" : {
+            "name" : "小鱼村",
+            "building" : "1,2,3",
+            "npc" : "1,2,3,4",
+            "peopleNum" : 4000,
+            "soldierNum" : 10,
+            "horseNum" : 1,
+            "commissariatNum" : 4000,
+            "moneyNum" : 4000,
+            "cityDef" : 1000,
+            "cityPos" : "500,500",
+            "randomNpcNum" : 10
+        }    
+    },
+
+    "array" : [
+        {
+            "main_id" : 1,
+            "name" : "小鱼村",
+            "building" : "1,2,3",
+            "npc" : "1,2,3,4",
+            "peopleNum" : 4000,
+            "soldierNum" : 10,
+            "horseNum" : 1,
+            "commissariatNum" : 4000,
+            "moneyNum" : 4000,
+            "cityDef" : 1000,
+            "cityPos" : "500,500",
+            "randomNpcNum" : 10
+        }    
+    ]
+}

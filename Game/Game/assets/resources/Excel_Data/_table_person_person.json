@@ -1,83 +1,99 @@
 {
     "object" : {
         "1" : {
-            "name" : "曹操",
+            "name" : "张三",
             "attact" : 80,
             "def" : 78,
             "command" : 99,
             "intelligence" : 99,
             "charm" : 99,
-            "hp" : 500
+            "politics" : 90,
+            "hp" : 500,
+            "sex" : 1
         },    
         "2" : {
-            "name" : "关羽",
+            "name" : "赵四",
             "attact" : 99,
             "def" : 100,
             "command" : 95,
             "intelligence" : 80,
             "charm" : 90,
-            "hp" : 700
+            "politics" : 65,
+            "hp" : 700,
+            "sex" : 1
         },    
         "3" : {
-            "name" : "刘备",
+            "name" : "李五",
             "attact" : 78,
             "def" : 88,
             "command" : 90,
             "intelligence" : 90,
             "charm" : 100,
-            "hp" : 500
+            "politics" : 80,
+            "hp" : 500,
+            "sex" : 1
         },    
         "4" : {
-            "name" : "张飞",
+            "name" : "王六",
             "attact" : 100,
             "def" : 98,
             "command" : 80,
             "intelligence" : 70,
             "charm" : 80,
-            "hp" : 750
+            "politics" : 79,
+            "hp" : 750,
+            "sex" : 1
         }    
     },
 
     "array" : [
         {
             "main_id" : 1,
-            "name" : "曹操",
+            "name" : "张三",
             "attact" : 80,
             "def" : 78,
             "command" : 99,
             "intelligence" : 99,
             "charm" : 99,
-            "hp" : 500
+            "politics" : 90,
+            "hp" : 500,
+            "sex" : 1
         },    
         {
             "main_id" : 2,
-            "name" : "关羽",
+            "name" : "赵四",
             "attact" : 99,
             "def" : 100,
             "command" : 95,
             "intelligence" : 80,
             "charm" : 90,
-            "hp" : 700
+            "politics" : 65,
+            "hp" : 700,
+            "sex" : 1
         },    
         {
             "main_id" : 3,
-            "name" : "刘备",
+            "name" : "李五",
             "attact" : 78,
             "def" : 88,
             "command" : 90,
             "intelligence" : 90,
             "charm" : 100,
-            "hp" : 500
+            "politics" : 80,
+            "hp" : 500,
+            "sex" : 1
         },    
         {
             "main_id" : 4,
-            "name" : "张飞",
+            "name" : "王六",
             "attact" : 100,
             "def" : 98,
             "command" : 80,
             "intelligence" : 70,
             "charm" : 80,
-            "hp" : 750
+            "politics" : 79,
+            "hp" : 750,
+            "sex" : 1
         }    
     ]
 }

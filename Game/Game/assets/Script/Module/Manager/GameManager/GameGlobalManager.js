@@ -3,16 +3,19 @@
  */
 var outModule = {};
 var local = {};
+var RandomNameTool = require('RandomNameTool');
 
 //全局的游戏类
 outModule.gameData;
 //承载定时器的component
 local.component;
+//已用的最大人物id
+local.maxPersonId = 1;
 
 //标记时间，就是现实中的1秒表示多少分钟
-const ONE_SECOND_GAME_MINUTE = 50;
+const ONE_SECOND_GAME_MINUTE = 10;
 //定时器间隔时间
-const TIMER_TIME = 0;
+const TIMER_TIME = 1;
 
 /**
  * 时间更新函数
@@ -25,6 +28,12 @@ local.minuteUpdate = function () {
     }
 };
 
+//获取一个新的人物id
+outModule.getNewPersonId = function () {
+    local.maxPersonId++;
+    return local.maxPersonId - 1;
+};
+
 /**
  * @param component 组件
  * @param gameData GameFactory生成的数据
@@ -32,6 +41,8 @@ local.minuteUpdate = function () {
 outModule.init = (component, gameData) => {
     local.component = component;
     outModule.gameData = gameData;
+    //将配置中的名字都设置为不可随机的
+    RandomNameTool.initAllNameArr(g_JsonDataTool.getTableByName('_table_person_person').array);
 };
 
 /**

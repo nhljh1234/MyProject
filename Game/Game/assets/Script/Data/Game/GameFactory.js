@@ -5,6 +5,7 @@ var outModule = {};
 var local = {};
 var DateTool = require("DateTool");
 var EventName = require("EventName");
+var ForceFactory = require("ForceFactory");
 
 /**
  * @param force 为割据数据绑定相应的函数
@@ -13,13 +14,14 @@ local.buildFunc = function (game) {
     //时间更新函数
     game.timeUpdate = function (addMinutes) {
         var newDate = DateTool.getNewDate(game._nowTimeYear, game._nowTimeMonth, game._nowTimeDay, game._nowTimeHour, game._nowTimeMinute, addMinutes);
-
+        var isDayChange = false;
         //这边先判断是否有时间段的变化
         if (game._nowTimeHour !== newDate.hour) {
             g_EventManager.send(EventName.TIME_UPDATE_HOUR);
         }
         if (game._nowTimeDay !== newDate.day) {
             g_EventManager.send(EventName.TIME_UPDATE_DAY);
+            isDayChange = true;
         }
         if (game._nowTimeMonth !== newDate.month) {
             g_EventManager.send(EventName.TIME_UPDATE_MONTH);
@@ -36,7 +38,17 @@ local.buildFunc = function (game) {
         game._nowTimeDay = newDate.day;
         game._nowTimeHour = newDate.hour;
         game._nowTimeMinute = newDate.minute;
-        cc.log(DateTool.getTimeStrWithEra(game._nowTimeYear, game._nowTimeMonth, game._nowTimeDay, game._nowTimeHour, game._nowTimeMinute));
+        //cc.log(DateTool.getTimeStrWithEra(game._nowTimeYear, game._nowTimeMonth, game._nowTimeDay, game._nowTimeHour, game._nowTimeMinute));
+        if (isDayChange) {
+            //城市有每日更新的函数
+            game._allCityArr.forEach(function (oneCityData) {
+                oneCityData.dayUpdate();
+            });
+        }
+        //人物更新函数
+        game._allPersonArr.forEach(function (onePersonData) {
+            onePersonData.timeUpdate(addMinutes);
+        });
     };
     //game里面存储的是所有人物的列表，转换成以id为key的对象数据
     game.personDataBuild = function () {
@@ -52,11 +64,6 @@ local.buildFunc = function (game) {
         return this._allPersonArr.find((onePersonData) => {
             return onePersonData._id === personId;
         });
-    };
-    //获取一个新的人物id
-    game.getNewPersonId = function () {
-        game._maxPersonId++;
-        return game._maxPersonId - 1;
     };
     //根据id查找势力数据
     game.getForceById = function (forceId) {
@@ -85,12 +92,10 @@ local.createOneGameBySaveData = function (saveData) {
  */
 local.createOneGame = function (month, day) {
 
-    //割据势力的列表
-    this._allForceArr = [];
-    //全部人物
-    this._allPersonArr = [];
     //全部城市
     this._allCityArr = [];
+    //全部人物
+    this._allPersonArr = [];
     //这边这个按照一个虚拟的年号来做
     this._nowTimeYear = 1;
     //这边设置可以选择出生年月日
@@ -98,10 +103,21 @@ local.createOneGame = function (month, day) {
     this._nowTimeDay = day || 1;
     this._nowTimeHour = 8;
     this._nowTimeMinute = 0;
-    //已用的最大人物id
-    this._maxPersonId = 1;
 
     local.buildFunc(this);
+
+    //割据势力的列表
+    this._allForceArr = g_JsonDataTool.getTableByName('_table_force_force').array.map(function (oneForce) {
+        return ForceFactory.createOneForce(oneForce.main_id, undefined);
+    });
+    //全部城市
+    this._allForceArr.forEach(function (oneForceData) {
+        oneForceData._cityArr.forEach(function (oneCityDay) {
+            this._allCityArr.push(oneCityDay);
+            this._allPersonArr = this._allPersonArr.concat(oneCityDay._personArr);
+        }.bind(this));
+    }.bind(this));
+    this.personDataBuild();
 };
 
 /**

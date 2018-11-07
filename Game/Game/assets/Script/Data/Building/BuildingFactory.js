@@ -20,20 +20,27 @@ local.createOneBuildingBySaveData = function (saveData) {
 };
 
 /**
- * @param cityId 城市id
+ * @param buildingId 建筑id
  * 新建一个城市数据
  */
 local.createOneBuilding = function (buildingId) {
 
+    this._id = parseInt(buildingId);
+    //配置数据
+    var jsonData = g_JsonDataTool.getDataById('_table_building_building', buildingId);
+    //在这个建筑的人
+    this._personArr = [];
+    //名称
+    this._name = jsonData.name;
 
     local.buildFunc(this);
 };
 
 /**
- * @param cityId
+ * @param buildingId
  * @param saveData 
  */
-outModule.createOneCity = (buildingId, saveData) => {
+outModule.createOneBuilding = (buildingId, saveData) => {
     if (saveData) {
         return new local.createOneBuildingBySaveData(saveData);
     }

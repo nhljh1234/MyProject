@@ -54,6 +54,7 @@ window.g_GameScene.NetNode = undefined;
 //************************************************************
 window.g_GameGlobalManager = require('GameGlobalManager');
 window.g_GameTool = require('GameTool');
+window.g_GlobalData = require('GlobalData');
 
 var outModule = {};
 

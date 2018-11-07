@@ -4,8 +4,6 @@
  */
 var BaseUI = require("BaseUI");
 var GameFactory = require("GameFactory");
-var GameGlobalManager = require("GameGlobalManager");
-var EventName = require("EventName");
 cc.Class({
     extends: BaseUI,
 
@@ -25,7 +23,7 @@ cc.Class({
     },
 
     onShow: function () {
-        GameGlobalManager.init(this, new GameFactory.createOneGame(undefined, 7, 13));
-        //GameGlobalManager.start();
+        g_GameGlobalManager.init(this, new GameFactory.createOneGame(undefined, 7, 13));
+        g_GameGlobalManager.start();
     }
 });

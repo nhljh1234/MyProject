@@ -12,18 +12,18 @@ var local = {};
  */
 outModule.getNearBuildingCity = (buildingId, nowCityId, nowCityData) => {
     nowCityData = nowCityData || g_GameGlobalManager.gameData.getCityById(nowCityId);
-    if (cityData.getBuildingById(buildingId)) {
+    if (nowCityData.getBuildingById(buildingId)) {
         return nowCityData;
     } 
     let hasBuildingCityArr = g_GameGlobalManager.gameData._allCityArr.filter((oneCityData) => {
         return oneCityData.getBuildingById(buildingId);
     });
-    let i, len, minDis = 0, dis, returnCityData;
+    let i, len, minDis = -1, dis, returnCityData;
     for (i = 0, len = hasBuildingCityArr.length; i < len; i++) {
         let cityData = hasBuildingCityArr[i];
         dis = (cityData._cityPos[0] - nowCityData._cityPos[0]) * (cityData._cityPos[0] - nowCityData._cityPos[0]) +
             (cityData._cityPos[1] - nowCityData._cityPos[1]) * (cityData._cityPos[1] - nowCityData._cityPos[1]);
-        if (!minDis || minDis > dis) {
+        if (minDis === -1 || minDis > dis) {
             minDis = dis;
             returnCityData = cityData;
         }

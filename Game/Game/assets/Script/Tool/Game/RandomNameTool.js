@@ -21,8 +21,9 @@ const WOMAN_NAME_ARR = ['醉易', '紫萱', '紫霜', '紫南', '紫菱', '紫�
  */
 outModule.initAllNameArr = (allPersonArr) => {
     allPersonArr.forEach((onePerson) => {
-        if (allPersonArr.indexOf(onePerson._name) < 0) {
-            allNameArr.push(onePerson._name);
+        let name = onePerson._name || onePerson.name;
+        if (allPersonArr.indexOf(name) < 0) {
+            allNameArr.push(name);
         }
     });
 };
@@ -30,15 +31,15 @@ outModule.initAllNameArr = (allPersonArr) => {
 /**
  * 生成一个随机的人名
  * 如果量很大的话需要优化
- * @param isMan 是否是男性角色
+ * @param sex 性别
  */
-outModule.getRandomName = (isMan) => {
-    let surname = SURNAME_ARR[cc.random0To1() * SURNAME_ARR.length];
+outModule.getRandomName = (sex) => {
+    let surname = SURNAME_ARR[Math.floor(cc.random0To1() * SURNAME_ARR.length)];
     let name;
-    if (isMan) {
-        name  = MAN_NAME_ARR[cc.random0To1() * MAN_NAME_ARR.length];
+    if (sex === g_GlobalData.SEX_MAN) {
+        name  = MAN_NAME_ARR[Math.floor(cc.random0To1() * MAN_NAME_ARR.length)];
     } else {
-        name  = WOMAN_NAME_ARR[cc.random0To1() * WOMAN_NAME_ARR.length];
+        name  = WOMAN_NAME_ARR[Math.floor(cc.random0To1() * WOMAN_NAME_ARR.length)];
     }
     let resultName = surname + name;
     if (allNameArr.indexOf(resultName) >= 0) {

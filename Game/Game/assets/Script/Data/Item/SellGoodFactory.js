@@ -35,7 +35,7 @@ local.buildFunc = function (sellGood) {
  */
 local.createOneSellGood = function (sellGoodId) {
     //存储id
-    this._sellGoodId = sellGoodId;
+    this._id = parseInt(sellGoodId);
     //数据
     var jsonData = g_JsonDataTool.getDataById('_table_item_sellGood', sellGoodId);
     //名字

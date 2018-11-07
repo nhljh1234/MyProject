@@ -5,4 +5,16 @@
 	<file oldName="item" newName="item">
 		<table oldName="商品" newName="sellGood" use="client"/>
 	</file>
+	<file oldName="action" newName="action">
+		<table oldName="行动" newName="action" use="client"/>
+	</file>
+	<file oldName="force" newName="force">
+		<table oldName="势力" newName="force" use="client"/>
+	</file>
+	<file oldName="city" newName="city">
+		<table oldName="城市" newName="city" use="client"/>
+	</file>
+	<file oldName="building" newName="building">
+		<table oldName="建筑" newName="building" use="client"/>
+	</file>
 </note>
