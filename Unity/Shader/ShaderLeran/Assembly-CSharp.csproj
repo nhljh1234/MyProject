@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\LearnProject\Clock\Script\ClockScript.cs" />
+     <Compile Include="Assets\LearnProject\Fractal\Script\Fractal.cs" />
      <Compile Include="Assets\LearnProject\Graph\Script\GraphPosControl.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\AttackSpineboy.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DataAssetsFromExportsExample.cs" />
@@ -213,6 +214,7 @@
      <None Include="Assets\Shader\OutLine.shader" />
      <None Include="Assets\Spine Examples\Spine\FootSoldier\FS_White.atlas.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\ShaderShared.cginc" />
+     <None Include="Assets\LearnProject\Fractal\Shader\Color.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\CustomMaterials\SkeletonRendererCustomMaterials.txt" />
      <None Include="Assets\Spine Examples\Spine\Dragon\license.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Straight Alpha\Spine-Straight-Skeleton-Tint.shader" />

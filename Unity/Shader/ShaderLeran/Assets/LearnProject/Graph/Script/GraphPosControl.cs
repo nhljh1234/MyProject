@@ -31,7 +31,7 @@ public class GraphPosControl : MonoBehaviour {
             //设置位置
             Vector3 vec3 = new Vector3();
             vec3.x = (float)(i - MAX_NUM / (2 * WIDTH_COUNT)) * ((2 * WIDTH_COUNT) / (float)MAX_NUM);
-            vec3.y = Mathf.Sin(Mathf.PI * (vec3.x + Time.time));
+            vec3.y = Mathf.Sin(Mathf.PI * (vec3.x + Time.time / 5));
             gameObjectArr[i].localPosition = vec3;
         }
     }
