@@ -14,6 +14,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 	<![endif]-->
+	<script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+	<link href="../css/bootstrapSwitch.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -50,16 +52,40 @@
 	</table>
 </div>
 <div class="container" id="setData" style="display: none">
+	<label>风速开关</label>
+	<br>
+
+	<div class="switch" data-on-label="开启" data-off-label="关闭" id="speed">
+		<input type="checkbox" checked/>
+	</div>
+	<br>
+	<br>
+
+	<label>风向开关</label>
+	<br>
+
+	<div class="switch" data-on-label="开启" data-off-label="关闭" id="dir">
+		<input type="checkbox" checked/>
+	</div>
+	<br>
+	<br>
+
+	<label>臭氧开关</label>
+	<br>
+
+	<div class="switch" data-on-label="开启" data-off-label="关闭" id="O3">
+		<input type="checkbox" checked/>
+	</div>
+	<br>
+	<br>
+
 	<form class="form-signin">
-		<h2 class="form-signin-heading">输入设备号</h2>
-		<label for="inputNum" class="sr-only">设备号</label>
-		<input id="inputNum" class="form-control" placeholder="设备号" required="" autofocus="">
-		<br>
-		<button class="btn btn-lg btn-primary btn-block form-button" onclick="setData()" type="button">确认</button>
+		<button class="btn btn-lg btn-primary btn-block form-button" onclick="setData()" type="button">提交</button>
 	</form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <script src="../js/getData.js"></script>
+<script src="../js/bootstrapSwitch.js"></script>
 </body>
 </html>
