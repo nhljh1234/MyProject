@@ -1,3 +1,5 @@
+var showData_1 = {};
+var showData_2 = {};
 var showData = {};
 var questNum = 0;
 var deviceId;
@@ -15,6 +17,21 @@ var getTrNode = function (key, value) {
 };
 
 var updateUI = function () {
+    showData = {};
+    var key;
+    //保证顺序
+    for (key in showData_1) {
+        if (!showData_1.hasOwnProperty(key)) {
+            continue;
+        }
+        showData[key] = showData_1[key];
+    }
+    for (key in showData_2) {
+        if (!showData_2.hasOwnProperty(key)) {
+            continue;
+        }
+        showData[key] = showData_2[key];
+    }
     var tBodyNode = document.getElementById("tbody");
     for (var key in showData) {
         if (!showData.hasOwnProperty(key)) {
@@ -72,7 +89,7 @@ var setData = function () {
             if (!deviceData.hasOwnProperty(key)) {
                 continue;
             }
-            showData[key] = deviceData[key];
+            showData_1[key] = deviceData[key];
         }
         questNum++;
         if (questNum === 2) {
@@ -90,7 +107,7 @@ var setData = function () {
             if (!deviceData.hasOwnProperty(key)) {
                 continue;
             }
-            showData[key] = deviceData[key];
+            showData_2[key] = deviceData[key];
         }
         questNum++;
         if (questNum === 2) {

@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\LearnProject\BaseMesh\Script\BaseMesh.cs" />
      <Compile Include="Assets\LearnProject\Clock\Script\ClockScript.cs" />
      <Compile Include="Assets\LearnProject\Fractal\Script\FractalCode.cs" />
      <Compile Include="Assets\LearnProject\Graph\Script\GraphPosControl.cs" />
