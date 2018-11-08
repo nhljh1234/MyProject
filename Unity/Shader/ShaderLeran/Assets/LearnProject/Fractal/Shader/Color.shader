@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
-Shader "LearnProject/Graph/Color"
+Shader "LearnProject/Fractal/Color"
 {
 	Properties
 	{
@@ -43,7 +43,7 @@ Shader "LearnProject/Graph/Color"
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
-				return i.color;
+				return fixed4(1, 0.5, 0, 1);
 			}
 			ENDCG
 		}

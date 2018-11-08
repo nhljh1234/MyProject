@@ -1,3 +1,5 @@
 Debug
 *.suo
-Library
+/Unity/Shader/ShaderLeran/Library
+/Unity/Shader/ShaderLeran/Temp
+/Unity/Shader/ShaderLeran/obj
