@@ -29,6 +29,11 @@
             "pos" : "-1",
             "costPower" : -50,
             "costMoney" : 0
+        },    
+        "5" : {
+            "costTime" : 30,
+            "name" : "出售物品",
+            "pos" : 4
         }    
     },
 
@@ -66,6 +71,12 @@
             "pos" : "-1",
             "costPower" : -50,
             "costMoney" : 0
+        },    
+        {
+            "main_id" : 5,
+            "costTime" : 30,
+            "name" : "出售物品",
+            "pos" : 4
         }    
     ]
 }

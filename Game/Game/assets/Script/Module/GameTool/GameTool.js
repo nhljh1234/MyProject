@@ -14,7 +14,7 @@ outModule.getNearBuildingCity = (buildingId, nowCityId, nowCityData) => {
     nowCityData = nowCityData || g_GameGlobalManager.gameData.getCityById(nowCityId);
     if (nowCityData.getBuildingById(buildingId)) {
         return nowCityData;
-    } 
+    }
     let hasBuildingCityArr = g_GameGlobalManager.gameData._allCityArr.filter((oneCityData) => {
         return oneCityData.getBuildingById(buildingId);
     });
@@ -29,6 +29,19 @@ outModule.getNearBuildingCity = (buildingId, nowCityId, nowCityData) => {
         }
     }
     return returnCityData;
+};
+
+/**
+ * 获取两个城市之间的距离
+ * @param cityId_1
+ * @param cityId_2
+ */
+outModule.getCityDis = (cityId_1, cityId_2) => {
+    let cityData_1, cityData_2;
+    cityData_1 = g_GameGlobalManager.gameData.getCityById(cityId_1);
+    cityData_2 = g_GameGlobalManager.gameData.getCityById(cityId_2);
+    return Math.sqrt((cityData_1._cityPos[0] - cityData_2._cityPos[0]) * (cityData_1._cityPos[0] - cityData_2._cityPos[0]) +
+        (cityData_1._cityPos[1] - cityData_2._cityPos[1]) * (cityData_1._cityPos[1] - cityData_2._cityPos[1]));
 };
 
 module.exports = outModule;

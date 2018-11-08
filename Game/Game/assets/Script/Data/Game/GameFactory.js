@@ -44,6 +44,10 @@ local.buildFunc = function (game) {
             game._allCityArr.forEach(function (oneCityData) {
                 oneCityData.dayUpdate();
             });
+            //每个人也有有每日更新的函数
+            game._allPersonArr.forEach(function (onePersonData) {
+                onePersonData.dayUpdate();
+            });
         }
         //人物更新函数
         game._allPersonArr.forEach(function (onePersonData) {

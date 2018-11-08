@@ -3,12 +3,17 @@ var outModule = {};
 var local = {};
 var RandomNameTool = require('RandomNameTool');
 var ActionFactory = require('ActionFactory');
-var GameTool = require('GameTool');
+var SellGoodFactory = require('SellGoodFactory');
+
+const MAX_ITEM_NUM = 100;
 
 /**
  * 没有任务的时候会去判断下一步应该执行什么任务
  */
 local.judgeNextAction = (person) => {
+    if (person._itemArr.length > MAX_ITEM_NUM) {
+        return ActionFactory.createOneAction(5);
+    }
     if (person._power < g_GlobalData.MAX_POWER / 2) {
         //睡觉
         return (cc.random0To1() < 0.5) ? ActionFactory.createOneAction(3) : ActionFactory.createOneAction(4);
@@ -28,11 +33,22 @@ local.buildFunc = function (person) {
             person._goalPosCity = undefined;
             return;
         }
+        if (person._goalPosCity === cityId) {
+            return;
+        }
         //TODO 改变目的地，这个距离会在时间更新处进行计算
         person._goalPosCity = cityId;
+        person._goalDis = g_GameTool.getCityDis(cityId, person._pos[0]);
+        //立马出城
+        person._pos[0] = 0;
+        g_LogTool.showLog(`${person._name} go to ${g_GameGlobalManager.gameData.getCityById(cityId)._name}`);
     };
     //前往一个设施
     person.goToBuilding = function (buildingId) {
+        if (person._pos[0] === 0) {
+            //在野外，处于寻路状态
+            return;
+        }
         if (buildingId === -1) {
             //自宅
             if (person._pos[0] === person._homePos) {
@@ -40,7 +56,7 @@ local.buildFunc = function (person) {
                 return;
             }
         }
-        let nearCityData = GameTool.getNearBuildingCity(buildingId, person._pos[0], undefined);
+        let nearCityData = g_GameTool.getNearBuildingCity(buildingId, person._pos[0], undefined);
         if (nearCityData._id !== person._pos[0]) {
             person.goToCity(nearCityData._id);
             return;
@@ -56,16 +72,19 @@ local.buildFunc = function (person) {
         //TODO 要不要修改成实时的改变，中间人物可以停止
         person._power = person._power - action.costPower;
         person._money = person._money - action.costMoney;
-        g_LogTool.showLog(`${person._name}: do ${action._name} finish`);
     };
     //获得了物品
     person.getItem = function (rewardArr) {
-        if (!person._itemObj) {
-            person._itemObj = {};
-        }
-        let i;
+        let i, j;
         for (i = 0; i < rewardArr.length; i++) {
-            person._itemObj[rewardArr[i]] = person._itemObj[rewardArr[i]] + rewardArr[i + 1];
+            let id = rewardArr[i];
+            let num = rewardArr[i + 1];
+            for (j = 0; j < num; j++) {
+                let sellData = SellGoodFactory.createOneSellGood(id, undefined, person);
+                person._itemArr.push(sellData);
+                g_LogTool.showLog(`${person._name} get ${sellData._name}`);
+            }
+            i++;
         }
     };
     //时间变化函数
@@ -77,11 +96,43 @@ local.buildFunc = function (person) {
             }
         } else {
             this._nowAction = local.judgeNextAction(person);
-            g_LogTool.showLog(`${person._name}: start do ${this._nowAction._name}`);
             if (this._nowAction.doAction(person)) {
                 this._nowAction.timeUpdate(person, addMinutes);
             }
         }
+        if (person._goalDis > 0) {
+            person._goalDis = person._goalDis - Math.ceil((addMinutes / 10) * person._moveSpeed);
+            if (person._goalDis <= 0) {
+                person._goalDis = 0;
+                person._pos[0] = person._goalPosCity;
+                person._goalPosCity = 0;
+                g_LogTool.showLog(`${person._name} in ${g_GameGlobalManager.gameData.getCityById(person._pos[0])._name}`);
+            }
+        }
+    };
+    //日期变化函数
+    person.dayUpdate = function () {
+        person._itemArr.forEach(function (oneSellGoodData) {
+            if (oneSellGoodData.dayUpdate) {
+                oneSellGoodData.dayUpdate(person);
+            }
+        });
+    };
+    //获取一个标记物品的id
+    person.getNewItemId = function () {
+        person._maxItemId++;
+        return person._maxItemId - 1;
+    }
+    //移除一个物品
+    person.removeItemByItemId = function (itemId) {
+        let i, len, index;
+        for (i = 0, len = person._itemArr.length; i < len; i++) {
+            if (person._itemArr[i]._itemId === itemId) {
+                index = i;
+                break;
+            }
+        }
+        person._itemArr.splice(index, 1);
     };
 };
 
@@ -112,6 +163,8 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
     this._maxHp = jsonData.hp;
     //性别
     this._sex = jsonData.sex;
+    //大地图移动速度
+    this._moveSpeed = jsonData.moveSpeed;
     //个人技能
     this._presonSkillId = jsonData.presonSkillId || 1;
     //TODO 需要新建一个技能
@@ -140,14 +193,18 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
     this._homePos = cityId || 0;
     //目的地
     this._goalPosCity = 0;
+    //到目的地的剩余的距离
+    this._goalDis = 0;
     //当前执行的任务
     this._nowAction = undefined;
     //当前的人物的物品数据
-    this._itemObj = {};
+    this._itemArr = [];
     //货币数量
     this._money = 0;
     //体力
     this._power = g_GlobalData.MAX_POWER;
+    //标记物品id的最大值
+    this._maxItemId = 1;
 
     local.buildFunc(this);
 };
@@ -178,6 +235,7 @@ outModule.createRandomPerson = (sex, cityId) => {
     randomData.charm = Math.ceil(cc.random0To1() * 100);
     randomData.politics = Math.ceil(cc.random0To1() * 100);
     randomData.hp = 400 + Math.ceil(cc.random0To1() * 400);
+    randomData.moveSpeed = 5;
     return new local.createOneBasePerson(undefined, randomData, cityId);
 };
 

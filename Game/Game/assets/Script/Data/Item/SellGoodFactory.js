@@ -11,21 +11,31 @@ local.buildFunc = function (sellGood) {
     /**
      * 每天的更新函数
      */
-    this.dayUpdate = () => {
-
+    sellGood.dayUpdate = (personData) => {
+        if (sellGood._overdueTime !== -1) {
+            sellGood._getTime++;
+            if (sellGood._getTime >= sellGood._overdueTime) {
+                //转变物品
+                personData.removeItemByItemId(sellGood._itemId);
+                //新增一个物品
+                personData.getItem([sellGood._overdueGood, 1]);
+                //测试日志
+                g_LogTool.showLog(`${sellGood._name}: overdue`);
+            }
+        }
     };
 
     /**
      * 使用物品
      */
-    this.use = () => {
+    sellGood.use = (personData) => {
 
     };
 
     /**
      * 出售物品
      */
-    this.sell = () => {
+    sellGood.sell = (personData) => {
 
     };
 };
@@ -33,7 +43,7 @@ local.buildFunc = function (sellGood) {
 /**
  * 新建一个商品
  */
-local.createOneSellGood = function (sellGoodId) {
+local.createOneSellGood = function (sellGoodId, personData) {
     //存储id
     this._id = parseInt(sellGoodId);
     //数据
@@ -43,11 +53,15 @@ local.createOneSellGood = function (sellGoodId) {
     //价格
     this._price = jsonData.price;
     //过期时间
-    this._overdue = jsonData.overdue;
+    this._overdueTime = jsonData.overdue;
     //过期后转换成的物品
     this._overdueGood = jsonData.overdueGood;
+    //唯一id
+    this._itemId = personData.getNewItemId();
 
-    this._overdueTime = this._overdueGood;
+    //获得的时间
+    //单位是天
+    this._getTime = 0;
 
     //新增函数
     local.buildFunc(this);
@@ -66,11 +80,11 @@ local.createOneSellGoodBySaveData = function (saveData) {
  * @param sellGoodId 商品id
  * @param saveData 存储的数据
  */
-outModule.createOneSellGood = (sellGoodId, saveData) => {
+outModule.createOneSellGood = (sellGoodId, saveData, personData) => {
     if (saveData) {
         return new local.createOneSellGoodBySaveData(saveData);
     }
-    return new local.createOneSellGood(sellGoodId);
+    return new local.createOneSellGood(sellGoodId, personData);
 };
 
 module.exports = outModule;

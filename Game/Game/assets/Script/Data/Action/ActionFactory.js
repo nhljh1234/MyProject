@@ -53,7 +53,7 @@ local.createOneAction = function (actionId) {
     this._pos = parseInt(jsonData.pos);
     //收益列表
     //单数是id，双数是数量
-    this._rewardArr = [];
+    this._rewardArr = ('' + jsonData.rewardArr).split(',');
     //任务名字
     this._name = jsonData.name;
     //消耗体力

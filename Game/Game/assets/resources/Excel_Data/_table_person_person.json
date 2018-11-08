@@ -9,7 +9,8 @@
             "charm" : 99,
             "politics" : 90,
             "hp" : 500,
-            "sex" : 1
+            "sex" : 1,
+            "moveSpeed" : 5
         },    
         "2" : {
             "name" : "赵四",
@@ -20,7 +21,8 @@
             "charm" : 90,
             "politics" : 65,
             "hp" : 700,
-            "sex" : 1
+            "sex" : 1,
+            "moveSpeed" : 5
         },    
         "3" : {
             "name" : "李五",
@@ -31,7 +33,8 @@
             "charm" : 100,
             "politics" : 80,
             "hp" : 500,
-            "sex" : 1
+            "sex" : 1,
+            "moveSpeed" : 5
         },    
         "4" : {
             "name" : "王六",
@@ -42,7 +45,8 @@
             "charm" : 80,
             "politics" : 79,
             "hp" : 750,
-            "sex" : 1
+            "sex" : 1,
+            "moveSpeed" : 5
         }    
     },
 
@@ -57,7 +61,8 @@
             "charm" : 99,
             "politics" : 90,
             "hp" : 500,
-            "sex" : 1
+            "sex" : 1,
+            "moveSpeed" : 5
         },    
         {
             "main_id" : 2,
@@ -69,7 +74,8 @@
             "charm" : 90,
             "politics" : 65,
             "hp" : 700,
-            "sex" : 1
+            "sex" : 1,
+            "moveSpeed" : 5
         },    
         {
             "main_id" : 3,
@@ -81,7 +87,8 @@
             "charm" : 100,
             "politics" : 80,
             "hp" : 500,
-            "sex" : 1
+            "sex" : 1,
+            "moveSpeed" : 5
         },    
         {
             "main_id" : 4,
@@ -93,7 +100,8 @@
             "charm" : 80,
             "politics" : 79,
             "hp" : 750,
-            "sex" : 1
+            "sex" : 1,
+            "moveSpeed" : 5
         }    
     ]
 }
