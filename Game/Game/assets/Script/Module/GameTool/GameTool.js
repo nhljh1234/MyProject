@@ -9,11 +9,15 @@ var local = {};
  * @param buildingId 建筑id
  * @param nowCityId 出发城市id
  * @param nowCityData 出发城市的数据
+ * @param personData 
  */
-outModule.getNearBuildingCity = (buildingId, nowCityId, nowCityData) => {
+outModule.getNearBuildingCity = (buildingId, nowCityId, nowCityData, personData) => {
     nowCityData = nowCityData || g_GameGlobalManager.gameData.getCityById(nowCityId);
     if (nowCityData.getBuildingById(buildingId)) {
         return nowCityData;
+    }
+    if (buildingId === -1) {
+        return g_GameGlobalManager.gameData.getCityById(personData._homePos);
     }
     let hasBuildingCityArr = g_GameGlobalManager.gameData._allCityArr.filter((oneCityData) => {
         return oneCityData.getBuildingById(buildingId);

@@ -1,35 +1,43 @@
 {
     "object" : {
         "1" : {
-            "name" : "池塘"
+            "name" : "池塘",
+            "useType" : "forest"
         },    
         "2" : {
-            "name" : "森林"
+            "name" : "森林",
+            "useType" : "pool"
         },    
         "3" : {
-            "name" : "旅舍"
+            "name" : "旅舍",
+            "useType" : "hotel"
         },    
         "4" : {
-            "name" : "商店"
+            "name" : "商店",
+            "useType" : "shop"
         }    
     },
 
     "array" : [
         {
             "main_id" : 1,
-            "name" : "池塘"
+            "name" : "池塘",
+            "useType" : "forest"
         },    
         {
             "main_id" : 2,
-            "name" : "森林"
+            "name" : "森林",
+            "useType" : "pool"
         },    
         {
             "main_id" : 3,
-            "name" : "旅舍"
+            "name" : "旅舍",
+            "useType" : "hotel"
         },    
         {
             "main_id" : 4,
-            "name" : "商店"
+            "name" : "商店",
+            "useType" : "shop"
         }    
     ]
 }
