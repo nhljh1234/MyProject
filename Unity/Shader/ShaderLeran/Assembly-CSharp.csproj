@@ -57,6 +57,7 @@
      <Compile Include="Assets\LearnProject\Clock\Script\ClockScript.cs" />
      <Compile Include="Assets\LearnProject\Fractal\Script\FractalCode.cs" />
      <Compile Include="Assets\LearnProject\Graph\Script\GraphPosControl.cs" />
+     <Compile Include="Assets\LearnProject\RoundedCube\Script\RoundedCube.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\AttackSpineboy.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DataAssetsFromExportsExample.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DraggableTransform.cs" />

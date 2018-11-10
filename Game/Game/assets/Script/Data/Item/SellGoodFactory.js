@@ -19,8 +19,6 @@ local.buildFunc = function (sellGood) {
                 personData.removeItemByItemId(sellGood._itemId);
                 //新增一个物品
                 personData.getItem([sellGood._overdueGood, 1]);
-                //测试日志
-                g_LogTool.showLog(`${sellGood._name}: overdue`);
             }
         }
     };

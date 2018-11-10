@@ -57,9 +57,9 @@ local.createOneAction = function (actionId) {
     //任务名字
     this._name = jsonData.name;
     //消耗体力
-    this._costPower = jsonData.costPower;
+    this._costPower = jsonData.costPower || 0;
     //消耗的金钱
-    this._costMoney = jsonData.costMoney;
+    this._costMoney = jsonData.costMoney || 0;
 
     //当前已执行的时间
     this._nowUseTime = 0;

@@ -49,7 +49,6 @@ outModule.getNowSpriteUseMemory = () => {
     textureArr.forEach((oneTexture) => {
         totleUseMemory = totleUseMemory + local.getImgUseMemoryBySize(oneTexture.pixelWidth, oneTexture.pixelHeight, oneTexture.pixelFormat);
     });
-    g_LogTool.showLog(`use memory : ${totleUseMemory}`);
     return totleUseMemory;
 };
 

@@ -56,13 +56,15 @@ local.buildFunc = function (person) {
                 return;
             }
         }
-        let nearCityData = g_GameTool.getNearBuildingCity(buildingId, person._pos[0], undefined);
+        let nearCityData = g_GameTool.getNearBuildingCity(buildingId, person._pos[0], undefined, person);
         if (nearCityData._id !== person._pos[0]) {
             person.goToCity(nearCityData._id);
             return;
         }
         //城市内的建筑是立马到达的
         person._pos[1] = buildingId;
+        //判断是否要使用建筑功能
+        g_GameGlobalManager.gameData.getCityById(person._pos[0]).getBuildingById(buildingId).useBuilding(person);
     };
     //任务完成的回调
     person.actionFinishCb = function (action) {
@@ -70,8 +72,8 @@ local.buildFunc = function (person) {
         person._nowAction = undefined;
         person.getItem(action._rewardArr);
         //TODO 要不要修改成实时的改变，中间人物可以停止
-        person._power = person._power - action.costPower;
-        person._money = person._money - action.costMoney;
+        person._power = person._power - action._costPower;
+        person._money = person._money - action._costMoney;
     };
     //获得了物品
     person.getItem = function (rewardArr) {
@@ -82,22 +84,22 @@ local.buildFunc = function (person) {
             for (j = 0; j < num; j++) {
                 let sellData = SellGoodFactory.createOneSellGood(id, undefined, person);
                 person._itemArr.push(sellData);
-                g_LogTool.showLog(`${person._name} get ${sellData._name}`);
             }
             i++;
         }
     };
     //时间变化函数
     person.timeUpdate = function (addMinutes) {
-        if (this._nowAction) {
+        if (person._nowAction) {
             //执行动作
-            if (this._nowAction.doAction(person)) {
-                this._nowAction.timeUpdate(person, addMinutes);
+            if (person._nowAction.doAction(person)) {
+                g_LogTool.showLog(`${person._name} do ${person._nowAction._name}`);
+                person._nowAction.timeUpdate(person, addMinutes);
             }
         } else {
-            this._nowAction = local.judgeNextAction(person);
-            if (this._nowAction.doAction(person)) {
-                this._nowAction.timeUpdate(person, addMinutes);
+            person._nowAction = local.judgeNextAction(person);
+            if (person._nowAction.doAction(person)) {
+                person._nowAction.timeUpdate(person, addMinutes);
             }
         }
         if (person._goalDis > 0) {
@@ -129,10 +131,30 @@ local.buildFunc = function (person) {
         for (i = 0, len = person._itemArr.length; i < len; i++) {
             if (person._itemArr[i]._itemId === itemId) {
                 index = i;
+                person._itemArr.splice(index, 1);
                 break;
             }
         }
-        person._itemArr.splice(index, 1);
+    };
+    //出售指定id的商品，没有指定的话表示全部
+    person.sellGood = function (itemId) {
+        if (!itemId) {
+            //出售全部
+            person._itemArr.forEach((oneItemData) => {
+                person._money = person._money + oneItemData._price;
+            });
+            person._itemArr = [];
+            return;
+        }
+        let i, len, index;
+        for (i = 0, len = person._itemArr.length; i < len; i++) {
+            if (person._itemArr[i]._itemId === itemId) {
+                index = i;
+                person._money = person._money + person._itemArr[i]._price;
+                person._itemArr.splice(index, 1);
+                break;
+            }
+        }
     };
 };
 
