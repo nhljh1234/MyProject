@@ -2,7 +2,7 @@ var outModule = {};
 var local = {};
 var MysqlTool = require('../../MysqlTool/MysqlTool');
 
-outModule.getDeviceMsg = (req, res) => {
+outModule.getUserMsg = (req, res) => {
     //判断session
     if (!req.session || !req.session.userData) {
         res.send(JSON.stringify({
@@ -12,10 +12,18 @@ outModule.getDeviceMsg = (req, res) => {
         res.end();
         return;
     }
+    if (req.session.userData.type !== 1) {
+        res.send(JSON.stringify({
+            ret: -1,
+            errorStr: '没有权限'
+        }));
+        res.end();
+        return;
+    }
     let connection = MysqlTool.getMysqlObjByDBName('test');
-    connection.query(`SELECT * FROM device`, function(err, rows, field) {
+    connection.query(`SELECT * FROM user`, function(err, rows, field) {
         if (err) {
-            console.log(`SELECT * FROM device`);
+            console.log(`SELECT * FROM user`);
             console.log(err);
             res.send(JSON.stringify({
                 ret: -1,
@@ -23,13 +31,6 @@ outModule.getDeviceMsg = (req, res) => {
             }));
         } else {
             //session
-            if (req.session.userData.type === 2) {
-                //不是超级权限清除数据
-                rows.forEach((oneData) => {
-                    oneData.user_name = undefined;
-                    oneData.user_pos = undefined;
-                });
-            }
             res.send(JSON.stringify({
                 ret: 1,
                 dataArr: rows

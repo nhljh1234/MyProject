@@ -7,9 +7,12 @@ var bodyParser = require('body-parser');
 var FileStore = require('session-file-store')(session);
 var path = require('path');
 
-var GetDeviceMsg = require('./bin/Module/GetMsg/GetDeviceMsg');
-var ChectUser = require('./bin/Module/CheckUser/CheckUser');
-var BuildUser = require('./bin/BuildUser/BuildUser');
+var GetDeviceMsg = require('./bin/Module/Device/GetDeviceMsg');
+
+var GetUserMsg = require('./bin/Module/User/GetUserMsg');
+var ChectUser = require('./bin/Module/User/CheckUser');
+var BuildUser = require('./bin/Module/User/BuildUser');
+var DeleteUser = require('./bin/Module/User/DeleteUser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -35,17 +38,24 @@ app.use((req, res, next) => {
     next();
 });
 
-app.post('/checkUser', (req, res) => {
-    ChectUser.checkUser(req, res);
-});
-
 app.post('/getDeviceMsg', (req, res) => {
     GetDeviceMsg.getDeviceMsg(req, res);
 });
 
-app.post('/buildUser', (req, res) => {
-    GetDeviceMsg.getDeviceMsg(req, res);
+
+app.post('/checkUser', (req, res) => {
+    ChectUser.checkUser(req, res);
 });
+app.post('/getUserMsg', (req, res) => {
+    GetUserMsg.getUserMsg(req, res);
+});
+app.post('/buildUser', (req, res) => {
+    BuildUser.buildUser(req, res);
+});
+app.post('/deleteUser', (req, res) => {
+    DeleteUser.deleteUser(req, res);
+});
+
 
 app.use('/data', express.static(path.join(__dirname, 'public')));
 

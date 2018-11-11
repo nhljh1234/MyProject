@@ -15,14 +15,16 @@ var login = function() {
         if (result.ret !== 1) {
             return;
         }
+        localStorage.setItem('userType', result.userType);
         switch (result.userType) {
             case 1:
                 window.location.href = 'html_1.html';
-                braek;
+                break;
             case 2:
-                braek;
+                window.location.href = 'html_1.html';
+                break;
             case 3:
-                braek;
+                break;
         }
     }, "json");
 };

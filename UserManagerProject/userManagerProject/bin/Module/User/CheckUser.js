@@ -4,8 +4,9 @@ var MysqlTool = require('../../MysqlTool/MysqlTool');
 
 outModule.checkUser = (req, res) => {
     //判断session
-    if (req.session && req.session.userData) {
-        console.log('111');
+    let userName = req.body.userName;
+    let password = req.body.password;
+    if (req.session && req.session.userData && req.session.userData.userName === userName && req.session.userData.password === password) {
         res.send(JSON.stringify({
             ret: 1,
             userType: req.session.userData.type
@@ -21,8 +22,6 @@ outModule.checkUser = (req, res) => {
         res.end();
         return;
     }
-    let userName = req.body.userName;
-    let password = req.body.password;
     if (!userName || !password) {
         res.send(JSON.stringify({
             ret: -1,
