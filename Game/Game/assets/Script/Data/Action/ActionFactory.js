@@ -36,6 +36,13 @@ local.buildFunc = function (action) {
             action._isDoing = false;
         }
     };
+    //获取存储的数据
+    action.getSaveData = function () {
+        return {
+            id: action._id,
+            nowUseTime: action._nowUseTime
+        }
+    };
 };
 
 /**
@@ -72,10 +79,30 @@ local.createOneAction = function (actionId) {
  * @param saveData 存储的数据
  */
 local.createOneActionSaveData = function (saveData) {
-    this._id = saveData.id;
+    //配置数据
+    this._id = parseInt(saveData.id);
+    //任务数据
+    var jsonData = g_JsonDataTool.getDataById('_table_action_action', this._id);
+    //总用时
+    this._actionCostTime = jsonData.costTime;
+    //位置用一个数组表示，第一个元素表示城市id，第二个表示建筑id
+    //配置表里面只会配置一个建筑id，当前城市没有这个建筑的话就需要去寻找最近的城市
+    this._pos = parseInt(jsonData.pos);
+    //收益列表
+    //单数是id，双数是数量
+    this._rewardArr = ('' + jsonData.rewardArr).split(',');
+    //任务名字
+    this._name = jsonData.name;
+    //消耗体力
+    this._costPower = jsonData.costPower || 0;
+    //消耗的金钱
+    this._costMoney = jsonData.costMoney || 0;
 
     //当前已执行的时间
     this._nowUseTime = saveData.nowUseTime;
+
+    //新增函数
+    local.buildFunc(this);
 
     //新增函数
     local.buildFunc(this);

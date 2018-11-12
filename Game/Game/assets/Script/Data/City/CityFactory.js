@@ -24,7 +24,21 @@ local.buildFunc = function (city) {
     };
     //新的一天
     city.dayUpdate = function () {
-        
+
+    };
+    city.getSaveData = function () {
+        return {
+            id: city._id,
+            peopleNum: city._peopleNum,
+            soldierNum: city._soldierNum,
+            horseNum: city._horseNum,
+            commissariatNum: city._commissariatNum,
+            moneyNum: city._moneyNum,
+            cityDefNum: city._cityDefNum,
+            personArr: city._personArr.map(function (onePersonData) {
+                return onePersonData._id;
+            }),
+        }
     };
 };
 
@@ -32,8 +46,39 @@ local.buildFunc = function (city) {
  * @param saveData 存储的数据
  */
 local.createOneCityBySaveData = function (saveData) {
+    //城市id
+    this._id = parseInt(saveData.id);
+    //配置数据
+    var jsonData = g_JsonDataTool.getDataById('_table_city_city', this._id);
+    //居民数量
+    this._peopleNum = saveData.peopleNum;
+    //军队数量
+    this._soldierNum = saveData.soldierNum;
+    //马匹数量
+    this._horseNum = saveData.horseNum;
+    //粮食数量
+    //一个人一天需要消耗1的粮食
+    this._commissariatNum = saveData.commissariatNum;
+    //金币数量
+    this._moneyNum = saveData.moneyNum;
+    //城市防御
+    this._cityDefNum = saveData.cityDefNum;
+    //城市名字
+    this._name = jsonData.name;
+    //城市位置
+    //用两个元素表示，类似于经纬度
+    this._cityPos = jsonData.cityPos.split(',');
 
     local.buildFunc(this);
+
+    //人物列表
+    this._personArr = saveData.personArr.map((personId) => {
+        return g_GameGlobalManager.gameData.getPersonById(personId);
+    });
+    //建筑列表
+    this._buildingArr = ('' + jsonData.building).split(',').map((buildingId) => {
+        return BuildingFactory.createOneBuilding(buildingId, undefined);
+    });
 };
 
 /**

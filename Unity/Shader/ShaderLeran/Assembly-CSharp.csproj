@@ -238,6 +238,7 @@
      <None Include="Assets\LearnProject\Graph\Shader\Color.shader" />
      <None Include="Assets\Spine Examples\Spine\Raggedy Spineboy\Raggedy Spineboy.atlas.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Spine-Skeleton-Tint.shader" />
+     <None Include="Assets\LearnProject\RoundedCube\Shader\RoundedCube.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritesUnlit.shader" />
      <None Include="Assets\Spine\spine-unity\Shaders\Utility\Hidden-Spine-Bones.shader" />
      <None Include="Assets\Shader\GaussianBlur.shader" />

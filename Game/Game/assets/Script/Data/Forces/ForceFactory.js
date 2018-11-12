@@ -9,15 +9,31 @@ var CityFactory = require('CityFactory');
  * @param force 为割据数据绑定相应的函数
  */
 local.buildFunc = function (force) {
-
+    //获取存储的数据
+    force.getSaveData = function () {
+        return {
+            id: force._id,
+            cityArr: force._cityArr.map(function (oneForceData) {
+                return oneForceData._id;
+            }),
+        }
+    };
 };
 
 /**
  * @param saveData 存储的数据
  */
 local.createOneForceBySaveData = function (saveData) {
-
+    this._id = saveData.id;
+    //配置数据
+    var jsonData = g_JsonDataTool.getDataById('_table_force_force', this._id);
+    //势力名字
+    this._name = jsonData.name;
     local.buildFunc(this);
+    //割据势力所属的城市
+    this._cityArr = saveData.cityArr.map((cityId) => {
+        return g_GameGlobalManager.gameData.getCityById(cityId);
+    });
 };
 
 /**

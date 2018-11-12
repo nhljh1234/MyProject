@@ -6,13 +6,20 @@ var local = {};
 outModule.MAX_SAVE_NUM = 10;
 
 /**
+ * 获取游戏存储的对象
+ * @param index 存储的index
+ */
+local.getSaveData = (index) => {
+    let jsonStr = index ? cc.sys.localStorage.getItem(`game_save_${index}`) : cc.sys.localStorage.getItem('auto_save');
+    return JSON.parse(jsonStr);
+};
+
+/**
  * 保存游戏
  * @param index 存储的index，不传表示自动存储
  */
-outModule.saveGame = (index) => {
+local.saveGameData = (index, jsonData) => {
     //存成一个json数据
-    var jsonData = {};
-
     if (index) {
         if (index > outModule.MAX_SAVE_NUM) {
             return;
@@ -24,11 +31,21 @@ outModule.saveGame = (index) => {
 };
 
 /**
- * 获取游戏存储的对象
- * @param index 存储的index
+ * 储存游戏数据
  */
-outModule.getSaveData = (index) => {
-    return index ? cc.sys.localStorage.getItem(`game_save_${index}`) : cc.sys.localStorage.getItem('auto_save');
+outModule.saveGame = function () {
+    let gameData = g_GameGlobalManager.gameData;
+    local.saveGameData(undefined, gameData.getSaveJsonData());
+};
+
+outModule.setGame = function () {
+    let saveData = local.getSaveData();
+    if (!saveData) {
+        return false;
+    }
+    g_GameGlobalManager.gameData = require('GameFactory').createOneGame(saveData);
+    g_GameGlobalManager.gameData.setGameData(saveData);
+    return true;
 };
 
 module.exports = outModule;
