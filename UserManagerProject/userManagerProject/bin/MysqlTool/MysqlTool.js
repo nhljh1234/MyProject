@@ -17,12 +17,13 @@ local.mysqlObjSave = {};
 
 //host名
 //const HOST = "localhost";
-const HOST = "localhost";
+const HOST = "rm-8vbo59n8wpuz4o7wg9o.mysql.zhangbei.rds.aliyuncs.com";
 //用户名
 const USER_NAME = "root";
 //密码
 //const PASSWORD = "root";
-const PASSWORD = "xiaoliao";
+//const PASSWORD = "xiaoliao";
+const PASSWORD = "Xiaoliao12341234";
 
 /**
  * 根据一个table表的名字新建一个链接对象
