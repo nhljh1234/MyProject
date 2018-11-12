@@ -141,7 +141,7 @@ local.buildFunc = function (person) {
         if (!itemId) {
             //出售全部
             person._itemArr.forEach((oneItemData) => {
-                person._money = person._money + oneItemData._price;
+                oneItemData.sell(person);
             });
             person._itemArr = [];
             return;
@@ -150,10 +150,44 @@ local.buildFunc = function (person) {
         for (i = 0, len = person._itemArr.length; i < len; i++) {
             if (person._itemArr[i]._itemId === itemId) {
                 index = i;
-                person._money = person._money + person._itemArr[i]._price;
+                person._itemArr[i].sell(person);
                 person._itemArr.splice(index, 1);
                 break;
             }
+        }
+    };
+    //获取存储的数据
+    person.getSaveData = function () {
+        return {
+            name: person._name,
+            attack: person._attack,
+            def: person._def,
+            command: person._command,
+            intelligence: person._intelligence,
+            charm: person._charm,
+            politics: person._politics,
+            maxHp: person._maxHp,
+            sex: person._sex,
+            moveSpeed: person._moveSpeed,
+            presonSkillId: person._presonSkillId,
+            battleSkillId: person._battleSkillId,
+            equipAttack: person._equipAttack,
+            equipDef: person._equipDef,
+            equipJewelry: person._equipJewelry,
+            equipHorse: person._equipHorse,
+            nowHp: person._nowHp,
+            id: person._id,
+            pos: person._pos,
+            homePos: person._homePos,
+            goalPosCity: person._goalPosCity,
+            goalDis: person._goalDis,
+            nowAction: person._nowAction ? person._nowAction.getSaveData() : undefined,
+            itemArr: person._itemArr.map(function (oneItemData) {
+                return oneItemData.getSaveData();
+            }),
+            money: person._money,
+            power: person._power,
+            maxItemId: person._maxItemId
         }
     };
 };
@@ -164,7 +198,7 @@ local.buildFunc = function (person) {
  */
 local.createOneBasePerson = function (personId, randomData, cityId) {
     //先定义数据，方便查找
-    this._id = parseInt(personId);
+    this._personId = parseInt(personId);
     //配置数据
     var jsonData = randomData || g_JsonDataTool.getDataById('_table_person_person', personId);
     //名字
@@ -235,6 +269,68 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
  * @param saveData 根据存储的数据生成一个角色
  */
 local.createOneBasePersonBySaveData = function (saveData) {
+    //名字
+    this._name = saveData.name;
+    //攻击力
+    this._attack = saveData.attack || 0;
+    //防御力
+    this._def = saveData.def;
+    //统帅
+    this._command = saveData.command;
+    //智力
+    this._intelligence = saveData.intelligence;
+    //魅力
+    this._charm = saveData.charm;
+    //政治
+    this._politics = saveData.politics;
+    //生命值
+    this._maxHp = saveData.hp;
+    //性别
+    this._sex = saveData.sex;
+    //大地图移动速度
+    this._moveSpeed = saveData.moveSpeed;
+    //个人技能
+    this._presonSkillId = saveData.presonSkillId || 1;
+    //TODO 需要新建一个技能
+
+    //战争技能
+    this._battleSkillId = saveData.battleSkillId || 1;
+    //TODO 需要新建一个技能
+
+    //这边是存储的配置
+    //武器装备
+    this._equipAttack = saveData.equipAttack;
+    //防御装备
+    this._equipDef = saveData.equipDef;
+    //首饰
+    this._equipJewelry = saveData.equipJewelry;
+    //坐骑
+    this._equipHorse = saveData.equipHorse;
+    //血量
+    this._nowHp = saveData.maxHp;
+    //唯一id
+    this._id = saveData.id;
+    //位置
+    //初始都是在家的
+    this._pos = saveData.pos;
+    //家的位置，是一个城市id
+    this._homePos = saveData.homePos;
+    //目的地
+    this._goalPosCity = saveData.goalPosCity;
+    //到目的地的剩余的距离
+    this._goalDis = saveData.goalDis;
+    //当前执行的任务
+    this._nowAction = saveData.nowAction ? ActionFactory.createOneAction(undefined, saveData.nowAction) : undefined;
+    //当前的人物的物品数据
+    this._itemArr = saveData.itemArr.map(function (oenData) {
+        return SellGoodFactory.createOneSellGood(undefined, oenData, undefined);
+    });
+    //货币数量
+    this._money = saveData.money;
+    //体力
+    this._power = saveData.power;
+    //标记物品id的最大值
+    this._maxItemId = saveData.maxItemId;
 
     local.buildFunc(this);
 };

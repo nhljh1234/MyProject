@@ -4,6 +4,7 @@
  */
 var BaseUI = require("BaseUI");
 var GameFactory = require("GameFactory");
+var GameSave = require("GameSave");
 cc.Class({
     extends: BaseUI,
 
@@ -23,7 +24,11 @@ cc.Class({
     },
 
     onShow: function () {
-        g_GameGlobalManager.init(this, new GameFactory.createOneGame(undefined, 7, 13));
+        if (GameSave.setGame()) {
+            g_GameGlobalManager.init(this, g_GameGlobalManager.gameData);
+        } else {
+            g_GameGlobalManager.init(this, new GameFactory.createOneGame(undefined, 7, 13));
+        }
         g_GameGlobalManager.start();
     }
 });

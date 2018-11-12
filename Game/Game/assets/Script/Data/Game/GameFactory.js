@@ -6,6 +6,9 @@ var local = {};
 var DateTool = require("DateTool");
 var EventName = require("EventName");
 var ForceFactory = require("ForceFactory");
+var CityFactory = require("CityFactory");
+var PersonFactory = require("PersonFactory");
+var GameSave = require("GameSave");
 
 /**
  * @param force 为割据数据绑定相应的函数
@@ -48,6 +51,8 @@ local.buildFunc = function (game) {
             game._allPersonArr.forEach(function (onePersonData) {
                 onePersonData.dayUpdate();
             });
+            console.log('game save');
+            GameSave.saveGame();
         }
         //人物更新函数
         game._allPersonArr.forEach(function (onePersonData) {
@@ -65,21 +70,64 @@ local.buildFunc = function (game) {
     };
     //根据id查找人物数据
     game.getPersonById = function (personId) {
-        return this._allPersonArr.find((onePersonData) => {
+        return game._allPersonArr.find((onePersonData) => {
             return onePersonData._id === personId;
         });
     };
     //根据id查找势力数据
     game.getForceById = function (forceId) {
-        return this._allForceArr.find((oneForceData) => {
+        return game._allForceArr.find((oneForceData) => {
             return oneForceData._id === forceId;
         });
     };
     //根据id查找城市数据
     game.getCityById = function (cityId) {
-        return this._allCityArr.find((oneCityData) => {
+        return game._allCityArr.find((oneCityData) => {
             return oneCityData._id === cityId;
         });
+    };
+    //获取游戏存储的数据
+    game.getSaveJsonData = function () {
+        let jsonData = game.getSaveData();
+        return jsonData;
+    };
+    //获取
+    game.getSaveData = function () {
+        return {
+            year: game._nowTimeYear,
+            month: game._nowTimeMonth,
+            day: game._nowTimeDay,
+            hour: game._nowTimeHour,
+            minute: game._nowTimeMinute,
+            maxPersonId: g_GameGlobalManager.maxPersonId,
+            forceArr: game._allForceArr.map(function (oneForceData) {
+                return oneForceData.getSaveData();
+            }),
+            cityArr: game._allCityArr.map(function (oneCityData) {
+                return oneCityData.getSaveData()
+            }),
+            personArr: game._allPersonArr.map(function (onePersonData) {
+                return onePersonData.getSaveData();
+            }),
+        }
+    };
+    //设置数据
+    game.setGameData = function (saveData) {
+        //初始化的时候倒置，大的类可能会引用小的类
+        //全部人物
+        game._allPersonArr = saveData.personArr.map(function (data) {
+            return PersonFactory.createOneBasePerson(undefined, data, undefined);
+        });
+        //全部城市
+        game._allCityArr = saveData.cityArr.map(function (data) {
+            return CityFactory.createOneCity(undefined, data);
+        });
+        //全部割据势力
+        game._allForceArr = saveData.forceArr.map(function (data) {
+            return ForceFactory.createOneForce(undefined, data);
+        });
+        //根据割据势力初始化城市和npc
+        game.personDataBuild();
     };
 };
 
@@ -87,6 +135,15 @@ local.buildFunc = function (game) {
  * @param saveData 存储的数据
  */
 local.createOneGameBySaveData = function (saveData) {
+    //这边这个按照一个虚拟的年号来做
+    this._nowTimeYear = saveData.year;
+    //这边设置可以选择出生年月日
+    this._nowTimeMonth = saveData.month;
+    this._nowTimeDay = saveData.day;
+    this._nowTimeHour = saveData.hour;
+    this._nowTimeMinute = saveData.minute;
+
+    g_GameGlobalManager.maxPersonId = saveData.maxPersonId;
 
     local.buildFunc(this);
 };
@@ -95,7 +152,6 @@ local.createOneGameBySaveData = function (saveData) {
  * 新建一个全局游戏数据
  */
 local.createOneGame = function (month, day) {
-
     //全部城市
     this._allCityArr = [];
     //全部人物
@@ -114,7 +170,7 @@ local.createOneGame = function (month, day) {
     this._allForceArr = g_JsonDataTool.getTableByName('_table_force_force').array.map(function (oneForce) {
         return ForceFactory.createOneForce(oneForce.main_id, undefined);
     });
-    //全部城市
+    //根据割据势力初始化城市和npc
     this._allForceArr.forEach(function (oneForceData) {
         oneForceData._cityArr.forEach(function (oneCityDay) {
             this._allCityArr.push(oneCityDay);
