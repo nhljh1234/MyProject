@@ -2,7 +2,7 @@ var outModule = {};
 var local = {};
 var MysqlTool = require('../../MysqlTool/MysqlTool');
 
-outModule.deleteUser = (req, res) => {
+outModule.deleteDevice = (req, res) => {
     //判断session
     if (!req.session || !req.session.userData) {
         res.send(JSON.stringify({
@@ -16,8 +16,8 @@ outModule.deleteUser = (req, res) => {
     let userName = req.session.userData.userName;
     let password = req.session.userData.password;
     let userType = req.session.userData.type;
-    let deleteName = req.body.deleteName;
-    if (userType !== 1) {
+    let deleteDeviceId = req.body.deleteDeviceId;
+    if (userType !== 1 && userType !== 2) {
         res.send(JSON.stringify({
             ret: -1,
             errorStr: '没有权限'
@@ -43,7 +43,7 @@ outModule.deleteUser = (req, res) => {
             res.end();
         } else {
             //判断有没有权限
-            if (rows[0].type !== 1) {
+            if (rows[0].type !== 1 && rows[0].type !== 2) {
                 res.send(JSON.stringify({
                     ret: -1,
                     errorStr: '没有权限'
@@ -51,49 +51,23 @@ outModule.deleteUser = (req, res) => {
                 res.end();
                 return;
             }
-            //需要判断删除的用户是不是超级用户
+            //可以删除
             let connection = MysqlTool.getMysqlObjByDBName('test');
-            connection.query(`SELECT * FROM user WHERE userName='${deleteName}'`, function(err, rows, field) {
+            connection.query(`DELETE FROM device WHERE deviceid=${deleteDeviceId}`, function(err, rows, field) {
                 if (err) {
-                    console.log(`SELECT * FROM user WHERE userName='${deleteName}'`);
+                    console.log(`DELETE FROM device WHERE deviceid=${deleteDeviceId}`);
                     console.log(err);
                     res.send(JSON.stringify({
                         ret: -1,
                         errorStr: '数据库错误'
                     }));
                     res.end();
-                } else if (rows.length === 0) {
-                    res.send(JSON.stringify({
-                        ret: -1,
-                        errorStr: '数据库错误'
-                    }));
-                    res.end();
-                } else if (rows[0].type === 1) {
-                    res.send(JSON.stringify({
-                        ret: -1,
-                        errorStr: '无法删除超级管理员'
-                    }));
-                    res.end();
                 } else {
-                    //可以删除
-                    let connection = MysqlTool.getMysqlObjByDBName('test');
-                    connection.query(`DELETE FROM user WHERE userName='${deleteName}'`, function(err, rows, field) {
-                        if (err) {
-                            console.log(`DELETE FROM user WHERE userName='${deleteName}'`);
-                            console.log(err);
-                            res.send(JSON.stringify({
-                                ret: -1,
-                                errorStr: '数据库错误'
-                            }));
-                            res.end();
-                        } else {
-                            res.send(JSON.stringify({
-                                ret: 1,
-                                successStr: '删除成功'
-                            }));
-                            res.end();
-                        }
-                    });
+                    res.send(JSON.stringify({
+                        ret: 1,
+                        successStr: '删除成功'
+                    }));
+                    res.end();
                 }
             });
         }

@@ -8,11 +8,19 @@ var FileStore = require('session-file-store')(session);
 var path = require('path');
 
 var GetDeviceMsg = require('./bin/Module/Device/GetDeviceMsg');
+var BuildDevice = require('./bin/Module/Device/BuildDevice');
+var DeleteDevice = require('./bin/Module/Device/DeleteDevice');
+var ChangeDevice = require('./bin/Module/Device/ChangeDevice');
 
 var GetUserMsg = require('./bin/Module/User/GetUserMsg');
 var ChectUser = require('./bin/Module/User/CheckUser');
 var BuildUser = require('./bin/Module/User/BuildUser');
 var DeleteUser = require('./bin/Module/User/DeleteUser');
+
+var BuildSellCard = require('./bin/Module/SellCard/BuildSellCard');
+var GetSellCardMsg = require('./bin/Module/SellCard/GetSellCardMsg');
+var ChangeSellCard = require('./bin/Module/SellCard/ChangeSellCard');
+var DeleteSellCard = require('./bin/Module/SellCard/DeleteSellCard');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -41,6 +49,15 @@ app.use((req, res, next) => {
 app.post('/getDeviceMsg', (req, res) => {
     GetDeviceMsg.getDeviceMsg(req, res);
 });
+app.post('/buildDevice', (req, res) => {
+    BuildDevice.buildDevice(req, res);
+});
+app.post('/deleteDevice', (req, res) => {
+    DeleteDevice.deleteDevice(req, res);
+});
+app.post('/changeDevice', (req, res) => {
+    ChangeDevice.changeDevice(req, res);
+});
 
 
 app.post('/checkUser', (req, res) => {
@@ -56,6 +73,18 @@ app.post('/deleteUser', (req, res) => {
     DeleteUser.deleteUser(req, res);
 });
 
+app.post('/buildSellCard', (req, res) => {
+    BuildSellCard.buildSellCard(req, res);
+});
+app.post('/getSellCardMsg', (req, res) => {
+    GetSellCardMsg.getSellCardMsg(req, res);
+});
+app.post('/changeSellCard', (req, res) => {
+    ChangeSellCard.changeSellCard(req, res);
+});
+app.post('/DeleteSellCard', (req, res) => {
+    DeleteSellCard.deleteSellCard(req, res);
+});
 
 app.use('/data', express.static(path.join(__dirname, 'public')));
 

@@ -33,8 +33,6 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" onclick="showUserMsgUI()">显示用户信息</a></li>
-                    <li><a href="#" onclick="showBuildUserUI()">新建一个账号</a></li>
                     <li><a href="#" onclick="showDeviceMsgUI()">显示设备信息</a></li>
                     <li><a href="#" onclick="showBuildDeviceUI()">增加设备</a></li>
                     <li><a href="#" onclick="showSellCardMsgUI()">显示订单信息</a></li>
@@ -74,8 +72,6 @@
                     <th nowrap="nowrap">喷淋继电器工作模式</th>
                     <th nowrap="nowrap">是否显示臭氧</th>
                     <th nowrap="nowrap">是否显示风向</th>
-                    <th nowrap="nowrap">客户名字</th>
-                    <th nowrap="nowrap">设备所在地</th>
                     <th nowrap="nowrap">是否在线</th>
                     <th nowrap="nowrap">修改设备</th>
                     <th nowrap="nowrap">删除设备</th>
@@ -84,46 +80,6 @@
             <tbody id="tbodyDevice">
             </tbody>
         </table>
-    </div>
-    <div id="userData" style="display: none">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th nowrap="nowrap">用户名</th>
-                    <th nowrap="nowrap">密码</th>
-                    <th nowrap="nowrap">用户权限类型</th>
-                    <th nowrap="nowrap">删除用户</th>
-                </tr>
-            </thead>
-            <tbody id="tbodyUser">
-            </tbody>
-        </table>
-    </div>
-    <div class="container" id="buildUser" style="display: none">
-        <form class="form-signin">
-            <h2 class="form-signin-heading">新建用户</h2>
-            <label for="buildUserName" class="sr-only">用户名</label>
-            <input id="buildUserName" class="form-control" placeholder="用户名" required="" autofocus="">
-            <br>
-            <label for="buildPassword" class="sr-only">密码</label>
-            <input id="buildPassword" class="form-control" placeholder="密码" required="" autofocus="">
-            <br>
-            <div class="input-group">
-                <div class="input-group-btn">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">账号类型 <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" onclick="showSelectType(1, '超级管理员')">超级管理员</a></li>
-                        <li><a href="#" onclick="showSelectType(2, '客户管理员')">客户管理员</a></li>
-                        <li><a href="#" onclick="showSelectType(3, '发货员')">发货员</a></li>
-                    </ul>
-                </div>
-                <!-- /btn-group -->
-                <input type="text" class="form-control" aria-label="..." id='buildUserType'>
-            </div>
-            <br>
-            <!-- /input-group -->
-            <button class="btn btn-lg btn-primary btn-block form-button" onclick="buildUser()" type="button">新建用户</button>
-        </form>
     </div>
     <div class="container" id="buildDevice" style="display: none">
         <form class="form-signin">
@@ -212,12 +168,6 @@
                 <input type="text" class="form-control" aria-label="..." id='v_show_w_dir'>
             </div>
             <br>
-            <label for="v_user_name" class="sr-only">客户名字</label>
-            <input id="v_user_name" class="form-control" placeholder="客户名字" required="" autofocus="">
-            <br>
-            <label for="v_user_pos" class="sr-only">设备所在地</label>
-            <input id="v_user_pos" class="form-control" placeholder="设备所在地" required="" autofocus="">
-            <br>
             <div class="input-group">
                 <div class="input-group-btn">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">是否在线 <span class="caret"></span></button>
@@ -242,8 +192,6 @@
                 <tr>
                     <th nowrap="nowrap">设备id</th>
                     <th nowrap="nowrap">订单号</th>
-                    <th nowrap="nowrap">用户姓名</th>
-                    <th nowrap="nowrap">设置地址</th>
                     <th nowrap="nowrap">是否对发货员可见</th>
                     <th nowrap="nowrap">是否已完成订单</th>
                     <th nowrap="nowrap">修改订单</th>
@@ -263,12 +211,6 @@
             <br>
             <label for="s_num" class="sr-only">快递单号</label>
             <input id="s_num" class="form-control" placeholder="快递单号" required="" autofocus="">
-            <br>
-            <label for="s_user_name" class="sr-only">客户姓名</label>
-            <input id="s_user_name" class="form-control" placeholder="客户姓名" required="" autofocus="">
-            <br>
-            <label for="s_user_pos" class="sr-only">设备地址</label>
-            <input id="s_user_pos" class="form-control" placeholder="设备地址" required="" autofocus="">
             <br>
             <div class="input-group">
                 <div class="input-group-btn">
@@ -302,7 +244,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-    <script src="../js/msg_1.js"></script>
+    <script src="../js/msg_2.js"></script>
     <script src="../js/bootstrapSwitch.js"></script>
 </body>
 
