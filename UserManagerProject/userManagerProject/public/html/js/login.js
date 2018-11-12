@@ -4,7 +4,7 @@ var login = function() {
     if (!userName || !password) {
         return;
     }
-    $.post('http://localhost:8888/checkUser', {
+    $.post('http://47.92.253.131:3389/checkUser', {
         userName: userName,
         password: password
     }, function(result) {

@@ -38,7 +38,7 @@ var getDeviceTrNode = function(oneData) {
     aNode.href = "#";
     aNode.innerText = "删除设备";
     aNode.onclick = function() {
-        $.post('http://localhost:8888/deleteDevice', {
+        $.post('http://47.92.253.131:3389/deleteDevice', {
             deleteDeviceId: oneData.deviceId
         }, function(result) {
             if (result.ret === -2) {
@@ -104,7 +104,7 @@ var showChangeDeviceMsg = function(data) {
     });
 };
 var changeDevice = function() {
-    $.post('http://localhost:8888/changeDevice', {
+    $.post('http://47.92.253.131:3389/changeDevice', {
         deviceId: local.selectDeviceId,
         PM25: document.getElementById('v_PM25').value || 1,
         PM25_C: document.getElementById('v_PM25_C').value || 1,
@@ -145,7 +145,7 @@ var changeDevice = function() {
     }, "json");
 };
 var buildDevice = function() {
-    $.post('http://localhost:8888/buildDevice', {
+    $.post('http://47.92.253.131:3389/buildDevice', {
         PM25: document.getElementById('v_PM25').value || 1,
         PM25_C: document.getElementById('v_PM25_C').value || 1,
         PM10: document.getElementById('v_PM10').value || 1,
@@ -235,7 +235,7 @@ var getSellCardTrNode = function(oneData) {
     aNode.href = "#";
     aNode.innerText = "删除";
     aNode.onclick = function() {
-        $.post('http://localhost:8888/deleteSellCard', {
+        $.post('http://47.92.253.131:3389/deleteSellCard', {
             deleteDeviceId: oneData.deviceId
         }, function(result) {
             if (result.ret === -2) {
@@ -272,7 +272,7 @@ var changeSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://localhost:8888/changeSellCard', {
+    $.post('http://47.92.253.131:3389/changeSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         canRead: local.buildSellCardValue['s_can_read'] || 0,
@@ -296,7 +296,7 @@ var buildSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://localhost:8888/buildSellCard', {
+    $.post('http://47.92.253.131:3389/buildSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         canRead: local.buildSellCardValue['s_can_read'] || 0,
@@ -375,7 +375,7 @@ var showDeviceMsgUI = function() {
     document.getElementById("buildDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'none';
-    $.post('http://localhost:8888/getDeviceMsg', undefined, function(result) {
+    $.post('http://47.92.253.131:3389/getDeviceMsg', undefined, function(result) {
         if (result.ret === -2) {
             alert(result.errorStr);
             window.location.href = 'login.html';
@@ -396,7 +396,7 @@ var showSellCardMsgUI = function() {
     document.getElementById("buildDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'block';
-    $.post('http://localhost:8888/getSellCardMsg', undefined, function(result) {
+    $.post('http://47.92.253.131:3389/getSellCardMsg', undefined, function(result) {
         if (result.ret === -2) {
             alert(result.errorStr);
             window.location.href = 'login.html';

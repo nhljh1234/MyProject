@@ -59,7 +59,7 @@ var getSellCardTrNode = function(oneData) {
     aNode.href = "#";
     aNode.innerText = "删除";
     aNode.onclick = function() {
-        $.post('http://localhost:8888/deleteSellCard', {
+        $.post('http://47.92.253.131:3389/deleteSellCard', {
             deleteDeviceId: oneData.deviceId
         }, function(result) {
             if (result.ret === -2) {
@@ -96,7 +96,7 @@ var changeSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://localhost:8888/changeSellCard', {
+    $.post('http://47.92.253.131:3389/changeSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         finish: local.buildSellCardValue['s_finish'] || 0,
@@ -119,7 +119,7 @@ var buildSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://localhost:8888/buildSellCard', {
+    $.post('http://47.92.253.131:3389/buildSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         finish: local.buildSellCardValue['s_finish'] || 0,
@@ -164,7 +164,7 @@ var showChangeSellCardUI = function() {
 var showSellCardMsgUI = function() {
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'block';
-    $.post('http://localhost:8888/getSellCardMsg', undefined, function(result) {
+    $.post('http://47.92.253.131:3389/getSellCardMsg', undefined, function(result) {
         if (result.ret === -2) {
             alert(result.errorStr);
             window.location.href = 'login.html';
