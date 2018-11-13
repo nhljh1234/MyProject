@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class RoundedCube : MonoBehaviour {
+public class CubeSphere : MonoBehaviour
+{
 
-    public int xSize = 4;
-    public int ySize = 3;
-    public int zSize = 5;
-    public int roundness = 0;
+    public int gridSize = 11;
+    public int radius = 2;
 
     private Vector3[] normals;
     private Vector3[] vertices;
@@ -16,24 +15,24 @@ public class RoundedCube : MonoBehaviour {
     private Color32[] cubeUV;
     private Mesh mesh;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 
-    private void Awake ()
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    private void Awake()
     {
         Generate();
     }
 
-    private void OnDrawGizmos ()
+    private void OnDrawGizmos()
     {
         if (vertices == null)
         {
@@ -42,7 +41,7 @@ public class RoundedCube : MonoBehaviour {
         for (int i = 0; i < vertices.Length; i++)
         {
             Gizmos.color = Color.black;
-            Gizmos.DrawSphere(vertices[i], 0.1f);
+            Gizmos.DrawSphere(vertices[i], 0.01f);
             //Gizmos.color = Color.yellow;
             //Gizmos.DrawRay(vertices[i], normals[i]);
         }
@@ -54,15 +53,16 @@ public class RoundedCube : MonoBehaviour {
         mesh.name = "Procedural Cube";
         buildVertices();
         buildTriangles();
+        gameObject.AddComponent<SphereCollider>();
     }
 
     private void buildVertices()
     {
         int totalNum = 0, x, y, z;
-        totalNum = totalNum + xSize * ySize * 2;
-        for (z = 0; z < zSize - 2; z++)
+        totalNum = totalNum + gridSize * gridSize * 2;
+        for (z = 0; z < gridSize - 2; z++)
         {
-            totalNum = totalNum + 2 * xSize + 2 * (ySize - 2);
+            totalNum = totalNum + 2 * gridSize + 2 * (gridSize - 2);
         }
         vertices = new Vector3[totalNum];
         normals = new Vector3[totalNum];
@@ -70,24 +70,24 @@ public class RoundedCube : MonoBehaviour {
         cubeUV = new Color32[totalNum];
         int count = 0;
         //最前面
-        for (x = 0; x < xSize; x++)
+        for (x = 0; x < gridSize; x++)
         {
-            for (y = 0; y < ySize; y++)
+            for (y = 0; y < gridSize; y++)
             {
                 SetVertex(count, x, y, 0);
                 count++;
             }
         }
         //中间
-        for (z = 1; z < zSize - 1; z++)
+        for (z = 1; z < gridSize - 1; z++)
         {
-            for (x = 0; x < xSize; x++)
+            for (x = 0; x < gridSize; x++)
             {
-                for (y = 0; y < ySize; y++)
+                for (y = 0; y < gridSize; y++)
                 {
-                    if (x > 0 && x < xSize - 1)
+                    if (x > 0 && x < gridSize - 1)
                     {
-                        if (y > 0 && y < ySize - 1)
+                        if (y > 0 && y < gridSize - 1)
                         {
                             continue;
                         }
@@ -98,11 +98,11 @@ public class RoundedCube : MonoBehaviour {
             }
         }
         //最后面
-        for (x = 0; x < xSize; x++)
+        for (x = 0; x < gridSize; x++)
         {
-            for (y = 0; y < ySize; y++)
+            for (y = 0; y < gridSize; y++)
             {
-                SetVertex(count, x, y, zSize - 1);
+                SetVertex(count, x, y, gridSize - 1);
                 count++;
             }
         }
@@ -113,55 +113,29 @@ public class RoundedCube : MonoBehaviour {
 
     private void SetVertex(int i, int x, int y, int z)
     {
-        Vector3 inner = vertices[i] = new Vector3(x, y, z);
-
-        if (x < roundness)
-        {
-            inner.x = roundness;
-        }
-        else if (x > xSize - roundness - 1)
-        {
-            inner.x = xSize - roundness - 1;
-        }
-        if (y < roundness)
-        {
-            inner.y = roundness;
-        }
-        else if (y > ySize - roundness - 1)
-        {
-            inner.y = ySize - roundness - 1;
-        }
-        if (z < roundness)
-        {
-            inner.z = roundness;
-        }
-        else if (z > zSize - roundness - 1)
-        {
-            inner.z = zSize - roundness - 1;
-        }
-
-        normals[i] = (vertices[i] - inner).normalized;
-        vertices[i] = inner + normals[i] * roundness;
+        Vector3 center = new Vector3(gridSize / 2, gridSize / 2, gridSize / 2);
+        normals[i] = (new Vector3(x, y, z) - center).normalized;
+        vertices[i] = normals[i] * radius;
         cubeUV[i] = new Color32((byte)x, (byte)y, (byte)z, 0);
     }
 
-    private int getIndex (int x, int y, int z)
+    private int getIndex(int x, int y, int z)
     {
         int i, index = 0;
         for (i = 0; i < z; i++)
         {
             if (i == 0)
             {
-                index = index + xSize * ySize;
+                index = index + gridSize * gridSize;
             }
             else
             {
-                index = index + 2 * ySize + 2 * (xSize - 2);
+                index = index + 2 * gridSize + 2 * (gridSize - 2);
             }
         }
-        if (z == 0 || z == zSize - 1)
+        if (z == 0 || z == gridSize - 1)
         {
-            index = index + x * ySize + y;
+            index = index + x * gridSize + y;
         }
         else
         {
@@ -169,14 +143,14 @@ public class RoundedCube : MonoBehaviour {
             {
                 if (i == 0)
                 {
-                    index = index + ySize;
+                    index = index + gridSize;
                 }
                 else
                 {
                     index = index + 2;
                 }
             }
-            if (x == 0 || x == xSize - 1)
+            if (x == 0 || x == gridSize - 1)
             {
                 index = index + y;
             }
@@ -193,14 +167,14 @@ public class RoundedCube : MonoBehaviour {
     {
         //int quads = ((xSize - 1) * (ySize - 1) + (ySize - 1) * (zSize - 1) + (xSize - 1) * (zSize - 1)) * 2;
         //int[] triangles = new int[quads * 6];
-        int[] trianglesZ = new int[((xSize - 1) * (ySize - 1)) * 12];
-        int[] trianglesX = new int[((ySize - 1) * (zSize - 1)) * 12];
-        int[] trianglesY = new int[((xSize - 1) * (zSize - 1)) * 12];
+        int[] trianglesZ = new int[((gridSize - 1) * (gridSize - 1)) * 12];
+        int[] trianglesX = new int[((gridSize - 1) * (gridSize - 1)) * 12];
+        int[] trianglesY = new int[((gridSize - 1) * (gridSize - 1)) * 12];
         //最前面
         int x, y, z, trianglesCountX = 0, trianglesCountY = 0, trianglesCountZ = 0;
-        for (x = 0; x < xSize - 1; x++)
+        for (x = 0; x < gridSize - 1; x++)
         {
-            for (y = 0; y < ySize - 1; y++)
+            for (y = 0; y < gridSize - 1; y++)
             {
                 trianglesZ[trianglesCountZ] = getIndex(x, y, 0);
                 trianglesZ[trianglesCountZ + 1] = trianglesZ[trianglesCountZ + 4] = getIndex(x, y + 1, 0);
@@ -210,22 +184,22 @@ public class RoundedCube : MonoBehaviour {
             }
         }
         //中间
-        for (z = 1; z < zSize; z++)
+        for (z = 1; z < gridSize; z++)
         {
-            for (x = 0; x < xSize; x++)
+            for (x = 0; x < gridSize; x++)
             {
-                for (y = 0; y < ySize; y++)
+                for (y = 0; y < gridSize; y++)
                 {
-                    if (x > 0 && x < xSize - 1)
+                    if (x > 0 && x < gridSize - 1)
                     {
-                        if (y > 0 && y < ySize - 1)
+                        if (y > 0 && y < gridSize - 1)
                         {
                             continue;
                         }
                     }
                     if (x == 0)
                     {
-                        if (y < ySize - 1)
+                        if (y < gridSize - 1)
                         {
                             trianglesX[trianglesCountX] = getIndex(x, y, z);
                             trianglesX[trianglesCountX + 1] = trianglesX[trianglesCountX + 4] = getIndex(x, y + 1, z);
@@ -233,10 +207,10 @@ public class RoundedCube : MonoBehaviour {
                             trianglesX[trianglesCountX + 5] = getIndex(x, y + 1, z - 1);
                             trianglesCountX = trianglesCountX + 6;
                         }
-                    } 
-                    else if (x == xSize - 1)
+                    }
+                    else if (x == gridSize - 1)
                     {
-                        if (y < ySize - 1)
+                        if (y < gridSize - 1)
                         {
                             trianglesX[trianglesCountX] = getIndex(x, y, z);
                             trianglesX[trianglesCountX + 1] = trianglesX[trianglesCountX + 4] = getIndex(x, y, z - 1);
@@ -245,13 +219,13 @@ public class RoundedCube : MonoBehaviour {
                             trianglesCountX = trianglesCountX + 6;
                         }
                     }
-                    if (x > 0 && x <= xSize - 1)
+                    if (x > 0 && x <= gridSize - 1)
                     {
-                        if (y > 0 && y < ySize - 1)
+                        if (y > 0 && y < gridSize - 1)
                         {
                             continue;
                         }
-                        if (y == ySize -1)
+                        if (y == gridSize - 1)
                         {
                             trianglesY[trianglesCountY] = getIndex(x, y, z);
                             trianglesY[trianglesCountY + 1] = trianglesY[trianglesCountY + 4] = getIndex(x, y, z - 1);
@@ -272,14 +246,14 @@ public class RoundedCube : MonoBehaviour {
             }
         }
         //最后面
-        for (x = 0; x < xSize - 1; x++)
+        for (x = 0; x < gridSize - 1; x++)
         {
-            for (y = 0; y < ySize - 1; y++)
+            for (y = 0; y < gridSize - 1; y++)
             {
-                trianglesZ[trianglesCountZ] = getIndex(x, y, zSize - 1);
-                trianglesZ[trianglesCountZ + 1] = trianglesZ[trianglesCountZ + 4] = getIndex(x + 1, y, zSize - 1);
-                trianglesZ[trianglesCountZ + 2] = trianglesZ[trianglesCountZ + 3] = getIndex(x, y + 1, zSize - 1);
-                trianglesZ[trianglesCountZ + 5] = getIndex(x + 1, y + 1, zSize - 1);
+                trianglesZ[trianglesCountZ] = getIndex(x, y, gridSize - 1);
+                trianglesZ[trianglesCountZ + 1] = trianglesZ[trianglesCountZ + 4] = getIndex(x + 1, y, gridSize - 1);
+                trianglesZ[trianglesCountZ + 2] = trianglesZ[trianglesCountZ + 3] = getIndex(x, y + 1, gridSize - 1);
+                trianglesZ[trianglesCountZ + 5] = getIndex(x + 1, y + 1, gridSize - 1);
                 trianglesCountZ = trianglesCountZ + 6;
             }
         }

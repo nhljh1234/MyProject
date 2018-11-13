@@ -55,6 +55,7 @@
   <ItemGroup>
      <Compile Include="Assets\LearnProject\BaseMesh\Script\BaseMesh.cs" />
      <Compile Include="Assets\LearnProject\Clock\Script\ClockScript.cs" />
+     <Compile Include="Assets\LearnProject\CubeSphere\Script\CubeSphere.cs" />
      <Compile Include="Assets\LearnProject\Fractal\Script\FractalCode.cs" />
      <Compile Include="Assets\LearnProject\Graph\Script\GraphPosControl.cs" />
      <Compile Include="Assets\LearnProject\RoundedCube\Script\RoundedCube.cs" />
@@ -208,6 +209,7 @@
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteVertexLighting.cginc" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteShadows.cginc" />
      <None Include="Assets\Shader\RimLight.shader" />
+     <None Include="Assets\LearnProject\CubeSphere\Shader\CubeSphere.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\SpriteShadows.cginc" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritePixelLighting.cginc" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteLighting.cginc" />
