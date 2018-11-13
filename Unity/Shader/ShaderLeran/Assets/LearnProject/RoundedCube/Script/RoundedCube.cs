@@ -12,6 +12,7 @@ public class RoundedCube : MonoBehaviour {
 
     private Vector3[] normals;
     private Vector3[] vertices;
+    private Vector2[] uv;
     private Color32[] cubeUV;
     private Mesh mesh;
 
@@ -42,8 +43,8 @@ public class RoundedCube : MonoBehaviour {
         {
             Gizmos.color = Color.black;
             Gizmos.DrawSphere(vertices[i], 0.1f);
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawRay(vertices[i], normals[i]);
+            //Gizmos.color = Color.yellow;
+            //Gizmos.DrawRay(vertices[i], normals[i]);
         }
     }
 
@@ -65,6 +66,7 @@ public class RoundedCube : MonoBehaviour {
         }
         vertices = new Vector3[totalNum];
         normals = new Vector3[totalNum];
+        uv = new Vector2[totalNum];
         cubeUV = new Color32[totalNum];
         int count = 0;
         //最前面
