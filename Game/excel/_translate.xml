@@ -4,6 +4,7 @@
 	</file>
 	<file oldName="item" newName="item">
 		<table oldName="商品" newName="sellGood" use="client"/>
+		<table oldName="商品功能" newName="itemFunction" use="client"/>
 	</file>
 	<file oldName="action" newName="action">
 		<table oldName="行动" newName="action" use="client"/>
@@ -16,5 +17,8 @@
 	</file>
 	<file oldName="building" newName="building">
 		<table oldName="建筑" newName="building" use="client"/>
+	</file>
+	<file oldName="event" newName="event">
+		<table oldName="大地图随机事件" newName="mapRandomEvent" use="client"/>
 	</file>
 </note>

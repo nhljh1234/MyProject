@@ -16,13 +16,17 @@
             "name" : "鹿肉",
             "price" : 10,
             "overdueTime" : 5,
-            "overdueGood" : 6
+            "overdueGood" : 6,
+            "function" : 1,
+            "functionNum" : 2
         },    
         "4" : {
             "name" : "鹿肉干",
             "price" : 20,
             "overdueTime" : 100,
-            "overdueGood" : 6
+            "overdueGood" : 6,
+            "function" : 1,
+            "functionNum" : 5
         },    
         "5" : {
             "name" : "坏掉的鱼肉",
@@ -56,14 +60,18 @@
             "name" : "鹿肉",
             "price" : 10,
             "overdueTime" : 5,
-            "overdueGood" : 6
+            "overdueGood" : 6,
+            "function" : 1,
+            "functionNum" : 2
         },    
         {
             "main_id" : 4,
             "name" : "鹿肉干",
             "price" : 20,
             "overdueTime" : 100,
-            "overdueGood" : 6
+            "overdueGood" : 6,
+            "function" : 1,
+            "functionNum" : 5
         },    
         {
             "main_id" : 5,

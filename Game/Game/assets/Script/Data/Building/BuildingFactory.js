@@ -36,6 +36,13 @@ local.buildingUserUseTypeFunc.shop = function (personData) {
     personData.sellGood();
     g_LogTool.showLog(`${personData._name} 卖东西`);
 };
+/**
+ * 医馆处理函数
+ */
+local.buildingUserUseTypeFunc.hospital = function (personData) {
+    personData._nowHp = personData._maxHp;
+    g_LogTool.showLog(`${personData._name} 医馆治疗`);
+};
 
 /**
  * @param building 为建筑数据绑定相应的函数

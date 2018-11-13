@@ -4,6 +4,17 @@
 var outModule = {};
 var local = {};
 
+local.useSellGoodFunc = {};
+
+//治疗
+local.useSellGoodFunc.treat = function (person, sellGood, index) {
+    let numArr = sellGood._functionNumArr[index];
+    person._nowHp = person._nowHp + numArr[0];
+    if (person._nowHp > person._maxHp) {
+        person._nowHp = person._maxHp;
+    }
+};
+
 /**
  * @param sellGood 已经加好数据的商品，再增加一些操作函数
  */
@@ -27,7 +38,14 @@ local.buildFunc = function (sellGood) {
      * 使用物品
      */
     sellGood.use = (personData) => {
-
+        g_LogTool.showLog(`${personData._name} 使用 ${sellGood._name}`);
+        sellGood._functionArr.forEach(function (oneData, index) {
+            if (local.useSellGoodFunc[oneData.type]) {
+                local.useSellGoodFunc[oneData.type](personData, sellGood, index);
+            }
+        });
+        //消耗物品
+        personData.removeItemByItemId(sellGood.itemId);
     };
 
     /**
@@ -43,6 +61,12 @@ local.buildFunc = function (sellGood) {
             itemId: sellGood._itemId,
             getTime: sellGood._getTime
         }
+    };
+    //判断物品是否有一个功能
+    sellGood.judgeHaveFunctionByName = function (typeName) {
+        return sellGood._functionArr.find(function (oneData) {
+            oneData.type === typeName;
+        });
     };
 };
 
@@ -62,6 +86,15 @@ local.createOneSellGood = function (sellGoodId, personData) {
     this._overdueTime = jsonData.overdue;
     //过期后转换成的物品
     this._overdueGood = jsonData.overdueGood;
+    //功能
+    this._functionArr = jsonData.function ? ('' + jsonData.function).split(',') : [];
+    this._functionArr = this._functionArr.map(function (id) {
+        return g_JsonDataTool.getDataById('_table_item_itemFunction', id);
+    });
+    this._functionNumArr = jsonData.functionNum ? ('' + jsonData.functionNum).split(',') : [];
+    this._functionNumArr = this._functionNumArr.map(function (str) {
+        return ('' + str).split('/');
+    });
     //唯一id
     this._id = personData.getNewItemId();
 
@@ -89,6 +122,15 @@ local.createOneSellGoodBySaveData = function (saveData) {
     this._overdueTime = jsonData.overdue;
     //过期后转换成的物品
     this._overdueGood = jsonData.overdueGood;
+    //功能
+    this._functionArr = jsonData.function ? ('' + jsonData.function).split(',') : [];
+    this._functionArr = this._functionArr.map(function (id) {
+        return g_JsonDataTool.getDataById('_table_item_itemFunction', id);
+    });
+    this._functionNumArr = jsonData.functionNum ? ('' + jsonData.functionNum).split(',') : [];
+    this._functionNumArr = this._functionNumArr.map(function (str) {
+        return ('' + str).split('/');
+    });
     //唯一id
     this._id = saveData.id;
 

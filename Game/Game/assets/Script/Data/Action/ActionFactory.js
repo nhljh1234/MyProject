@@ -32,6 +32,12 @@ local.buildFunc = function (action) {
         }
         action._nowUseTime = action._nowUseTime + addMinutes;
         if (action._nowUseTime > action._actionCostTime) {
+            //判断是否要使用建筑功能
+            if (action._pos !== -1) {
+                g_GameGlobalManager.gameData.getCityById(personData._pos[0]).getBuildingById(action._pos).useBuilding(personData);
+            } else {
+                personData.useHome();
+            }
             personData.actionFinishCb(action);
             action._isDoing = false;
         }

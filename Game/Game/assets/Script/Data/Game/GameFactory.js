@@ -58,6 +58,8 @@ local.buildFunc = function (game) {
         game._allPersonArr.forEach(function (onePersonData) {
             onePersonData.timeUpdate(addMinutes);
         });
+        //战斗定时器
+        g_BattleManager.timeUpdate(addMinutes);
     };
     //game里面存储的是所有人物的列表，转换成以id为key的对象数据
     game.personDataBuild = function () {

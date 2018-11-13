@@ -4,14 +4,13 @@ var local = {};
 var RandomNameTool = require('RandomNameTool');
 var ActionFactory = require('ActionFactory');
 var SellGoodFactory = require('SellGoodFactory');
-
-const MAX_ITEM_NUM = 100;
+var MapRandomEvent = require('MapRandomEvent');
 
 /**
  * 没有任务的时候会去判断下一步应该执行什么任务
  */
 local.judgeNextAction = (person) => {
-    if (person._itemArr.length > MAX_ITEM_NUM) {
+    if (person._itemArr.length > g_GlobalData.MAX_ITEM_NUM) {
         return ActionFactory.createOneAction(5);
     }
     if (person._power < g_GlobalData.MAX_POWER / 2) {
@@ -28,6 +27,9 @@ local.judgeNextAction = (person) => {
 local.buildFunc = function (person) {
     //前往一个地点
     person.goToCity = function (cityId) {
+        if (person._inInBattle) {
+            return;
+        }
         //cityId为0表示在野外
         if (cityId === person._pos[0]) {
             person._goalPosCity = undefined;
@@ -41,10 +43,13 @@ local.buildFunc = function (person) {
         person._goalDis = g_GameTool.getCityDis(cityId, person._pos[0]);
         //立马出城
         person._pos[0] = 0;
-        g_LogTool.showLog(`${person._name} go to ${g_GameGlobalManager.gameData.getCityById(cityId)._name}`);
+
     };
     //前往一个设施
     person.goToBuilding = function (buildingId) {
+        if (person._inInBattle) {
+            return;
+        }
         if (person._pos[0] === 0) {
             //在野外，处于寻路状态
             return;
@@ -63,8 +68,6 @@ local.buildFunc = function (person) {
         }
         //城市内的建筑是立马到达的
         person._pos[1] = buildingId;
-        //判断是否要使用建筑功能
-        g_GameGlobalManager.gameData.getCityById(person._pos[0]).getBuildingById(buildingId).useBuilding(person);
     };
     //任务完成的回调
     person.actionFinishCb = function (action) {
@@ -74,6 +77,14 @@ local.buildFunc = function (person) {
         //TODO 要不要修改成实时的改变，中间人物可以停止
         person._power = person._power - action._costPower;
         person._money = person._money - action._costMoney;
+        if (person._power < 0) {
+            person._power = 0;
+            g_LogTool.showLog(`${person._name} power error, action is ${action._name}`);
+        } 
+        if (person._money < 0) {
+            person._money = 0;
+            g_LogTool.showLog(`${person._name} money error, action is ${action._name}`);
+        } 
     };
     //获得了物品
     person.getItem = function (rewardArr) {
@@ -90,10 +101,12 @@ local.buildFunc = function (person) {
     };
     //时间变化函数
     person.timeUpdate = function (addMinutes) {
+        if (person._inInBattle) {
+            return;
+        }
         if (person._nowAction) {
             //执行动作
             if (person._nowAction.doAction(person)) {
-                g_LogTool.showLog(`${person._name} do ${person._nowAction._name}`);
                 person._nowAction.timeUpdate(person, addMinutes);
             }
         } else {
@@ -103,12 +116,14 @@ local.buildFunc = function (person) {
             }
         }
         if (person._goalDis > 0) {
+            if (MapRandomEvent.judgeMapRandomEvent(person)) {
+                return;
+            }
             person._goalDis = person._goalDis - Math.ceil((addMinutes / 10) * person._moveSpeed);
             if (person._goalDis <= 0) {
                 person._goalDis = 0;
                 person._pos[0] = person._goalPosCity;
                 person._goalPosCity = 0;
-                g_LogTool.showLog(`${person._name} in ${g_GameGlobalManager.gameData.getCityById(person._pos[0])._name}`);
             }
         }
     };
@@ -190,6 +205,56 @@ local.buildFunc = function (person) {
             maxItemId: person._maxItemId
         }
     };
+    //死亡回调
+    /**
+     * @param personAttack 击杀者
+     */
+    person.deadCb = function (personAttack) {
+        g_LogTool.showLog(`${personAttack._name} 击杀了 ${person._name}`);
+    };
+    //开始战斗的回调
+    person.startBattleCb = function () {
+        person._inInBattle = true;
+    };
+    //战斗结束回调
+    person.battleFinishCb = function () {
+        if (person._nowHp < g_GlobalData.MIN_HP_NUM * person._maxHp) {
+            person.treat(); 
+        }
+        person._inInBattle = false;
+    };
+    //回复血量
+    person.treat = function () {
+        let i = 0, len = person._itemArr.length;
+        for (i = 0; i < len; i++) {
+            if (person._itemArr[i].judgeHaveFunctionByName('treat')) {
+                person._itemArr[i].use();
+            }
+            if (person._nowHp >= person._maxHp) {
+                break;
+            }
+        }
+        if (person._nowHp < g_GlobalData.MIN_HP_NUM * person._maxHp) {
+            //这个时候增加一个医馆行动
+            let action = ActionFactory.createOneAction(6);
+            if (action.costMoney > person._money) {
+                this._nowAction = ActionFactory.createOneAction(4);
+            } else {
+                this._nowAction = action;
+            }
+        } else {
+            g_LogTool.showLog(`${person._name} 治疗结束`);
+        }
+    };
+    //触发大地图随机事件
+    person.mapRandomEventCb = function () {
+        
+    };
+    //使用自宅
+    person.useHome = function () {
+        person._nowHp = person._maxHp;
+        g_LogTool.showLog(`${person._name} 治疗结束`);
+    };
 };
 
 /**
@@ -261,6 +326,9 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
     this._power = g_GlobalData.MAX_POWER;
     //标记物品id的最大值
     this._maxItemId = 1;
+    //是否在战斗中
+    //暂定是不记录战斗信息
+    this._inInBattle = false;
 
     local.buildFunc(this);
 };
@@ -284,7 +352,7 @@ local.createOneBasePersonBySaveData = function (saveData) {
     //政治
     this._politics = saveData.politics;
     //生命值
-    this._maxHp = saveData.hp;
+    this._maxHp = saveData.maxHp;
     //性别
     this._sex = saveData.sex;
     //大地图移动速度
@@ -307,7 +375,7 @@ local.createOneBasePersonBySaveData = function (saveData) {
     //坐骑
     this._equipHorse = saveData.equipHorse;
     //血量
-    this._nowHp = saveData.maxHp;
+    this._nowHp = saveData.nowHp;
     //唯一id
     this._id = saveData.id;
     //位置
@@ -331,6 +399,9 @@ local.createOneBasePersonBySaveData = function (saveData) {
     this._power = saveData.power;
     //标记物品id的最大值
     this._maxItemId = saveData.maxItemId;
+    //是否在战斗中
+    //暂定是不记录战斗信息
+    this._inInBattle = false;
 
     local.buildFunc(this);
 };

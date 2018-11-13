@@ -2,7 +2,7 @@
     "object" : {
         "1" : {
             "name" : "张三",
-            "attact" : 80,
+            "attack" : 80,
             "def" : 78,
             "command" : 99,
             "intelligence" : 99,
@@ -14,7 +14,7 @@
         },    
         "2" : {
             "name" : "赵四",
-            "attact" : 99,
+            "attack" : 99,
             "def" : 100,
             "command" : 95,
             "intelligence" : 80,
@@ -26,7 +26,7 @@
         },    
         "3" : {
             "name" : "李五",
-            "attact" : 78,
+            "attack" : 78,
             "def" : 88,
             "command" : 90,
             "intelligence" : 90,
@@ -38,13 +38,37 @@
         },    
         "4" : {
             "name" : "王六",
-            "attact" : 100,
+            "attack" : 100,
             "def" : 98,
             "command" : 80,
             "intelligence" : 70,
             "charm" : 80,
             "politics" : 79,
             "hp" : 750,
+            "sex" : 1,
+            "moveSpeed" : 5
+        },    
+        "5" : {
+            "name" : "黑熊",
+            "attack" : 100,
+            "def" : 98,
+            "command" : 80,
+            "intelligence" : 70,
+            "charm" : 80,
+            "politics" : 79,
+            "hp" : 750,
+            "sex" : 1,
+            "moveSpeed" : 5
+        },    
+        "6" : {
+            "name" : "强盗",
+            "attack" : 78,
+            "def" : 88,
+            "command" : 90,
+            "intelligence" : 90,
+            "charm" : 100,
+            "politics" : 80,
+            "hp" : 500,
             "sex" : 1,
             "moveSpeed" : 5
         }    
@@ -54,7 +78,7 @@
         {
             "main_id" : 1,
             "name" : "张三",
-            "attact" : 80,
+            "attack" : 80,
             "def" : 78,
             "command" : 99,
             "intelligence" : 99,
@@ -67,7 +91,7 @@
         {
             "main_id" : 2,
             "name" : "赵四",
-            "attact" : 99,
+            "attack" : 99,
             "def" : 100,
             "command" : 95,
             "intelligence" : 80,
@@ -80,7 +104,7 @@
         {
             "main_id" : 3,
             "name" : "李五",
-            "attact" : 78,
+            "attack" : 78,
             "def" : 88,
             "command" : 90,
             "intelligence" : 90,
@@ -93,13 +117,39 @@
         {
             "main_id" : 4,
             "name" : "王六",
-            "attact" : 100,
+            "attack" : 100,
             "def" : 98,
             "command" : 80,
             "intelligence" : 70,
             "charm" : 80,
             "politics" : 79,
             "hp" : 750,
+            "sex" : 1,
+            "moveSpeed" : 5
+        },    
+        {
+            "main_id" : 5,
+            "name" : "黑熊",
+            "attack" : 100,
+            "def" : 98,
+            "command" : 80,
+            "intelligence" : 70,
+            "charm" : 80,
+            "politics" : 79,
+            "hp" : 750,
+            "sex" : 1,
+            "moveSpeed" : 5
+        },    
+        {
+            "main_id" : 6,
+            "name" : "强盗",
+            "attack" : 78,
+            "def" : 88,
+            "command" : 90,
+            "intelligence" : 90,
+            "charm" : 100,
+            "politics" : 80,
+            "hp" : 500,
             "sex" : 1,
             "moveSpeed" : 5
         }    
