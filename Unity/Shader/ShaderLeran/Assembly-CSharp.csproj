@@ -53,14 +53,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\LearnProject\BaseMesh\Script\BaseMesh.cs" />
-     <Compile Include="Assets\LearnProject\Clock\Script\ClockScript.cs" />
-     <Compile Include="Assets\LearnProject\CubeSphere\Script\CubeSphere.cs" />
-     <Compile Include="Assets\LearnProject\CubeSphere\Script\MeshDeformer.cs" />
-     <Compile Include="Assets\LearnProject\CubeSphere\Script\MeshDeformerInput.cs" />
-     <Compile Include="Assets\LearnProject\Fractal\Script\FractalCode.cs" />
-     <Compile Include="Assets\LearnProject\Graph\Script\GraphPosControl.cs" />
-     <Compile Include="Assets\LearnProject\RoundedCube\Script\RoundedCube.cs" />
+     <Compile Include="Assets\LearnProject\Base\Clock\Script\ClockScript.cs" />
+     <Compile Include="Assets\LearnProject\Base\Fractal\Script\FractalCode.cs" />
+     <Compile Include="Assets\LearnProject\Base\Graph\Script\GraphPosControl.cs" />
+     <Compile Include="Assets\LearnProject\Mesh\BaseMesh\Script\BaseMesh.cs" />
+     <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\CubeSphere.cs" />
+     <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\MeshDeformer.cs" />
+     <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\MeshDeformerInput.cs" />
+     <Compile Include="Assets\LearnProject\Mesh\RoundedCube\Script\RoundedCube.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\AttackSpineboy.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DataAssetsFromExportsExample.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DraggableTransform.cs" />
@@ -211,7 +211,7 @@
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteVertexLighting.cginc" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteShadows.cginc" />
      <None Include="Assets\Shader\RimLight.shader" />
-     <None Include="Assets\LearnProject\CubeSphere\Shader\CubeSphere.shader" />
+     <None Include="Assets\LearnProject\Mesh\CubeSphere\Shader\CubeSphere.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\SpriteShadows.cginc" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritePixelLighting.cginc" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteLighting.cginc" />
@@ -220,7 +220,7 @@
      <None Include="Assets\Shader\OutLine.shader" />
      <None Include="Assets\Spine Examples\Spine\FootSoldier\FS_White.atlas.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\ShaderShared.cginc" />
-     <None Include="Assets\LearnProject\Fractal\Shader\Color.shader" />
+     <None Include="Assets\LearnProject\Base\Fractal\Shader\Color.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\CustomMaterials\SkeletonRendererCustomMaterials.txt" />
      <None Include="Assets\Spine Examples\Spine\Dragon\license.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Straight Alpha\Spine-Straight-Skeleton-Tint.shader" />
@@ -239,10 +239,10 @@
      <None Include="Assets\Shader\Dissolution.shader" />
      <None Include="Assets\Spine\spine-unity\version.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritesPixelLit.shader" />
-     <None Include="Assets\LearnProject\Graph\Shader\Color.shader" />
+     <None Include="Assets\LearnProject\Base\Graph\Shader\Color.shader" />
      <None Include="Assets\Spine Examples\Spine\Raggedy Spineboy\Raggedy Spineboy.atlas.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Spine-Skeleton-Tint.shader" />
-     <None Include="Assets\LearnProject\RoundedCube\Shader\RoundedCube.shader" />
+     <None Include="Assets\LearnProject\Mesh\RoundedCube\Shader\RoundedCube.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpritesUnlit.shader" />
      <None Include="Assets\Spine\spine-unity\Shaders\Utility\Hidden-Spine-Bones.shader" />
      <None Include="Assets\Shader\GaussianBlur.shader" />
