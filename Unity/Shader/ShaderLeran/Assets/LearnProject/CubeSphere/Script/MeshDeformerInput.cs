@@ -5,9 +5,10 @@ using UnityEngine;
 public class MeshDeformerInput : MonoBehaviour {
 
     public int forceNum = 10;
+    public float forceOffset = 0.1f;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
 		
 	}
@@ -31,6 +32,7 @@ public class MeshDeformerInput : MonoBehaviour {
             if (deformer)
             {
                 Vector3 point = hit.point;
+                point = point + hit.normal * forceOffset;
                 deformer.addDeformingForce(point, forceNum);
             }
         }
