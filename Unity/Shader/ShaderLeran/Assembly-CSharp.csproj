@@ -61,6 +61,9 @@
      <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\MeshDeformer.cs" />
      <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\MeshDeformerInput.cs" />
      <Compile Include="Assets\LearnProject\Mesh\RoundedCube\Script\RoundedCube.cs" />
+     <Compile Include="Assets\LearnProject\Render\Render_1\Script\Render_1_ChangePosition.cs" />
+     <Compile Include="Assets\LearnProject\Render\Render_1\Script\Render_1_ChangeScale.cs" />
+     <Compile Include="Assets\LearnProject\Render\Render_1\Script\Render_1_CreateCube.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\AttackSpineboy.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DataAssetsFromExportsExample.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DraggableTransform.cs" />
@@ -268,6 +271,7 @@
      <None Include="Assets\Spine\spine-unity\Shaders\Spine-SkeletonLit.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\SpriteSpecular.cginc" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Straight Alpha\Spine-Straight-Skeleton-Fill.shader" />
+     <None Include="Assets\LearnProject\Render\Render_1\Shader\Color.shader" />
      <None Include="Assets\Spine Examples\Spine\FootSoldier\Equipment\Equipment.atlas.txt" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/MyProject/Unity/Shader/ShaderLeran/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
