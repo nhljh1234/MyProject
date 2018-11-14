@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 1067619704}
   - component: {fileID: 1067619703}
   - component: {fileID: 1067619702}
+  - component: {fileID: 1067619706}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -143,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 20
-  roundness: 2
+  radius: 2
 --- !u!23 &1067619703
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -201,6 +202,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1067619706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1067619701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c27851a3f347d44896a2e5d450f83fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1214493883
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,6 +223,7 @@ GameObject:
   - component: {fileID: 1214493886}
   - component: {fileID: 1214493885}
   - component: {fileID: 1214493884}
+  - component: {fileID: 1214493887}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -278,6 +291,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1214493887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1214493883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6709699f4d6da634a92f3cb0f00f5459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  forceNum: 10
 --- !u!1 &1934198672
 GameObject:
   m_ObjectHideFlags: 0
