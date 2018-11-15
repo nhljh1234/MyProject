@@ -45,14 +45,23 @@ public class Render_1_CreateCube : MonoBehaviour {
 	void Update ()
     {
         Vector3 newPos;
-		for (int i = 0; i < cloneTransform.Length; i++)
+        Matrix4x4 changeMatrix = new Matrix4x4();
+        Matrix4x4 transformation = new Matrix4x4();
+        for (int i = 0; i < cloneTransform.Length; i++)
         {
             //位移
-            newPos = localPosArr[i] + changePos;
+            changeMatrix.SetRow(0, new Vector4(1f, 0f, 0f, changePos.x));
+            changeMatrix.SetRow(1, new Vector4(0f, 1f, 0f, changePos.y));
+            changeMatrix.SetRow(2, new Vector4(0f, 0f, 1f, changePos.z));
+            changeMatrix.SetRow(3, new Vector4(0f, 0f, 0f, 1f));
+            newPos = localPosArr[i];
+            newPos = changeMatrix * new Vector4(newPos.x, newPos.y, newPos.z, 1f);
             //缩放
-            newPos.x = newPos.x * changeScale.x;
-            newPos.y = newPos.y * changeScale.y;
-            newPos.z = newPos.z * changeScale.z;
+            changeMatrix.SetRow(0, new Vector4(changeScale.x, 0f, 0f, 0f));
+            changeMatrix.SetRow(1, new Vector4(0f, changeScale.y, 0f, 0f));
+            changeMatrix.SetRow(2, new Vector4(0f, 0f, changeScale.z, 0f));
+            changeMatrix.SetRow(3, new Vector4(0f, 0f, 0f, 0f));
+            newPos = changeMatrix * new Vector4(newPos.x, newPos.y, newPos.z, 1f);
             //旋转
             float radX = changeRotation.x * Mathf.Deg2Rad;
             float radY = changeRotation.y * Mathf.Deg2Rad;
@@ -63,22 +72,20 @@ public class Render_1_CreateCube : MonoBehaviour {
             float cosY = Mathf.Cos(radY);
             float sinZ = Mathf.Sin(radZ);
             float cosZ = Mathf.Cos(radZ);
-            Vector3 xAxis = new Vector3(
-                cosY * cosZ,
-                cosX * sinZ + sinX * sinY * cosZ,
-                sinX * sinZ - cosX * sinY * cosZ
-            );
-            Vector3 yAxis = new Vector3(
-                -cosY * sinZ,
-                cosX * cosZ - sinX * sinY * sinZ,
-                sinX * cosZ + cosX * sinY * sinZ
-            );
-            Vector3 zAxis = new Vector3(
-                sinY,
-                -sinX * cosY,
-                cosX * cosY
-            );
-            newPos = xAxis* newPos.x + yAxis * newPos.y + zAxis * newPos.z;
+            changeMatrix.SetColumn(0, new Vector4(cosY * cosZ, cosX * sinZ + sinX * sinY * cosZ, sinX * sinZ - cosX * sinY * cosZ, 0f));
+            changeMatrix.SetColumn(1, new Vector4(-cosY * sinZ, cosX * cosZ - sinX * sinY * sinZ, sinX * cosZ + cosX * sinY * sinZ, 0f));
+            changeMatrix.SetColumn(2, new Vector4(sinY, -sinX * cosY, cosX * cosY, 0f));
+            changeMatrix.SetColumn(3, new Vector4(0f, 0f, 0f, 0f));
+            newPos = changeMatrix * new Vector4(newPos.x, newPos.y, newPos.z, 1f);
+
+            //矩阵变化
+            transformation.SetRow(0, new Vector4(1f, 0f, 0f, 0f));
+            transformation.SetRow(1, new Vector4(0f, 1f, 0f, 0f));
+            transformation.SetRow(2, new Vector4(0f, 0f, 0f, 0f));
+            transformation.SetRow(3, new Vector4(0f, 0f, 0f, 1f));
+
+            newPos = transformation * newPos;
+
             cloneTransform[i].localPosition = newPos;
         }
 	}
