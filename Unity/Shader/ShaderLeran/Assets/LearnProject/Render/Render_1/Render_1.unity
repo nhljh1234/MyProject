@@ -122,8 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 258579824}
   - component: {fileID: 258579825}
-  - component: {fileID: 258579826}
-  - component: {fileID: 258579827}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -158,34 +156,9 @@ MonoBehaviour:
   transformClone: {fileID: 4633564216333648, guid: 7d1bc7b3fa7d5f243a71ec7d8fb036f1,
     type: 2}
   size: 10
---- !u!114 &258579826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 258579823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48206d87ecf9def4e8386ec54ad4b592, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  x: 0
-  y: 0
-  z: 0
---- !u!114 &258579827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 258579823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13700924d0e454647a2c90ec95d142fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  x: 1
-  y: 1
-  z: 1
+  changePos: {x: 1, y: 1, z: 1}
+  changeScale: {x: 1, y: 1, z: 1}
+  changeRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &477538558
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +296,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1644236540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 5, z: -30}
+  m_LocalPosition: {x: 0, y: 0, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

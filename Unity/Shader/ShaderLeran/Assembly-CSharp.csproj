@@ -61,8 +61,6 @@
      <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\MeshDeformer.cs" />
      <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\MeshDeformerInput.cs" />
      <Compile Include="Assets\LearnProject\Mesh\RoundedCube\Script\RoundedCube.cs" />
-     <Compile Include="Assets\LearnProject\Render\Render_1\Script\Render_1_ChangePosition.cs" />
-     <Compile Include="Assets\LearnProject\Render\Render_1\Script\Render_1_ChangeScale.cs" />
      <Compile Include="Assets\LearnProject\Render\Render_1\Script\Render_1_CreateCube.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\AttackSpineboy.cs" />
      <Compile Include="Assets\Spine Examples\Scripts\DataAssetsFromExportsExample.cs" />
