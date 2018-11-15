@@ -316,23 +316,81 @@ var buildSellCard = function() {
         }
     }, "json");
 };
-var showSellCardMsg = function() {
+var getShowDataArr = function(dataArr, searchStr, nowShowDataKey) {
+    if (!searchStr) {
+        return dataArr;
+    }
+    var searchStrArr = searchStr.split('=');
+    if (!nowShowDataKey[searchStrArr[0]]) {
+        alert('关键字错误');
+        return dataArr;
+    } else {
+        return dataArr.filter(function(oneData) {
+            return oneData[nowShowDataKey[searchStrArr[0]]] == searchStrArr[1];
+        });
+    }
+};
+var showSellCardMsg = function(searchStr) {
     var tBodyNode = document.getElementById("tbodySellCard");
     while (tBodyNode.hasChildNodes()) {
         tBodyNode.removeChild(tBodyNode.firstChild);
     }
-    local.sellDataArr.forEach(function(oneData) {
+    local.nowShowType = 'sell_card';
+    var nowShowDataKey = {
+        '设备id': 'deviceId',
+        '订单号': 'num',
+        '是否对发货员可见': 'can_read',
+        '是否已完成订单': 'finish',
+    };
+    getShowDataArr(local.sellDataArr, searchStr, nowShowDataKey).forEach(function(oneData) {
         tBodyNode.appendChild(getSellCardTrNode(oneData));
     });
 };
-var showDeviceMsg = function() {
+var showDeviceMsg = function(searchStr) {
     var tBodyNode = document.getElementById("tbodyDevice");
     while (tBodyNode.hasChildNodes()) {
         tBodyNode.removeChild(tBodyNode.firstChild);
     }
-    local.deviceDataArr.forEach(function(oneData) {
+    local.nowShowType = 'device';
+    var nowShowDataKey = {
+        '设备id': 'deviceId',
+        'PM25': 'PM25',
+        'PM25修正值': 'PM25_C',
+        'PM10': 'PM10',
+        'PM10修正值': 'PM10_C',
+        '噪音': 'noise',
+        '噪音修正值': 'noise_C',
+        '温度': 'temperature',
+        '温度修正值': 'temperature_C',
+        '湿度': 'humidity',
+        '湿度修正值': 'humidity_C',
+        '风向': 'w_dir',
+        '风向修正值': 'w_dir_C',
+        '风速': 'w_speed',
+        '风速修正值': 'w_speed_C',
+        '臭氧': 'O3',
+        '臭氧修正值': 'O3_C',
+        '风力': 'w_power',
+        '风力修正值': 'w_power_C',
+        '屏显字符': 'screenStr',
+        '喷淋继电器工作模式': 'workMode',
+        '是否显示臭氧': 'show_O3',
+        '是否显示风向': 'show_w_dir',
+        '是否在线': 'is_on'
+    };
+    getShowDataArr(local.deviceDataArr, searchStr, nowShowDataKey).forEach(function(oneData) {
         tBodyNode.appendChild(getDeviceTrNode(oneData));
     });
+};
+var search = function() {
+    switch (local.nowShowType) {
+        case 'sell_card':
+            showSellCardMsg(document.getElementById('searchStr').value);
+            break;
+        case 'device':
+            showDeviceMsg(document.getElementById('searchStr').value);
+            break;
+    }
 };
 var showBuildSellCardUI = function() {
     document.getElementById("deviceData").style.display = 'none';

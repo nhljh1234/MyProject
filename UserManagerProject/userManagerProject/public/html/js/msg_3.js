@@ -138,14 +138,42 @@ var buildSellCard = function() {
         }
     }, "json");
 };
-var showSellCardMsg = function() {
+var getShowDataArr = function(dataArr, searchStr, nowShowDataKey) {
+    if (!searchStr) {
+        return dataArr;
+    }
+    var searchStrArr = searchStr.split('=');
+    if (!nowShowDataKey[searchStrArr[0]]) {
+        alert('关键字错误');
+        return dataArr;
+    } else {
+        return dataArr.filter(function(oneData) {
+            return oneData[nowShowDataKey[searchStrArr[0]]] == searchStrArr[1];
+        });
+    }
+};
+var showSellCardMsg = function(searchStr) {
     var tBodyNode = document.getElementById("tbodySellCard");
     while (tBodyNode.hasChildNodes()) {
         tBodyNode.removeChild(tBodyNode.firstChild);
     }
-    local.sellDataArr.forEach(function(oneData) {
+    local.nowShowType = 'sell_card';
+    var nowShowDataKey = {
+        '设备id': 'deviceId',
+        '订单号': 'num',
+        '是否对发货员可见': 'can_read',
+        '是否已完成订单': 'finish',
+    };
+    getShowDataArr(local.sellDataArr, searchStr, nowShowDataKey).forEach(function(oneData) {
         tBodyNode.appendChild(getSellCardTrNode(oneData));
     });
+};
+var search = function() {
+    switch (local.nowShowType) {
+        case 'sell_card':
+            showSellCardMsg(document.getElementById('searchStr').value);
+            break;
+    }
 };
 var showBuildSellCardUI = function() {
     document.getElementById("buildSellCard").style.display = 'block';
