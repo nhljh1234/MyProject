@@ -43,7 +43,7 @@ outModule.getRandomName = (sex) => {
     }
     let resultName = surname + name;
     if (allNameArr.indexOf(resultName) >= 0) {
-        return outModule.getRandomName(isMan);
+        return outModule.getRandomName(sex);
     }
     allNameArr.push(resultName);
     return resultName;

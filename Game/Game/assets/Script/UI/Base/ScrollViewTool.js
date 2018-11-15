@@ -18,8 +18,9 @@ outModule.SCROLL_TYPE_BOTH = 3;
  * @param tmpNode
  * @param buildFunc
  * @param dataArr 数据数组，会按照数据数量来生成子节点的数量
+ * @param nodePool 节点池
  */
-outModule.buildScrollView = (scrollViewNode, scrollType, tmpNode, buildFunc, dataArr) => {
+outModule.buildScrollView = (scrollViewNode, scrollType, tmpNode, buildFunc, dataArr, nodePool) => {
     if (!scrollViewNode) {
         return;
     }
@@ -55,10 +56,24 @@ outModule.buildScrollView = (scrollViewNode, scrollType, tmpNode, buildFunc, dat
     let showCount = dataArr.length;
     //补充节点
     while (childrenCount < showCount) {
-        let newItemNode = cc.instantiate(tmpNode);
+        let newItemNode;
+        if (nodePool.size() > 0) {
+            newItemNode = nodePool.get();
+        } else {
+            newItemNode = cc.instantiate(tmpNode);
+        }
         contentNode.addChild(newItemNode);
         childrenCount++;
     }
+    //推送多余节点进入节点池
+    let putArr = [];
+    while (childrenCount > showCount) {
+        putArr.push(contentNode.children[childrenCount]);
+        childrenCount--;
+    }
+    putArr.forEach(function (node) {
+        nodePool.push(node);
+    });
     //更新节点
     let firstChildNode = contentNode.children[0];
     contentNode.children.forEach((childNode, index) => {

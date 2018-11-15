@@ -34,6 +34,7 @@ local.saveGameData = (index, jsonData) => {
  * 储存游戏数据
  */
 outModule.saveGame = function () {
+    return;
     let gameData = g_GameGlobalManager.gameData;
     local.saveGameData(undefined, gameData.getSaveJsonData());
 };

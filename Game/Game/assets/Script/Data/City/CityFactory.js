@@ -37,7 +37,7 @@ local.buildFunc = function (city) {
             cityDefNum: city._cityDefNum,
             personArr: city._personArr.map(function (onePersonData) {
                 return onePersonData._id;
-            }),
+            })
         }
     };
 };

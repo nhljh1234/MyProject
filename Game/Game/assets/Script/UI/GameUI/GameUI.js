@@ -8,11 +8,9 @@ var GameSave = require("GameSave");
 cc.Class({
     extends: BaseUI,
 
-    properties: {
+    properties: {},
 
-    },
-
-    onLoad () {
+    onLoad() {
         //设置名字
         this._uiName = "GameUI";
         //先执行这个
@@ -30,5 +28,18 @@ cc.Class({
             g_GameGlobalManager.init(this, new GameFactory.createOneGame(undefined, 7, 13));
         }
         g_GameGlobalManager.start();
+        this.buttonTravelRegister(this.node);
+    },
+
+    /**
+     * 实现方法，点击回调
+     */
+    onButtonClick: function (name, node, component) {
+        switch (name) {
+            case 'MsgBtn':
+                g_GameSceneManager.addNode('Prefab/Msg/ForceList', g_GAME_SCENE_UI_NODE, 'ForceListUI',
+                    false, undefined, undefined, 100);
+                return;
+        }
     }
 });
