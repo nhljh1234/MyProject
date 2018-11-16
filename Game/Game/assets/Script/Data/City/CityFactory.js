@@ -67,11 +67,15 @@ local.createOneCityBySaveData = function (saveData) {
     this._name = jsonData.name;
     //城市位置
     //用两个元素表示，类似于经纬度
-    this._cityPos = jsonData.cityPos.split(',');
+    this._cityPos = jsonData.cityPos.split(',').map(function (num) {
+        return parseInt(num);
+    });
+    this._cityPos = g_GameTool.buildPos(this._cityPos[0], this._cityPos[1]);
 
     local.buildFunc(this);
 
     //人物列表
+    //表示家在这个城市的人
     this._personArr = saveData.personArr.map((personId) => {
         return g_GameGlobalManager.gameData.getPersonById(personId);
     });
@@ -108,7 +112,10 @@ local.createOneCity = function (cityId) {
     this._name = jsonData.name;
     //城市位置
     //用两个元素表示，类似于经纬度
-    this._cityPos = jsonData.cityPos.split(',');
+    this._cityPos = jsonData.cityPos.split(',').map(function (num) {
+        return parseInt(num);
+    });
+    this._cityPos = g_GameTool.buildPos(this._cityPos[0], this._cityPos[1]);
 
     local.buildFunc(this);
 

@@ -12,6 +12,9 @@ local.eventFuncObj.battle = function (personData, dataArr) {
 
 //判断会不会有随机事件
 outModule.judgeMapRandomEvent = function (personData) {
+    if (cc.random0To1() >= (g_JsonDataTool.getDataById('_table_Game_gameParameter', 1).num / 100)) {
+        return;
+    }
     let mapRandomEventData = g_JsonDataTool.getTableByName('_table_event_mapRandomEvent');
     let mapRandomEventArr = mapRandomEventData ? mapRandomEventData.array : [];
     let i, len;

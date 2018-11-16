@@ -3,7 +3,6 @@ cc.Class({
 
     properties: {
         //UI的名字
-        _uiName: null,
         _leftNode: null,
         _topNode: null,
         _rightNode: null,

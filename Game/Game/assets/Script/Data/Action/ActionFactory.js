@@ -15,7 +15,7 @@ local.buildFunc = function (action) {
             return true;
         }
         //第一步判断是否在位置
-        if (personData._pos[1] !== action._pos) {
+        if (personData._pos.buildingId !== action._pos) {
             personData.goToBuilding(action._pos);
             return false;
         }
@@ -30,11 +30,24 @@ local.buildFunc = function (action) {
         if (!action._isDoing) {
             return;
         }
+        //在野外
+        if (personData._pos.cityId === -1) {
+            action._isDoing = false;
+            personData.goToBuilding(action._pos);
+            return;
+        }
+        //判断是否在使用的建筑中，没有的话需要先移动到指定建筑
+        let buildingData = g_GameGlobalManager.gameData.getCityById(personData._pos.cityId).getBuildingById(action._pos);
+        if (!buildingData) {
+            action._isDoing = false;
+            personData.goToBuilding(action._pos);
+            return;
+        }
         action._nowUseTime = action._nowUseTime + addMinutes;
         if (action._nowUseTime > action._actionCostTime) {
             //判断是否要使用建筑功能
             if (action._pos !== -1) {
-                g_GameGlobalManager.gameData.getCityById(personData._pos[0]).getBuildingById(action._pos).useBuilding(personData);
+                buildingData.useBuilding(personData);
             } else {
                 personData.useHome();
             }

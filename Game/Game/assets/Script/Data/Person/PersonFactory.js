@@ -7,6 +7,62 @@ var SellGoodFactory = require('SellGoodFactory');
 var MapRandomEvent = require('MapRandomEvent');
 
 /**
+ * 改变人物大地图上的位置
+ */
+local.changeMapPos = function (person, addMinutes) {
+    if (!person._goalCityMapPos) {
+        return;
+    }
+    if (!g_GameTool.judgeEqualPos(person._nowMapPos, person._goalCityMapPos)) {
+        //还没有到达目的地
+        if (MapRandomEvent.judgeMapRandomEvent(person)) {
+            return;
+        }
+        //移动的距离
+        let moveNum = Math.ceil((addMinutes / 10) * person._moveSpeed);
+        //这边暂时不使用三角函数计算，减少计算量
+        let disX = Math.abs(person._goalCityMapPos.x - person._nowMapPos.x);
+        let disY = Math.abs(person._goalCityMapPos.y - person._nowMapPos.y);
+        let addX = disX / (disX + disY) * moveNum;
+        let addY = disY / (disX + disY) * moveNum;
+        //x距离增加
+        if (person._goalCityMapPos.x !== person._nowMapPos.x) {
+            if (person._goalCityMapPos.x > person._nowMapPos.x) {
+                person._nowMapPos.x = person._nowMapPos.x + addX;
+                if (person._nowMapPos.x >= person._goalCityMapPos.x) {
+                    person._nowMapPos.x = person._goalCityMapPos.x;
+                }
+            } else {
+                person._nowMapPos.x = person._nowMapPos.x - addX;
+                if (person._nowMapPos.x <= person._goalCityMapPos.x) {
+                    person._nowMapPos.x = person._goalCityMapPos.x;
+                }
+            }
+        }
+        //y距离增加
+        if (person._goalCityMapPos.y !== person._nowMapPos.y) {
+            if (person._goalCityMapPos.y > person._nowMapPos.y) {
+                person._nowMapPos.y = person._nowMapPos.x + addY;
+                if (person._nowMapPos.y >= person._goalCityMapPos.y) {
+                    person._nowMapPos.y = person._goalCityMapPos.y;
+                }
+            } else {
+                person._nowMapPos.y = person._nowMapPos.y - addY;
+                if (person._nowMapPos.y <= person._goalCityMapPos.y) {
+                    person._nowMapPos.y = person._goalCityMapPos.y;
+                }
+            }
+        }
+        if (g_GameTool.judgeEqualPos(person._nowMapPos, person._goalCityMapPos)) {
+            person._pos.cityId = person._goalCityId;
+            person._nowMapPos = person._goalCityMapPos;
+            person._goalCityMapPos = undefined;
+            person._goalCityId = undefined;
+        }
+    }
+};
+
+/**
  * 没有任务的时候会去判断下一步应该执行什么任务
  */
 local.judgeNextAction = (person) => {
@@ -30,44 +86,41 @@ local.buildFunc = function (person) {
         if (person._inInBattle) {
             return;
         }
-        //cityId为0表示在野外
-        if (cityId === person._pos[0]) {
-            person._goalPosCity = undefined;
-            return;
-        }
-        if (person._goalPosCity === cityId) {
+        let cityMapPos = g_GameGlobalManager.gameData.getCityById(cityId)._cityPos;
+        if (g_GameTool.judgeEqualPos(cityMapPos, person._goalCityMapPos)) {
+            //修正一下
+            person._pos.cityId = cityId;
             return;
         }
         //TODO 改变目的地，这个距离会在时间更新处进行计算
-        person._goalPosCity = cityId;
-        person._goalDis = g_GameTool.getCityDis(cityId, person._pos[0]);
+        person._goalCityMapPos = cityMapPos;
+        person._goalCityId = cityId;
+        //如果当前有大地图坐标的话就以这个数据为出发点，否则使用当前城市的大地图坐标为出发点
+        if (person._pos.cityId !== -1) {
+            person._nowMapPos = g_GameGlobalManager.gameData.getCityById(person._pos.cityId)._cityPos;
+        }
         //立马出城
-        person._pos[0] = 0;
-
+        person._pos.cityId = -1;
     };
     //前往一个设施
     person.goToBuilding = function (buildingId) {
         if (person._inInBattle) {
             return;
         }
-        if (person._pos[0] === 0) {
-            //在野外，处于寻路状态
-            return;
-        }
         if (buildingId === -1) {
             //自宅
-            if (person._pos[0] === person._homePos) {
-                person._pos[1] = buildingId;
+            if (person._pos.cityId === person._homePos) {
+                person._pos.buildingId = buildingId;
                 return;
             }
         }
-        let nearCityData = g_GameTool.getNearBuildingCity(buildingId, person._pos[0], undefined, person);
-        if (nearCityData._id !== person._pos[0]) {
+        let nearCityData = g_GameTool.getNearBuildingCity(buildingId, person._pos.cityId, undefined, person);
+        if (nearCityData._id !== person._pos.cityId) {
             person.goToCity(nearCityData._id);
             return;
         }
         //城市内的建筑是立马到达的
-        person._pos[1] = buildingId;
+        person._pos.buildingId = buildingId;
     };
     //任务完成的回调
     person.actionFinishCb = function (action) {
@@ -80,11 +133,11 @@ local.buildFunc = function (person) {
         if (person._power < 0) {
             person._power = 0;
             g_LogTool.showLog(`${person._name} power error, action is ${action._name}`);
-        } 
+        }
         if (person._money < 0) {
             person._money = 0;
             g_LogTool.showLog(`${person._name} money error, action is ${action._name}`);
-        } 
+        }
     };
     //获得了物品
     person.getItem = function (rewardArr) {
@@ -115,17 +168,7 @@ local.buildFunc = function (person) {
                 person._nowAction.timeUpdate(person, addMinutes);
             }
         }
-        if (person._goalDis > 0) {
-            if (MapRandomEvent.judgeMapRandomEvent(person)) {
-                return;
-            }
-            person._goalDis = person._goalDis - Math.ceil((addMinutes / 10) * person._moveSpeed);
-            if (person._goalDis <= 0) {
-                person._goalDis = 0;
-                person._pos[0] = person._goalPosCity;
-                person._goalPosCity = 0;
-            }
-        }
+        local.changeMapPos(person, addMinutes);
     };
     //日期变化函数
     person.dayUpdate = function () {
@@ -194,8 +237,9 @@ local.buildFunc = function (person) {
             id: person._id,
             pos: person._pos,
             homePos: person._homePos,
-            goalPosCity: person._goalPosCity,
-            goalDis: person._goalDis,
+            goalCityMapPos: person._goalCityMapPos,
+            nowMapPos: person._nowMapPos,
+            goalCityId: person._goalCityId,
             nowAction: person._nowAction ? person._nowAction.getSaveData() : undefined,
             itemArr: person._itemArr.map(function (oneItemData) {
                 return oneItemData.getSaveData();
@@ -219,7 +263,7 @@ local.buildFunc = function (person) {
     //战斗结束回调
     person.battleFinishCb = function () {
         if (person._nowHp < g_GlobalData.MIN_HP_NUM * person._maxHp) {
-            person.treat(); 
+            person.treat();
         }
         person._inInBattle = false;
     };
@@ -237,23 +281,23 @@ local.buildFunc = function (person) {
         if (person._nowHp < g_GlobalData.MIN_HP_NUM * person._maxHp) {
             //这个时候增加一个医馆行动
             let action = ActionFactory.createOneAction(6);
-            if (action.costMoney > person._money) {
+            if (action._costMoney > person._money) {
                 this._nowAction = ActionFactory.createOneAction(4);
             } else {
                 this._nowAction = action;
             }
         } else {
-            g_LogTool.showLog(`${person._name} 治疗结束`);
+            g_LogTool.showLog(`${person._name} 使用食物治疗结束`);
         }
     };
     //触发大地图随机事件
     person.mapRandomEventCb = function () {
-        
+
     };
     //使用自宅
     person.useHome = function () {
         person._nowHp = person._maxHp;
-        g_LogTool.showLog(`${person._name} 治疗结束`);
+        g_LogTool.showLog(`${person._name} 在家治疗结束`);
     };
 };
 
@@ -269,7 +313,7 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
     //名字
     this._name = jsonData.name;
     //攻击力
-    this._attack = jsonData.attack || 0;
+    this._attack = jsonData.attack;
     //防御力
     this._def = jsonData.def;
     //统帅
@@ -309,13 +353,18 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
     this._id = g_GameGlobalManager.getNewPersonId();
     //位置
     //初始都是在家的
-    this._pos = [cityId || 0, -1];
+    this._pos = {
+        cityId: cityId || 0,
+        buildingId: -1
+    };
     //家的位置，是一个城市id
     this._homePos = cityId || 0;
-    //目的地
-    this._goalPosCity = 0;
-    //到目的地的剩余的距离
-    this._goalDis = 0;
+    //目的地的大地图坐标
+    this._goalCityMapPos = undefined;
+    //当前人物所在的大地图坐标
+    this._nowMapPos = undefined;
+    //目标城市的id
+    this._goalCityId = undefined;
     //当前执行的任务
     this._nowAction = undefined;
     //当前的人物的物品数据
@@ -358,11 +407,11 @@ local.createOneBasePersonBySaveData = function (saveData) {
     //大地图移动速度
     this._moveSpeed = saveData.moveSpeed;
     //个人技能
-    this._presonSkillId = saveData.presonSkillId || 1;
+    this._presonSkillIdArr = saveData.presonSkillId ? ('' + saveData.presonSkillId).split(',') : [];
     //TODO 需要新建一个技能
 
     //战争技能
-    this._battleSkillId = saveData.battleSkillId || 1;
+    this._battleSkillIdArr = saveData.battleSkillId ? ('' + saveData.battleSkillId).split(',') : [];
     //TODO 需要新建一个技能
 
     //这边是存储的配置
@@ -384,9 +433,11 @@ local.createOneBasePersonBySaveData = function (saveData) {
     //家的位置，是一个城市id
     this._homePos = saveData.homePos;
     //目的地
-    this._goalPosCity = saveData.goalPosCity;
+    this._goalCityMapPos = saveData.goalCityMapPos;
     //到目的地的剩余的距离
-    this._goalDis = saveData.goalDis;
+    this._nowMapPos = saveData.nowMapPos;
+    //目标城市的id
+    this._goalCityId = saveData.goalCityId;
     //当前执行的任务
     this._nowAction = saveData.nowAction ? ActionFactory.createOneAction(undefined, saveData.nowAction) : undefined;
     //当前的人物的物品数据

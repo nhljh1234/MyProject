@@ -21,4 +21,7 @@
 	<file oldName="event" newName="event">
 		<table oldName="大地图随机事件" newName="mapRandomEvent" use="client"/>
 	</file>
+	<file oldName="Game" newName="Game">
+		<table oldName="参数" newName="gameParameter" use="client"/>
+	</file>
 </note>

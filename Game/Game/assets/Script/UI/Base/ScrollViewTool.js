@@ -72,7 +72,7 @@ outModule.buildScrollView = (scrollViewNode, scrollType, tmpNode, buildFunc, dat
         childrenCount--;
     }
     putArr.forEach(function (node) {
-        nodePool.push(node);
+        nodePool.put(node);
     });
     //更新节点
     let firstChildNode = contentNode.children[0];

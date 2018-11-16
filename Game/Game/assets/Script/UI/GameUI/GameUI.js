@@ -37,7 +37,7 @@ cc.Class({
     onButtonClick: function (name, node, component) {
         switch (name) {
             case 'MsgBtn':
-                g_GameSceneManager.addNode('Prefab/Msg/ForceList', g_GAME_SCENE_UI_NODE, 'ForceListUI',
+                g_GameSceneManager.addNode('Prefab/Msg/ForceListUI', g_GAME_SCENE_UI_NODE, 'ForceListUI',
                     false, undefined, undefined, 100);
                 return;
         }
