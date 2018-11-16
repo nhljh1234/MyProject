@@ -11,7 +11,7 @@
             "moneyNum" : 4000,
             "cityDef" : 1000,
             "cityPos" : "500,500",
-            "randomNpcNum" : 10
+            "randomNpcNum" : 0
         },    
         "2" : {
             "name" : "荣阳城",
@@ -24,7 +24,7 @@
             "moneyNum" : 400000,
             "cityDef" : 10000,
             "cityPos" : "350,400",
-            "randomNpcNum" : 20
+            "randomNpcNum" : 0
         }    
     },
 
@@ -41,7 +41,7 @@
             "moneyNum" : 4000,
             "cityDef" : 1000,
             "cityPos" : "500,500",
-            "randomNpcNum" : 10
+            "randomNpcNum" : 0
         },    
         {
             "main_id" : 2,
@@ -55,7 +55,7 @@
             "moneyNum" : 400000,
             "cityDef" : 10000,
             "cityPos" : "350,400",
-            "randomNpcNum" : 20
+            "randomNpcNum" : 0
         }    
     ]
 }

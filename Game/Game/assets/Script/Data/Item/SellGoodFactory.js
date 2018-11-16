@@ -52,7 +52,7 @@ local.buildFunc = function (sellGood) {
      * 出售物品
      */
     sellGood.sell = (personData) => {
-        personData.money = personData.money + sellGood._price;
+        personData._money = personData._money + sellGood._price;
     };
     //获取存储数据
     sellGood.getSaveData = function () {

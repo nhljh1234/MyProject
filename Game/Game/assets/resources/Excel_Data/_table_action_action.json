@@ -36,11 +36,6 @@
             "name" : "医馆疗伤",
             "pos" : 5,
             "costMoney" : 100
-        },    
-        "4" : {
-            "costTime" : 400,
-            "name" : "自宅疗伤",
-            "pos" : "-1"
         }    
     },
 
@@ -87,12 +82,6 @@
             "name" : "医馆疗伤",
             "pos" : 5,
             "costMoney" : 100
-        },    
-        {
-            "main_id" : 4,
-            "costTime" : 400,
-            "name" : "自宅疗伤",
-            "pos" : "-1"
         }    
     ]
 }
