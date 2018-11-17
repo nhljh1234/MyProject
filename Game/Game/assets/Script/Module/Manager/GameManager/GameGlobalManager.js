@@ -1,3 +1,4 @@
+/*global module, require, cc, client */
 /**
  * 这个模块下记录了一些全局性的东西，比如当前的时间
  */
@@ -12,20 +13,42 @@ outModule.maxPersonId = 1;
 //承载定时器的component
 local.component;
 
-//标记时间，就是现实中的1秒表示多少分钟
+//标记时间，就是每帧世界运行的分钟数
 const ONE_SECOND_GAME_MINUTE = 10;
 //定时器间隔时间
-const TIMER_TIME = 0;
+//设定为可变的
+outModule.TIMER_TIME = 1;
+//是否暂停时间运行
+local.pause = false;
 
 /**
  * 时间更新函数
  */
 local.minuteUpdate = function () {
-    //let addMinute = TIMER_TIME * ONE_SECOND_GAME_MINUTE;
     let addMinute = ONE_SECOND_GAME_MINUTE;
     if (outModule.gameData && outModule.gameData.timeUpdate) {
         outModule.gameData.timeUpdate(addMinute);
     }
+};
+
+/**
+ * 定时器函数
+ * local.pause作用于此
+ */
+local.timeUpdate = function () {
+    let lastTime, nowTime;
+    lastTime = new Date().getTime();
+    if (!local.pause){
+        local.minuteUpdate();
+    }
+    nowTime = new Date().getTime();
+    let useSeconds = (nowTime - lastTime) / 1000;
+    //保证不超过1
+    useSeconds = useSeconds > 1 ? 1 : useSeconds;
+    g_LogTool.showLog(`useSeconds : ${useSeconds}`);
+    //再次执行定时器
+    local.component.unschedule(local.timeUpdate);
+    local.component.schedule(local.timeUpdate, outModule.TIMER_TIME - useSeconds, 1);
 };
 
 //获取一个新的人物id
@@ -50,7 +73,7 @@ outModule.init = (component, gameData) => {
  */
 outModule.start = () => {
     if (local.component) {
-        local.component.schedule(local.minuteUpdate, TIMER_TIME, cc.macro.REPEAT_FOREVER);
+        local.component.schedule(local.timeUpdate, outModule.TIMER_TIME, 1);
     }
 };
 
@@ -58,7 +81,14 @@ outModule.start = () => {
  * 停止游戏的定时器
  */
 outModule.stop = () => {
-    local.component.unschedule(local.minuteUpdate);
+    local.component.unschedule(local.timeUpdate);
+};
+
+/**
+ * 暂停游戏
+ */
+outModule.pause = () => {
+    local.pause = true;
 };
 
 module.exports = outModule;
