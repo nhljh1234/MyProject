@@ -129,7 +129,7 @@ local.buildFunc = function (person) {
         person.getItem(action._rewardArr);
         //TODO 要不要修改成实时的改变，中间人物可以停止
         person._power = person._power - action._costPower;
-        person._money = person._money - action._costMoney;
+        person._money = person._money - action._costMoney || 0;
         if (person._power < 0) {
             person._power = 0;
             g_LogTool.showLog(`${person._name} power error, action is ${action._name}`);
@@ -182,7 +182,7 @@ local.buildFunc = function (person) {
     person.getNewItemId = function () {
         person._maxItemId++;
         return person._maxItemId - 1;
-    }
+    };
     //移除一个物品
     person.removeItemByItemId = function (itemId) {
         let i, len, index;
@@ -269,7 +269,7 @@ local.buildFunc = function (person) {
     };
     //回复血量
     person.treat = function () {
-        let i = 0, len = person._itemArr.length;
+        let i, len = person._itemArr.length;
         for (i = 0; i < len; i++) {
             if (person._itemArr[i].judgeHaveFunctionByName('treat')) {
                 person._itemArr[i].use();
@@ -297,7 +297,7 @@ local.buildFunc = function (person) {
     //使用自宅
     person.useHome = function () {
         person._nowHp = person._maxHp;
-        g_LogTool.showLog(`${person._name} 在家治疗结束`);
+        g_LogTool.showLog(`${person._name} 在家休息结束`);
     };
 };
 
@@ -307,7 +307,7 @@ local.buildFunc = function (person) {
  */
 local.createOneBasePerson = function (personId, randomData, cityId) {
     //先定义数据，方便查找
-    this._personId = parseInt(personId);
+    //this._personId = parseInt(personId);
     //配置数据
     var jsonData = randomData || g_JsonDataTool.getDataById('_table_person_person', personId);
     //名字
