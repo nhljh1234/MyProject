@@ -16,6 +16,7 @@ Shader "LearnProject/Render/Render_5/Color"
 		{
 			Tags{ "LightMode" = "ForwardBase" }
 			
+			
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
