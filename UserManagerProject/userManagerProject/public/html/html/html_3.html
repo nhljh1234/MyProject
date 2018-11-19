@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>设备信息</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 
@@ -15,7 +15,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 	<![endif]-->
-    <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../js/jquery.min.js"></script>
     <link href="../css/bootstrapSwitch.css" rel="stylesheet">
 </head>
 
@@ -23,26 +23,25 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" id="navButton">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-                <a class="navbar-brand" href="#">后台系统</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar" id="navButton" style="float:left">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+			    </button>
             </div>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" id="searchStr">
-                </div>
-                <button type="button" class="btn btn-default" onclick="search()">搜索</button>
-            </form>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" onclick="showSellCardMsgUI()">显示订单信息</a></li>
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#" onclick="showSellCardMsgUI(false)">订单信息</a></li>
                     <li><a href="#" onclick="showBuildSellCardUI()">增加订单</a></li>
                     <li><a href="login.html">输入账号</a></li>
                 </ul>
+                <div class="input-group" style="width: 300px; height: 30px; padding-top: 8px; padding-bottom: 10px">
+                    <input type="text" class="form-control" id="searchStr">
+                    <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="search()">搜索</button>
+                        </span>
+                </div>
             </div>
         </div>
     </nav>
@@ -92,8 +91,7 @@
         <br>
         <br>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
     <script src="../js/msg_3.js"></script>
     <script src="../js/bootstrapSwitch.js"></script>
 </body>

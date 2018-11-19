@@ -59,7 +59,7 @@ var getSellCardTrNode = function(oneData) {
     aNode.href = "#";
     aNode.innerText = "删除";
     aNode.onclick = function() {
-        $.post('http://47.92.253.131:3389/deleteSellCard', {
+        $.post('http://localhost:8888/deleteSellCard', {
             deleteDeviceId: oneData.deviceId
         }, function(result) {
             if (result.ret === -2) {
@@ -96,7 +96,7 @@ var changeSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://47.92.253.131:3389/changeSellCard', {
+    $.post('http://localhost:8888/changeSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         finish: local.buildSellCardValue['s_finish'] || 0,
@@ -119,7 +119,7 @@ var buildSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://47.92.253.131:3389/buildSellCard', {
+    $.post('http://localhost:8888/buildSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         finish: local.buildSellCardValue['s_finish'] || 0,
@@ -148,7 +148,7 @@ var getShowDataArr = function(dataArr, searchStr, nowShowDataKey) {
         return dataArr;
     } else {
         return dataArr.filter(function(oneData) {
-            return oneData[nowShowDataKey[searchStrArr[0]]] == searchStrArr[1];
+            return ('' + oneData[nowShowDataKey[searchStrArr[0]]]).indexOf(searchStrArr[1]) >= 0;
         });
     }
 };
@@ -169,6 +169,7 @@ var showSellCardMsg = function(searchStr) {
     });
 };
 var search = function() {
+    document.getElementById("navButton").click();
     switch (local.nowShowType) {
         case 'sell_card':
             showSellCardMsg(document.getElementById('searchStr').value);
@@ -176,6 +177,7 @@ var search = function() {
     }
 };
 var showBuildSellCardUI = function() {
+    document.getElementById("navButton").click();
     document.getElementById("buildSellCard").style.display = 'block';
     document.getElementById("addSellCardBtn").style.display = 'block';
     document.getElementById("changeSellCardBtn").style.display = 'none';
@@ -189,10 +191,13 @@ var showChangeSellCardUI = function() {
     document.getElementById("sellCardData").style.display = 'none';
     document.getElementById("sellCardTitle").innerHTML = "修改订单";
 };
-var showSellCardMsgUI = function() {
+var showSellCardMsgUI = function(isInit) {
+    if (isInit === false) {
+        document.getElementById("navButton").click();
+    }
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'block';
-    $.post('http://47.92.253.131:3389/getSellCardMsg', undefined, function(result) {
+    $.post('http://localhost:8888/getSellCardMsg', undefined, function(result) {
         if (result.ret === -2) {
             alert(result.errorStr);
             window.location.href = 'login.html';

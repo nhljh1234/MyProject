@@ -22,6 +22,12 @@ outModule.changeDevice = (req, res) => {
         res.end();
         return;
     }
+    //post请求修改数据
+
+    if (serType !== 1) {
+        //权限为1才可以修改用户名和地址
+        return;
+    }
     let data = req.body;
     let connection = MysqlTool.getMysqlObjByDBName('test');
     connection.query(`SELECT * FROM device WHERE deviceId=${data.deviceId}`, function(err, rows, field) {
@@ -43,19 +49,7 @@ outModule.changeDevice = (req, res) => {
             let connection = MysqlTool.getMysqlObjByDBName('test');
             let mysqlStr;
             if (userType === 1) {
-                mysqlStr = `UPDATE device SET PM25=${data.PM25}, PM25_C=${data.PM25_C}, PM10=${data.PM10},
-                PM10_C=${data.PM10_C}, noise=${data.noise}, noise_C=${data.noise_C}, temperature=${data.temperature}, temperature_C=${data.temperature_C}, 
-                humidity=${data.humidity}, humidity_C=${data.humidity_C}, w_dir=${data.w_dir}, w_dir_C=${data.w_dir_C}, w_speed=${data.w_speed},
-                w_speed_C=${data.w_speed_C}, O3=${data.O3}, O3_C=${data.O3_C}, w_power=${data.w_power}, w_power_C=${data.w_power_C}, 
-                screenStr='${data.screenStr}', workMode=${data.workMode}, show_O3=${data.show_O3}, show_w_dir=${data.show_w_dir}, 
-                is_on=${data.is_on} WHERE deviceId=${data.deviceId}`;
-            } else if (userType === 2) {
-                mysqlStr = `UPDATE device SET PM25=${data.PM25}, PM25_C=${data.PM25_C}, PM10=${data.PM10},
-                PM10_C=${data.PM10_C}, noise=${data.noise}, noise_C=${data.noise_C}, temperature=${data.temperature}, temperature_C=${data.temperature_C}, 
-                humidity=${data.humidity}, humidity_C=${data.humidity_C}, w_dir=${data.w_dir}, w_dir_C=${data.w_dir_C}, w_speed=${data.w_speed},
-                w_speed_C=${data.w_speed_C}, O3=${data.O3}, O3_C=${data.O3_C}, w_power=${data.w_power}, w_power_C=${data.w_power_C}, 
-                screenStr='${data.screenStr}', workMode=${data.workMode}, show_O3=${data.show_O3}, show_w_dir=${data.show_w_dir}, 
-                is_on=${data.is_on} WHERE deviceId=${data.deviceId}`;
+                mysqlStr = `UPDATE device SET user_name='${data.user_name}', user_pos='${data.user_pos}' WHERE deviceId=${data.deviceId}`;
             }
             connection.query(mysqlStr, function(err, rows, field) {
                 if (err) {

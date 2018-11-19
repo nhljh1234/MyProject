@@ -18,7 +18,7 @@ var getDeviceTrNode = function(oneData) {
                 break;
         }
         var tdNode = document.createElement("td");
-        tdNode.innerText = value;
+        tdNode.innerText = value || "";
         tdNode.style = "word-break:break-all; word-wrap:break-all;";
         trNode.appendChild(tdNode);
     });
@@ -39,7 +39,7 @@ var getDeviceTrNode = function(oneData) {
     aNode.href = "#";
     aNode.innerText = "删除设备";
     aNode.onclick = function() {
-        $.post('http://47.92.253.131:3389/deleteDevice', {
+        $.post('http://localhost:8888/deleteDevice', {
             deleteDeviceId: oneData.deviceId
         }, function(result) {
             if (result.ret === -2) {
@@ -106,7 +106,7 @@ var showChangeDeviceMsg = function(data) {
     });
 };
 var changeDevice = function() {
-    $.post('http://47.92.253.131:3389/changeDevice', {
+    $.post('http://localhost:8888/changeDevice', {
         deviceId: local.selectDeviceId,
         PM25: document.getElementById('v_PM25').value || 1,
         PM25_C: document.getElementById('v_PM25_C').value || 1,
@@ -149,32 +149,10 @@ var changeDevice = function() {
     }, "json");
 };
 var buildDevice = function() {
-    $.post('http://47.92.253.131:3389/buildDevice', {
-        PM25: document.getElementById('v_PM25').value || 1,
-        PM25_C: document.getElementById('v_PM25_C').value || 1,
-        PM10: document.getElementById('v_PM10').value || 1,
-        PM10_C: document.getElementById('v_PM10_C').value || 1,
-        noise: document.getElementById('v_noise').value || 1,
-        noise_C: document.getElementById('v_noise_C').value || 1,
-        temperature: document.getElementById('v_temperature').value || 1,
-        temperature_C: document.getElementById('v_temperature_C').value || 1,
-        humidity: document.getElementById('v_humidity').value || 1,
-        humidity_C: document.getElementById('v_humidity_C').value || 1,
-        w_dir: document.getElementById('v_w_dir').value || 1,
-        w_dir_C: document.getElementById('v_w_dir_C').value || 1,
-        w_speed: document.getElementById('v_w_speed').value || 1,
-        w_speed_C: document.getElementById('v_w_speed_C').value || 1,
-        O3: document.getElementById('v_O3').value || 1,
-        O3_C: document.getElementById('v_O3_C').value || 1,
-        w_power: document.getElementById('v_w_power').value || 1,
-        w_power_C: document.getElementById('v_w_power_C').value || 1,
-        screenStr: document.getElementById('v_screenStr').value || '1',
-        workMode: document.getElementById('v_workMode').value || 1,
-        show_O3: local.buildDeciveValue['v_show_O3'] || 0,
-        show_w_dir: local.buildDeciveValue['v_show_w_dir'] || 0,
-        user_name: document.getElementById('v_user_name').value || '1',
-        user_pos: document.getElementById('v_user_pos').value || '1',
-        is_on: local.buildDeciveValue['v_is_on'] || 0
+    $.post('http://localhost:8888/buildDevice', {
+        deviceId: document.getElementById('b_device_id').value || 1,
+        user_name: document.getElementById('b_user_name').value || '1',
+        user_pos: document.getElementById('b_user_pos').value || '1'
     }, function(result) {
         if (result.ret === -2) {
             alert(result.errorStr);
@@ -239,7 +217,7 @@ var getSellCardTrNode = function(oneData) {
     aNode.href = "#";
     aNode.innerText = "删除";
     aNode.onclick = function() {
-        $.post('http://47.92.253.131:3389/deleteSellCard', {
+        $.post('http://localhost:8888/deleteSellCard', {
             deleteDeviceId: oneData.deviceId
         }, function(result) {
             if (result.ret === -2) {
@@ -304,7 +282,7 @@ var getUserTrNode = function(oneData) {
             alert('无法删除超级管理员');
             return;
         }
-        $.post('http://47.92.253.131:3389/deleteUser', {
+        $.post('http://localhost:8888/deleteUser', {
             deleteName: oneData.userName
         }, function(result) {
             if (result.ret === -2) {
@@ -334,7 +312,7 @@ var buildUser = function() {
         alert('参数错误');
         return;
     }
-    $.post('http://47.92.253.131:3389/buildUser', {
+    $.post('http://localhost:8888/buildUser', {
         userName: buildName,
         password: buildPassword,
         type: buildType
@@ -357,7 +335,7 @@ var changeSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://47.92.253.131:3389/changeSellCard', {
+    $.post('http://localhost:8888/changeSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         userName: document.getElementById('s_user_name').value || '1',
@@ -383,7 +361,7 @@ var buildSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://47.92.253.131:3389/buildSellCard', {
+    $.post('http://localhost:8888/buildSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         userName: document.getElementById('s_user_name').value || '1',
@@ -415,7 +393,7 @@ var getShowDataArr = function(dataArr, searchStr, nowShowDataKey) {
         return dataArr;
     } else {
         return dataArr.filter(function(oneData) {
-            return oneData[nowShowDataKey[searchStrArr[0]]] == searchStrArr[1];
+            return ('' + oneData[nowShowDataKey[searchStrArr[0]]]).indexOf(searchStrArr[1]) >= 0;
         });
     }
 };
@@ -475,7 +453,7 @@ var showDeviceMsg = function(searchStr) {
         tBodyNode.appendChild(getDeviceTrNode(oneData));
     });
 };
-var showUserMsg = function() {
+var showUserMsg = function(searchStr) {
     var tBodyNode = document.getElementById("tbodyUser");
     while (tBodyNode.hasChildNodes()) {
         tBodyNode.removeChild(tBodyNode.firstChild);
@@ -491,6 +469,9 @@ var showUserMsg = function() {
     });
 };
 var search = function() {
+    if (window.getComputedStyle(document.getElementById("navButton")).display !== 'none') {
+        document.getElementById("navButton").click();
+    }
     switch (local.nowShowType) {
         case 'sell_card':
             showSellCardMsg(document.getElementById('searchStr').value);
@@ -508,10 +489,14 @@ var showSelectType = function(type, selectStr) {
     document.getElementById("buildUserType").value = selectStr;
 };
 var showBuildSellCardUI = function() {
+    if (window.getComputedStyle(document.getElementById("navButton")).display !== 'none') {
+        document.getElementById("navButton").click();
+    }
     document.getElementById("deviceData").style.display = 'none';
     document.getElementById("userData").style.display = 'none';
     document.getElementById("buildUser").style.display = 'none';
     document.getElementById("buildDevice").style.display = 'none';
+    document.getElementById("changeDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'block';
     document.getElementById("addSellCardBtn").style.display = 'block';
     document.getElementById("changeSellCardBtn").style.display = 'none';
@@ -523,6 +508,7 @@ var showChangeSellCardUI = function() {
     document.getElementById("userData").style.display = 'none';
     document.getElementById("buildUser").style.display = 'none';
     document.getElementById("buildDevice").style.display = 'none';
+    document.getElementById("changeDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'block';
     document.getElementById("addSellCardBtn").style.display = 'none';
     document.getElementById("changeSellCardBtn").style.display = 'block';
@@ -530,12 +516,14 @@ var showChangeSellCardUI = function() {
     document.getElementById("sellCardTitle").innerHTML = "修改订单";
 };
 var showBuildDeviceUI = function() {
+    if (window.getComputedStyle(document.getElementById("navButton")).display !== 'none') {
+        document.getElementById("navButton").click();
+    }
     document.getElementById("deviceData").style.display = 'none';
     document.getElementById("userData").style.display = 'none';
     document.getElementById("buildUser").style.display = 'none';
     document.getElementById("buildDevice").style.display = 'block';
-    document.getElementById("addDeviceBtn").style.display = 'block';
-    document.getElementById("changeDeviceBtn").style.display = 'none';
+    document.getElementById("changeDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'none';
     document.getElementById("deviceTitle").innerHTML = "增加设备";
@@ -544,29 +532,38 @@ var showDeviceChangeUI = function() {
     document.getElementById("deviceData").style.display = 'none';
     document.getElementById("userData").style.display = 'none';
     document.getElementById("buildUser").style.display = 'none';
-    document.getElementById("buildDevice").style.display = 'block';
-    document.getElementById("addDeviceBtn").style.display = 'none';
-    document.getElementById("changeDeviceBtn").style.display = 'block';
+    document.getElementById("buildDevice").style.display = 'none';
+    document.getElementById("changeDevice").style.display = 'block';
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'none';
     document.getElementById("deviceTitle").innerHTML = "修改设备";
 };
 var showBuildUserUI = function() {
+    if (window.getComputedStyle(document.getElementById("navButton")).display !== 'none') {
+        document.getElementById("navButton").click();
+    }
     document.getElementById("deviceData").style.display = 'none';
     document.getElementById("userData").style.display = 'none';
     document.getElementById("buildUser").style.display = 'block';
     document.getElementById("buildDevice").style.display = 'none';
+    document.getElementById("changeDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'none';
 };
-var showDeviceMsgUI = function() {
+var showDeviceMsgUI = function(isInit) {
+    if (isInit === false) {
+        if (window.getComputedStyle(document.getElementById("navButton")).display !== 'none') {
+            document.getElementById("navButton").click();
+        }
+    }
     document.getElementById("deviceData").style.display = 'block';
     document.getElementById("userData").style.display = 'none';
     document.getElementById("buildUser").style.display = 'none';
     document.getElementById("buildDevice").style.display = 'none';
+    document.getElementById("changeDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'none';
-    $.post('http://47.92.253.131:3389/getDeviceMsg', undefined, function(result) {
+    $.post('http://localhost:8888/getDeviceMsg', undefined, function(result) {
         if (result.ret === -2) {
             alert(result.errorStr);
             window.location.href = 'login.html';
@@ -583,13 +580,17 @@ var showDeviceMsgUI = function() {
     }, "json");
 };
 var showSellCardMsgUI = function() {
+    if (window.getComputedStyle(document.getElementById("navButton")).display !== 'none') {
+        document.getElementById("navButton").click();
+    }
     document.getElementById("deviceData").style.display = 'none';
     document.getElementById("userData").style.display = 'none';
     document.getElementById("buildUser").style.display = 'none';
     document.getElementById("buildDevice").style.display = 'none';
+    document.getElementById("changeDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'block';
-    $.post('http://47.92.253.131:3389/getSellCardMsg', undefined, function(result) {
+    $.post('http://localhost:8888/getSellCardMsg', undefined, function(result) {
         if (result.ret === -2) {
             alert(result.errorStr);
             window.location.href = 'login.html';
@@ -606,14 +607,18 @@ var showSellCardMsgUI = function() {
     }, "json");
 };
 var showUserMsgUI = function() {
+    if (window.getComputedStyle(document.getElementById("navButton")).display !== 'none') {
+        document.getElementById("navButton").click();
+    }
     document.getElementById("deviceData").style.display = 'none';
     document.getElementById("userData").style.display = 'block';
     document.getElementById("buildUser").style.display = 'none';
     document.getElementById("buildDevice").style.display = 'none';
+    document.getElementById("changeDevice").style.display = 'none';
     document.getElementById("buildSellCard").style.display = 'none';
     document.getElementById("sellCardData").style.display = 'none';
     if (localStorage.getItem('userType') === '1') {
-        $.post('http://47.92.253.131:3389/getUserMsg', undefined, function(result) {
+        $.post('http://localhost:8888/getUserMsg', undefined, function(result) {
             if (result.ret === -2) {
                 alert(result.errorStr);
                 window.location.href = 'login.html';
