@@ -3,6 +3,7 @@
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
+		_shininess ("shininess", Int) = 10
 	}
 	SubShader
 	{
@@ -11,10 +12,14 @@
 
 		Pass
 		{
+
+			Tags{ "LightMode" = "ForwardAdd" }
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
 			
+			#include "UnityCG.cginc"
 			#include "Lighting.cginc"
 
 			struct appdata
@@ -33,6 +38,7 @@
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
+			int _shininess;
 			
 			v2f vert (appdata v)
 			{
@@ -45,16 +51,19 @@
 				float3 worldPos = mul(unity_ObjectToWorld, v.vertex);
 				float3 viewDir = normalize(_WorldSpaceCameraPos - worldPos);
 				float3 lightDir = normalize(lightPos - worldPos);
+				//距离系数
+				float dis = length(lightPos - worldPos);
+				float F = 1 / (1 + dis * 0.05 + dis * dis * 0.005);
 				//全局光照
 				float3 ambient = UNITY_LIGHTMODEL_AMBIENT.xyz;
 				//漫反射光
-				float3 diffLightColor = max(dot(worldNormal, -1 * lightDir), 0) * lightColor;
+				float3 diffLightColor = max(dot(worldNormal, lightDir), 0) * lightColor * F;
 				//镜面放射光
-				float3 reflectDir = reflect(worldNormal, lightDir);
-				float3 specularLightColor = max(dot(viewDir, reflectDir), 0) * lightColor;
+				float3 reflectDir = reflect(-1 * lightDir, worldNormal);
+				float3 specularLightColor = pow(max(dot(viewDir, reflectDir), 0), _shininess) * lightColor * F;
 				o.color = fixed4(ambient.r, ambient.g, ambient.b, 1) + 
 					fixed4(diffLightColor.r, diffLightColor.g, diffLightColor.b, 1) + 
-					fixed4(diffLightColor.r, diffLightColor.g, diffLightColor.b, 1) ;
+					fixed4(specularLightColor.r, specularLightColor.g, specularLightColor.b, 1);
 				return o;
 			}
 			
@@ -65,4 +74,5 @@
 			ENDCG
 		}
 	}
+	Fallback "Diffuse"
 }
