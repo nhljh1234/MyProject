@@ -462,19 +462,18 @@ local.createOneBasePersonBySaveData = function (saveData) {
  * @param sex 性别
  */
 outModule.createRandomPerson = (sex, cityId) => {
-    //默认是男性
-    sex = sex ? sex : g_GlobalData.SEX_MAN;
-    //随机数据
     var randomData = {};
-    randomData.sex = sex;
-    randomData.name = RandomNameTool.getRandomName(sex);
-    randomData.attack = Math.ceil(cc.random0To1() * 100);
-    randomData.def = Math.ceil(cc.random0To1() * 100);
-    randomData.command = Math.ceil(cc.random0To1() * 100);
-    randomData.intelligence = Math.ceil(cc.random0To1() * 100);
-    randomData.charm = Math.ceil(cc.random0To1() * 100);
-    randomData.politics = Math.ceil(cc.random0To1() * 100);
-    randomData.hp = 400 + Math.ceil(cc.random0To1() * 400);
+    //默认是男性
+    randomData.sex = sex || g_GlobalData.SEX_MAN;
+    randomData.name = RandomNameTool.getRandomName(randomData.sex);
+    //随机数据
+    randomData.attack = 40 + Math.ceil(cc.random0To1() * 60);
+    randomData.def = 40 + Math.ceil(cc.random0To1() * 60);
+    randomData.command = 40 + Math.ceil(cc.random0To1() * 60);
+    randomData.intelligence = 40 + Math.ceil(cc.random0To1() * 60);
+    randomData.charm = 40 + Math.ceil(cc.random0To1() * 60);
+    randomData.politics = 40 + Math.ceil(cc.random0To1() * 60);
+    randomData.hp = 600 + Math.ceil(cc.random0To1() * 400);
     randomData.moveSpeed = 5;
     return new local.createOneBasePerson(undefined, randomData, cityId);
 };

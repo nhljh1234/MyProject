@@ -39,7 +39,7 @@ outModule.saveGame = function () {
     local.saveGameData(undefined, gameData.getSaveJsonData());
 };
 
-outModule.setGame = function () {
+outModule.getHaveSaveGame = function () {
     let saveData = local.getSaveData();
     if (!saveData) {
         return false;
