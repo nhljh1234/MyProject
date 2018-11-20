@@ -53,9 +53,9 @@ outModule.deleteDevice = (req, res) => {
             }
             //可以删除
             let connection = MysqlTool.getMysqlObjByDBName('test');
-            connection.query(`DELETE FROM device WHERE deviceid=${deleteDeviceId}`, function(err, rows, field) {
+            connection.query(`DELETE FROM device WHERE deviceid='${deleteDeviceId}'`, function(err, rows, field) {
                 if (err) {
-                    console.log(`DELETE FROM device WHERE deviceid=${deleteDeviceId}`);
+                    console.log(`DELETE FROM device WHERE deviceid='${deleteDeviceId}'`);
                     console.log(err);
                     res.send(JSON.stringify({
                         ret: -1,

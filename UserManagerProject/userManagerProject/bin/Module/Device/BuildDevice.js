@@ -24,9 +24,9 @@ outModule.buildDevice = (req, res) => {
     }
     let data = req.body;
     let connection = MysqlTool.getMysqlObjByDBName('test');
-    connection.query(`SELECT * FROM device WHERE deviceId=${data.deviceId}`, function(err, rows, field) {
+    connection.query(`SELECT * FROM device WHERE deviceId='${data.deviceId}'`, function(err, rows, field) {
         if (err) {
-            console.log(`build device`);
+            console.log(`bSELECT * FROM device WHERE deviceId='${data.deviceId}'`);
             console.log(err);
             res.send(JSON.stringify({
                 ret: -1,
@@ -41,9 +41,9 @@ outModule.buildDevice = (req, res) => {
             res.end();
         } else {
             let connection = MysqlTool.getMysqlObjByDBName('test');
-            connection.query(`INSERT INTO device (deviceId, user_name, user_pos) VALUES (${data.deviceId}, '${data.user_name || "未输入"}', '${data.user_pos || "未输入"}')`, function(err, rows, field) {
+            connection.query(`INSERT INTO device (deviceId, user_name, user_pos) VALUES ('${data.deviceId}', '${data.user_name || "未输入"}', '${data.user_pos || "未输入"}')`, function(err, rows, field) {
                 if (err) {
-                    console.log(`build device`);
+                    console.log(`INSERT INTO device (deviceId, user_name, user_pos) VALUES ('${data.deviceId}', '${data.user_name || "未输入"}', '${data.user_pos || "未输入"}')`);
                     console.log(err);
                     res.send(JSON.stringify({
                         ret: -1,

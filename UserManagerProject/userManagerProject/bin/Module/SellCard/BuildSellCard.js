@@ -14,9 +14,9 @@ outModule.buildSellCard = (req, res) => {
     }
     let data = req.body;
     let connection = MysqlTool.getMysqlObjByDBName('test');
-    connection.query(`SELECT * FROM device WHERE deviceId=${data.deviceId}`, function(err, rows, field) {
+    connection.query(`SELECT * FROM device WHERE deviceId='${data.deviceId}'`, function(err, rows, field) {
         if (err) {
-            console.log(`SELECT * FROM device WHERE deviceId=${data.deviceId}`);
+            console.log(`SELECT * FROM device WHERE deviceId='${data.deviceId}'`);
             console.log(err);
             res.send(JSON.stringify({
                 ret: -1,
@@ -31,9 +31,9 @@ outModule.buildSellCard = (req, res) => {
             res.end();
         } else {
             let connection = MysqlTool.getMysqlObjByDBName('test');
-            connection.query(`SELECT * FROM sell_card WHERE deviceId=${data.deviceId}`, function(err, rows, field) {
+            connection.query(`SELECT * FROM sell_card WHERE deviceId='${data.deviceId}'`, function(err, rows, field) {
                 if (err) {
-                    console.log(`SELECT * FROM sell_card WHERE deviceId=${data.deviceId}`);
+                    console.log(`SELECT * FROM sell_card WHERE deviceId='${data.deviceId}'`);
                     console.log(err);
                     res.send(JSON.stringify({
                         ret: -1,
@@ -48,9 +48,9 @@ outModule.buildSellCard = (req, res) => {
                     res.end();
                 } else {
                     let connection = MysqlTool.getMysqlObjByDBName('test');
-                    connection.query(`INSERT INTO sell_card (deviceId, num, user_name, user_pos, can_read, finish) VALUES (${data.deviceId}, '${data.num}', '${data.userName || "未输入"}', '${data.userPos || "未输入"}', ${data.canRead || 0}, ${data.finish})`, function(err, rows, field) {
+                    connection.query(`INSERT INTO sell_card (deviceId, num, user_name, user_pos, can_read, finish) VALUES ('${data.deviceId}', '${data.num}', '${data.userName || "未输入"}', '${data.userPos || "未输入"}', ${data.canRead || 0}, ${data.finish})`, function(err, rows, field) {
                         if (err) {
-                            console.log(`INSERT INTO sell_card (deviceId, num, user_name, user_pos, can_read, finish) VALUES (${data.deviceId}, '${data.num}', '${data.userName || "未输入"}', '${data.userPos || "未输入"}', ${data.canRead || 0}, ${data.finish})`);
+                            console.log(`INSERT INTO sell_card (deviceId, num, user_name, user_pos, can_read, finish) VALUES ('${data.deviceId}', '${data.num}', '${data.userName || "未输入"}', '${data.userPos || "未输入"}', ${data.canRead || 0}, ${data.finish})`);
                             console.log(err);
                             res.send(JSON.stringify({
                                 ret: -1,

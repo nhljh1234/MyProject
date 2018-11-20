@@ -56,7 +56,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th nowrap="nowrap">设备id</th>
+                    <th nowrap="nowrap">设备唯一标识码</th>
                     <th nowrap="nowrap">PM25</th>
                     <th nowrap="nowrap">PM25修正值</th>
                     <th nowrap="nowrap">PM10</th>
@@ -133,8 +133,8 @@
     <div class="container" id="buildDevice" style="display: none">
         <form class="form-signin">
             <h2 class="form-signin-heading" id="deviceTitle">增加设备</h2>
-            <label for="b_device_id" class="sr-only">设备id</label>
-            <input id="b_device_id" class="form-control" placeholder="设备id" required="" autofocus="">
+            <label for="b_device_id" class="sr-only">设备唯一标识码</label>
+            <input id="b_device_id" class="form-control" placeholder="设备唯一标识码" required="" autofocus="">
             <br>
             <label for="b_user_name" class="sr-only">客户名字</label>
             <input id="b_user_name" class="form-control" placeholder="客户名字" required="" autofocus="">
@@ -149,7 +149,7 @@
     </div>
     <div class="container" id="changeDevice" style="display: none">
         <form class="form-signin">
-            <h2 class="form-signin-heading" id="deviceTitle">增加设备</h2>
+            <h2 class="form-signin-heading" id="deviceTitle">修改设备</h2>
             <label for="v_PM25" class="sr-only">PM25</label>
             <input id="v_PM25" class="form-control" placeholder="PM25" required="" autofocus="">
             <br>
@@ -261,7 +261,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th nowrap="nowrap">设备id</th>
+                    <th nowrap="nowrap">设备唯一标识码</th>
                     <th nowrap="nowrap">订单号</th>
                     <th nowrap="nowrap">用户姓名</th>
                     <th nowrap="nowrap">设置地址</th>
@@ -279,8 +279,8 @@
     <div class="container" id="buildSellCard" style="display: none">
         <form class="form-signin">
             <h2 class="form-signin-heading" id="sellCardTitle">增加订单</h2>
-            <label for="s_deviceId" class="sr-only">设备id</label>
-            <input id="s_deviceId" class="form-control" placeholder="设备id" required="" autofocus="">
+            <label for="s_deviceId" class="sr-only">设备唯一标识码</label>
+            <input id="s_deviceId" class="form-control" placeholder="设备唯一标识码" required="" autofocus="">
             <br>
             <label for="s_num" class="sr-only">快递单号</label>
             <input id="s_num" class="form-control" placeholder="快递单号" required="" autofocus="">

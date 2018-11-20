@@ -102,7 +102,7 @@ var showChangeDeviceMsg = function(data) {
                 value = data[keyStr];
                 break;
         }
-        document.getElementById('v_' + keyStr).value = value;
+        document.getElementById('v_' + keyStr).value = value || '';
     });
 };
 var changeDevice = function() {
@@ -575,7 +575,19 @@ var showDeviceMsgUI = function(isInit) {
         }
         if (result.dataArr) {
             local.deviceDataArr = result.dataArr;
-            showDeviceMsg();
+            //发送get请求
+            local.deviceDataArr.forEach(function(oneDeviceMsg) {
+                $.get("http://xmenvi.wujjc.com:2008/envi/device_cfg/real/" + oneDeviceMsg.deviceId, function(result) {
+                    if (!result.DeviceCFG || result.code !== 0) {
+                        alert("获取deviceId为" + deviceId + "的设备数据失败");
+                        return;
+                    }
+                    var deviceMsg = result.DeviceCFG;
+                    oneDeviceMsg.deviceMsg = deviceMsg;
+                    showDeviceMsg();
+                });
+            });
+            //showDeviceMsg();
         }
     }, "json");
 };

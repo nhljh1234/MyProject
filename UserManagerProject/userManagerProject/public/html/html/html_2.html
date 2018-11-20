@@ -54,7 +54,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th nowrap="nowrap">设备id</th>
+                    <th nowrap="nowrap">设备唯一标识码</th>
                     <th nowrap="nowrap">PM25</th>
                     <th nowrap="nowrap">PM25修正值</th>
                     <th nowrap="nowrap">PM10</th>
@@ -89,11 +89,115 @@
     <div class="container" id="buildDevice" style="display: none">
         <form class="form-signin">
             <h2 class="form-signin-heading" id="deviceTitle">增加设备</h2>
-            <label for="v_device_id" class="sr-only">设备id</label>
-            <input id="v_device_id" class="form-control" placeholder="设备id" required="" autofocus="">
+            <label for="b_device_id" class="sr-only">设备唯一标识码</label>
+            <input id="b_device_id" class="form-control" placeholder="设备唯一标识码" required="" autofocus="">
             <br>
             <button class="btn btn-lg btn-primary btn-block form-button" onclick="buildDevice()" type="button" id="addDeviceBtn">增加设备</button>
             <button class="btn btn-lg btn-primary btn-block form-button" onclick="changeDevice()" type="button" id="changeDeviceBtn" style="display: none">修改设备</button>
+        </form>
+        <br>
+        <br>
+    </div>
+    <div class="container" id="changeDevice" style="display: none">
+        <form class="form-signin">
+            <h2 class="form-signin-heading" id="deviceTitle">修改设备</h2>
+            <label for="v_PM25" class="sr-only">PM25</label>
+            <input id="v_PM25" class="form-control" placeholder="PM25" required="" autofocus="">
+            <br>
+            <label for="v_PM25_C" class="sr-only">PM25修正值</label>
+            <input id="v_PM25_C" class="form-control" placeholder="PM25修正值" required="" autofocus="">
+            <br>
+            <label for="v_PM10" class="sr-only">PM10</label>
+            <input id="v_PM10" class="form-control" placeholder="PM10" required="" autofocus="">
+            <br>
+            <label for="v_PM10_C" class="sr-only">PM10修正值</label>
+            <input id="v_PM10_C" class="form-control" placeholder="PM10修正值" required="" autofocus="">
+            <br>
+            <label for="v_noise" class="sr-only">噪音</label>
+            <input id="v_noise" class="form-control" placeholder="噪音" required="" autofocus="">
+            <br>
+            <label for="v_noise_C" class="sr-only">噪音修正值</label>
+            <input id="v_noise_C" class="form-control" placeholder="噪音修正值" required="" autofocus="">
+            <br>
+            <label for="v_temperature" class="sr-only">温度</label>
+            <input id="v_temperature" class="form-control" placeholder="温度" required="" autofocus="">
+            <br>
+            <label for="v_temperature_C" class="sr-only">温度修正值</label>
+            <input id="v_temperature_C" class="form-control" placeholder="温度修正值" required="" autofocus="">
+            <br>
+            <label for="v_humidity" class="sr-only">湿度</label>
+            <input id="v_humidity" class="form-control" placeholder="湿度" required="" autofocus="">
+            <br>
+            <label for="v_humidity_C" class="sr-only">湿度修正值</label>
+            <input id="v_humidity_C" class="form-control" placeholder="湿度修正值" required="" autofocus="">
+            <br>
+            <label for="v_w_dir" class="sr-only">风向</label>
+            <input id="v_w_dir" class="form-control" placeholder="风向" required="" autofocus="">
+            <br>
+            <label for="v_w_dir_C" class="sr-only">风向修正值</label>
+            <input id="v_w_dir_C" class="form-control" placeholder="风向修正值" required="" autofocus="">
+            <br>
+            <label for="v_w_speed" class="sr-only">风速</label>
+            <input id="v_w_speed" class="form-control" placeholder="风速" required="" autofocus="">
+            <br>
+            <label for="v_w_speed_C" class="sr-only">风速修正值</label>
+            <input id="v_w_speed_C" class="form-control" placeholder="风速修正值" required="" autofocus="">
+            <br>
+            <label for="v_O3" class="sr-only">臭氧</label>
+            <input id="v_O3" class="form-control" placeholder="臭氧" required="" autofocus="">
+            <br>
+            <label for="v_O3_C" class="sr-only">臭氧修正值</label>
+            <input id="v_O3_C" class="form-control" placeholder="臭氧修正值" required="" autofocus="">
+            <br>
+            <label for="v_w_power" class="sr-only">风力</label>
+            <input id="v_w_power" class="form-control" placeholder="风力" required="" autofocus="">
+            <br>
+            <label for="v_w_power_C" class="sr-only">风力修正值</label>
+            <input id="v_w_power_C" class="form-control" placeholder="风力修正值" required="" autofocus="">
+            <br>
+            <label for="v_screenStr" class="sr-only">屏显字符</label>
+            <input id="v_screenStr" class="form-control" placeholder="屏显字符" required="" autofocus="">
+            <br>
+            <label for="v_workMode" class="sr-only">喷淋继电器工作模式</label>
+            <input id="v_workMode" class="form-control" placeholder="喷淋继电器工作模式" required="" autofocus="">
+            <br>
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">是否显示臭氧 <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a onclick="saveBuildDeviceValue('v_show_O3', 1, '是')">是</a></li>
+                        <li><a onclick="saveBuildDeviceValue('v_show_O3', 0, '否')">否</a></li>
+                    </ul>
+                </div>
+                <!-- /btn-group -->
+                <input type="text" class="form-control" aria-label="..." id='v_show_O3'>
+            </div>
+            <br>
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">是否显示风向 <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a onclick="saveBuildDeviceValue('v_show_w_dir', 1, '是')">是</a></li>
+                        <li><a onclick="saveBuildDeviceValue('v_show_w_dir', 0, '否')">否</a></li>
+                    </ul>
+                </div>
+                <!-- /btn-group -->
+                <input type="text" class="form-control" aria-label="..." id='v_show_w_dir'>
+            </div>
+            <br>
+            <div class="input-group">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">是否在线 <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a onclick="saveBuildDeviceValue('v_is_on', 1, '是')">是</a></li>
+                        <li><a onclick="saveBuildDeviceValue('v_is_on', 0, '否')">否</a></li>
+                    </ul>
+                </div>
+                <!-- /btn-group -->
+                <input type="text" class="form-control" aria-label="..." id='v_is_on'>
+            </div>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block form-button" onclick="changeDevice()" type="button">修改设备</button>
         </form>
         <br>
         <br>
@@ -102,7 +206,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th nowrap="nowrap">设备id</th>
+                    <th nowrap="nowrap">设备唯一标识码</th>
                     <th nowrap="nowrap">订单号</th>
                     <th nowrap="nowrap">是否对发货员可见</th>
                     <th nowrap="nowrap">是否已完成订单</th>
@@ -118,8 +222,8 @@
     <div class="container" id="buildSellCard" style="display: none">
         <form class="form-signin">
             <h2 class="form-signin-heading" id="sellCardTitle">增加订单</h2>
-            <label for="s_deviceId" class="sr-only">设备id</label>
-            <input id="s_deviceId" class="form-control" placeholder="设备id" required="" autofocus="">
+            <label for="s_deviceId" class="sr-only">设备唯一标识码</label>
+            <input id="s_deviceId" class="form-control" placeholder="设备唯一标识码" required="" autofocus="">
             <br>
             <label for="s_num" class="sr-only">快递单号</label>
             <input id="s_num" class="form-control" placeholder="快递单号" required="" autofocus="">

@@ -30,9 +30,9 @@ outModule.changeDevice = (req, res) => {
     }
     let data = req.body;
     let connection = MysqlTool.getMysqlObjByDBName('test');
-    connection.query(`SELECT * FROM device WHERE deviceId=${data.deviceId}`, function(err, rows, field) {
+    connection.query(`SELECT * FROM device WHERE deviceId='${data.deviceId}'`, function(err, rows, field) {
         if (err) {
-            console.log(`SELECT * FROM device WHERE deviceId=${data.deviceId}`);
+            console.log(`SELECT * FROM device WHERE deviceId='${data.deviceId}'`);
             console.log(err);
             res.send(JSON.stringify({
                 ret: -1,
@@ -49,7 +49,7 @@ outModule.changeDevice = (req, res) => {
             let connection = MysqlTool.getMysqlObjByDBName('test');
             let mysqlStr;
             if (userType === 1) {
-                mysqlStr = `UPDATE device SET user_name='${data.user_name}', user_pos='${data.user_pos}' WHERE deviceId=${data.deviceId}`;
+                mysqlStr = `UPDATE device SET user_name='${data.user_name}', user_pos='${data.user_pos}' WHERE deviceId='${data.deviceId}'`;
             }
             connection.query(mysqlStr, function(err, rows, field) {
                 if (err) {
