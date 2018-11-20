@@ -8,6 +8,8 @@ var RandomNameTool = require('RandomNameTool');
 
 //全局的游戏类
 outModule.gameData;
+//玩家数据
+outModule.userRole;
 //已用的最大人物id
 outModule.maxPersonId = 1;
 //承载定时器的component
@@ -45,7 +47,6 @@ local.timeUpdate = function () {
     let useSeconds = (nowTime - lastTime) / 1000;
     //保证不超过1
     useSeconds = useSeconds > 1 ? 1 : useSeconds;
-    g_LogTool.showLog(`useSeconds : ${useSeconds}`);
     //再次执行定时器
     local.component.unschedule(local.timeUpdate);
     local.component.schedule(local.timeUpdate, outModule.TIMER_TIME - useSeconds, 1);

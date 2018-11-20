@@ -5,6 +5,7 @@
 var BaseUI = require("BaseUI");
 var GameFactory = require("GameFactory");
 var GameSave = require("GameSave");
+var UserRoleFactory = require("UserRoleFactory");
 cc.Class({
     extends: BaseUI,
 
@@ -22,9 +23,10 @@ cc.Class({
     },
 
     onShow: function () {
-        if (GameSave.setGame()) {
+        if (GameSave.useGameSaveData()) {
             g_GameGlobalManager.init(this, g_GameGlobalManager.gameData);
         } else {
+            g_GameGlobalManager.userRole = UserRoleFactory.createUserRole(undefined, undefined);
             g_GameGlobalManager.init(this, new GameFactory.createOneGame(undefined, 7, 13));
         }
         g_GameGlobalManager.start();

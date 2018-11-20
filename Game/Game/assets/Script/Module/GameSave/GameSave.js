@@ -39,7 +39,11 @@ outModule.saveGame = function () {
     local.saveGameData(undefined, gameData.getSaveJsonData());
 };
 
-outModule.setGame = function () {
+/**
+ * 使用存档
+ * 会返回一个是否存在存档
+ */
+outModule.useGameSaveData = function () {
     let saveData = local.getSaveData();
     if (!saveData) {
         return false;
