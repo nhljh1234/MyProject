@@ -29,6 +29,17 @@ outModule.initAllNameArr = (allPersonArr) => {
 };
 
 /**
+ * 移除一个随机名字，表示这个名字可用
+ * @param name
+ */
+outModule.removeOneName = (name) => {
+    let index = allNameArr.indexOf(name);
+    if (index >= 0) {
+        allNameArr.splice(index, 1);
+    }
+};
+
+/**
  * 生成一个随机的人名
  * 如果量很大的话需要优化
  * @param sex 性别

@@ -159,11 +159,13 @@ local.buildFunc = function (person) {
         }
         if (person._nowAction) {
             //执行动作
+            g_LogTool.showLog(`${person._name} 正在执行 ${person._nowAction._name}`);
             if (person._nowAction.doAction(person)) {
                 person._nowAction.timeUpdate(person, addMinutes);
             }
         } else {
             person._nowAction = local.judgeNextAction(person);
+            g_LogTool.showLog(`${person._name} 开始执行 ${person._nowAction._name}`);
             if (person._nowAction.doAction(person)) {
                 person._nowAction.timeUpdate(person, addMinutes);
             }

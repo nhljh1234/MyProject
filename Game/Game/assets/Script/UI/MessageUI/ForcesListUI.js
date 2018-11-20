@@ -16,9 +16,6 @@ cc.Class({
     },
 
     onLoad() {
-        this._forceListNodePool = new cc.NodePool();
-        this._forceListNScrollViewNode = cc.find('Mid/scrollview', this.node);
-        this._forceListNScrollViewTmpNode = cc.find('view/content/item', this._forceListNScrollViewNode);
         this._super();
     },
 
@@ -38,6 +35,17 @@ cc.Class({
                 }
                 break;
         }
+    },
+
+    /**
+     * UI界面显示
+     * @constructor
+     */
+    onUIInit: function () {
+        this._super();
+        this._forceListNodePool = new cc.NodePool();
+        this._forceListNScrollViewNode = cc.find('Mid/scrollview', this.node);
+        this._forceListNScrollViewTmpNode = cc.find('view/content/item', this._forceListNScrollViewNode);
     },
 
     /**

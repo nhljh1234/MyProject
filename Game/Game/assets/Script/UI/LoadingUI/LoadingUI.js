@@ -8,14 +8,24 @@ cc.Class({
     extends: BaseUI,
 
     properties: {
+        _uiName: "LoadingUI",
         _labelNode: null,
         _loadProgressNode: null
     },
 
     onLoad() {
-        //设置名字
-        this._uiName = "LoadingUI";
         this._super();
+    },
+
+    /**
+     * UI界面显示
+     * @constructor
+     */
+    onUIInit: function () {
+        this._super();
+        g_GameScene.UINode = this.node.getChildByName("UINode");
+        g_GameScene.AlertNode = this.node.getChildByName("AlertNode");
+        g_GameScene.NetNode = this.node.getChildByName("NetNode");
     },
 
     onShow: function () {

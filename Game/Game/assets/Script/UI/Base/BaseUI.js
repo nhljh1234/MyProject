@@ -25,8 +25,14 @@ cc.Class({
         this._bottomNode = this.node.getChildByName('Bottom');
         this._midNode = this.node.getChildByName('Mid');
         //初始化
-        this.buttonTravelRegister(this.node);
+        this.onUIInit();
         this.onShow();
+        this.buttonTravelRegister(this.node);
+    },
+
+    //初始化UI
+    onUIInit: function () {
+
     },
 
     //重新显示的时候会调用这个
