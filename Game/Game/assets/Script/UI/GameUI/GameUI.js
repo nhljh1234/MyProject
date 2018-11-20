@@ -23,7 +23,7 @@ cc.Class({
     },
 
     onShow: function () {
-        if (GameSave.getHaveSaveGame()) {
+        if (GameSave.useGameSaveData()) {
             g_GameGlobalManager.init(this, g_GameGlobalManager.gameData);
         } else {
             g_GameGlobalManager.userRole = UserRoleFactory.createUserRole(undefined, undefined);
