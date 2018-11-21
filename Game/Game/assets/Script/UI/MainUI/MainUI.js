@@ -3,8 +3,8 @@
  * @desc 模块描述
  * @author Administrator
  */
-var BaseUI = require('BaseUI');
-var GameFactory = require("GameFactory");
+var BaseUI = _g_require('BaseUI');
+var GameFactory = _g_require("GameFactory");
 cc.Class({
     extends: BaseUI,
 
@@ -42,7 +42,7 @@ cc.Class({
      */
     onShow: function () {
         this._super();
-        g_GameGlobalManager.init(this, new GameFactory.createOneGame(undefined, 7, 13));
+        g_GameGlobalManager.init(this, GameFactory.createOneGame(undefined, 7, 13));
         g_GameGlobalManager.start();
     },
 

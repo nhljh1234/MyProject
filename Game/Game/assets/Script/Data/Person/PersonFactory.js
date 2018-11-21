@@ -1,10 +1,10 @@
 /*global module, require, cc, client */
 var outModule = {};
 var local = {};
-var RandomNameTool = require('RandomNameTool');
-var ActionFactory = require('ActionFactory');
-var SellGoodFactory = require('SellGoodFactory');
-var MapRandomEvent = require('MapRandomEvent');
+var RandomNameTool = _g_require('RandomNameTool');
+var ActionFactory = _g_require('ActionFactory');
+var SellGoodFactory = _g_require('SellGoodFactory');
+var MapRandomEvent = _g_require('MapRandomEvent');
 
 /**
  * 改变人物大地图上的位置
@@ -226,7 +226,6 @@ local.buildFunc = function (person) {
             intelligence: person._intelligence,
             charm: person._charm,
             politics: person._politics,
-            maxHp: person._maxHp,
             sex: person._sex,
             moveSpeed: person._moveSpeed,
             presonSkillId: person._presonSkillId,
@@ -235,7 +234,6 @@ local.buildFunc = function (person) {
             equipDef: person._equipDef,
             equipJewelry: person._equipJewelry,
             equipHorse: person._equipHorse,
-            nowHp: person._nowHp,
             id: person._id,
             pos: person._pos,
             homePos: person._homePos,
@@ -264,7 +262,7 @@ local.buildFunc = function (person) {
     };
     //战斗结束回调
     person.battleFinishCb = function () {
-        if (person._nowHp < g_GlobalData.MIN_HP_NUM * person._maxHp) {
+        if (person._power < g_GlobalData.MIN_POWER_NUM * person._power) {
             person.treat();
         }
         person._inInBattle = false;
@@ -276,11 +274,11 @@ local.buildFunc = function (person) {
             if (person._itemArr[i].judgeHaveFunctionByName('treat')) {
                 person._itemArr[i].use();
             }
-            if (person._nowHp >= person._maxHp) {
+            if (person._power >= g_GlobalData.MAX_POWER) {
                 break;
             }
         }
-        if (person._nowHp < g_GlobalData.MIN_HP_NUM * person._maxHp) {
+        if (person._power < g_GlobalData.MIN_HP_NUM * g_GlobalData.MAX_POWER) {
             //这个时候增加一个医馆行动
             let action = ActionFactory.createOneAction(6);
             if (action._costMoney > person._money) {
@@ -298,7 +296,7 @@ local.buildFunc = function (person) {
     };
     //使用自宅
     person.useHome = function () {
-        person._nowHp = person._maxHp;
+        person._power = g_GlobalData.MAX_POWER;
         g_LogTool.showLog(`${person._name} 在家休息结束`);
     };
 };
@@ -326,8 +324,6 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
     this._charm = jsonData.charm;
     //政治
     this._politics = jsonData.politics;
-    //生命值
-    this._maxHp = jsonData.hp;
     //性别
     this._sex = jsonData.sex;
     //大地图移动速度
@@ -348,9 +344,7 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
     //首饰
     this._equipJewelry = undefined;
     //坐骑
-    this._equipHorse = undefined;
-    //血量
-    this._nowHp = this._maxHp;
+    this._equipHorse = undefined;;
     //唯一id
     this._id = g_GameGlobalManager.getNewPersonId();
     //位置
@@ -402,8 +396,6 @@ local.createOneBasePersonBySaveData = function (saveData) {
     this._charm = saveData.charm;
     //政治
     this._politics = saveData.politics;
-    //生命值
-    this._maxHp = saveData.maxHp;
     //性别
     this._sex = saveData.sex;
     //大地图移动速度
@@ -425,8 +417,6 @@ local.createOneBasePersonBySaveData = function (saveData) {
     this._equipJewelry = saveData.equipJewelry;
     //坐骑
     this._equipHorse = saveData.equipHorse;
-    //血量
-    this._nowHp = saveData.nowHp;
     //唯一id
     this._id = saveData.id;
     //位置
@@ -486,10 +476,13 @@ outModule.createRandomPerson = (sex, cityId) => {
  * @param cityId 出生地
  */
 outModule.createOneBasePerson = (personId, saveData, cityId) => {
+    let data;
     if (saveData) {
-        return new local.createOneBasePersonBySaveData(saveData);
+        data = new local.createOneBasePersonBySaveData(saveData);
     }
-    return new local.createOneBasePerson(personId, undefined, cityId);
+    data = new local.createOneBasePerson(personId, undefined, cityId);
+    g_VsCodeTool.getClassVsCodeStr(data, 'BasePersonClass');
+    return data;
 };
 
 module.exports = outModule;

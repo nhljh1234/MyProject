@@ -1,6 +1,6 @@
 var outModule = {};
 var local = {};
-var RandomNameTool = require('RandomNameTool');
+var RandomNameTool = _g_require('RandomNameTool');
 
 /**
  * 绑定函数
@@ -31,8 +31,6 @@ local.createUserRole = function (randomData) {
     this._charm = randomData.charm;
     //政治
     this._politics = randomData.politics;
-    //生命值
-    this._maxHp = randomData.hp;
     //性别
     this._sex = randomData.sex;
     //大地图移动速度
@@ -54,8 +52,6 @@ local.createUserRole = function (randomData) {
     this._equipJewelry = undefined;
     //坐骑
     this._equipHorse = undefined;
-    //血量
-    this._nowHp = this._maxHp;
     //唯一id
     this._id = g_GameGlobalManager.getNewPersonId();
     //位置
@@ -122,17 +118,18 @@ outModule.getRandomUserRoleData = function (sex, name) {
         Math.ceil(cc.random0To1() * (100 - g_JsonDataTool.getDataById('_table_Game_userRandomData', 6).num));
     randomData.politics = g_JsonDataTool.getDataById('_table_Game_userRandomData', 7).num +
         Math.ceil(cc.random0To1() * (100 - g_JsonDataTool.getDataById('_table_Game_userRandomData', 7).num));
-    randomData.hp = g_JsonDataTool.getDataById('_table_Game_userRandomData', 8).num +
-        Math.ceil(cc.random0To1() * (1000 - g_JsonDataTool.getDataById('_table_Game_userRandomData', 8).num));
     randomData.moveSpeed = 5;
     return randomData;
 };
 
 outModule.createUserRole = function (saveData, randomData) {
+    let data;
     if (saveData) {
-        return new local.createUserRoleBySaveData(saveData);
+        data = new local.createUserRoleBySaveData(saveData);
     }
-    return new local.createUserRole(randomData || outModule.getRandomUserRoleData());
+    data = new local.createUserRole(randomData || outModule.getRandomUserRoleData());
+    g_VsCodeTool.getClassVsCodeStr(data, 'UserRoleClass');
+    return data;
 };
 
 module.exports = outModule;

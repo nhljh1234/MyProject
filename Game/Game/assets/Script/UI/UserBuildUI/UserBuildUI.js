@@ -3,9 +3,9 @@
  * @desc 模块描述
  * @author Administrator
  */
-var BaseUI = require('BaseUI');
-var RandomNameTool = require('RandomNameTool');
-var UserRoleFactory = require('UserRoleFactory');
+var BaseUI = _g_require('BaseUI');
+var RandomNameTool = _g_require('RandomNameTool');
+var UserRoleFactory = _g_require('UserRoleFactory');
 cc.Class({
     extends: BaseUI,
 
@@ -19,7 +19,6 @@ cc.Class({
         _randomIntelligenceLabelNode: null,
         _randomCharmLabelNode: null,
         _randomPoliticsLabelNode: null,
-        _randomHpLabelNode: null,
         _randomName: null,
         _randomSex: null
     },
@@ -55,7 +54,6 @@ cc.Class({
         this._randomIntelligenceLabelNode = cc.find('Intelligence/Intelligence', this._topNode);
         this._randomCharmLabelNode = cc.find('Charm/Charm', this._topNode);
         this._randomPoliticsLabelNode = cc.find('Politics/Politics', this._topNode);
-        this._randomHpLabelNode = cc.find('Hp/Hp', this._topNode);
     },
 
     /**
@@ -141,7 +139,6 @@ cc.Class({
         this._randomIntelligenceLabelNode.getComponent(cc.Label).string = randomData._intelligence;
         this._randomCharmLabelNode.getComponent(cc.Label).string = randomData._charm;
         this._randomPoliticsLabelNode.getComponent(cc.Label).string = randomData._politics;
-        this._randomHpLabelNode.getComponent(cc.Label).string = randomData._maxHp;
     },
 
     /**

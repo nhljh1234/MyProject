@@ -9,9 +9,9 @@ local.useSellGoodFunc = {};
 //治疗
 local.useSellGoodFunc.treat = function (person, sellGood, index) {
     let numArr = sellGood._functionNumArr[index];
-    person._nowHp = person._nowHp + numArr[0];
-    if (person._nowHp > person._maxHp) {
-        person._nowHp = person._maxHp;
+    person._power = person._power + numArr[0];
+    if (person._power > person._power) {
+        person._power = person._power;
     }
 };
 
@@ -146,10 +146,13 @@ local.createOneSellGoodBySaveData = function (saveData) {
  * @param saveData 存储的数据
  */
 outModule.createOneSellGood = (sellGoodId, saveData, personData) => {
+    let data;
     if (saveData) {
-        return new local.createOneSellGoodBySaveData(saveData);
+        data = new local.createOneSellGoodBySaveData(saveData);
     }
-    return new local.createOneSellGood(sellGoodId, personData);
+    data = new local.createOneSellGood(sellGoodId, personData);
+    g_VsCodeTool.getClassVsCodeStr(data, 'SellGoodClass');
+    return data;
 };
 
 module.exports = outModule;

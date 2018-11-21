@@ -3,8 +3,8 @@
  * @desc
  * @author Administrator
  */
-var BaseUI = require('BaseUI');
-var ScrollViewTool = require('ScrollViewTool');
+var BaseUI = _g_require('BaseUI');
+var ScrollViewTool = _g_require('ScrollViewTool');
 cc.Class({
     extends: BaseUI,
 

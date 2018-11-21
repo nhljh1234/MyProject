@@ -40,7 +40,7 @@ local.buildingUserUseTypeFunc.shop = function (personData) {
  * 医馆处理函数
  */
 local.buildingUserUseTypeFunc.hospital = function (personData) {
-    personData._nowHp = personData._maxHp;
+    personData._power = g_GlobalData.MIN_POWER_NUM;
     g_LogTool.showLog(`${personData._name} 医馆治疗`);
 };
 
@@ -93,10 +93,13 @@ local.createOneBuilding = function (buildingId) {
  * @param saveData 
  */
 outModule.createOneBuilding = (buildingId, saveData) => {
+    let data;
     if (saveData) {
-        return new local.createOneBuildingBySaveData(saveData);
+        data = new local.createOneBuildingBySaveData(saveData);
     }
-    return new local.createOneBuilding(buildingId);
+    data = new local.createOneBuilding(buildingId);
+    g_VsCodeTool.getClassVsCodeStr(data, 'BuildingClass');
+    return data;
 };
 
 module.exports = outModule;

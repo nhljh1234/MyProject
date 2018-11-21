@@ -141,10 +141,13 @@ local.createOneActionSaveData = function (saveData) {
  * 任务的计时
  */
 outModule.createOneAction = (actionId, saveData) => {
+    let data;
     if (saveData) {
-        return new local.createOneActionSaveData(saveData);
+        data = new local.createOneActionSaveData(saveData);
     }
-    return new local.createOneAction(actionId);
+    data = new local.createOneAction(actionId);
+    g_VsCodeTool.getClassVsCodeStr(data, 'ActionClass');
+    return data;
 };
 
 module.exports = outModule;

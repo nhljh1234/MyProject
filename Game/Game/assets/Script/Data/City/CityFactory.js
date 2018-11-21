@@ -3,9 +3,9 @@
  */
 var outModule = {};
 var local = {};
-var BuildingFactory = require('BuildingFactory');
-var PersonFactory = require('PersonFactory');
-var GlobalData = require('GlobalData');
+var BuildingFactory = _g_require('BuildingFactory');
+var PersonFactory = _g_require('PersonFactory');
+var GlobalData = _g_require('GlobalData');
 
 /**
  * @param city 为城市数据绑定相应的函数
@@ -138,10 +138,13 @@ local.createOneCity = function (cityId) {
  * @param saveData 
  */
 outModule.createOneCity = (cityId, saveData) => {
+    let data;
     if (saveData) {
-        return new local.createOneCityBySaveData(saveData);
+        data = new local.createOneCityBySaveData(saveData);
     }
-    return new local.createOneCity(cityId);
+    data = new local.createOneCity(cityId);
+    g_VsCodeTool.getClassVsCodeStr(data, 'CityClass');
+    return data;
 };
 
 module.exports = outModule;

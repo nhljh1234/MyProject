@@ -48,7 +48,7 @@ outModule.useGameSaveData = function () {
     if (!saveData) {
         return false;
     }
-    g_GameGlobalManager.gameData = require('GameFactory').createOneGame(saveData);
+    g_GameGlobalManager.gameData = _g_require('GameFactory').createOneGame(saveData);
     g_GameGlobalManager.gameData.setGameData(saveData);
     return true;
 };

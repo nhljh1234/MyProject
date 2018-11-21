@@ -4,7 +4,7 @@
  */
 var outModule = {};
 var local = {};
-var RandomNameTool = require('RandomNameTool');
+var RandomNameTool = _g_require('RandomNameTool');
 
 //全局的游戏类
 outModule.gameData;

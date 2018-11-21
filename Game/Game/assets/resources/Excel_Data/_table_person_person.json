@@ -8,7 +8,6 @@
             "intelligence" : 99,
             "charm" : 99,
             "politics" : 90,
-            "hp" : 500,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -20,7 +19,6 @@
             "intelligence" : 80,
             "charm" : 90,
             "politics" : 65,
-            "hp" : 700,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -32,7 +30,6 @@
             "intelligence" : 90,
             "charm" : 100,
             "politics" : 80,
-            "hp" : 500,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -44,7 +41,6 @@
             "intelligence" : 70,
             "charm" : 80,
             "politics" : 79,
-            "hp" : 750,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -56,7 +52,6 @@
             "intelligence" : 70,
             "charm" : 80,
             "politics" : 79,
-            "hp" : 750,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -68,7 +63,6 @@
             "intelligence" : 90,
             "charm" : 100,
             "politics" : 80,
-            "hp" : 500,
             "sex" : 1,
             "moveSpeed" : 5
         }    
@@ -84,7 +78,6 @@
             "intelligence" : 99,
             "charm" : 99,
             "politics" : 90,
-            "hp" : 500,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -97,7 +90,6 @@
             "intelligence" : 80,
             "charm" : 90,
             "politics" : 65,
-            "hp" : 700,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -110,7 +102,6 @@
             "intelligence" : 90,
             "charm" : 100,
             "politics" : 80,
-            "hp" : 500,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -123,7 +114,6 @@
             "intelligence" : 70,
             "charm" : 80,
             "politics" : 79,
-            "hp" : 750,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -136,7 +126,6 @@
             "intelligence" : 70,
             "charm" : 80,
             "politics" : 79,
-            "hp" : 750,
             "sex" : 1,
             "moveSpeed" : 5
         },    
@@ -149,7 +138,6 @@
             "intelligence" : 90,
             "charm" : 100,
             "politics" : 80,
-            "hp" : 500,
             "sex" : 1,
             "moveSpeed" : 5
         }    

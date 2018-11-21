@@ -3,7 +3,7 @@
  */
 var outModule = {};
 var local = {};
-var CityFactory = require('CityFactory');
+var CityFactory = _g_require('CityFactory');
 
 /**
  * @param force 为割据数据绑定相应的函数
@@ -61,10 +61,13 @@ local.createOneForce = function (forceId) {
  * @param saveData 
  */
 outModule.createOneForce = (forceId, saveData) => {
+    let data;
     if (saveData) {
-        return new local.createOneForceBySaveData(saveData);
+        data = new local.createOneForceBySaveData(saveData);
     }
-    return new local.createOneForce(forceId);
+    data = new local.createOneForce(forceId);
+    g_VsCodeTool.getClassVsCodeStr(data, 'ForceClass');
+    return data;
 };
 
 module.exports = outModule;

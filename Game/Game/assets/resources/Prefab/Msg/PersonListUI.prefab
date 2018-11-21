@@ -652,7 +652,7 @@
       "__id__": 16
     },
     "_enabled": true,
-    "label_key": "return"
+    "label_key": "returnStr"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1455,12 +1455,12 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_uiName": "PersonListUI",
     "_leftNode": null,
     "_topNode": null,
     "_rightNode": null,
     "_bottomNode": null,
     "_midNode": null,
+    "_uiName": "PersonListUI",
     "_personListNodePool": null,
     "_personListNScrollViewNode": null,
     "_personListNScrollViewTmpNode": null

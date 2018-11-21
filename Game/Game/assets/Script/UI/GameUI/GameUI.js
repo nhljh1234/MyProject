@@ -2,8 +2,8 @@
 /**
  * 本游戏的主场景，现在只有一个场景
  */
-var BaseUI = require("BaseUI");
-var GameSave = require("GameSave");
+var BaseUI = _g_require("BaseUI");
+var GameSave = _g_require("GameSave");
 cc.Class({
     extends: BaseUI,
 

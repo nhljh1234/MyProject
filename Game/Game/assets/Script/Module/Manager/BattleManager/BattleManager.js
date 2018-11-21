@@ -3,7 +3,7 @@
  */
 var outModule = {};
 var local = {};
-var BattleFactory = require('BattleFactory');
+var BattleFactory = _g_require('BattleFactory');
 
 local.timeSave = 0;
 local.battleArr = [];
@@ -12,6 +12,7 @@ outModule.startBattle = function (person_1, person_2) {
     person_1.startBattleCb();
     person_2.startBattleCb();
     let battle = new BattleFactory.buildOneBattle(person_1, person_2);
+    g_VsCodeTool.getClassVsCodeStr(battle, 'BattleClass');
     local.battleArr.push(battle);
 };
 

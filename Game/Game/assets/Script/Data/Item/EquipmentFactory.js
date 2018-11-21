@@ -46,10 +46,13 @@ local.createOneEquipmentSaveData = function (saveData) {
  * @param saveData 存储的数据
  */
 outModule.createOneSellGood = (equipmentId, saveData) => {
+    let data;
     if (saveData) {
-        return new local.createOneSellGoodBySaveData(saveData);
+        data = new local.createOneSellGoodBySaveData(saveData);
     }
-    return new local.createOneSellGood(equipmentId);
+    data = new local.createOneSellGood(equipmentId);
+    g_VsCodeTool.getClassVsCodeStr(data, 'EquipmentClass');
+    return data;
 };
 
 module.exports = outModule;

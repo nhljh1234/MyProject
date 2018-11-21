@@ -25,4 +25,7 @@
 		<table oldName="参数" newName="gameParameter" use="client"/>
 		<table oldName="玩家随机数据" newName="userRandomData" use="client"/>
 	</file>
+	<file oldName="user" newName="user">
+		<table oldName="玩家相关" newName="userParameter" use="client"/>
+	</file>
 </note>

@@ -3,12 +3,12 @@
  */
 var outModule = {};
 var local = {};
-var DateTool = require("DateTool");
-var EventName = require("EventName");
-var ForceFactory = require("ForceFactory");
-var CityFactory = require("CityFactory");
-var PersonFactory = require("PersonFactory");
-var GameSave = require("GameSave");
+var DateTool = _g_require("DateTool");
+var EventName = _g_require("EventName");
+var ForceFactory = _g_require("ForceFactory");
+var CityFactory = _g_require("CityFactory");
+var PersonFactory = _g_require("PersonFactory");
+var GameSave = _g_require("GameSave");
 
 /**
  * @param force 为割据数据绑定相应的函数
@@ -187,10 +187,13 @@ local.createOneGame = function (month, day) {
  * @param saveData 
  */
 outModule.createOneGame = (saveData, month, day) => {
+    let data;
     if (saveData) {
-        return new local.createOneGameBySaveData(saveData);
+        data = new local.createOneGameBySaveData(saveData);
     }
-    return new local.createOneGame(month, day);
+    data = new local.createOneGame(month, day);
+    g_VsCodeTool.getClassVsCodeStr(data, 'GameClass');
+    return data;
 };
 
 module.exports = outModule;

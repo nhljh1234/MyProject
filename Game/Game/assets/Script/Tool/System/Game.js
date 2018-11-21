@@ -13,27 +13,29 @@ window.g_LanguageType.EN = 'EN';
 
 //这边开始判断是哪个语言
 window.g_LanguageTypeSelect = window.g_LanguageType.CHS;
-window.g_LanguageObj = require(`Language_${window.g_LanguageTypeSelect}`);
+window.g_LanguageObj = _g_require(`Language_${window.g_LanguageTypeSelect}`);
 
 //基础框架相关
+//VsCode工具
+window.g_VsCodeTool = _g_require('VsCodeTool');
 //多语言工具
-window.g_LanguageTool = require('LanguageTool');
+window.g_LanguageTool = _g_require('LanguageTool');
 //预制件加载工具
-window.g_PrefabManager = require('PrefabManager');
+window.g_PrefabManager = _g_require('PrefabManager');
 //动态场景管理工具
-window.g_GameSceneManager = require('GameSceneManager');
+window.g_GameSceneManager = _g_require('GameSceneManager');
 //滑动列表工具
-window.g_ScrollViewTool = require('ScrollViewTool');
+window.g_ScrollViewTool = _g_require('ScrollViewTool');
 //日志工具
-window.g_LogTool = require('LogTool');
+window.g_LogTool = _g_require('LogTool');
 //图集管理工具
-window.g_SpriteFrameManager = require('SpriteFrameManager');
+window.g_SpriteFrameManager = _g_require('SpriteFrameManager');
 //Json数据管理工具
-window.g_JsonDataTool = require('JsonDataTool');
+window.g_JsonDataTool = _g_require('JsonDataTool');
 //客户端事件工具
-window.g_EventManager = require('EventManager');
+window.g_EventManager = _g_require('EventManager');
 //内存管理工具
-window.g_MemoryManager = require('MemoryManager');
+window.g_MemoryManager = _g_require('MemoryManager');
 
 //内存管理选项
 //内存使用超过600MB开始自动清除内存
@@ -52,11 +54,12 @@ window.g_GameScene.NetNode = undefined;
 //************************************************************
 //游戏相关
 //************************************************************
-window.g_GameGlobalManager = require('GameGlobalManager');
-window.g_GameTool = require('GameTool');
-window.g_GlobalData = require('GlobalData');
-window.g_BattleManager = require('BattleManager');
-window.g_GameData = require('GameData');
+window.g_GameGlobalManager = _g_require('GameGlobalManager');
+window.g_GameTool = _g_require('GameTool');
+window.g_GlobalData = _g_require('GlobalData');
+window.g_BattleManager = _g_require('BattleManager');
+window.g_GameData = _g_require('GameData');
+window.g_EventName = _g_require('EventName');
 
 var outModule = {};
 
@@ -94,6 +97,7 @@ outModule.init = function (oneTaskFinishCb, finishCb) {
         if (oneTaskFinishCb) {
             oneTaskFinishCb(finishNum / TASK_NUM);
         }
+        window.g_GlobalData.init();
     });
 };
 

@@ -17,4 +17,7 @@ outModule.TIME_UPDATE_SEASON = 'TIME_UPDATE_SEASON';
 //年变化
 outModule.TIME_UPDATE_YEAR = 'TIME_UPDATE_YEAR';
 
+//玩家角色状态改变
+outModule.USER_ROLE_STATUS_CHANGE = 'USER_ROLE_STATUS_CHANGE';
+
 module.exports = outModule;

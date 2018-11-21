@@ -6,6 +6,8 @@ var local = {};
 
 /**
  * 生成一个战斗
+ * @param {BasePersonClass} person_1
+ * @param {BasePersonClass} person_2
  */
 outModule.buildOneBattle = function (person_1, person_2) {
     this._person_1 = person_1;
@@ -36,10 +38,12 @@ outModule.buildOneBattle = function (person_1, person_2) {
             personDef = person_1; 
         }
         hurtNum = personAttack._attack - personDef._def;
+        //伤害量先这么处理
+        hurtNum = Math.ceil(hurtNum / 10);
         hurtNum = hurtNum < 0 ? 0 : hurtNum;
-        personDef._nowHp = personDef._nowHp - hurtNum;
-        if (personDef._nowHp < 0) {
-            personDef._nowHp = 0;
+        personDef._power = personDef._power - hurtNum;
+        if (personDef._power < 0) {
+            personDef._power = 0;
             personDef.deadCb(personAttack);
             personDef.battleFinishCb();
             personAttack.battleFinishCb();
@@ -47,9 +51,9 @@ outModule.buildOneBattle = function (person_1, person_2) {
         }
         hurtNum = personDef._attack - personAttack._def;
         hurtNum = hurtNum < 0 ? 0 : hurtNum;
-        personAttack._nowHp = personAttack._nowHp - hurtNum;
-        if (personAttack._nowHp < 0) {
-            personAttack._nowHp = 0;
+        personAttack._power = personAttack._power - hurtNum;
+        if (personAttack._power < 0) {
+            personAttack._power = 0;
             personAttack.deadCb(personDef);
             personAttack.battleFinishCb();
             personDef.battleFinishCb();
