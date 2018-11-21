@@ -18,6 +18,7 @@ Shader "LearnProject/Render/Render_5/Color"
 			
 			
 			CGPROGRAM
+
 			#pragma vertex vert
 			#pragma fragment frag
 			
@@ -34,6 +35,9 @@ Shader "LearnProject/Render/Render_5/Color"
 			ZWrite Off
 			
 			CGPROGRAM
+
+			#define USER_BASE
+
 			#pragma vertex vert
 			#pragma fragment frag
 			
