@@ -37,8 +37,7 @@ Shader "LearnProject/Render/Render_5/Color"
 			#pragma vertex vert
 			#pragma fragment frag
 			
-			#include "UnityCG.cginc"
-			#include "Lighting.cginc"
+			#pragma multi_compile DIRECTIONAL POINT SPOT
 
 			#include "render_5_lights.cginc"
 

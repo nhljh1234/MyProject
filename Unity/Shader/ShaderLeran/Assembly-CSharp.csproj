@@ -70,7 +70,6 @@
      <None Include="Assets\Shader\BlastEffect.shader" />
      <None Include="Assets\LearnProject\Render\Render_5\Shader\Render_5.shader" />
      <None Include="Assets\LearnProject\Render\Render_3\Shader\Render_3.shader" />
-     <None Include="Assets\Shader\UnityShader.txt" />
      <None Include="Assets\Shader\Dissolution.shader" />
      <None Include="Assets\LearnProject\Render\Render_4\Shader\Render_4.shader" />
      <None Include="Assets\LearnProject\Base\Graph\Shader\Color.shader" />
