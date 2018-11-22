@@ -20633,20 +20633,3 @@ declare let CC_BUILD: boolean;
 declare let CC_JSB: boolean;
 /** Running in the engine's unit test. */
 declare let CC_TEST: boolean;
-
-declare namespace HistoryGame {
-	export let RandomNameTool = require('./assets/Script/Tool/GameUse/RandomNameTool');
-	export let Language_CHS = require('./assets/Script/Tool/Language/Language_CHS');
-	export let Language_EN = require('./assets/Script/Tool/Language/Language_EN');
-	export let EventManager = require('./assets/Script/Tool/System/EventManager');
-	export let Game = require('./assets/Script/Tool/System/Game');
-	export let GameSceneManager = require('./assets/Script/Tool/System/GameSceneManager');
-	export let JsonDataTool = require('./assets/Script/Tool/System/JsonDataTool');
-	export let LanguageTool = require('./assets/Script/Tool/System/LanguageTool');
-	export let LogTool = require('./assets/Script/Tool/System/LogTool');
-	export let MemoryManager = require('./assets/Script/Tool/System/MemoryManager');
-	export let PrefabManager = require('./assets/Script/Tool/System/PrefabManager');
-	export let SpriteFrameManager = require('./assets/Script/Tool/System/SpriteFrameManager');
-	export let TimeTool = require('./assets/Script/Tool/Time/TimeTool');
-	export let NodeTool = require('./assets/Script/UI/Base/NodeTool');
-}

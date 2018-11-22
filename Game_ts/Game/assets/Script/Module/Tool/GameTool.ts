@@ -1,15 +1,17 @@
+import { MapPos } from "../../Data/PersonFactory";
+import { Person } from "../../Data/PersonFactory";
+import { MyGame } from "../../Tool/System/Game";
+
 /**
  * 这边封装了很多游戏内用的函数
  */
-var outModule = {};
-var local = {};
 
 /**
  * 判断两个二位数组的坐标是否相同
- * @param pos_1
- * @param pos_2
+ * @param {MapPos} pos_1
+ * @param {MapPos} pos_2
  */
-outModule.judgeEqualPos = (pos_1, pos_2) => {
+export function judgeEqualPos(pos_1, pos_2) {
     if (!pos_1 || !pos_2) {
         return false;
     }
@@ -19,7 +21,7 @@ outModule.judgeEqualPos = (pos_1, pos_2) => {
 /**
  * 新建一个二维坐标
  */
-outModule.buildPos = (x, y) => {
+export function buildPos(x, y): MapPos {
     return {
         x: x,
         y: y
@@ -33,25 +35,24 @@ outModule.buildPos = (x, y) => {
  * @param nowCityData 出发城市的数据
  * @param personData 
  */
-outModule.getNearBuildingCity = (buildingId, nowCityId, nowCityData, personData) => {
+export function getNearBuildingCity(buildingId: number, nowCityId: number, nowCityData, personData: Person) {
     let nowMapPos;
     if (nowCityId === -1) {
-        nowMapPos = personData._nowMapPos;
+        nowMapPos = personData.nowMapPos;
     } else {
-        nowCityData = nowCityData || g_GameGlobalManager.gameData.getCityById(nowCityId);
+        nowCityData = nowCityData || MyGame.GameManager.gameData.getCityById(nowCityId);
         if (nowCityData.getBuildingById(buildingId)) {
             return nowCityData;
         }
         nowMapPos = nowCityData._cityPos;
     }
     if (buildingId === -1) {
-        return g_GameGlobalManager.gameData.getCityById(personData._homePos);
+        return MyGame.GameManager.gameData.getCityById(personData.homePos);
     }
-    let hasBuildingCityArr = g_GameGlobalManager.gameData._allCityArr.filter((oneCityData) => {
+    let hasBuildingCityArr = MyGame.GameManager.gameData._allCityArr.filter((oneCityData) => {
         return oneCityData.getBuildingById(buildingId);
     });
-    let i, len, minDis = -1,
-        dis, returnCityData;
+    let i, len, minDis = -1, dis, returnCityData;
     for (i = 0, len = hasBuildingCityArr.length; i < len; i++) {
         let cityData = hasBuildingCityArr[i];
         dis = (cityData._cityPos.x - nowMapPos.x) * (cityData._cityPos.x - nowMapPos.x) +
@@ -69,12 +70,10 @@ outModule.getNearBuildingCity = (buildingId, nowCityId, nowCityData, personData)
  * @param cityId_1
  * @param cityId_2
  */
-outModule.getCityDis = (cityId_1, cityId_2) => {
+export function getCityDis(cityId_1: number, cityId_2: number) {
     let cityData_1, cityData_2;
-    cityData_1 = g_GameGlobalManager.gameData.getCityById(cityId_1);
-    cityData_2 = g_GameGlobalManager.gameData.getCityById(cityId_2);
+    cityData_1 = MyGame.GameManager.gameData.getCityById(cityId_1);
+    cityData_2 = MyGame.GameManager.gameData.getCityById(cityId_2);
     return Math.sqrt((cityData_1._cityPos.x - cityData_2._cityPos.x) * (cityData_1._cityPos.x - cityData_2._cityPos.x) +
         (cityData_1._cityPos.y - cityData_2._cityPos.y) * (cityData_1._cityPos.y - cityData_2._cityPos.y));
 };
-
-module.exports = outModule;

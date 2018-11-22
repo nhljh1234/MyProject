@@ -1,3 +1,5 @@
+import { MyGame } from "../System/Game";
+
 export let SPRING: number = 1;
 export let SUMMER: number = 2;
 export let AUTUMN: number = 3;
@@ -34,7 +36,7 @@ export function getNewDate(year: number, month: number, day: number, hour: numbe
 }
 
 export function getTimeStrWithEra (year:number, month:number, day:number, hour:number, minute:number) {
-    return `${HistoryGame.LanguageTool.getLanguageStr("era_name")}${year} ${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day} ${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute}`;
+    return `${MyGame.LanguageTool.getLanguageStr("era_name")}${year} ${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day} ${hour < 10 ? '0' : ''}${hour}:${minute < 10 ? '0' : ''}${minute}`;
 }
 
 /**

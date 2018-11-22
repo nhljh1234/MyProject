@@ -68,7 +68,7 @@ var outModule = {};
  * @param {Function} oneTaskFinishCb 完成一个任务的回调
  * @param {Function} finishCb 所有数据加载完成的回调
  */
-outModule.init = function (oneTaskFinishCb, finishCb) {
+outModule.init = function(oneTaskFinishCb, finishCb) {
     let finishNum = 0;
     const TASK_NUM = 3;
     window.g_PrefabManager.init(() => {

@@ -1,3 +1,4 @@
+import MyGame = require('./Game');
 interface loadData {
     pathStr: string;
     frequency: number;
@@ -45,7 +46,7 @@ function getAllClearDepends(clearArr: prefabSaveData[]) {
     clearArr.forEach((onePrefabData) => {
         //先处理要release的图集
         onePrefabData.prefabNodeArr.forEach((oneNode) => {
-            let pathArr = HistoryGame.SpriteFrameManager.getAllUINodeUseSprite(oneNode);
+            let pathArr = MyGame.SpriteFrameManager.getAllUINodeUseSprite(oneNode);
             pathArr.forEach((onePath) => {
                 let spriteDepends = cc.loader.getDependsRecursively(onePath);
                 spriteDepends.forEach((assetsPathStr) => {
@@ -119,7 +120,7 @@ export function clearPrefabWithoutUseSpreite(clearArr: prefabSaveData[]) {
     clearArr.forEach((onePrefabData) => {
         onePrefabData.prefabNodeArr.forEach(function (node) {
             node.destroy();
-            HistoryGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
+            MyGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
         });
     });
     let allClearDepends = getAllClearDepends(clearArr);
@@ -130,17 +131,17 @@ export function clearPrefabWithoutUseSpreite(clearArr: prefabSaveData[]) {
             dependClearArr.push(assetsPathStr);
             return;
         }
-        let spriteUseNodeArr = HistoryGame.SpriteFrameManager.spriteUseNodeObj[loadResPathStr];
+        let spriteUseNodeArr = MyGame.SpriteFrameManager.spriteUseNodeObj[loadResPathStr];
         if (!spriteUseNodeArr) {
             dependClearArr.push(assetsPathStr);
             return;
         }
         let i, len = spriteUseNodeArr.length;
         for (i = 0; i < len; i++) {
-            if (spriteUseNodeArr[i] && spriteUseNodeArr[i].UINode.isValid && !HistoryGame.NodeTool.getNodeValue(spriteUseNodeArr[i].UINode, '_tj_isDestroy')) {
+            if (spriteUseNodeArr[i] && spriteUseNodeArr[i].UINode.isValid && !MyGame.NodeTool.getNodeValue(spriteUseNodeArr[i].UINode, '_tj_isDestroy')) {
                 return;
             } else {
-                HistoryGame.SpriteFrameManager.clearSprite(loadResPathStr);
+                MyGame.SpriteFrameManager.clearSprite(loadResPathStr);
             }
         }
         //如果用了这个资源的所有节点都被清楚了，那么就表示这张图片可以被卸载
@@ -173,7 +174,7 @@ export function clearPrefabInStrongMode(clearArr: prefabSaveData[], canNotClearA
     clearArr.forEach((onePrefabData) => {
         onePrefabData.prefabNodeArr.forEach(function (node) {
             node.destroy();
-            HistoryGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
+            MyGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
         });
     });
     let allClearDepends = getAllClearDepends(clearArr);
@@ -187,17 +188,17 @@ export function clearPrefabInStrongMode(clearArr: prefabSaveData[], canNotClearA
             dependClearArr.push(assetsPathStr);
             return;
         }
-        let spriteUseNodeArr = HistoryGame.SpriteFrameManager.spriteUseNodeObj[loadResPathStr];
+        let spriteUseNodeArr = MyGame.SpriteFrameManager.spriteUseNodeObj[loadResPathStr];
         if (!spriteUseNodeArr) {
             dependClearArr.push(assetsPathStr);
             return;
         }
         let i, len = spriteUseNodeArr.length;
         for (i = 0; i < len; i++) {
-            if (spriteUseNodeArr[i] && spriteUseNodeArr[i].UINode.isValid && !HistoryGame.NodeTool.getNodeValue(spriteUseNodeArr[i].UINode, '_tj_isDestroy')) {
+            if (spriteUseNodeArr[i] && spriteUseNodeArr[i].UINode.isValid && !MyGame.NodeTool.getNodeValue(spriteUseNodeArr[i].UINode, '_tj_isDestroy')) {
                 return;
             } else {
-                HistoryGame.SpriteFrameManager.clearSprite(loadResPathStr);
+                MyGame.SpriteFrameManager.clearSprite(loadResPathStr);
             }
         }
         dependClearArr.push(assetsPathStr);
@@ -220,7 +221,7 @@ export function clearPrefab(prefabPath: string) {
     //清除节点
     prefabSave[prefabPath].prefabNodeArr.forEach(function (node) {
         node.destroy();
-        HistoryGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
+        MyGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
     });
     let depends = cc.loader.getDependsRecursively(prefabSave[prefabPath].prefab);
     cc.loader.release(depends);
@@ -265,7 +266,7 @@ export function init(finishCb: Function) {
                 }
             }
         }, (error) => {
-            HistoryGame.LogTool.showLog(`PrefabManager init error! path is ${pathData.pathStr}, error is ${error}`);
+            MyGame.LogTool.showLog(`PrefabManager init error! path is ${pathData.pathStr}, error is ${error}`);
             loadedCount++;
             if (loadedCount === PREFAB_INIT_LOAD_ARR.length) {
                 if (finishCb) {
@@ -307,6 +308,6 @@ export function loadPrefab(prefabPath, successCb, failCb, frequency) {
         if (successCb) {
             successCb(prefab);
         }
-        HistoryGame.MemoryManager.memoryCheck();
+        MyGame.MemoryManager.memoryCheck();
     });
 }

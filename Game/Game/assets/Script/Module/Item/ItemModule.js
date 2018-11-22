@@ -6,11 +6,11 @@ var local = {};
  * @param {Number} itemId
  * @param {String} functionName
  */
-outModule.judgeHaveFunctionByName = function (itemId, functionName) {
+outModule.judgeHaveFunctionByName = function(itemId, functionName) {
     let itemData = g_JsonDataTool.getDataById('_table_item_sellGood', itemId);
     if (itemData && itemData.function && itemData.function.length > 0) {
         let funcIdArr = ('' + itemData.function).split(',');
-        return funcIdArr.find(function (functionId) {
+        return funcIdArr.find(function(functionId) {
             let funcData = g_JsonDataTool.getDataById('_table_item_itemFunction', functionId);
             return funcData && funcData.type === functionName;
         });
@@ -23,7 +23,7 @@ outModule.judgeHaveFunctionByName = function (itemId, functionName) {
  * @param {Number} itemId
  * @param {String} functionName
  */
-outModule.getItemFunctionNum = function (itemId, functionName) {
+outModule.getItemFunctionNum = function(itemId, functionName) {
     let itemData = g_JsonDataTool.getDataById('_table_item_sellGood', itemId);
     if (itemData && itemData.function && itemData.function.length > 0) {
         let funcIdArr = ('' + itemData.function).split(',');
@@ -44,7 +44,7 @@ outModule.getItemFunctionNum = function (itemId, functionName) {
  * @param {BasePersonClass} personData
  * @param {Number} itemId
  */
-outModule.getTreatItemUseNum = function (personData, itemId) {
+outModule.getTreatItemUseNum = function(personData, itemId) {
     //获取治疗量
     let treatNum = outModule.getItemFunctionNum(itemId, g_GlobalData.ITEM_FUNCTION_TYPE_TREAT);
     let needTreatNum = g_GlobalData.MIN_POWER_NUM - personData._power;
@@ -60,7 +60,7 @@ outModule.getTreatItemUseNum = function (personData, itemId) {
  * @param {Number} itemId
  * @param {Number} useNum
  */
-outModule.useItem = function (personData, itemId, useNum = 1) {
+outModule.useItem = function(personData, itemId, useNum = 1) {
     personData
 };
 

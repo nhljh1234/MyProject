@@ -16,7 +16,7 @@ outModule.MAX_ITEM_NUM;
 outModule.MIN_POWER_NUM;
 outModule.BATTLE_TIMER_TIME;
 
-outModule.init = function () {
+outModule.init = function() {
     //大地图随机事件几率
     outModule.MAP_RANDOM_EVENT_RECORD = g_JsonDataTool.getDataById('_table_Game_gameParameter', 1).num;
     //最大体力值

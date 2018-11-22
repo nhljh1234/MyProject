@@ -1,4 +1,4 @@
-
+import HistroyGame = require('../../Tool/System/Game');
  
 const { ccclass, property } = cc._decorator;
 
@@ -54,8 +54,8 @@ export default class BaseUI extends cc.Component {
         if (deleteFlag) {
             this.node.removeFromParent(true);
             this.node.destroy();
-            NodeTool.saveNodeValue(this.node, '_tj_isDestroy', true);
-            SpriteFrameManager.clearDestroyNode();
+            HistroyGame.NodeTool.saveNodeValue(this.node, '_tj_isDestroy', true);
+            HistroyGame.SpriteFrameManager.clearDestroyNode();
         }
     }
 

@@ -10,23 +10,23 @@ var GlobalData = _g_require('GlobalData');
 /**
  * @param city 为城市数据绑定相应的函数
  */
-local.buildFunc = function (city) {
+local.buildFunc = function(city) {
     //根据建筑id获取一个建筑
-    city.getBuildingById = function (buildingId) {
+    city.getBuildingById = function(buildingId) {
         return this._buildingArr.find((oneBuildingData) => {
             return oneBuildingData._id === buildingId;
         });
     };
     //在这个城市新建一个随机人物
-    city.createOneRandomPerson = function (sex, cityId) {
+    city.createOneRandomPerson = function(sex, cityId) {
         sex = sex ? sex : (cc.random0To1() < 0.5 ? GlobalData.SEX_MAN : GlobalData.SEX_WOMAN);
         return PersonFactory.createRandomPerson(sex, cityId);
     };
     //新的一天
-    city.dayUpdate = function () {
+    city.dayUpdate = function() {
 
     };
-    city.getSaveData = function () {
+    city.getSaveData = function() {
         return {
             id: city._id,
             peopleNum: city._peopleNum,
@@ -35,7 +35,7 @@ local.buildFunc = function (city) {
             commissariatNum: city._commissariatNum,
             moneyNum: city._moneyNum,
             cityDefNum: city._cityDefNum,
-            personArr: city._personArr.map(function (onePersonData) {
+            personArr: city._personArr.map(function(onePersonData) {
                 return onePersonData._id;
             })
         }
@@ -45,7 +45,7 @@ local.buildFunc = function (city) {
 /**
  * @param saveData 存储的数据
  */
-local.createOneCityBySaveData = function (saveData) {
+local.createOneCityBySaveData = function(saveData) {
     //城市id
     this._id = parseInt(saveData.id);
     //配置数据
@@ -67,7 +67,7 @@ local.createOneCityBySaveData = function (saveData) {
     this._name = jsonData.name;
     //城市位置
     //用两个元素表示，类似于经纬度
-    this._cityPos = jsonData.cityPos.split(',').map(function (num) {
+    this._cityPos = jsonData.cityPos.split(',').map(function(num) {
         return parseInt(num);
     });
     this._cityPos = g_GameTool.buildPos(this._cityPos[0], this._cityPos[1]);
@@ -90,7 +90,7 @@ local.createOneCityBySaveData = function (saveData) {
  * 新建一个城市数据
  * 城市内有一个特殊的情况就是人会处于自宅，这个自宅标记为-1
  */
-local.createOneCity = function (cityId) {
+local.createOneCity = function(cityId) {
     //城市id
     this._id = parseInt(cityId);
     //配置数据
@@ -112,7 +112,7 @@ local.createOneCity = function (cityId) {
     this._name = jsonData.name;
     //城市位置
     //用两个元素表示，类似于经纬度
-    this._cityPos = jsonData.cityPos.split(',').map(function (num) {
+    this._cityPos = jsonData.cityPos.split(',').map(function(num) {
         return parseInt(num);
     });
     this._cityPos = g_GameTool.buildPos(this._cityPos[0], this._cityPos[1]);

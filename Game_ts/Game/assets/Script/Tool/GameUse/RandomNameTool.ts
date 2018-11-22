@@ -1,3 +1,5 @@
+import MyGame = require('../System/Game');
+
 //所有的已经用过的人名
 let allNameArr: string[] = [];
 
@@ -40,7 +42,7 @@ export function removeOneName(name) {
 export function getRandomName(sex) {
     let surname = SURNAME_ARR[Math.floor(cc.random0To1() * SURNAME_ARR.length)];
     let name;
-    if (sex === HistoryGame.Game.SEX_MAN) {
+    if (sex === MyGame.SEX_MAN) {
         name = MAN_NAME_ARR[Math.floor(cc.random0To1() * MAN_NAME_ARR.length)];
     } else {
         name = WOMAN_NAME_ARR[Math.floor(cc.random0To1() * WOMAN_NAME_ARR.length)];
