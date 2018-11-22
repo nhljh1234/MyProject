@@ -1,0 +1,87 @@
+{
+    "object" : {
+        "1" : {
+            "costTime" : 100,
+            "name" : "捕鱼",
+            "pos" : 1,
+            "rewardArr" : "1,15",
+            "costPower" : 10
+        },    
+        "2" : {
+            "costTime" : 80,
+            "name" : "打猎",
+            "pos" : 2,
+            "rewardArr" : "3,20",
+            "costPower" : 10
+        },    
+        "3" : {
+            "costTime" : 480,
+            "name" : "旅舍休息",
+            "pos" : "3",
+            "costPower" : -50
+        },    
+        "4" : {
+            "costTime" : 480,
+            "name" : "自宅休息",
+            "pos" : "-1",
+            "costPower" : -50
+        },    
+        "5" : {
+            "costTime" : 30,
+            "name" : "出售物品",
+            "pos" : 4
+        },    
+        "6" : {
+            "costTime" : 200,
+            "name" : "医馆疗伤",
+            "pos" : 5,
+            "costMoney" : 100
+        }    
+    },
+
+    "array" : [
+        {
+            "main_id" : 1,
+            "costTime" : 100,
+            "name" : "捕鱼",
+            "pos" : 1,
+            "rewardArr" : "1,15",
+            "costPower" : 10
+        },    
+        {
+            "main_id" : 2,
+            "costTime" : 80,
+            "name" : "打猎",
+            "pos" : 2,
+            "rewardArr" : "3,20",
+            "costPower" : 10
+        },    
+        {
+            "main_id" : 3,
+            "costTime" : 480,
+            "name" : "旅舍休息",
+            "pos" : "3",
+            "costPower" : -50
+        },    
+        {
+            "main_id" : 4,
+            "costTime" : 480,
+            "name" : "自宅休息",
+            "pos" : "-1",
+            "costPower" : -50
+        },    
+        {
+            "main_id" : 5,
+            "costTime" : 30,
+            "name" : "出售物品",
+            "pos" : 4
+        },    
+        {
+            "main_id" : 6,
+            "costTime" : 200,
+            "name" : "医馆疗伤",
+            "pos" : 5,
+            "costMoney" : 100
+        }    
+    ]
+}

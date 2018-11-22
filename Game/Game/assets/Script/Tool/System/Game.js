@@ -13,29 +13,29 @@ window.g_LanguageType.EN = 'EN';
 
 //这边开始判断是哪个语言
 window.g_LanguageTypeSelect = window.g_LanguageType.CHS;
-window.g_LanguageObj = _g_require(`Language_${window.g_LanguageTypeSelect}`);
+window.g_LanguageObj = _g_require(`Language_${window.g_LanguageTypeSelect}`, undefined, false);
 
 //基础框架相关
 //VsCode工具
-window.g_VsCodeTool = _g_require('VsCodeTool');
+window.g_VsCodeTool = _g_require('VsCodeTool', 'g_VsCodeTool', false);
 //多语言工具
-window.g_LanguageTool = _g_require('LanguageTool');
+window.g_LanguageTool = _g_require('LanguageTool', 'g_LanguageTool', false);
 //预制件加载工具
-window.g_PrefabManager = _g_require('PrefabManager');
+window.g_PrefabManager = _g_require('PrefabManager', 'g_PrefabManager', false);
 //动态场景管理工具
-window.g_GameSceneManager = _g_require('GameSceneManager');
+window.g_GameSceneManager = _g_require('GameSceneManager', 'g_GameSceneManager', false);
 //滑动列表工具
-window.g_ScrollViewTool = _g_require('ScrollViewTool');
+window.g_ScrollViewTool = _g_require('ScrollViewTool', 'g_ScrollViewTool', false);
 //日志工具
-window.g_LogTool = _g_require('LogTool');
+window.g_LogTool = _g_require('LogTool', 'g_LogTool', false);
 //图集管理工具
-window.g_SpriteFrameManager = _g_require('SpriteFrameManager');
+window.g_SpriteFrameManager = _g_require('SpriteFrameManager', 'g_SpriteFrameManager', false);
 //Json数据管理工具
-window.g_JsonDataTool = _g_require('JsonDataTool');
+window.g_JsonDataTool = _g_require('JsonDataTool', 'g_JsonDataTool', false);
 //客户端事件工具
-window.g_EventManager = _g_require('EventManager');
+window.g_EventManager = _g_require('EventManager', 'g_EventManager', false);
 //内存管理工具
-window.g_MemoryManager = _g_require('MemoryManager');
+window.g_MemoryManager = _g_require('MemoryManager', 'g_MemoryManager', false);
 
 //内存管理选项
 //内存使用超过600MB开始自动清除内存
@@ -54,12 +54,12 @@ window.g_GameScene.NetNode = undefined;
 //************************************************************
 //游戏相关
 //************************************************************
-window.g_GameGlobalManager = _g_require('GameGlobalManager');
-window.g_GameTool = _g_require('GameTool');
-window.g_GlobalData = _g_require('GlobalData');
-window.g_BattleManager = _g_require('BattleManager');
-window.g_GameData = _g_require('GameData');
-window.g_EventName = _g_require('EventName');
+window.g_GameGlobalManager = _g_require('GameGlobalManager', 'g_GameGlobalManager', false);
+window.g_GameTool = _g_require('GameTool', 'g_GameTool', false);
+window.g_GlobalData = _g_require('GlobalData', 'g_GlobalData', false);
+window.g_BattleManager = _g_require('BattleManager', 'g_BattleManager', false);
+window.g_GameData = _g_require('GameData', 'g_GameData', false);
+window.g_EventName = _g_require('EventName', 'g_EventName', false);
 
 var outModule = {};
 

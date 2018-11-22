@@ -7,13 +7,14 @@ var local = {};
 local.moduleObj = {};
 local.classObj = {};
 local.resultStr = '';
+local.allModuleFuncStrArr = [];
 
 /**
  * 获取一个模块的注释
  * @param {Object} obj 对象
  * @param {String} moduleName 模块名
  */
-outModule.getModuleVsCodeStr = (obj, moduleName) => {
+outModule.getModuleVsCodeStr = (obj, moduleName, addInAll) => {
     if (local.moduleObj[moduleName]) {
         return;
     }
@@ -24,6 +25,9 @@ outModule.getModuleVsCodeStr = (obj, moduleName) => {
         }
         switch (typeof obj[key]) {
             case 'function':
+                if (local.allModuleFuncStrArr.indexOf(`${key}() : void;\n`) < 0 && addInAll) {
+                    local.allModuleFuncStrArr.push(`${key}() : void;\n`);
+                }
                 local.resultStr = local.resultStr + `function ${key}();\n`;
                 break;
             default:
@@ -68,7 +72,12 @@ outModule.getClassVsCodeStr = function (obj, className) {
  * 获取最后的字符串
  */
 outModule.getResultStr = function () {
-    return local.resultStr;
+    let allModuleFuncStr = `declare class AllFunc {\n`;
+    local.allModuleFuncStrArr.forEach(function (oneStr) {
+        allModuleFuncStr = allModuleFuncStr + oneStr;
+    });
+    allModuleFuncStr = allModuleFuncStr + `}\n`;
+    return local.resultStr + allModuleFuncStr;
 };
 
 module.exports = outModule;

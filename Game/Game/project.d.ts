@@ -9,11 +9,14 @@ declare module RandomNameTool {
 declare module ActionFactory {
 	function createOneAction();
 }
-declare module SellGoodFactory {
-	function createOneSellGood();
-}
 declare module MapRandomEvent {
 	function judgeMapRandomEvent();
+}
+declare module ItemModule {
+	function judgeHaveFunctionByName();
+	function getItemFunctionNum();
+	function getTreatItemUseNum();
+	function useItem();
 }
 declare module PersonFactory {
 	function createRandomPerson();
@@ -22,6 +25,7 @@ declare module PersonFactory {
 declare module GlobalData {
 	var SEX_MAN;
 	var SEX_WOMAN;
+	var ITEM_FUNCTION_TYPE_TREAT;
 	function init();
 }
 declare module CityFactory {
@@ -86,15 +90,15 @@ declare module Language_CHS {
 	var random_user_num;
 	var sure;
 }
-declare module VsCodeTool {
+declare module g_VsCodeTool {
 	function getModuleVsCodeStr();
 	function getClassVsCodeStr();
 	function getResultStr();
 }
-declare module LanguageTool {
+declare module g_LanguageTool {
 	function getLanguageStr();
 }
-declare module PrefabManager {
+declare module g_PrefabManager {
 	var prefabSave;
 	function judgeCanClearPrefab();
 	function getPrefab();
@@ -106,19 +110,19 @@ declare module PrefabManager {
 	function init();
 	function loadPrefab();
 }
-declare module GameSceneManager {
+declare module g_GameSceneManager {
 	function addNode();
 }
-declare module ScrollViewTool {
+declare module g_ScrollViewTool {
 	var SCROLL_TYPE_HORIZONTAL;
 	var SCROLL_TYPE_VERTICAL;
 	var SCROLL_TYPE_BOTH;
 	function buildScrollView();
 }
-declare module LogTool {
+declare module g_LogTool {
 	function showLog();
 }
-declare module SpriteFrameManager {
+declare module g_SpriteFrameManager {
 	var spriteUseNodeObj;
 	function getAllUINodeUseSprite();
 	function clearSprite();
@@ -129,23 +133,23 @@ declare module SpriteFrameManager {
 	function loadSpriteAtlas();
 	function loadSpriteFrame();
 }
-declare module JsonDataTool {
+declare module g_JsonDataTool {
 	function init();
 	function getDataByKey();
 	function getTableByName();
 	function getDataById();
 }
-declare module EventManager {
+declare module g_EventManager {
 	function on();
 	function off();
 	function send();
 }
-declare module MemoryManager {
+declare module g_MemoryManager {
 	function getNowSpriteUseMemory();
 	function memoryCheck();
 	function clearMemory();
 }
-declare module GameGlobalManager {
+declare module g_GameGlobalManager {
 	var maxPersonId;
 	var TIMER_TIME;
 	function getNewPersonId();
@@ -154,41 +158,51 @@ declare module GameGlobalManager {
 	function stop();
 	function pause();
 }
-declare module GameTool {
+declare module g_GameTool {
 	function judgeEqualPos();
 	function buildPos();
 	function getNearBuildingCity();
 	function getCityDis();
 }
-declare module BattleManager {
+declare module g_GlobalData {
+	var SEX_MAN;
+	var SEX_WOMAN;
+	var ITEM_FUNCTION_TYPE_TREAT;
+	function init();
+}
+declare module g_BattleManager {
 	function startBattle();
 	function timeUpdate();
 }
-declare module GameData {
+declare module g_GameData {
 	function setData();
 	function getData();
 	function removeData();
 }
-declare module BaseUI {
-	var __props__;
-	var _sealed;
-	var _requireComponent;
-	var _executionOrder;
-	function EventHandler();
-}
-declare module Game {
-	function init();
+declare module g_EventName {
+	var WORLD_TIME_CHANGE;
+	var TIME_UPDATE_HOUR;
+	var TIME_UPDATE_DAY;
+	var TIME_UPDATE_MONTH;
+	var TIME_UPDATE_SEASON;
+	var TIME_UPDATE_YEAR;
+	var USER_ROLE_STATUS_CHANGE;
 }
 declare module GameFactory {
 	function createOneGame();
+}
+declare module ScrollViewTool {
+	var SCROLL_TYPE_HORIZONTAL;
+	var SCROLL_TYPE_VERTICAL;
+	var SCROLL_TYPE_BOTH;
+	function buildScrollView();
 }
 declare module UserRoleFactory {
 	function getRandomUserRoleData();
 	function createUserRole();
 }
 
-
-
+//****************************************
 
 
 declare class UserRoleClass {
@@ -249,7 +263,8 @@ declare class BasePersonClass {
 	_nowMapPos: any;
 	_goalCityId: any;
 	_nowAction: any;
-	_itemArr: any;
+	_itemObj: Object;
+	_equipObj: Object;
 	_money: any;
 	_power: any;
 	_maxItemId: any;
@@ -333,26 +348,39 @@ declare class ActionClass {
 	timeUpdate(): void;
 	getSaveData(): void;
 }
-declare class SellGoodClass {
-	_itemId: any;
-	_name: any;
-	_price: any;
-	_overdueTime: any;
-	_overdueGood: any;
-	_functionArr: any;
-	_functionNumArr: any;
-	_id: any;
-	_getTime: any;
-	dayUpdate(): void;
-	use(): void;
-	sell(): void;
-	getSaveData(): void;
-	judgeHaveFunctionByName(): void;
-}
 declare class BattleClass {
 	_person_1: any;
 	_person_2: any;
 	timeUpdate(): void;
 }
+declare class AllFunc {
+	createOneBuilding(): void;
+	initAllNameArr(): void;
+	removeOneName(): void;
+	getRandomName(): void;
+	createOneAction(): void;
+	judgeMapRandomEvent(): void;
+	judgeHaveFunctionByName(): void;
+	getItemFunctionNum(): void;
+	getTreatItemUseNum(): void;
+	useItem(): void;
+	createRandomPerson(): void;
+	createOneBasePerson(): void;
+	init(): void;
+	createOneCity(): void;
+	getIsLeapYear(): void;
+	getNewDate(): void;
+	getTimeStrWithEra(): void;
+	getSeason(): void;
+	createOneForce(): void;
+	saveGame(): void;
+	useGameSaveData(): void;
+	buildOneBattle(): void;
+	EventHandler(): void;
+	createOneGame(): void;
+	buildScrollView(): void;
+	getRandomUserRoleData(): void;
+	createUserRole(): void;
+}
 
-declare function _g_require();
+declare function _g_require(): AllFunc;

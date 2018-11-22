@@ -7,6 +7,15 @@ var local = {};
 outModule.SEX_MAN = 1;
 outModule.SEX_WOMAN = 2;
 
+outModule.ITEM_FUNCTION_TYPE_TREAT = 'treat';
+
+//先定义
+outModule.MAP_RANDOM_EVENT_RECORD;
+outModule.MAX_POWER;
+outModule.MAX_ITEM_NUM;
+outModule.MIN_POWER_NUM;
+outModule.BATTLE_TIMER_TIME;
+
 outModule.init = function () {
     //大地图随机事件几率
     outModule.MAP_RANDOM_EVENT_RECORD = g_JsonDataTool.getDataById('_table_Game_gameParameter', 1).num;

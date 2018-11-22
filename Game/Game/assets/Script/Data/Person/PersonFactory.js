@@ -3,8 +3,8 @@ var outModule = {};
 var local = {};
 var RandomNameTool = _g_require('RandomNameTool');
 var ActionFactory = _g_require('ActionFactory');
-var SellGoodFactory = _g_require('SellGoodFactory');
 var MapRandomEvent = _g_require('MapRandomEvent');
+var ItemModule = _g_require('ItemModule');
 
 /**
  * 改变人物大地图上的位置
@@ -66,9 +66,6 @@ local.changeMapPos = function (person, addMinutes) {
  * 没有任务的时候会去判断下一步应该执行什么任务
  */
 local.judgeNextAction = (person) => {
-    if (person._itemArr.length > g_GlobalData.MAX_ITEM_NUM) {
-        return ActionFactory.createOneAction(5);
-    }
     if (person._power < g_GlobalData.MAX_POWER / 2) {
         //睡觉
         return (cc.random0To1() < 0.5) ? ActionFactory.createOneAction(3) : ActionFactory.createOneAction(4);
@@ -78,7 +75,7 @@ local.judgeNextAction = (person) => {
 };
 
 /**
- * @param person 已经加好数据的人物，再增加一些操作函数
+ * @param {BasePersonClass} person 已经加好数据的人物，再增加一些操作函数
  */
 local.buildFunc = function (person) {
     //前往一个地点
@@ -145,10 +142,10 @@ local.buildFunc = function (person) {
         for (i = 0; i < rewardArr.length; i++) {
             let id = rewardArr[i];
             let num = rewardArr[i + 1];
-            for (j = 0; j < num; j++) {
-                let sellData = SellGoodFactory.createOneSellGood(id, undefined, person);
-                person._itemArr.push(sellData);
+            if (!person._itemObj[id]) {
+                person._itemObj[id] = 0;
             }
+            person._itemObj[id] = person._itemObj[id] + num;
             i++;
         }
     };
@@ -174,47 +171,31 @@ local.buildFunc = function (person) {
     };
     //日期变化函数
     person.dayUpdate = function () {
-        person._itemArr.forEach(function (oneSellGoodData) {
-            if (oneSellGoodData.dayUpdate) {
-                oneSellGoodData.dayUpdate(person);
-            }
-        });
+
     };
     //获取一个标记物品的id
     person.getNewItemId = function () {
         person._maxItemId++;
         return person._maxItemId - 1;
     };
-    //移除一个物品
-    person.removeItemByItemId = function (itemId) {
-        let i, len, index;
-        for (i = 0, len = person._itemArr.length; i < len; i++) {
-            if (person._itemArr[i]._itemId === itemId) {
-                index = i;
-                person._itemArr.splice(index, 1);
-                break;
+    /**
+     * 移除一个物品
+     * @param itemId 物品id
+     * @param removeNum 移除数量
+     */
+    person.removeItemByItemId = function (itemId, removeNum) {
+        if (person._itemObj[itemId]) {
+            person._itemObj[itemId] = person._itemObj[itemId] - removeNum;
+            if (person._itemObj[itemId] < 0) {
+                g_LogTool.showLog(`removeItemByItemId error ! removeNum is ${removeNum} , nowNum is ${person._itemObj[itemId]}`);
+                person._itemObj[itemId] = 0;
             }
         }
     };
-    //出售指定id的商品，没有指定的话表示全部
-    person.sellGood = function (itemId) {
-        if (!itemId) {
-            //出售全部
-            person._itemArr.forEach((oneItemData) => {
-                oneItemData.sell(person);
-            });
-            person._itemArr = [];
-            return;
-        }
-        let i, len, index;
-        for (i = 0, len = person._itemArr.length; i < len; i++) {
-            if (person._itemArr[i]._itemId === itemId) {
-                index = i;
-                person._itemArr[i].sell(person);
-                person._itemArr.splice(index, 1);
-                break;
-            }
-        }
+    //出售指定id的商品，没有指定数量的话的话表示全部
+    //TODO
+    person.sellGood = function (itemId, num) {
+
     };
     //获取存储的数据
     person.getSaveData = function () {
@@ -241,9 +222,8 @@ local.buildFunc = function (person) {
             nowMapPos: person._nowMapPos,
             goalCityId: person._goalCityId,
             nowAction: person._nowAction ? person._nowAction.getSaveData() : undefined,
-            itemArr: person._itemArr.map(function (oneItemData) {
-                return oneItemData.getSaveData();
-            }),
+            itemObj: person._itemObj,
+            equipObj: person._equipObj,
             money: person._money,
             power: person._power,
             maxItemId: person._maxItemId
@@ -262,20 +242,24 @@ local.buildFunc = function (person) {
     };
     //战斗结束回调
     person.battleFinishCb = function () {
-        if (person._power < g_GlobalData.MIN_POWER_NUM * person._power) {
+        if (person._power < g_GlobalData.MIN_POWER_NUM) {
             person.treat();
         }
         person._inInBattle = false;
     };
     //回复血量
     person.treat = function () {
-        let i, len = person._itemArr.length;
-        for (i = 0; i < len; i++) {
-            if (person._itemArr[i].judgeHaveFunctionByName('treat')) {
-                person._itemArr[i].use();
+        for (var key in person._itemObj) {
+            if (!person._itemObj.hasOwnProperty(key)) {
+                continue;
             }
-            if (person._power >= g_GlobalData.MAX_POWER) {
-                break;
+            if (ItemModule.judgeHaveFunctionByName(key, g_GlobalData.ITEM_FUNCTION_TYPE_TREAT)) {
+                //有这个功能就开始使用
+                while (person._itemObj[key] >= 0 && person._power < g_GlobalData.MAX_POWER) {
+                    //一直使用
+                    let useNum = ItemModule.getTreatItemUseNum();
+                    
+                }
             }
         }
         if (person._power < g_GlobalData.MIN_HP_NUM * g_GlobalData.MAX_POWER) {
@@ -364,7 +348,10 @@ local.createOneBasePerson = function (personId, randomData, cityId) {
     //当前执行的任务
     this._nowAction = undefined;
     //当前的人物的物品数据
-    this._itemArr = [];
+    //物品id -> 物品数量
+    this._itemObj = {};
+    //装备数据
+    this._equipObj = {};
     //货币数量
     this._money = 0;
     //体力
@@ -433,9 +420,10 @@ local.createOneBasePersonBySaveData = function (saveData) {
     //当前执行的任务
     this._nowAction = saveData.nowAction ? ActionFactory.createOneAction(undefined, saveData.nowAction) : undefined;
     //当前的人物的物品数据
-    this._itemArr = saveData.itemArr.map(function (oenData) {
-        return SellGoodFactory.createOneSellGood(undefined, oenData, undefined);
-    });
+    //物品id -> 物品数量
+    this._itemObj = saveData.itemObj;
+    //装备数据
+    this._equipObj = saveData.equipObj;
     //货币数量
     this._money = saveData.money;
     //体力

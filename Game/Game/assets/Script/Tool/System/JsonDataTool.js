@@ -18,6 +18,9 @@ const INTI_DATA_KEY = {
     ],
     '_table_unit_unit': [
         'unitType'
+    ],
+    '_table_item_itemFunction': [
+        'type'
     ]
 };
 
