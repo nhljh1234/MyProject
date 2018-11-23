@@ -104,7 +104,7 @@ export function clearAll() {
     let key;
     for (key in prefabSave) {
         if (!prefabSave.hasOwnProperty(key)) {
-            return;
+            continue;
         }
         clearPrefab(key);
     }

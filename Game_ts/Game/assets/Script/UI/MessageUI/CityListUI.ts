@@ -32,7 +32,7 @@ class CityListUI extends BaseUI {
 
     onShow() {
         super.onShow();
-        let gameData = MyGame.GameManager.gameData;
+        let gameData = MyGame.GameManager.gameDataSave;
         let forceId = MyGame.GameDataSaveTool.getData('show_force_id');
         let cityArr = gameData.getForceById(forceId).cityArr;
         //显示list

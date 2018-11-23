@@ -34,13 +34,13 @@ class PersonListUI extends BaseUI {
 
     onShow() {
         super.onShow();
-        let gameData = MyGame.GameManager.gameData;
+        let gameData = MyGame.GameManager.gameDataSave;
         let cityId = MyGame.GameDataSaveTool.getData('show_city_id');
         let personArr = gameData.getCityById(cityId).personArr;
         //显示list
         MyGame.ScrollViewTool.buildScrollView(this._personListNScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
             this._personListNScrollViewTmpNode, function (childNode: cc.Node, data: Person) {
-                cc.find('button/forceName', childNode).getComponent(cc.Label).string = data.name;
+                cc.find('button/personName', childNode).getComponent(cc.Label).string = data.name;
                 MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_person_id', data.personId);
             }.bind(this), personArr, this._personListNodePool);
         this.buttonTravelRegister(this.node);

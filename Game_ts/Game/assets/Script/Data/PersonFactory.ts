@@ -76,7 +76,11 @@ function judgeNextAction(person: Person): Action {
         //睡觉
         actionId = (cc.random0To1() < 0.5) ? 3 : 4;
     } else {
-        actionId = (cc.random0To1() < 0.5) ? 1 : 2;
+        if (person.getItemTotalNum() > MyGame.MAX_ITEM_NUM) {
+            actionId = 5;
+        } else {
+            actionId = (cc.random0To1() < 0.5) ? 1 : 2;
+        }
     }
     return new Action(actionId, undefined);
 };
@@ -273,6 +277,13 @@ export class Person {
     }
     //获得了物品
     getItem(rewardArr: number[]) {
+        if (rewardArr.length === 0) {
+            return;
+        }
+        if (rewardArr.length % 2 !== 0) {
+            MyGame.LogTool.showLog(`奖励列表错误 ${rewardArr}`);
+            return;
+        }
         let i;
         for (i = 0; i < rewardArr.length; i++) {
             let id = rewardArr[i];
@@ -291,7 +302,7 @@ export class Person {
         }
         if (this.nowAction) {
             //执行动作
-            MyGame.LogTool.showLog(`${this.name} 正在执行 ${this.nowAction.actionName}`);
+            //MyGame.LogTool.showLog(`${this.name} 正在执行 ${this.nowAction.actionName}`);
             if (this.nowAction.doAction(this)) {
                 this.nowAction.timeUpdate(this, addMinutes);
             }
@@ -321,11 +332,6 @@ export class Person {
                 this.itemObj[itemId] = 0;
             }
         }
-    }
-    //出售指定id的商品，没有指定数量的话的话表示全部
-    //TODO
-    sellGood(itemId: number, num: number) {
-
     }
     //获取存储的数据
     getSaveData() {
@@ -385,10 +391,11 @@ export class Person {
             }
             if (MyGame.ItemModule.judgeHaveFunctionByName(parseInt(key), MyGame.ITEM_FUNCTION_TYPE_TREAT)) {
                 //有这个功能就开始使用
+                //TODO 重写治疗相关
                 while (this.itemObj[key] >= 0 && this.power < MyGame.MAX_POWER) {
                     //一直使用
                     let useNum = MyGame.ItemModule.getTreatItemUseNum(this, this.itemObj[key]);
-
+                    MyGame.ItemModule.useItem(this, parseInt(key), useNum);
                 }
             }
         }
@@ -412,6 +419,17 @@ export class Person {
     useHome() {
         this.power = MyGame.MAX_POWER;
         MyGame.LogTool.showLog(`${this.name} 在家休息结束`);
+    }
+
+    getItemTotalNum(): number {
+        let totalNum = 0;
+        for (var key in this.itemObj) {
+            if (!this.itemObj.hasOwnProperty(key)) {
+                continue;
+            }
+            totalNum = totalNum + this.itemObj[key];
+        }
+        return totalNum;
     }
 }
 

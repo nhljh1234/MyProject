@@ -12,7 +12,7 @@ eventFuncObj.battle = function (personData, dataArr) {
 };
 
 //判断会不会有随机事件
-export function judgeMapRandomEvent (personData) {
+export function judgeMapRandomEvent (personData: Person) {
     if (cc.random0To1() >= (MyGame.MAP_RANDOM_EVENT_RECORD / 100)) {
         return;
     }
@@ -26,7 +26,7 @@ export function judgeMapRandomEvent (personData) {
             if (eventFuncObj[mapRandomEventArr[i].type]) {
                 eventFuncObj[mapRandomEventArr[i].type](personData, ('' + mapRandomEventArr[i].num).split(','));
                 personData.mapRandomEventCb();
-                MyGame.LogTool.showLog(`${personData._name} meet event ${mapRandomEventArr[i].name}`);
+                MyGame.LogTool.showLog(`${personData.name} meet event ${mapRandomEventArr[i].name}`);
                 return true;
             }
         }

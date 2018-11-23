@@ -1,5 +1,6 @@
 import { MyGame } from "../Tool/System/Game";
 import { Person } from "./PersonFactory";
+import { Building } from "./Building/BuildingFactory";
 
 export class Action {
     //行动id
@@ -90,7 +91,7 @@ export class Action {
             personData.goToBuilding(this.actionPos);
             return;
         }
-        let buildingData;
+        let buildingData: Building;
         if (this.actionPos !== -1) {
             //判断是否在使用的建筑中，没有的话需要先移动到指定建筑
             buildingData = MyGame.GameManager.gameDataSave.getCityById(personData.personPos.cityId).getBuildingById(this.actionPos);

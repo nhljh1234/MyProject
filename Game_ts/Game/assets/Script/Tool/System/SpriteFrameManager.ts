@@ -41,7 +41,7 @@ export function getAllUINodeUseSprite(UINode) {
     let pathArr: string[] = [];
     for (var key in spriteUseNodeObj) {
         if (!spriteUseNodeObj.hasOwnProperty(key)) {
-            return;
+            continue;
         }
         if (getUINodeIndex(key, UINode) !== undefined) {
             if (pathArr.indexOf(key) < 0) {
@@ -79,7 +79,7 @@ export function clearSprite(path: string) {
 export function clearDestroyNode() {
     for (var key in spriteUseNodeObj) {
         if (!spriteUseNodeObj.hasOwnProperty(key)) {
-            return;
+            continue;
         }
         let array: SpriteUseData[] = spriteUseNodeObj[key];
         let newArray: SpriteUseData[] = [];

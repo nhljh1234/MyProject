@@ -1,6 +1,8 @@
 import { MyGame } from "../Tool/System/Game";
 import { MapPos, Person, createRandomPerson } from "./PersonFactory";
-import { Building } from "./BuildingFactory";
+import { Building } from "./Building/BuildingFactory";
+import { BuildingShop } from "./Building/ShopFactory";
+import { BuildingHospital } from "./Building/HospitalFactory";
 
 export class City {
     //城市id
@@ -58,9 +60,17 @@ export class City {
             return MyGame.GameManager.gameDataSave.getPersonById(personId);
         });
         //建筑列表
-        this.buildingArr = ('' + jsonData.building).split(',').map((buildingId) => {
-            return new Building(parseInt(buildingId), undefined);
-        });
+        this.buildingArr = ('' + jsonData.building).split(',').map(function (buildingId) {
+            let useType = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId);
+            switch (useType) {
+                case 'shop':
+                    return new BuildingShop(parseInt(buildingId), undefined, this);
+                case 'hospital':
+                    return new BuildingHospital(parseInt(buildingId), undefined, this);
+                default:
+                    return new Building(parseInt(buildingId), undefined, this);
+            }
+        }.bind(this));
     }
 
     initCity(cityId: number) {
@@ -89,7 +99,15 @@ export class City {
         }
         //建筑列表
         this.buildingArr = ('' + jsonData.building).split(',').map((buildingId) => {
-            return new Building(parseInt(buildingId), undefined);
+            let useType = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId);
+            switch (useType) {
+                case 'shop':
+                    return new BuildingShop(parseInt(buildingId), undefined, this);
+                case 'hospital':
+                    return new BuildingHospital(parseInt(buildingId), undefined, this);
+                default:
+                    return new Building(parseInt(buildingId), undefined, this);
+            }
         });
     }
 
@@ -109,7 +127,9 @@ export class City {
     }
     //新的一天
     dayUpdate() {
-
+        this.buildingArr.forEach(function (oneBuilding) {
+            oneBuilding.dayUpdate();
+        });
     }
     getSaveData() {
         return {
