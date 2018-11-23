@@ -55,7 +55,7 @@ export class City {
         //人物列表
         //表示家在这个城市的人
         this.personArr = saveData.personArr.map((personId) => {
-            return MyGame.GameManager.gameData.getPersonById(personId);
+            return MyGame.GameManager.gameDataSave.getPersonById(personId);
         });
         //建筑列表
         this.buildingArr = ('' + jsonData.building).split(',').map((buildingId) => {

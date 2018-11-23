@@ -35,10 +35,13 @@
     "_components": [
       {
         "__id__": 24
+      },
+      {
+        "__id__": 25
       }
     ],
     "_prefab": {
-      "__id__": 25
+      "__id__": 26
     },
     "_id": "",
     "_opacity": 255,
@@ -506,7 +509,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 167,
+      "width": 240,
       "height": 80
     },
     "_rotationX": 0,
@@ -541,14 +544,14 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "button",
+    "_N$string": "查看信息",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0
   },
   {
-    "__type__": "f4da3ZD+ZpKErY53P4bDNdB",
+    "__type__": "c141cMG9ttHMpSB0a4zfrYb",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -792,6 +795,15 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 1334,
     "_originalHeight": 750
+  },
+  {
+    "__type__": "6abe7ztJ81Bqp+XdQwDvz/Q",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true
   },
   {
     "__type__": "cc.PrefabInfo",

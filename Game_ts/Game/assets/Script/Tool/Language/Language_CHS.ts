@@ -23,5 +23,6 @@ export let random_command_label:string = '统帅：';
 export let random_intelligence_label:string = '智力：';
 export let random_charm_label:string = '魅力：';
 export let random_politics_label:string = '政治：';
+export let random_btn_label = '随机';
 export let random_user_num:string = '数值随机';
 export let sure:string = '确认';

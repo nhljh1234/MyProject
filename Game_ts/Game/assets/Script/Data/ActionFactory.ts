@@ -62,13 +62,13 @@ export class Action {
     }
 
     //执行动作，返回一个是否开始做了
-    doAction(personData): boolean {
+    doAction(personData: Person): boolean {
         //开始做的话就直接返回
         if (this.isDoing) {
             return true;
         }
         //第一步判断是否在位置
-        if (personData._pos.buildingId !== this.actionPos) {
+        if (personData.personPos.buildingId !== this.actionPos) {
             personData.goToBuilding(this.actionPos);
             return false;
         }
@@ -93,7 +93,7 @@ export class Action {
         let buildingData;
         if (this.actionPos !== -1) {
             //判断是否在使用的建筑中，没有的话需要先移动到指定建筑
-            buildingData = MyGame.GameManager.gameData.getCityById(personData.personPos.cityId).getBuildingById(this.actionPos);
+            buildingData = MyGame.GameManager.gameDataSave.getCityById(personData.personPos.cityId).getBuildingById(this.actionPos);
             if (!buildingData) {
                 this.isDoing = false;
                 personData.goToBuilding(this.actionPos);

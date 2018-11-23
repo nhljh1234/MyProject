@@ -1,4 +1,5 @@
-import MyGame = require('../System/Game');
+import { MyGame } from "../System/Game";
+
 
 //所有的已经用过的人名
 let allNameArr: string[] = [];

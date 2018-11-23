@@ -70,7 +70,7 @@ function changeMapPos(person: Person, addMinutes: number) {
 /**
  * 没有任务的时候会去判断下一步应该执行什么任务
  */
-function judgeNextAction(person: Person) {
+function judgeNextAction(person: Person): Action {
     let actionId: number;
     if (person.power < MyGame.MAX_POWER / 2) {
         //睡觉
@@ -82,7 +82,7 @@ function judgeNextAction(person: Person) {
 };
 
 export class Person {
-    //行动id
+    //任务姓名
     name: string;
     //攻击力
     attack: number;
@@ -218,7 +218,7 @@ export class Person {
         if (this.inInBattle) {
             return;
         }
-        let cityMapPos = MyGame.GameManager.gameData.getCityById(cityId).cityPos;
+        let cityMapPos = MyGame.GameManager.gameDataSave.getCityById(cityId).cityPos;
         if (MyGame.GameTool.judgeEqualPos(cityMapPos, this.goalCityMapPos)) {
             //修正一下
             this.personPos.cityId = cityId;
@@ -229,7 +229,7 @@ export class Person {
         this.goalCityId = cityId;
         //如果当前有大地图坐标的话就以这个数据为出发点，否则使用当前城市的大地图坐标为出发点
         if (this.personPos.cityId !== -1) {
-            this.nowMapPos = MyGame.GameManager.gameData.getCityById(this.personPos.cityId).cityPos;
+            this.nowMapPos = MyGame.GameManager.gameDataSave.getCityById(this.personPos.cityId).cityPos;
         }
         //立马出城
         this.personPos.cityId = -1;
@@ -247,8 +247,8 @@ export class Person {
             }
         }
         let nearCityData = MyGame.GameTool.getNearBuildingCity(buildingId, this.personPos.cityId, undefined, this);
-        if (nearCityData.id !== this.personPos.cityId) {
-            this.goToCity(nearCityData.id);
+        if (nearCityData.cityId !== this.personPos.cityId) {
+            this.goToCity(nearCityData.cityId);
             return;
         }
         //城市内的建筑是立马到达的
@@ -285,19 +285,19 @@ export class Person {
         }
     }
     //时间变化函数
-    timeUpdate = function (addMinutes: number) {
+    timeUpdate(addMinutes: number) {
         if (this.inInBattle) {
             return;
         }
         if (this.nowAction) {
             //执行动作
-            MyGame.LogTool.showLog(`${this.name} 正在执行 ${this.nowAction.name}`);
+            MyGame.LogTool.showLog(`${this.name} 正在执行 ${this.nowAction.actionName}`);
             if (this.nowAction.doAction(this)) {
                 this.nowAction.timeUpdate(this, addMinutes);
             }
         } else {
             this.nowAction = judgeNextAction(this);
-            MyGame.LogTool.showLog(`${this.name} 开始执行 ${this.nowAction.name}`);
+            MyGame.LogTool.showLog(`${this.name} 开始执行 ${this.nowAction.actionName}`);
             if (this.nowAction.doAction(this)) {
                 this.nowAction.timeUpdate(this, addMinutes);
             }
@@ -378,7 +378,7 @@ export class Person {
         this.inInBattle = false;
     }
     //回复血量
-    treat () {
+    treat() {
         for (var key in this.itemObj) {
             if (!this.itemObj.hasOwnProperty(key)) {
                 continue;
@@ -405,11 +405,11 @@ export class Person {
         }
     }
     //触发大地图随机事件
-    mapRandomEventCb = function () {
+    mapRandomEventCb() {
 
     }
     //使用自宅
-    useHome = function () {
+    useHome() {
         this.power = MyGame.MAX_POWER;
         MyGame.LogTool.showLog(`${this.name} 在家休息结束`);
     }

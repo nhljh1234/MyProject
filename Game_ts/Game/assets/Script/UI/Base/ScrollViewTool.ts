@@ -1,4 +1,5 @@
-import HistroyGame = require('../../Tool/System/Game');
+import { MyGame } from "../../Tool/System/Game";
+
 /*global module, require, cc, client */
 /**
  * @desc 模块描述
@@ -34,7 +35,7 @@ export function buildScrollView(scrollViewNode: cc.Node, scrollType: number, tmp
     let contentNode = scrollViewComponent.content;
     if (!contentNode) {
         //cc.ScrollView没有绑定对应的显示内容的节点
-        HistroyGame.LogTool.showLog('buildScrollView: contentNode is null');
+        MyGame.LogTool.showLog('buildScrollView: contentNode is null');
         return;
     }
     //设定滑动类型

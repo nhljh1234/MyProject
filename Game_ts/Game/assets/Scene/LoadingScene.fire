@@ -425,7 +425,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 245,
+      "width": 400,
       "height": 90
     },
     "_rotationX": 0,
@@ -460,7 +460,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "Label",
+    "_N$string": "进入游戏",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -552,7 +552,7 @@
       "__id__": 11
     },
     "_enabled": true,
-    "label_key": "load_load_str"
+    "label_key": "load_game_str"
   },
   {
     "__type__": "cc.Canvas",
@@ -571,7 +571,7 @@
     "_fitHeight": true
   },
   {
-    "__type__": "fcdb3vjv4tImpmFCEQ8bYKZ",
+    "__type__": "0965cqhmQ9Gx6mvwmbyNVpI",
     "_name": "",
     "_objFlags": 0,
     "node": {

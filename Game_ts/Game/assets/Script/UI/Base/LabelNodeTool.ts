@@ -1,4 +1,4 @@
-import HistroyGame = require('../../Tool/System/Game');
+import { MyGame } from "../../Tool/System/Game";
 
 const { ccclass, property } = cc._decorator;
 
@@ -14,6 +14,6 @@ class LabelToolUI extends cc.Component {
         if (!labelComponent) {
             return;
         }
-        labelComponent.string = HistroyGame.LanguageTool.getLanguageStr(this.label_key) || "";
+        labelComponent.string = MyGame.LanguageTool.getLanguageStr(this.label_key) || "";
     }
 }

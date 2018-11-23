@@ -13,8 +13,12 @@ import SpriteFrameManager = require('../../Tool/System/SpriteFrameManager');
 import TimeTool = require('../../Tool/Time/TimeTool');
 import NodeTool = require('../../UI/Base/NodeTool');
 import ScrollViewTool = require('../../UI/Base/ScrollViewTool');
+import BattleManager = require('../../Module/Manager/BattleManager');
 import GameManager = require('../../Module/Manager/GameManager');
+import GameDataSaveTool = require('../../Module/Tool/GameDataSaveTool');
+import GameSaveTool = require('../../Module/Tool/GameSaveTool');
 import GameTool = require('../../Module/Tool/GameTool');
+import EventName = require('../../ModulE/Event/EventName');
 import MapRandomEvent = require('../../ModulE/Event/MapRandomEvent');
 import ItemModule = require('../../Module/Item/ItemModule');
 
@@ -33,8 +37,12 @@ class Game {
     TimeTool = TimeTool;
     NodeTool = NodeTool;
     ScrollViewTool = ScrollViewTool;
+    BattleManager = BattleManager;
     GameManager = GameManager;
+    GameDataSaveTool = GameDataSaveTool;
+    GameSaveTool = GameSaveTool;
     GameTool = GameTool;
+    EventName = EventName;
     MapRandomEvent = MapRandomEvent;
     ItemModule = ItemModule;
 
@@ -47,7 +55,7 @@ class Game {
     //使用开启自动清理内存
     AUTO_CLEAR_MEMORY_FLAG: boolean = true;
     //是否启动强清除模式，这种模式下所有的隐藏的界面都会被清除
-    USE_STRONCLEAR_MODE: boolean = true;
+    USE_STRONG_CLEAR_MODE: boolean = true;
 
     //性别
     SEX_MAN: number = 1;
@@ -67,7 +75,7 @@ class Game {
     MAX_ITEM_NUM: number = undefined;
     MIN_POWER_NUM: number = undefined;
     BATTLE_TIMER_TIME: number = undefined;
-    
+
     ITEM_FUNCTION_TYPE_TREAT = 'treat';
 
     init() {
@@ -83,6 +91,44 @@ class Game {
         //单位分钟
         this.BATTLE_TIMER_TIME = JsonDataTool.getDataById('_table_Game_gameParameter', 5).num;
     }
+}
+
+export function init(oneTaskFinishCb, finishCb) {
+    /**
+     * 初始化的时候加载所有需要的数据
+     * @param {Function} oneTaskFinishCb 完成一个任务的回调
+     * @param {Function} finishCb 所有数据加载完成的回调
+     */
+    let finishNum = 0;
+    const TASK_NUM = 3;
+    PrefabManager.init(() => {
+        finishNum++;
+        if (finishNum === TASK_NUM && finishCb) {
+            finishCb();
+        }
+        if (oneTaskFinishCb) {
+            oneTaskFinishCb(finishNum / TASK_NUM);
+        }
+    });
+    SpriteFrameManager.init(() => {
+        finishNum++;
+        if (finishNum === TASK_NUM && finishCb) {
+            finishCb();
+        }
+        if (oneTaskFinishCb) {
+            oneTaskFinishCb(finishNum / TASK_NUM);
+        }
+    });
+    JsonDataTool.init(() => {
+        finishNum++;
+        if (finishNum === TASK_NUM && finishCb) {
+            finishCb();
+        }
+        if (oneTaskFinishCb) {
+            oneTaskFinishCb(finishNum / TASK_NUM);
+        }
+        MyGame.init();
+    });
 }
 
 let MyGame = new Game();

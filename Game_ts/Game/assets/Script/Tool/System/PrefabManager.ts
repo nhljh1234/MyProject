@@ -1,4 +1,5 @@
-import MyGame = require('./Game');
+import { MyGame } from "./Game";
+
 interface loadData {
     pathStr: string;
     frequency: number;

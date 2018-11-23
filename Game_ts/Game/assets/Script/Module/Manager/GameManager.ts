@@ -1,4 +1,6 @@
 import { MyGame } from "../../Tool/System/Game";
+import { Game } from "../../Data/GameFactory";
+import { UserRole } from "../../Data/UserRoleFactory";
 
 /*global module, require, cc, client */
 /**
@@ -6,13 +8,13 @@ import { MyGame } from "../../Tool/System/Game";
  */
 
 //全局的游戏类
-export let gameData;
+export let gameDataSave: Game;
 //玩家数据
-export let userRole;
+export let userRole: UserRole;
 //已用的最大人物id
 export let maxPersonId: number = 1;
 //承载定时器的component
-let component: cc.Component;
+let componentDave: cc.Component;
 
 //标记时间，就是每帧世界运行的分钟数
 const ONE_SECOND_GAME_MINUTE = 10;
@@ -27,8 +29,8 @@ let pauseFlag = false;
  */
 function minuteUpdate() {
     let addMinute = ONE_SECOND_GAME_MINUTE;
-    if (gameData && gameData.timeUpdate) {
-        gameData.timeUpdate(addMinute);
+    if (gameDataSave && gameDataSave.timeUpdate) {
+        gameDataSave.timeUpdate(addMinute);
     }
 };
 
@@ -47,8 +49,8 @@ function timeUpdate() {
     //保证不超过1
     useSeconds = useSeconds > 1 ? 1 : useSeconds;
     //再次执行定时器
-    component.unschedule(timeUpdate);
-    component.schedule(timeUpdate, TIMER_TIME - useSeconds, 1);
+    componentDave.unschedule(timeUpdate);
+    componentDave.schedule(timeUpdate, TIMER_TIME - useSeconds, 1);
 };
 
 //获取一个新的人物id
@@ -61,9 +63,9 @@ export function getNewPersonId() {
  * @param component 组件
  * @param gameData GameFactory生成的数据
  */
-function init(component: cc.Component, gameData: any) {
-    component = component;
-    gameData = gameData;
+export function init(component: cc.Component, gameData: any) {
+    componentDave = component;
+    gameDataSave = gameData;
     //将配置中的名字都设置为不可随机的
     MyGame.RandomNameTool.initAllNameArr(MyGame.JsonDataTool.getTableByName('_table_person_person').array);
 };
@@ -72,8 +74,8 @@ function init(component: cc.Component, gameData: any) {
  * 开始游戏中的定时器
  */
 export function start() {
-    if (component) {
-        component.schedule(timeUpdate, TIMER_TIME, 1);
+    if (componentDave) {
+        componentDave.schedule(timeUpdate, TIMER_TIME, 1);
     }
 };
 
@@ -81,7 +83,7 @@ export function start() {
  * 停止游戏的定时器
  */
 export function stop() {
-    component.unschedule(timeUpdate);
+    componentDave.unschedule(timeUpdate);
 };
 
 /**

@@ -11,6 +11,7 @@ export function saveNodeValue (node: cc.Node, key: string, value: any) {
     if (!nodeDataSave[node.tag]) {
         node.tag = tagId;
         tagId++;
+        nodeDataSave[node.tag] = {};
     }
     nodeDataSave[node.tag][key] = value;
 }

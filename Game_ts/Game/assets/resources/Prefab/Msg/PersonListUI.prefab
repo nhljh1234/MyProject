@@ -38,10 +38,13 @@
     "_components": [
       {
         "__id__": 44
+      },
+      {
+        "__id__": 45
       }
     ],
     "_prefab": {
-      "__id__": 45
+      "__id__": 46
     },
     "_id": "",
     "_opacity": 255,
@@ -635,14 +638,14 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "button",
+    "_N$string": "返回",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 1
   },
   {
-    "__type__": "f4da3ZD+ZpKErY53P4bDNdB",
+    "__type__": "c141cMG9ttHMpSB0a4zfrYb",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1443,6 +1446,15 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 1334,
     "_originalHeight": 750
+  },
+  {
+    "__type__": "8e948PKj2hDp4F2/svxqzCH",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true
   },
   {
     "__type__": "cc.PrefabInfo",

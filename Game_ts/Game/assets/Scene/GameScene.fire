@@ -363,18 +363,12 @@
     "_fitHeight": true
   },
   {
-    "__type__": "3c3f3KkBRhKz4jdlaNGUxOR",
+    "__type__": "698820XjLVDKJbAbVdkEZc2",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 2
     },
-    "_enabled": true,
-    "_leftNode": null,
-    "_topNode": null,
-    "_rightNode": null,
-    "_bottomNode": null,
-    "_midNode": null,
-    "_uiName": null
+    "_enabled": true
   }
 ]

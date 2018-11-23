@@ -1,6 +1,7 @@
 import { MapPos } from "../../Data/PersonFactory";
 import { Person } from "../../Data/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
+import { City } from "../../Data/CityFactory";
 
 /**
  * 这边封装了很多游戏内用的函数
@@ -35,28 +36,28 @@ export function buildPos(x, y): MapPos {
  * @param nowCityData 出发城市的数据
  * @param personData 
  */
-export function getNearBuildingCity(buildingId: number, nowCityId: number, nowCityData, personData: Person) {
+export function getNearBuildingCity(buildingId: number, nowCityId: number, nowCityData: City, personData: Person): City {
     let nowMapPos;
     if (nowCityId === -1) {
         nowMapPos = personData.nowMapPos;
     } else {
-        nowCityData = nowCityData || MyGame.GameManager.gameData.getCityById(nowCityId);
+        nowCityData = nowCityData || MyGame.GameManager.gameDataSave.getCityById(nowCityId);
         if (nowCityData.getBuildingById(buildingId)) {
             return nowCityData;
         }
-        nowMapPos = nowCityData._cityPos;
+        nowMapPos = nowCityData.cityPos;
     }
     if (buildingId === -1) {
-        return MyGame.GameManager.gameData.getCityById(personData.homePos);
+        return MyGame.GameManager.gameDataSave.getCityById(personData.homePos);
     }
-    let hasBuildingCityArr = MyGame.GameManager.gameData._allCityArr.filter((oneCityData) => {
+    let hasBuildingCityArr = MyGame.GameManager.gameDataSave.allCityArr.filter((oneCityData) => {
         return oneCityData.getBuildingById(buildingId);
     });
     let i, len, minDis = -1, dis, returnCityData;
     for (i = 0, len = hasBuildingCityArr.length; i < len; i++) {
         let cityData = hasBuildingCityArr[i];
-        dis = (cityData._cityPos.x - nowMapPos.x) * (cityData._cityPos.x - nowMapPos.x) +
-            (cityData._cityPos.y - nowMapPos.y) * (cityData._cityPos.y - nowMapPos.y);
+        dis = (cityData.cityPos.x - nowMapPos.x) * (cityData.cityPos.x - nowMapPos.x) +
+            (cityData.cityPos.y - nowMapPos.y) * (cityData.cityPos.y - nowMapPos.y);
         if (minDis === -1 || minDis > dis) {
             minDis = dis;
             returnCityData = cityData;
@@ -72,8 +73,8 @@ export function getNearBuildingCity(buildingId: number, nowCityId: number, nowCi
  */
 export function getCityDis(cityId_1: number, cityId_2: number) {
     let cityData_1, cityData_2;
-    cityData_1 = MyGame.GameManager.gameData.getCityById(cityId_1);
-    cityData_2 = MyGame.GameManager.gameData.getCityById(cityId_2);
+    cityData_1 = MyGame.GameManager.gameDataSave.getCityById(cityId_1);
+    cityData_2 = MyGame.GameManager.gameDataSave.getCityById(cityId_2);
     return Math.sqrt((cityData_1._cityPos.x - cityData_2._cityPos.x) * (cityData_1._cityPos.x - cityData_2._cityPos.x) +
         (cityData_1._cityPos.y - cityData_2._cityPos.y) * (cityData_1._cityPos.y - cityData_2._cityPos.y));
 };

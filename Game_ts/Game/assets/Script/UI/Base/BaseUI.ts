@@ -1,32 +1,32 @@
-import HistroyGame = require('../../Tool/System/Game');
- 
+import { MyGame } from "../../Tool/System/Game";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class BaseUI extends cc.Component {
 
-    uiName: string = undefined;
+    _uiName: string = undefined;
 
-    leftNode: cc.Node = undefined;
-    topNode: cc.Node = undefined;
-    rightNode: cc.Node = undefined;
-    bottomNode: cc.Node = undefined;
-    midNode: cc.Node = undefined;
+    _leftNode: cc.Node = undefined;
+    _topNode: cc.Node = undefined;
+    _rightNode: cc.Node = undefined;
+    _bottomNode: cc.Node = undefined;
+    _midNode: cc.Node = undefined;
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        if (this.uiName) {
-            this.node.name = this.uiName;
+        if (this._uiName) {
+            this.node.name = this._uiName;
         }
-        this.leftNode = this.node.getChildByName('Left');
-        this.topNode = this.node.getChildByName('Top');
-        this.rightNode = this.node.getChildByName('Right');
-        this.bottomNode = this.node.getChildByName('Bottom');
-        this.midNode = this.node.getChildByName('Mid');
+        this._leftNode = this.node.getChildByName('Left');
+        this._topNode = this.node.getChildByName('Top');
+        this._rightNode = this.node.getChildByName('Right');
+        this._bottomNode = this.node.getChildByName('Bottom');
+        this._midNode = this.node.getChildByName('Mid');
         this.onUIInit();
+        this.buttonTravelRegister(this.node);
         this.onShow();
-
     }
 
     start() {
@@ -45,6 +45,10 @@ export default class BaseUI extends cc.Component {
 
     }
 
+    onDestroy () {
+        
+    }
+
     /**
     * 隐藏UI
     * @param {boolean} deleteFlag 是否清除
@@ -54,8 +58,8 @@ export default class BaseUI extends cc.Component {
         if (deleteFlag) {
             this.node.removeFromParent(true);
             this.node.destroy();
-            HistroyGame.NodeTool.saveNodeValue(this.node, '_tj_isDestroy', true);
-            HistroyGame.SpriteFrameManager.clearDestroyNode();
+            MyGame.NodeTool.saveNodeValue(this.node, '_tj_isDestroy', true);
+            MyGame.SpriteFrameManager.clearDestroyNode();
         }
     }
 
