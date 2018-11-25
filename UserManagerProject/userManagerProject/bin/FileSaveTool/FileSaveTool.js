@@ -102,7 +102,7 @@ outModule.getJsonData = (jsonFileName, successCb, failCb) => {
         }
         return;
     }
-    fs.readFile(path.join(__dirname, '..', 'JsonFile', jsonFileName + '.json'), 'utf8', function(err, data) {
+    fs.readFile(path.join(__dirname, 'JsonFile', jsonFileName + '.json'), 'utf8', function(err, data) {
         if (err) {
             console.log(`readFile error ! error is ${err}`);
             if (failCb) {
@@ -127,7 +127,7 @@ outModule.getJsonData = (jsonFileName, successCb, failCb) => {
 outModule.saveJsonData = (jsonFileName, data, successCb, failCb) => {
     try {
         data = JSON.stringify(data);
-        fs.writeFile('./bin/JsonFile/' + jsonFileName + '.json', data, 'utf8', function(err) {
+        fs.writeFile(path.join(__dirname, 'JsonFile', jsonFileName + '.json'), data, 'utf8', function(err) {
             if (err) {
                 console.log(`writeFile error ! error is ${err}`);
                 if (failCb) {

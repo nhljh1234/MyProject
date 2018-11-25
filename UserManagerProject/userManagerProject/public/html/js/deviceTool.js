@@ -1,6 +1,6 @@
 let deviceChangeDataSave = {};
 var buildDevice = function() {
-    $.post('http://localhost:8888/buildDevice', {
+    $.post('http://47.92.253.131:3389/buildDevice', {
         deviceId: document.getElementById('b_device_id').value || 1,
         customerName: document.getElementById('b_customer_name') ? document.getElementById('b_customer_name').value : '空',
         customerPhone: document.getElementById('b_customer_phone') ? document.getElementById('b_customer_phone').value : '空',
@@ -170,7 +170,7 @@ var showChangeDeviceMsg = function(data) {
 };
 var changeDevice = function() {
     if (document.getElementById('v_customer_name')) {
-        $.post('http://localhost:8888/changeDevice', {
+        $.post('http://47.92.253.131:3389/changeDevice', {
             deviceId: local.selectDeviceId,
             customerName: document.getElementById('v_customer_name') ? document.getElementById('v_customer_name').value : undefined,
             customerPhone: document.getElementById('v_customer_name') ? document.getElementById('v_customer_phone').value : undefined,

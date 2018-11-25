@@ -12,7 +12,7 @@ var changeSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://localhost:8888/changeSellCard', {
+    $.post('http://47.92.253.131:3389/changeSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         customerName: document.getElementById('s_customer_name') ? document.getElementById('s_customer_name').value : '空',
@@ -41,7 +41,7 @@ var buildSellCard = function() {
     if (!local.buildSellCardValue) {
         local.buildSellCardValue = {};
     }
-    $.post('http://localhost:8888/buildSellCard', {
+    $.post('http://47.92.253.131:3389/buildSellCard', {
         deviceId: document.getElementById('s_deviceId').value || 1,
         num: document.getElementById('s_num').value || 1,
         customerName: document.getElementById('s_customer_name') ? document.getElementById('s_customer_name').value : '空',
@@ -112,7 +112,7 @@ var getSellCardTrNode = function(oneData) {
     aNode.href = "#";
     aNode.innerText = "删除";
     aNode.onclick = function() {
-        $.post('http://localhost:8888/deleteSellCard', {
+        $.post('http://47.92.253.131:3389/deleteSellCard', {
             deleteDeviceId: oneData.deviceId
         }, function(result) {
             if (result.ret === -2) {
