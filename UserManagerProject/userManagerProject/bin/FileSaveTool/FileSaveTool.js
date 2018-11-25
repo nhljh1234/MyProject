@@ -1,6 +1,7 @@
 var outModule = {};
 var local = {};
 var fs = require('fs'); //文件模块
+var path = require('path');
 
 local.fileSave = {};
 
@@ -101,7 +102,7 @@ outModule.getJsonData = (jsonFileName, successCb, failCb) => {
         }
         return;
     }
-    fs.readFile('./bin/JsonFile/' + jsonFileName + '.json', 'utf8', function(err, data) {
+    fs.readFile(path.join(__dirname, '..', 'JsonFile', jsonFileName + '.json'), 'utf8', function(err, data) {
         if (err) {
             console.log(`readFile error ! error is ${err}`);
             if (failCb) {
