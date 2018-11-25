@@ -1,0 +1,109 @@
+2018-11-20T12:27:58.484Z - normal: Load ~/.CocosCreator/settings.json
+2018-11-20T12:27:58.494Z - normal: checking language setting...
+2018-11-20T12:27:58.494Z - normal: Language: zh
+2018-11-20T12:28:16.776Z - success: protocol editor-framework registered
+2018-11-20T12:28:16.776Z - success: protocol app registered
+2018-11-20T12:28:16.776Z - success: protocol theme registered
+2018-11-20T12:28:16.777Z - success: protocol packages registered
+2018-11-20T12:28:16.777Z - success: protocol unpack registerred
+2018-11-20T12:28:16.777Z - success: protocol disable-commonjs registerred
+2018-11-20T12:28:17.014Z - normal: connected!
+2018-11-20T12:28:17.018Z - normal: Check project E:\MyProject\Game\Game
+2018-11-20T12:28:17.022Z - normal: Initializing Cocos2d
+2018-11-20T12:28:25.578Z - normal: Initializing Asset Database
+2018-11-20T12:28:26.434Z - success: protocol uuid registerred
+2018-11-20T12:28:26.435Z - success: protocol db registerred
+2018-11-20T12:28:26.435Z - success: protocol thumbnail registerred
+2018-11-20T12:28:26.435Z - normal: Loading editor/builtin packages
+2018-11-20T12:28:26.704Z - success: anysdk loaded
+2018-11-20T12:28:27.648Z - success: assets loaded
+2018-11-20T12:28:27.701Z - success: builder loaded
+2018-11-20T12:28:27.708Z - success: cocos-analytics loaded
+2018-11-20T12:28:27.717Z - success: console loaded
+2018-11-20T12:28:27.891Z - success: fb-instant-games loaded
+2018-11-20T12:28:27.900Z - success: hierarchy loaded
+2018-11-20T12:28:27.908Z - success: inspector loaded
+2018-11-20T12:28:27.912Z - success: keystore loaded
+2018-11-20T12:28:27.921Z - success: node-library loaded
+2018-11-20T12:28:27.927Z - success: package-asset loaded
+2018-11-20T12:28:27.935Z - success: preferences loaded
+2018-11-20T12:28:27.939Z - success: project-exporter loaded
+2018-11-20T12:28:28.017Z - success: project-importer loaded
+2018-11-20T12:28:28.022Z - success: project-settings loaded
+2018-11-20T12:28:28.029Z - success: ui-kit loaded
+2018-11-20T12:28:28.172Z - success: ui-grid loaded
+2018-11-20T12:28:28.196Z - success: scene loaded
+2018-11-20T12:28:28.199Z - success: sprite-editor loaded
+2018-11-20T12:28:28.208Z - success: store loaded
+2018-11-20T12:28:28.229Z - success: timeline loaded
+2018-11-20T12:28:28.230Z - normal: Loading builtin packages
+2018-11-20T12:28:28.949Z - success: asset-db-debugger loaded
+2018-11-20T12:28:28.989Z - success: code-editor loaded
+2018-11-20T12:28:28.990Z - success: color-picker loaded
+2018-11-20T12:28:29.090Z - success: package-manager loaded
+2018-11-20T12:28:29.094Z - success: qqplay-adapter loaded
+2018-11-20T12:28:29.130Z - success: sdkbox loaded
+2018-11-20T12:28:29.236Z - success: tester loaded
+2018-11-20T12:28:29.332Z - success: ui-kit-preview-extra loaded
+2018-11-20T12:28:29.538Z - success: ui-kit-preview loaded
+2018-11-20T12:28:29.643Z - success: ui-tree loaded
+2018-11-20T12:28:29.645Z - success: weapp-adapter loaded
+2018-11-20T12:28:40.195Z - normal: Initializing project E:\MyProject\Game\Game
+2018-11-20T12:28:40.217Z - normal: Loading packages
+2018-11-20T12:28:40.273Z - normal: Watching packages
+2018-11-20T12:28:44.372Z - normal: Run Application
+2018-11-20T12:28:47.603Z - warn: [db-task][init] Backup unused meta file: db://assets/resources/Image.meta
+2018-11-20T12:29:14.895Z - success: preview server running at http://localhost:7456
+2018-11-20T12:29:51.495Z - error: Failed to remove menu in path: 开发者/UI Preview/ui-grid (could not be found)
+    at Menu.remove (E:\CocosCreator\resources\app.asar\editor-framework\lib\main\menu.js:1:6080)
+    at Object.MainMenu.remove (E:\CocosCreator\resources\app.asar\editor-framework\lib\main\main-menu.js:1:4485)
+    at Async.series.a (E:\CocosCreator\resources\app.asar\editor-framework\lib\main\package.js:1:5122)
+    at E:\CocosCreator\resources\app.asar\node_modules\async\lib\async.js:718:13
+    at Immediate.iterate (E:\CocosCreator\resources\app.asar\node_modules\async\lib\async.js:262:13)
+    at runCallback (timers.js:672:20)
+    at tryOnImmediate (timers.js:645:5)
+    at processImmediate [as _immediateCallback] (timers.js:617:5)
+2018-11-20T12:29:51.502Z - error: Failed to remove menu in path: 开发者/UI Preview/ui-grid-webview (could not be found)
+    at Menu.remove (E:\CocosCreator\resources\app.asar\editor-framework\lib\main\menu.js:1:6080)
+    at Object.MainMenu.remove (E:\CocosCreator\resources\app.asar\editor-framework\lib\main\main-menu.js:1:4485)
+    at Async.series.a (E:\CocosCreator\resources\app.asar\editor-framework\lib\main\package.js:1:5122)
+    at E:\CocosCreator\resources\app.asar\node_modules\async\lib\async.js:718:13
+    at Immediate.iterate (E:\CocosCreator\resources\app.asar\node_modules\async\lib\async.js:262:13)
+    at runCallback (timers.js:672:20)
+    at tryOnImmediate (timers.js:645:5)
+    at processImmediate [as _immediateCallback] (timers.js:617:5)
+2018-11-20T12:29:51.503Z - success: ui-grid unloaded
+2018-11-20T12:29:51.538Z - success: ui-grid loaded
+2018-11-20T12:29:54.214Z - normal: 1.9.3
+2018-11-20T13:03:26.861Z - failed: load script [E:\MyProject\Game\Game\temp\quick-scripts\assets\Script\UI\RandomRoleUI\RandomRoleUI.js] failed : ReferenceError: xxx is not defined
+    at __define (E:\MyProject\Game\Game\temp\quick-scripts\assets\Script\UI\RandomRoleUI\RandomRoleUI.js:17:18)
+    at E:\MyProject\Game\Game\temp\quick-scripts\assets\Script\UI\RandomRoleUI\RandomRoleUI.js:60:13
+    at Object.<anonymous> (E:\MyProject\Game\Game\temp\quick-scripts\assets\Script\UI\RandomRoleUI\RandomRoleUI.js:67:11)
+    at Object.<anonymous> (E:\MyProject\Game\Game\temp\quick-scripts\assets\Script\UI\RandomRoleUI\RandomRoleUI.js:70:3)
+    at Module._compile (module.js:571:32)
+    at Object.Module._extensions..js (module.js:580:10)
+    at Module.load (module.js:488:32)
+    at tryModuleLoad (module.js:447:12)
+    at Function.Module._load (module.js:439:3)
+    at Module.require (module.js:498:17)
+2018-11-20T13:03:58.541Z - warn: [db-task][sync-changes] Backup unused meta file: db://assets/Script/UI/RandomRoleUI.meta
+2018-11-20T13:03:58.606Z - warn: [db-task][sync-changes] Backup unused meta file: db://assets/Script/UI/UserBuildUI/RandomRoleUI.js.meta
+2018-11-20T14:23:18.241Z - failed: [db-task][sync-changes] Failed to import asset E:\MyProject\Game\Game\assets\Script\UI\UserBuildUI\UserBuildUI.js, message: Compile error: SyntaxError: E:/MyProject/Game/Game/assets/Script/UI/UserBuildUI/UserBuildUI.js: Unexpected token, expected , (17:8)
+  15 |         _randomSexToggleNode: null,
+  16 |         _randomH
+> 17 |         _randomName: null,
+     |         ^
+  18 |         _randomSex: null
+  19 |     },
+  20 | 
+    at Parser.pp$5.raise (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:4454:13)
+    at Parser.pp.unexpected (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:1761:8)
+    at Parser.pp.expect (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:1749:33)
+    at Parser.pp$3.parseObj (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:3978:12)
+    at Parser.pp$3.parseExprAtom (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:3719:19)
+    at Parser.pp$3.parseExprSubscripts (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:3494:19)
+    at Parser.pp$3.parseMaybeUnary (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:3474:19)
+    at Parser.pp$3.parseExprOps (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:3404:19)
+    at Parser.pp$3.parseMaybeConditional (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:3381:19)
+    at Parser.pp$3.parseMaybeAssign (E:\CocosCreator\resources\app.asar\node_modules\babylon\lib\index.js:3344:19)
+2018-11-20T14:38:24.001Z - info: shutdown preview server

@@ -25,10 +25,10 @@ const INTI_DATA_KEY = {
  * @param {Function} finishCb 
  */
 export function init(finishCb: Function) {
-    cc.loader.loadResDir('Excel_Data', function (err, objects, urls) {
+    cc.loader.loadResDir('Excel_Data', function (err, objects: cc.JsonAsset[], urls) {
         urls.forEach(function (oneUrl, index) {
             oneUrl = oneUrl.replace("Excel_Data/", "");
-            localJsonDataSave[oneUrl] = objects[index];
+            localJsonDataSave[oneUrl] = objects[index].json;
             //对INTI_DATA_KEY的数据进行处理
             if (INTI_DATA_KEY[oneUrl]) {
                 INTI_DATA_KEY[oneUrl].forEach((keyName) => {

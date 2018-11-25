@@ -95,15 +95,13 @@ export default class BaseUI extends cc.Component {
         }.bind(this));
     }
 
-    buttonClickCb(clickEvent: cc.Event.EventCustom) {
+    buttonClickCb(buttonComponent: cc.Button) {
             //解析参数
             //触发事件的结点
-            var node = clickEvent.currentTarget;
-            //触发事件的按钮组件
-            var component = clickEvent.detail;
+            var node = buttonComponent.node;
             //组件的名字
             var name = node.name;
-            this.onButtonClick(name, node, component);
+            this.onButtonClick(name, node, buttonComponent);
     }
 
     onButtonClick(name: string, node: cc.Node, component: cc.Component) {

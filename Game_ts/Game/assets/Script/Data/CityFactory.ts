@@ -122,7 +122,7 @@ export class City {
     }
     //在这个城市新建一个随机人物
     createOneRandomPerson(sex: number) {
-        sex = sex ? sex : (cc.random0To1() < 0.5 ? MyGame.SEX_MAN : MyGame.SEX_WOMAN);
+        sex = sex ? sex : (Math.random() < 0.5 ? MyGame.SEX_MAN : MyGame.SEX_WOMAN);
         return createRandomPerson(sex, this.cityId);
     }
     //新的一天

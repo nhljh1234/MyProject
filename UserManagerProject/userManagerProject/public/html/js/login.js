@@ -16,17 +16,7 @@ var login = function() {
             return;
         }
         localStorage.setItem('userType', result.userType);
-        switch (result.userType) {
-            case 1:
-                window.location.href = 'html_1.html';
-                break;
-            case 2:
-                window.location.href = 'html_2.html';
-                break;
-            case 3:
-                window.location.href = 'html_3.html';
-                break;
-        }
+        window.location.href = 'html_' + result.userType + '.html';
     }, "json");
 };
 

@@ -13,7 +13,7 @@ eventFuncObj.battle = function (personData, dataArr) {
 
 //判断会不会有随机事件
 export function judgeMapRandomEvent (personData: Person) {
-    if (cc.random0To1() >= (MyGame.MAP_RANDOM_EVENT_RECORD / 100)) {
+    if (Math.random() >= (MyGame.MAP_RANDOM_EVENT_RECORD / 100)) {
         return;
     }
     let mapRandomEventData = MyGame.JsonDataTool.getTableByName('_table_event_mapRandomEvent');
@@ -21,7 +21,7 @@ export function judgeMapRandomEvent (personData: Person) {
     let i, len;
     for (i = 0, len = mapRandomEventArr.length; i < len; i++) {
         let randomNum = mapRandomEventArr[i].randomNum / 100;
-        if (cc.random0To1() < randomNum) {
+        if (Math.random() < randomNum) {
             //触发
             if (eventFuncObj[mapRandomEventArr[i].type]) {
                 eventFuncObj[mapRandomEventArr[i].type](personData, ('' + mapRandomEventArr[i].num).split(','));

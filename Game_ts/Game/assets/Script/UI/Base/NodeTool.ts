@@ -1,4 +1,3 @@
-let tagId: number = 1;
 let nodeDataSave: { [num: number]: { [key: string]: any } } = {};
 
 /**
@@ -8,17 +7,15 @@ let nodeDataSave: { [num: number]: { [key: string]: any } } = {};
  * @param value 
  */
 export function saveNodeValue (node: cc.Node, key: string, value: any) {
-    if (!nodeDataSave[node.tag]) {
-        node.tag = tagId;
-        tagId++;
-        nodeDataSave[node.tag] = {};
+    if (!nodeDataSave[node.uuid]) {
+        nodeDataSave[node.uuid] = {};
     }
-    nodeDataSave[node.tag][key] = value;
+    nodeDataSave[node.uuid][key] = value;
 }
 
 export function getNodeValue (node: cc.Node, key: string) {
-    if (!nodeDataSave[node.tag]) {
+    if (!nodeDataSave[node.uuid]) {
         return undefined;
     }
-    return nodeDataSave[node.tag][key];
+    return nodeDataSave[node.uuid][key];
 }

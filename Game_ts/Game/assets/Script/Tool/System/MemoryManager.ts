@@ -53,9 +53,9 @@ export function getNowSpriteUseMemory() {
  * 检测内存情况
  */
 export function memoryCheck() {
-    if (getNowSpriteUseMemory() > MyGame.MAX_MEMORY_NUM) {
+    //if (getNowSpriteUseMemory() > MyGame.MAX_MEMORY_NUM) {
         clearMemory();
-    }
+    //}
 }
 
 /**

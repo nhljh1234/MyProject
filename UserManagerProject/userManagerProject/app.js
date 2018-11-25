@@ -6,30 +6,56 @@ var app = express();
 var bodyParser = require('body-parser');
 var FileStore = require('session-file-store')(session);
 var path = require('path');
+var FileSaveTool = require('./bin/FileSaveTool/FileSaveTool');
 
-var GetDeviceMsg = require('./bin/Module/Device/GetDeviceMsg');
-var BuildDevice = require('./bin/Module/Device/BuildDevice');
-var DeleteDevice = require('./bin/Module/Device/DeleteDevice');
-var ChangeDevice = require('./bin/Module/Device/ChangeDevice');
+FileSaveTool.init();
 
-var GetUserMsg = require('./bin/Module/User/GetUserMsg');
-var ChectUser = require('./bin/Module/User/CheckUser');
-var BuildUser = require('./bin/Module/User/BuildUser');
-var DeleteUser = require('./bin/Module/User/DeleteUser');
+var GetDeviceMsg;
+var BuildDevice;
+var DeleteDevice;
+var ChangeDevice;
 
-var BuildSellCard = require('./bin/Module/SellCard/BuildSellCard');
-var GetSellCardMsg = require('./bin/Module/SellCard/GetSellCardMsg');
-var ChangeSellCard = require('./bin/Module/SellCard/ChangeSellCard');
-var DeleteSellCard = require('./bin/Module/SellCard/DeleteSellCard');
+var GetUserMsg;
+var ChectUser;
+var BuildUser;
+var DeleteUser;
 
-app.use(bodyParser.urlencoded({ extended: false }));
+var BuildSellCard;
+var GetSellCardMsg;
+var ChangeSellCard;
+var DeleteSellCard;
+
+const USE_MYSQL_SAVE = 1;
+const USE_FILE_SAVE = 2;
+let USE_TYPE = USE_FILE_SAVE;
+
+//这边做一下区分
+if (USE_TYPE === USE_FILE_SAVE) {
+    GetDeviceMsg = require('./bin/Module/UseFile/Device/GetDeviceMsg');
+    BuildDevice = require('./bin/Module/UseFile/Device/BuildDevice');
+    DeleteDevice = require('./bin/Module/UseFile/Device/DeleteDevice');
+    ChangeDevice = require('./bin/Module/UseFile/Device/ChangeDevice');
+
+    GetUserMsg = require('./bin/Module/UseFile/User/GetUserMsg');
+    ChectUser = require('./bin/Module/UseFile/User/CheckUser');
+    BuildUser = require('./bin/Module/UseFile/User/BuildUser');
+    DeleteUser = require('./bin/Module/UseFile/User/DeleteUser');
+
+    BuildSellCard = require('./bin/Module/UseFile/SellCard/BuildSellCard');
+    GetSellCardMsg = require('./bin/Module/UseFile/SellCard/GetSellCardMsg');
+    ChangeSellCard = require('./bin/Module/UseFile/SellCard/ChangeSellCard');
+    DeleteSellCard = require('./bin/Module/UseFile/SellCard/DeleteSellCard');
+} else {
+
+}
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 app.use(session({
-    name: 'skey',
+    name: 'session',
     secret: 'secret', // 用来对session id相关的cookie进行签名
-    store: new FileStore(), // 本地存储session（文本文件，也可以选择其他store，比如redis的）
     saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
     resave: false, // 是否每次都重新保存会话，建议false
     rolling: true,

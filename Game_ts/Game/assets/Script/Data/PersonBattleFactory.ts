@@ -22,7 +22,7 @@ export class PersonBattle {
         let isPersonHeadAttack = false;
         //随机先手
         let totalNum = attack_1 + attack_2;
-        if (cc.random0To1() < (attack_1 / totalNum)) {
+        if (Math.random() < (attack_1 / totalNum)) {
             isPersonHeadAttack = true;
         }
         let hurtNum, personAttack: Person, personDef: Person;

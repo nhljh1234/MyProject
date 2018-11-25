@@ -74,12 +74,12 @@ function judgeNextAction(person: Person): Action {
     let actionId: number;
     if (person.power < MyGame.MAX_POWER / 2) {
         //睡觉
-        actionId = (cc.random0To1() < 0.5) ? 3 : 4;
+        actionId = (Math.random() < 0.5) ? 3 : 4;
     } else {
         if (person.getItemTotalNum() > MyGame.MAX_ITEM_NUM) {
             actionId = 5;
         } else {
-            actionId = (cc.random0To1() < 0.5) ? 1 : 2;
+            actionId = (Math.random() < 0.5) ? 1 : 2;
         }
     }
     return new Action(actionId, undefined);
@@ -444,13 +444,13 @@ export function createRandomPerson(sex: number, cityId: number) {
     randomData.sex = sex || MyGame.SEX_MAN;
     randomData.name = MyGame.RandomNameTool.getRandomName(randomData.sex);
     //随机数据
-    randomData.attack = 40 + Math.ceil(cc.random0To1() * 60);
-    randomData.def = 40 + Math.ceil(cc.random0To1() * 60);
-    randomData.command = 40 + Math.ceil(cc.random0To1() * 60);
-    randomData.intelligence = 40 + Math.ceil(cc.random0To1() * 60);
-    randomData.charm = 40 + Math.ceil(cc.random0To1() * 60);
-    randomData.politics = 40 + Math.ceil(cc.random0To1() * 60);
-    randomData.hp = 600 + Math.ceil(cc.random0To1() * 400);
+    randomData.attack = 40 + Math.ceil(Math.random() * 60);
+    randomData.def = 40 + Math.ceil(Math.random() * 60);
+    randomData.command = 40 + Math.ceil(Math.random() * 60);
+    randomData.intelligence = 40 + Math.ceil(Math.random() * 60);
+    randomData.charm = 40 + Math.ceil(Math.random() * 60);
+    randomData.politics = 40 + Math.ceil(Math.random() * 60);
+    randomData.hp = 600 + Math.ceil(Math.random() * 400);
     randomData.moveSpeed = 5;
     return new Person(undefined, undefined, cityId, randomData);
 };

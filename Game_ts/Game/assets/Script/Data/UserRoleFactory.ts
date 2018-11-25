@@ -12,17 +12,17 @@ export function getRandomUserRoleData(sex: number, name: string) {
     randomData.name = name || MyGame.RandomNameTool.getRandomName(randomData.sex);
     //随机数据
     randomData.attack = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 2).num +
-        Math.ceil(cc.random0To1() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 2).num));
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 2).num));
     randomData.def = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 3).num +
-        Math.ceil(cc.random0To1() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 3).num));
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 3).num));
     randomData.command = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 4).num +
-        Math.ceil(cc.random0To1() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 4).num));
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 4).num));
     randomData.intelligence = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 5).num +
-        Math.ceil(cc.random0To1() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 5).num));
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 5).num));
     randomData.charm = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 6).num +
-        Math.ceil(cc.random0To1() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 6).num));
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 6).num));
     randomData.politics = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 7).num +
-        Math.ceil(cc.random0To1() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 7).num));
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 7).num));
     randomData.moveSpeed = 5;
     return randomData;
 }

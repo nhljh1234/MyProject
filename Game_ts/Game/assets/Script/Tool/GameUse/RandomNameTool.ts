@@ -41,12 +41,12 @@ export function removeOneName(name) {
  * @param sex 性别
  */
 export function getRandomName(sex) {
-    let surname = SURNAME_ARR[Math.floor(cc.random0To1() * SURNAME_ARR.length)];
+    let surname = SURNAME_ARR[Math.floor(Math.random() * SURNAME_ARR.length)];
     let name;
     if (sex === MyGame.SEX_MAN) {
-        name = MAN_NAME_ARR[Math.floor(cc.random0To1() * MAN_NAME_ARR.length)];
+        name = MAN_NAME_ARR[Math.floor(Math.random() * MAN_NAME_ARR.length)];
     } else {
-        name = WOMAN_NAME_ARR[Math.floor(cc.random0To1() * WOMAN_NAME_ARR.length)];
+        name = WOMAN_NAME_ARR[Math.floor(Math.random() * WOMAN_NAME_ARR.length)];
     }
     let resultName = surname + name;
     if (allNameArr.indexOf(resultName) >= 0) {
