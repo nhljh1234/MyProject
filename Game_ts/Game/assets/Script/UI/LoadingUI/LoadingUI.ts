@@ -1,5 +1,6 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame, init } from "../../Tool/System/Game";
+import { getTJJsonAnnotation, getJsonAnnotation } from "../../Tool/VsCodeTool/VsCodeTool";
 
 const { ccclass, property } = cc._decorator;
 
@@ -12,7 +13,7 @@ class LoadingUI extends BaseUI {
 
     onLoad() {
         super.onLoad();
-
+        
     }
 
     update(dt) {

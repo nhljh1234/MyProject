@@ -33,7 +33,10 @@ function getPixelFormatSize(pixelFormat: cc.Texture2D.PixelFormat) {
  * @param {enum} pixelFormat 图片格式
  */
 function getImgUseMemoryBySize(width, height, pixelFormat) {
-    return width * height * getPixelFormatSize(pixelFormat) / (8 * 1024 * 1024);
+    //v.1.9.3
+    //return width * height * getPixelFormatSize(pixelFormat) / (8 * 1024 * 1024);
+    //v2.0.5
+    return width * height * pixelFormat / (8 * 1024 * 1024);
 }
 
 /**
@@ -41,11 +44,24 @@ function getImgUseMemoryBySize(width, height, pixelFormat) {
  * 返回的数量是MB
  */
 export function getNowSpriteUseMemory() {
-    let textureArr = cc.textureCache.getAllTextures();
+    let allLoaderMsgObj = cc.loader['_cache'];
     let totleUseMemory = 0;
+    /** v1.9.3
+    let textureArr = cc.textureCache.getAllTextures();
     textureArr.forEach((oneTexture) => {
         totleUseMemory = totleUseMemory + getImgUseMemoryBySize(oneTexture.pixelWidth, oneTexture.pixelHeight, oneTexture.pixelFormat);
     });
+    **/
+    //v2.0.5
+    for (var key in allLoaderMsgObj) {
+        if (allLoaderMsgObj[key].type === 'png' || allLoaderMsgObj[key].type === 'jpg') {
+            //是图片
+            let texture = allLoaderMsgObj[key]._owner;
+            if (texture) {
+                totleUseMemory = totleUseMemory + getImgUseMemoryBySize(texture.width, texture.height, texture._format);
+            }
+        }
+    }
     return totleUseMemory;
 }
 
@@ -53,9 +69,9 @@ export function getNowSpriteUseMemory() {
  * 检测内存情况
  */
 export function memoryCheck() {
-    //if (getNowSpriteUseMemory() > MyGame.MAX_MEMORY_NUM) {
+    if (getNowSpriteUseMemory() > MyGame.MAX_MEMORY_NUM) {
         clearMemory();
-    //}
+    }
 }
 
 /**
