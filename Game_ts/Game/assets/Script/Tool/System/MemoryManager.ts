@@ -103,7 +103,8 @@ export function clearMemory() {
         //如果prefabNodeArr里面有一个节点的node的active是true的话就不能清除了
         let i, len = onePrefabData.prefabNodeArr.length;
         for (i = 0; i < len; i++) {
-            if (onePrefabData.prefabNodeArr[i].active) {
+            if (onePrefabData.prefabNodeArr[i] && cc.isValid(onePrefabData.prefabNodeArr[i]) &&
+                onePrefabData.prefabNodeArr[i].active) {
                 canNotClearArr.push(onePrefabData);
                 return;
             }

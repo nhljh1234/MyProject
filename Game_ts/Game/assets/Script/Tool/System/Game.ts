@@ -21,6 +21,7 @@ import GameTool = require('../../Module/Tool/GameTool');
 import EventName = require('../../ModulE/Event/EventName');
 import MapRandomEvent = require('../../ModulE/Event/MapRandomEvent');
 import ItemModule = require('../../Module/Item/ItemModule');
+import GMTool = require('../GameUse/GMTool');
 
 class Game {
     RandomNameTool = RandomNameTool;
@@ -45,6 +46,7 @@ class Game {
     EventName = EventName;
     MapRandomEvent = MapRandomEvent;
     ItemModule = ItemModule;
+    GMTool = GMTool;
 
     //多语言相关
     LanguageType_CHS: string = 'CHS';

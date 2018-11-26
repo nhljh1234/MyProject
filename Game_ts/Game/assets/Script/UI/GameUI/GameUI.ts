@@ -1,6 +1,8 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { Game } from "../../Data/GameFactory";
+import { getUpdateFunc } from "../Base/UITimerTool";
+import { addUserStateNode } from "../Normal/UserStateUITool";
 
 const { ccclass, property } = cc._decorator;
 
@@ -15,6 +17,10 @@ class GameUI extends BaseUI {
 
     update(dt) {
         super.update(dt);
+
+        getUpdateFunc().forEach(function (oneUpdateFuncData) {
+            oneUpdateFuncData.func.call(oneUpdateFuncData.thisObj, oneUpdateFuncData.data, dt);
+        });
     }
 
     onUIInit() {

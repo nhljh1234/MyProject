@@ -289,7 +289,7 @@ export function loadPrefab(prefabPath, successCb, failCb, frequency) {
     //看看是否有缓存
     if (prefabSave[prefabPath]) {
         if (successCb) {
-            successCb(prefabSave[prefabPath]);
+            successCb(prefabSave[prefabPath].prefab);
         }
         return;
     }

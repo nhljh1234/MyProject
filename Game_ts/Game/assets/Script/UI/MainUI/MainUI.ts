@@ -1,6 +1,7 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { Game } from "../../Data/GameFactory";
+import { addUserStateNode, updateUserState } from "../Normal/UserStateUITool";
 
 const { ccclass, property } = cc._decorator;
 
@@ -11,7 +12,8 @@ class MainUI extends BaseUI {
 
     onLoad() {
         super.onLoad();
-
+        //加载一下人物属性栏
+        addUserStateNode(this._topNode, 0, -75, this.userRoleUpdateCb, this);
     }
 
     update(dt) {
@@ -42,5 +44,9 @@ class MainUI extends BaseUI {
                     false, undefined, undefined, 100);
                 return;
         }
+    }
+
+    userRoleUpdateCb() {
+        updateUserState(this._topNode.getChildByName('UserState'));
     }
 }

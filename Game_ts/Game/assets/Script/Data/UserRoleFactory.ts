@@ -179,4 +179,13 @@ export class UserRole {
     getSaveData() {
 
     }
+
+    changePower (nowPower) {
+        if (nowPower > MyGame.MAX_POWER || nowPower < 0) {
+            MyGame.LogTool.showLog(`nowPower error ! in is ${nowPower}`);
+            return;
+        } 
+        this.power = nowPower;
+        MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
+    }
 }

@@ -1,6 +1,7 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame, init } from "../../Tool/System/Game";
 import { getTJJsonAnnotation, getJsonAnnotation } from "../../Tool/VsCodeTool/VsCodeTool";
+import { getUpdateFunc } from "../Base/UITimerTool";
 
 const { ccclass, property } = cc._decorator;
 
@@ -13,12 +14,16 @@ class LoadingUI extends BaseUI {
 
     onLoad() {
         super.onLoad();
-        
+        //强行绑定
+        window['MyGame'] = MyGame;
     }
 
     update(dt) {
         super.update(dt);
 
+        getUpdateFunc().forEach(function (oneUpdateFuncData) {
+            oneUpdateFuncData.func.call(oneUpdateFuncData.thisObj, oneUpdateFuncData.data, dt);
+        });
     }
 
     onUIInit() {
