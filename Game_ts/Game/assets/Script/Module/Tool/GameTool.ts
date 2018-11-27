@@ -38,7 +38,7 @@ export function buildPos(x, y): MapPos {
  */
 export function getNearBuildingCity(buildingId: number, nowCityId: number, nowCityData: City, personData: Person): City {
     let nowMapPos;
-    if (nowCityId === -1) {
+    if (nowCityId === MyGame.USER_IN_FIELD) {
         nowMapPos = personData.nowMapPos;
     } else {
         nowCityData = nowCityData || MyGame.GameManager.gameDataSave.getCityById(nowCityId);
@@ -47,7 +47,7 @@ export function getNearBuildingCity(buildingId: number, nowCityId: number, nowCi
         }
         nowMapPos = nowCityData.cityPos;
     }
-    if (buildingId === -1) {
+    if (buildingId === MyGame.SELF_HOUSE_ID) {
         return MyGame.GameManager.gameDataSave.getCityById(personData.homePos);
     }
     let hasBuildingCityArr = MyGame.GameManager.gameDataSave.allCityArr.filter((oneCityData) => {

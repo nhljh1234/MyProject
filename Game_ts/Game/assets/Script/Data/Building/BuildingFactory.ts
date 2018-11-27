@@ -16,6 +16,8 @@ export class Building {
     useType: string;
     //所属的城市
     city: City;
+    //是否显示在城市建筑列表中
+    showFlag: boolean;
 
     constructor(buildingId: number, saveData: any, city: City) {
         if (saveData) {
@@ -37,6 +39,7 @@ export class Building {
         this.buildingName = jsonData.name;
         this.useType = jsonData.useType;
         this.city = city;
+        this.showFlag = jsonData.showFlag;
     }
     //使用建筑
     /**

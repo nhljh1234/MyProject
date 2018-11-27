@@ -86,13 +86,13 @@ export class Action {
             return;
         }
         //在野外
-        if (personData.personPos.cityId === -1) {
+        if (personData.personPos.cityId === MyGame.USER_IN_FIELD) {
             this.isDoing = false;
             personData.goToBuilding(this.actionPos);
             return;
         }
         let buildingData: Building;
-        if (this.actionPos !== -1) {
+        if (this.actionPos !== MyGame.SELF_HOUSE_ID) {
             //判断是否在使用的建筑中，没有的话需要先移动到指定建筑
             buildingData = MyGame.GameManager.gameDataSave.getCityById(personData.personPos.cityId).getBuildingById(this.actionPos);
             if (!buildingData) {
@@ -109,7 +109,7 @@ export class Action {
         this.nowCostTime = this.nowCostTime + addMinutes;
         if (this.nowCostTime > this.actionCostTime) {
             //判断是否要使用建筑功能
-            if (this.actionPos !== -1) {
+            if (this.actionPos !== MyGame.SELF_HOUSE_ID) {
                 buildingData.useBuilding(personData, false);
             } else {
                 personData.useHome();

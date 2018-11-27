@@ -1,5 +1,6 @@
 import { Action } from './ActionFactory';
 import { MyGame } from '../Tool/System/Game';
+import { SelfHome } from './Building/SelfHome';
 
 export interface PersonPos {
     cityId: number;
@@ -143,6 +144,8 @@ export class Person {
     //是否在战斗中
     //暂定是不记录战斗信息
     inInBattle: boolean;
+    //自宅
+    home: SelfHome;
 
     constructor(personId: number, saveData: any, cityId: number, randomData: any) {
         if (saveData) {
@@ -176,7 +179,7 @@ export class Person {
         this.personId = MyGame.GameManager.getNewPersonId();
         this.personPos = {
             cityId: cityId || 1,
-            buildingId: -1
+            buildingId: MyGame.SELF_HOUSE_ID
         }
         this.homePos = cityId || 1;
         this.goalCityMapPos = undefined;
@@ -187,6 +190,8 @@ export class Person {
         this.money = 0;
         this.power = MyGame.MAX_POWER;
         this.inInBattle = false;
+        //自宅
+        this.home = new SelfHome(MyGame.SELF_HOUSE_ID, undefined, undefined);
     }
 
     initpersonBySave(saveData: any) {
@@ -216,6 +221,8 @@ export class Person {
         this.money = saveData.money;
         this.power = saveData.power;
         this.inInBattle = saveData.inInBattle;
+        //自宅
+        this.home = new SelfHome(MyGame.SELF_HOUSE_ID, undefined, undefined);
     }
 
     goToCity(cityId: number) {
@@ -232,18 +239,18 @@ export class Person {
         this.goalCityMapPos = cityMapPos;
         this.goalCityId = cityId;
         //如果当前有大地图坐标的话就以这个数据为出发点，否则使用当前城市的大地图坐标为出发点
-        if (this.personPos.cityId !== -1) {
+        if (this.personPos.cityId !== MyGame.USER_IN_FIELD) {
             this.nowMapPos = MyGame.GameManager.gameDataSave.getCityById(this.personPos.cityId).cityPos;
         }
         //立马出城
-        this.personPos.cityId = -1;
+        this.personPos.cityId = MyGame.USER_IN_FIELD;
     }
     //前往一个设施
     goToBuilding(buildingId: number) {
         if (this.inInBattle) {
             return;
         }
-        if (buildingId === -1) {
+        if (buildingId === MyGame.SELF_HOUSE_ID) {
             //自宅
             if (this.personPos.cityId === this.homePos) {
                 this.personPos.buildingId = buildingId;

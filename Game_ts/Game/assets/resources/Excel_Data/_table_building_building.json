@@ -2,23 +2,33 @@
     "object" : {
         "1" : {
             "name" : "池塘",
-            "useType" : "forest"
+            "useType" : "forest",
+            "showFlag" : 1
         },    
         "2" : {
             "name" : "森林",
-            "useType" : "pool"
+            "useType" : "pool",
+            "showFlag" : 1
         },    
         "3" : {
             "name" : "旅舍",
-            "useType" : "hotel"
+            "useType" : "hotel",
+            "showFlag" : 1
         },    
         "4" : {
             "name" : "商店",
-            "useType" : "shop"
+            "useType" : "shop",
+            "showFlag" : 1
         },    
         "5" : {
             "name" : "医馆",
-            "useType" : "hospital"
+            "useType" : "hospital",
+            "showFlag" : 1
+        },    
+        "1000" : {
+            "name" : "自宅",
+            "useType" : "self_house",
+            "showFlag" : 1
         }    
     },
 
@@ -26,27 +36,38 @@
         {
             "main_id" : 1,
             "name" : "池塘",
-            "useType" : "forest"
+            "useType" : "forest",
+            "showFlag" : 1
         },    
         {
             "main_id" : 2,
             "name" : "森林",
-            "useType" : "pool"
+            "useType" : "pool",
+            "showFlag" : 1
         },    
         {
             "main_id" : 3,
             "name" : "旅舍",
-            "useType" : "hotel"
+            "useType" : "hotel",
+            "showFlag" : 1
         },    
         {
             "main_id" : 4,
             "name" : "商店",
-            "useType" : "shop"
+            "useType" : "shop",
+            "showFlag" : 1
         },    
         {
             "main_id" : 5,
             "name" : "医馆",
-            "useType" : "hospital"
+            "useType" : "hospital",
+            "showFlag" : 1
+        },    
+        {
+            "main_id" : 1000,
+            "name" : "自宅",
+            "useType" : "self_house",
+            "showFlag" : 1
         }    
     ]
 }

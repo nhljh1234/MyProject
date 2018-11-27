@@ -1,6 +1,7 @@
 import { MyGame } from "../Tool/System/Game";
 import { MapPos, PersonPos } from "./PersonFactory";
 import { Action } from "./ActionFactory";
+import { SelfHome } from "./Building/SelfHome";
 
 /**
  * 获取一个玩家角色的随机数据
@@ -89,6 +90,8 @@ export class UserRole {
     //这么设计是主角比较特殊，可能存在多个要处理的状态，标记太多不好
     //比如在自宅休息的时候会存入一个回调，每次调用的时候更新人物的体力和生命值
     updateFuncArr: Function[];
+    //自宅
+    home: SelfHome;
 
     constructor(saveData: any, randomData: any) {
         if (saveData) {
@@ -146,7 +149,7 @@ export class UserRole {
         //初始都是在家的
         this.personPos = {
             cityId: MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 1).num || 1,
-            buildingId: -1
+            buildingId: MyGame.SELF_HOUSE_ID
         };
         //家的位置，是一个城市id
         this.homePos = this.personPos.cityId;
@@ -174,18 +177,27 @@ export class UserRole {
         //这么设计是主角比较特殊，可能存在多个要处理的状态，标记太多不好
         //比如在自宅休息的时候会存入一个回调，每次调用的时候更新人物的体力和生命值
         this.updateFuncArr = [];
+        //自宅
+        this.home = new SelfHome(MyGame.SELF_HOUSE_ID, undefined, undefined);
     }
 
     getSaveData() {
 
     }
 
-    changePower (nowPower) {
+    changePower(nowPower) {
         if (nowPower > MyGame.MAX_POWER || nowPower < 0) {
             MyGame.LogTool.showLog(`nowPower error ! in is ${nowPower}`);
             return;
-        } 
+        }
         this.power = nowPower;
         MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
+    }
+
+    /**
+     * 判断是否在自己家所在的城市
+     */
+    inInHomePos(): boolean {
+        return this.personPos.cityId === this.homePos;
     }
 }

@@ -61,10 +61,15 @@ export function getNewPersonId() {
 
 /**
  * @param component 组件
- * @param gameData GameFactory生成的数据
  */
-export function init(component: cc.Component, gameData: any) {
+export function initComponent(component: cc.Component) {
     componentDave = component;
+};
+
+/**
+ * @param component 组件
+ */
+export function initGame(gameData: Game) {
     gameDataSave = gameData;
     //将配置中的名字都设置为不可随机的
     MyGame.RandomNameTool.initAllNameArr(MyGame.JsonDataTool.getTableByName('_table_person_person').array);

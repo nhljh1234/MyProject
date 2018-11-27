@@ -104,17 +104,19 @@ export class Game {
             });
             //每个人也有有每日更新的函数
             this.allPersonArr.forEach(function (onePersonData) {
-                onePersonData.dayUpdate();
+                //onePersonData.dayUpdate();
             });
             console.log('game save');
             MyGame.GameSaveTool.saveGame();
         }
         //人物更新函数
         this.allPersonArr.forEach(function (onePersonData) {
-            onePersonData.timeUpdate(addMinutes);
+            //onePersonData.timeUpdate(addMinutes);
         });
         //战斗定时器
         MyGame.BattleManager.timeUpdate(addMinutes);
+        //更新人物栏目
+        MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
     };
     //game里面存储的是所有人物的列表，转换成以id为key的对象数据
     personDataBuild() {

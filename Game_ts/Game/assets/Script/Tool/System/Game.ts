@@ -80,6 +80,11 @@ class Game {
 
     ITEM_FUNCTION_TYPE_TREAT = 'treat';
 
+    //自宅
+    SELF_HOUSE_ID = 1000;
+    //野外
+    USER_IN_FIELD = -1;
+
     init() {
         //大地图随机事件几率
         this.MAP_RANDOM_EVENT_RECORD = JsonDataTool.getDataById('_table_Game_gameParameter', 1).num;

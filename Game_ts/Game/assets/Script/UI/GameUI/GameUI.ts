@@ -13,6 +13,8 @@ class GameUI extends BaseUI {
 
     onLoad() {
         super.onLoad();
+
+        MyGame.GameManager.initComponent(this);
     }
 
     update(dt) {
@@ -41,7 +43,7 @@ class GameUI extends BaseUI {
             MyGame.GameSceneManager.addNode('Prefab/User/UserBuildUI', MyGame.GAME_SCENE_UI_NODE, 'UserBuildUI',
                 false, undefined, undefined, 100);
         }
-        MyGame.GameManager.start();
+        //MyGame.GameManager.start();
     }
 
     onButtonClick(name: string, node: cc.Node, component: cc.Component) {

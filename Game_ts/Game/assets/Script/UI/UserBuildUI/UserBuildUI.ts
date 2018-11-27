@@ -2,6 +2,7 @@ import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { Person, createRandomPerson } from "../../Data/PersonFactory";
 import { getRandomUserRoleData, UserRole } from "../../Data/UserRoleFactory";
+import { Game } from "../../Data/GameFactory";
 
 const { ccclass, property } = cc._decorator;
 
@@ -108,6 +109,9 @@ class UserBuildUI extends BaseUI {
                 //加载MainUI界面
                 MyGame.GameSceneManager.addNode('Prefab/MainUI/MainUI', MyGame.GAME_SCENE_UI_NODE, 'MainUI',
                     false, undefined, undefined, 100);
+                //开始游戏
+                MyGame.GameManager.initGame(new Game(undefined, 7, 13));
+                MyGame.GameManager.start();
                 //直接销毁了，这个界面没用了
                 this.hide(true);
                 break;
