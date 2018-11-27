@@ -110,9 +110,9 @@ export class Action {
         if (this.nowCostTime > this.actionCostTime) {
             //判断是否要使用建筑功能
             if (this.actionPos !== MyGame.SELF_HOUSE_ID) {
-                buildingData.useBuilding(personData, false);
+                buildingData.useBuilding(personData, false, undefined);
             } else {
-                personData.useHome();
+                personData.home.useBuilding(personData, false, undefined);
             }
             personData.actionFinishCb(this);
             this.isDoing = false;

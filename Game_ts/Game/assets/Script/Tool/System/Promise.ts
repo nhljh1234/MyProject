@@ -1,9 +1,6 @@
 /**
  * 简单用ts实现Promise
  */
-
-let indexCount: number;
-
 export class MyPromise {
 
     private thenFuncArr: Function[];
@@ -12,6 +9,8 @@ export class MyPromise {
 
     private doFunc: Function;
 
+    public funcIndex: number;
+
     constructor(func: Function) {
         this.doFunc = func;
 
@@ -19,24 +18,24 @@ export class MyPromise {
     }
 
     start() {
-        indexCount = 0;
+        this.funcIndex = 0;
         if (this.doFunc) {
-            indexCount++;
-            this.doFunc(this.thenFuncArr[indexCount - 1], this.catchFunc);
+            this.funcIndex++;
+            this.doFunc(this.thenFuncArr[this.funcIndex - 1], this.catchFunc);
         }
     }
 
     then(func: Function) {
         this.thenFuncArr.push(function (...args: []) {
-            indexCount++;
-            if (indexCount > this.thenFuncArr.length) {
+            this.funcIndex++;
+            if (this.funcIndex > this.thenFuncArr.length) {
                 func.apply(this, args);
                 if (this.finishFunc) {
                     this.finishFunc();
                 }
                 return;
             }
-            func.apply(this, [this.thenFuncArr[indexCount - 1], this.catchFunc].concat(args));
+            func.apply(this, [this.thenFuncArr[this.funcIndex - 1], this.catchFunc].concat(args));
         }.bind(this));
         return this;
     }
@@ -60,7 +59,7 @@ export class MyPromise {
         return this;
     }
 }
-
+/**
 let test = new MyPromise(function (resolve, reject) {
     console.log(1);
     resolve(2);
@@ -69,7 +68,7 @@ let test = new MyPromise(function (resolve, reject) {
     resolve(num + 1);
 }).then(function (resolve, reject, num) {
     console.log(`then 2 ${num}`);
-    reject(num + 1);
+    resolve(num + 1);
 }).then(function (resolve, reject, num) {
     console.log(`then 3 ${num}`);
     resolve(num + 1);
@@ -87,3 +86,4 @@ let test = new MyPromise(function (resolve, reject) {
     console.log('finally');
 });
 test.start();
+**/

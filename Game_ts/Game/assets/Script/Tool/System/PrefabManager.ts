@@ -295,6 +295,7 @@ export function loadPrefab(prefabPath, successCb, failCb, frequency) {
     }
     cc.loader.loadRes(prefabPath, cc.Prefab, function (err, prefab) {
         if (err) {
+            MyGame.LogTool.showLog(`loadPrefab error ! error is ${err}`);
             if (failCb) {
                 failCb(err);
             }

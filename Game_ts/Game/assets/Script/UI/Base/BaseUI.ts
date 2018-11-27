@@ -25,8 +25,8 @@ export default class BaseUI extends cc.Component {
         this._bottomNode = this.node.getChildByName('Bottom');
         this._midNode = this.node.getChildByName('Mid');
         this.onUIInit();
-        this.buttonTravelRegister(this.node);
         this.onShow();
+        this.buttonTravelRegister(this.node);
     }
 
     start() {

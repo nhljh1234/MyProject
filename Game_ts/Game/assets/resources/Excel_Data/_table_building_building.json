@@ -2,12 +2,12 @@
     "object" : {
         "1" : {
             "name" : "池塘",
-            "useType" : "forest",
+            "useType" : "pool",
             "showFlag" : 1
         },    
         "2" : {
             "name" : "森林",
-            "useType" : "pool",
+            "useType" : "forest",
             "showFlag" : 1
         },    
         "3" : {
@@ -28,6 +28,8 @@
         "1000" : {
             "name" : "自宅",
             "useType" : "self_house",
+            "function" : "1,2",
+            "functionNum" : "480,0",
             "showFlag" : 1
         }    
     },
@@ -36,13 +38,13 @@
         {
             "main_id" : 1,
             "name" : "池塘",
-            "useType" : "forest",
+            "useType" : "pool",
             "showFlag" : 1
         },    
         {
             "main_id" : 2,
             "name" : "森林",
-            "useType" : "pool",
+            "useType" : "forest",
             "showFlag" : 1
         },    
         {
@@ -67,6 +69,8 @@
             "main_id" : 1000,
             "name" : "自宅",
             "useType" : "self_house",
+            "function" : "1,2",
+            "functionNum" : "480,0",
             "showFlag" : 1
         }    
     ]

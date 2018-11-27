@@ -27,3 +27,4 @@ export let random_btn_label = '随机';
 export let random_user_num: string = '数值随机';
 export let sure: string = '确认';
 export let year: string = '年';
+export let come_back: string = '返回';

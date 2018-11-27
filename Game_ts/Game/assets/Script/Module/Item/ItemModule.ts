@@ -67,20 +67,20 @@ export function getItemFunctionNameArr(itemId: number): string[] {
  * @param {Person} personData
  * @param {Number} itemId
  */
-export function getTreatItemUseNum(personData: Person, itemId: number): number {
+export function getRestItemUseNum(personData: Person, itemId: number): number {
     //获取治疗量
-    let treatNumStr = getItemFunctionNum(itemId, MyGame.ITEM_FUNCTION_TYPE_TREAT);
-    let treatNum = parseInt(treatNumStr);
-    let needTreatNum = MyGame.MIN_POWER_NUM - personData.power;
-    if (!treatNum) {
+    let restNumStr = getItemFunctionNum(itemId, MyGame.ITEM_FUNCTION_TYPE_REST);
+    let restNum = parseInt(restNumStr);
+    let needNum = MyGame.MIN_POWER_NUM - personData.power;
+    if (!restNum) {
         return 0;
     }
-    return Math.min(Math.ceil(needTreatNum / treatNum), personData.itemObj[itemId] || 0);
+    return Math.min(Math.ceil(needNum / restNum), personData.itemObj[itemId] || 0);
 };
 
 let useItemFuncObj: { [key: string]: Function } = {};
 //治疗
-useItemFuncObj.treat = function (personData: Person, itemId: number, funcName: string) {
+useItemFuncObj.rest = function (personData: Person, itemId: number, funcName: string) {
     let funcNum = getItemFunctionNum(itemId, funcName);
     personData.power = personData.power + funcNum;
 };

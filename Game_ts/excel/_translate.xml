@@ -17,6 +17,7 @@
 	</file>
 	<file oldName="building" newName="building">
 		<table oldName="建筑" newName="building" use="client"/>
+		<table oldName="建筑功能" newName="buildingFunction" use="client"/>
 	</file>
 	<file oldName="event" newName="event">
 		<table oldName="大地图随机事件" newName="mapRandomEvent" use="client"/>

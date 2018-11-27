@@ -35,8 +35,8 @@ export class BuildingShop extends Building {
     }
 
     //使用商店
-    useBuilding(personData: Person, isUser: boolean) {
-        super.useBuilding(personData, isUser);
+    useBuilding(personData: Person, isUser: boolean, typeStr: string) {
+        super.useBuilding(personData, isUser, typeStr);
         let lastMoney = personData.money;
         if (!isUser) {
             //不是玩家使用的

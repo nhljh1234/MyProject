@@ -5,6 +5,15 @@ import { MyGame } from "../../Tool/System/Game";
 import { Person } from "../PersonFactory";
 import { City } from "../CityFactory";
 
+export interface buildingFunctionData {
+    //显示的文本
+    functionNameStr: string;
+    //参数类型
+    functionType: string;
+    //参数列表
+    functionNumArr: number[];
+}
+
 export class Building {
     //建筑id
     buildingId: number;
@@ -18,6 +27,8 @@ export class Building {
     city: City;
     //是否显示在城市建筑列表中
     showFlag: boolean;
+    //功能列表
+    functionArr: buildingFunctionData[];
 
     constructor(buildingId: number, saveData: any, city: City) {
         if (saveData) {
@@ -27,33 +38,65 @@ export class Building {
         }
     }
 
-    initBuildingBySaveData(saveData: any, city:City) {
+    initBuildingBySaveData(saveData: any, city: City) {
 
     }
 
-    initBuilding(buildingId: number, city:City) {
+    initBuilding(buildingId: number, city: City) {
         //配置数据
-        let jsonData = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId);
+        let jsonData: _table_building_building = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId);
         this.buildingId = buildingId;
         this.personArr = [];
         this.buildingName = jsonData.name;
         this.useType = jsonData.useType;
         this.city = city;
-        this.showFlag = jsonData.showFlag;
+        this.showFlag = jsonData.showFlag === 1;
+        this.functionArr = [];
+        //初始化建筑功能函数
+        let functionArr: number[] = jsonData.function ? ('' + jsonData.function).split(',').map(function (idStr) {
+            return parseInt(idStr);
+        }) : [];
+        let functionNumArr: string[] = jsonData.functionNum ? ('' + jsonData.functionNum).split(',').map(function (numStr) {
+            return numStr;
+        }) : [];
+        this.functionArr = functionArr.map(function (typeId: number, index: number) {
+            let buildingFunctionTypeData: _table_building_buildingFunction =
+                MyGame.JsonDataTool.getDataById('_table_building_buildingFunction', typeId);
+            return {
+                functionNameStr: buildingFunctionTypeData.name,
+                functionType: buildingFunctionTypeData.type,
+                functionNumArr: functionNumArr[index].split('/').map(function (numStr) {
+                    return parseInt(numStr);
+                })
+            }
+        });
     }
     //使用建筑
     /**
      * @param personData 使用者
      * @param isUser 是否是玩家使用
+     * @param typeStr 调用功能的类型
      */
-    useBuilding (personData: Person, isUser: boolean) {
+    useBuilding(personData: Person, isUser: boolean, typeStr: string) {
 
     }
 
     /**
      * 每日更新函数
      */
-    dayUpdate () {
-        
+    dayUpdate() {
+
+    }
+
+    /**
+     * 获取所有的功能
+     */
+    getFunctionArr(): buildingFunctionData[] {
+        //加入一个返回按钮
+        return this.functionArr.concat({
+            functionNameStr: MyGame.LanguageTool.getLanguageStr('come_back'),
+            functionType: MyGame.BUILDING_FUNCTION_TYPE_COME_BACK,
+            functionNumArr: []
+        });
     }
 }

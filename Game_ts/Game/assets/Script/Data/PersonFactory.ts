@@ -386,22 +386,22 @@ export class Person {
     //战斗结束回调
     battleFinishCb() {
         if (this.power < MyGame.MIN_POWER_NUM) {
-            this.treat();
+            this.rest();
         }
         this.inInBattle = false;
     }
     //回复血量
-    treat() {
+    rest() {
         for (var key in this.itemObj) {
             if (!this.itemObj.hasOwnProperty(key)) {
                 continue;
             }
-            if (MyGame.ItemModule.judgeHaveFunctionByName(parseInt(key), MyGame.ITEM_FUNCTION_TYPE_TREAT)) {
+            if (MyGame.ItemModule.judgeHaveFunctionByName(parseInt(key), MyGame.ITEM_FUNCTION_TYPE_REST)) {
                 //有这个功能就开始使用
                 //TODO 重写治疗相关
                 while (this.itemObj[key] >= 0 && this.power < MyGame.MAX_POWER) {
                     //一直使用
-                    let useNum = MyGame.ItemModule.getTreatItemUseNum(this, this.itemObj[key]);
+                    let useNum = MyGame.ItemModule.getRestItemUseNum(this, this.itemObj[key]);
                     MyGame.ItemModule.useItem(this, parseInt(key), useNum);
                 }
             }
@@ -421,11 +421,6 @@ export class Person {
     //触发大地图随机事件
     mapRandomEventCb() {
 
-    }
-    //使用自宅
-    useHome() {
-        this.power = MyGame.MAX_POWER;
-        MyGame.LogTool.showLog(`${this.name} 在家休息结束`);
     }
 
     getItemTotalNum(): number {

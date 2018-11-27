@@ -21,6 +21,7 @@ import GameTool = require('../../Module/Tool/GameTool');
 import EventName = require('../../ModulE/Event/EventName');
 import MapRandomEvent = require('../../ModulE/Event/MapRandomEvent');
 import ItemModule = require('../../Module/Item/ItemModule');
+import BuildModule = require('../../Module/Building/BuildModule');
 import GMTool = require('../GameUse/GMTool');
 
 class Game {
@@ -46,6 +47,7 @@ class Game {
     EventName = EventName;
     MapRandomEvent = MapRandomEvent;
     ItemModule = ItemModule;
+    BuildModule = BuildModule;
     GMTool = GMTool;
 
     //多语言相关
@@ -78,7 +80,9 @@ class Game {
     MIN_POWER_NUM: number = undefined;
     BATTLE_TIMER_TIME: number = undefined;
 
-    ITEM_FUNCTION_TYPE_TREAT = 'treat';
+    ITEM_FUNCTION_TYPE_REST = 'rest';
+
+    BUILDING_FUNCTION_TYPE_COME_BACK = 'comeBack';
 
     //自宅
     SELF_HOUSE_ID = 1000;

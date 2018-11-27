@@ -21,6 +21,14 @@ declare interface _table_building_building {
 	main_id: number;
 	name: string;
 	useType: string;
+	showFlag: number;
+	function: number;
+	functionNum: number;
+}
+declare interface _table_building_buildingFunction {
+	main_id: number;
+	name: string;
+	type: string;
 }
 declare interface _table_city_city {
 	main_id: number;

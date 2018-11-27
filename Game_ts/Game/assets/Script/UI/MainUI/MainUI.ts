@@ -27,6 +27,45 @@ class MainUI extends BaseUI {
 
     onUIInit() {
         super.onUIInit();
+
+    }
+
+    onShow() {
+        super.onShow();
+        //显示建筑
+        this.showCityBuildingUI();
+    }
+
+    hide(deleteFlag: boolean) {
+        super.hide(deleteFlag);
+
+    }
+
+    onButtonClick(name: string, node: cc.Node, component: cc.Component) {
+        switch (name) {
+            case 'MsgBtn':
+                MyGame.GameSceneManager.addNode('Prefab/Msg/ForceListUI', MyGame.GAME_SCENE_UI_NODE, 'ForceListUI',
+                    false, undefined, undefined, 100);
+                break;
+            case 'building_button':
+                var buildingData = MyGame.NodeTool.getNodeValue(node, 'buildData');
+                if (buildingData) {
+                    //跳转到建筑中
+                    //加载BuildingUI界面
+                    MyGame.GameDataSaveTool.setData('showBuildingData', buildingData);
+                    MyGame.GameSceneManager.addNode('Prefab/BuildingUI/BuildingUI', MyGame.GAME_SCENE_UI_NODE, 'BuildingUI',
+                        false, undefined, undefined, 100);
+                    this.hide(false);
+                }
+                break;
+        }
+    }
+
+    userRoleUpdateCb() {
+        updateUserState(this._topNode.getChildByName('UserState'));
+    }
+
+    showCityBuildingUI() {
         //初始化
         this._buildingTmpNodePool = new cc.NodePool();
         this._buildingScrollviewNode = this._bottomNode.getChildByName('building_scroll_view');
@@ -43,37 +82,7 @@ class MainUI extends BaseUI {
                 let buttonNode = childNode.getChildByName('building_button');
                 buttonNode.getChildByName('Label').getComponent(cc.Label).string = data.buildingName;
                 //绑定数据
-                MyGame.NodeTool.saveNodeValue(buttonNode, 'cityId', data.buildingId);
+                MyGame.NodeTool.saveNodeValue(buttonNode, 'buildData', data);
             }, buildArr, this._buildingTmpNodePool);
-    }
-
-    onShow() {
-        super.onShow();
-
-    }
-
-    hide(deleteFlag: boolean) {
-        super.hide(deleteFlag);
-
-    }
-
-    onButtonClick(name: string, node: cc.Node, component: cc.Component) {
-        switch (name) {
-            case 'MsgBtn':
-                MyGame.GameSceneManager.addNode('Prefab/Msg/ForceListUI', MyGame.GAME_SCENE_UI_NODE, 'ForceListUI',
-                    false, undefined, undefined, 100);
-                break;
-            case 'building_button':
-                var buildingId = MyGame.NodeTool.getNodeValue(node, 'cityId');
-                if (buildingId) {
-                    //跳转到建筑中
-
-                }
-                break;
-        }
-    }
-
-    userRoleUpdateCb() {
-        updateUserState(this._topNode.getChildByName('UserState'));
     }
 }

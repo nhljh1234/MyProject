@@ -9,8 +9,8 @@ export class BuildingHospital extends Building {
     }
 
     //使用商店
-    useBuilding(personData: Person, isUser: boolean) {
-        super.useBuilding(personData, isUser);
+    useBuilding(personData: Person, isUser: boolean, typeStr: string) {
+        super.useBuilding(personData, isUser, typeStr);
         //回复体力
         personData.power = MyGame.MIN_POWER_NUM;
         MyGame.LogTool.showLog(`${personData.name} 医馆治疗`);

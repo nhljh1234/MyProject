@@ -46,8 +46,8 @@ export function getTJJsonAnnotation(dirPath: string, successCb: Function) {
  * 自己游侠模式下的JSON数据
  * @param dirPath 文件夹
  */
-export function getJsonAnnotation(dirPath: string, successCb: Function) {
-    cc.loader.loadResDir(dirPath, function (err, jsonDataArr: cc.JsonAsset[], urls: string[]) {
+export function getJsonAnnotation(successCb: Function) {
+    cc.loader.loadResDir("Excel_Data/", function (err, jsonDataArr: cc.JsonAsset[], urls: string[]) {
         let string = '';
         //处理每个jsonDataArr文件
         jsonDataArr.forEach(function (oneJsonData, index) {

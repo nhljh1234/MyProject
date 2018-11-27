@@ -16,6 +16,10 @@ class LoadingUI extends BaseUI {
         super.onLoad();
         //强行绑定
         window['MyGame'] = MyGame;
+
+        //getJsonAnnotation(function (str: string) {
+        //    console.log(str);
+        //});
     }
 
     update(dt) {

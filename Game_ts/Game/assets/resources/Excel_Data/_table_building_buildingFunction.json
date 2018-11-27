@@ -3,6 +3,10 @@
         "1" : {
             "name" : "休息",
             "type" : "rest"
+        },    
+        "2" : {
+            "name" : "仓库",
+            "type" : "warehouse"
         }    
     },
 
@@ -11,6 +15,11 @@
             "main_id" : 1,
             "name" : "休息",
             "type" : "rest"
+        },    
+        {
+            "main_id" : 2,
+            "name" : "仓库",
+            "type" : "warehouse"
         }    
     ]
 }
