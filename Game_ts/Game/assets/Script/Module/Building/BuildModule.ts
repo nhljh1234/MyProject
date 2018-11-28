@@ -1,6 +1,3 @@
-/**
- * 休息
- */
-export function rest () {
+export function test() {
 
 }

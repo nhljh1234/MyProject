@@ -2,6 +2,7 @@ import { Building } from "./BuildingFactory";
 import { Person } from "../PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
+import { UserRole } from "../UserRoleFactory";
 
 //计算公式
 function getSellPrice(cityData: City, itemData: any, building: BuildingShop, itemId: number): number {
@@ -35,23 +36,21 @@ export class BuildingShop extends Building {
     }
 
     //使用商店
-    useBuilding(personData: Person, isUser: boolean, typeStr: string) {
-        super.useBuilding(personData, isUser, typeStr);
+    useBuilding(personData: Person, typeStr: string) {
+        super.useBuilding(personData, typeStr);
         let lastMoney = personData.money;
-        if (!isUser) {
-            //不是玩家使用的
-            //全部卖完
-            for (var key in personData.itemObj) {
-                if (!personData.itemObj.hasOwnProperty(key) || !personData.itemObj[key]) {
-                    continue;
-                }
-                let itemData = MyGame.JsonDataTool.getDataById('_table_item_sellGood', key);
-                let sellPrice = getSellPrice(this.city, itemData, this, parseInt(key));
-                //增加金钱
-                personData.money = personData.money + sellPrice * personData.itemObj[key];
-                this.itemObj[key] = this.itemObj[key] + personData.itemObj[key];
-                personData.removeItemByItemId(parseInt(key), personData.itemObj[key]);
+        //不是玩家使用的
+        //全部卖完
+        for (var key in personData.itemObj) {
+            if (!personData.itemObj.hasOwnProperty(key) || !personData.itemObj[key]) {
+                continue;
             }
+            let itemData = MyGame.JsonDataTool.getDataById('_table_item_sellGood', key);
+            let sellPrice = getSellPrice(this.city, itemData, this, parseInt(key));
+            //增加金钱
+            personData.money = personData.money + sellPrice * personData.itemObj[key];
+            this.itemObj[key] = this.itemObj[key] + personData.itemObj[key];
+            personData.removeItemByItemId(parseInt(key), personData.itemObj[key]);
         }
         MyGame.LogTool.showLog(`${personData.name} 卖东西`);
         MyGame.LogTool.showLog(`${personData.name} 获得了 ${personData.money - lastMoney}金钱`);

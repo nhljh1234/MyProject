@@ -4,6 +4,7 @@
 import { MyGame } from "../../Tool/System/Game";
 import { Person } from "../PersonFactory";
 import { City } from "../CityFactory";
+import { UserRole } from "../UserRoleFactory";
 
 export interface buildingFunctionData {
     //显示的文本
@@ -71,13 +72,21 @@ export class Building {
             }
         });
     }
-    //使用建筑
+    //NPC使用建筑
     /**
      * @param personData 使用者
-     * @param isUser 是否是玩家使用
      * @param typeStr 调用功能的类型
      */
-    useBuilding(personData: Person, isUser: boolean, typeStr: string) {
+    useBuilding(personData: Person, typeStr: string) {
+
+    }
+
+    //玩家使用建筑
+    /**
+     * @param personData 使用者
+     * @param typeStr 调用功能的类型
+     */
+    roleUseBuilding(personData: UserRole, typeStr: string) {
 
     }
 
@@ -98,5 +107,15 @@ export class Building {
             functionType: MyGame.BUILDING_FUNCTION_TYPE_COME_BACK,
             functionNumArr: []
         });
+    }
+
+    protected getFunctionByType(type: string): buildingFunctionData {
+        let i;
+        for (i = 0; i < this.functionArr.length; i++) {
+            if (this.functionArr[i].functionType === type) {
+                return this.functionArr[i];
+            }
+        }
+        return undefined;
     }
 }

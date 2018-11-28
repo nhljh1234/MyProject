@@ -35,7 +35,7 @@ export class Game {
         }
     }
 
-    initGameBySaveData(saveData: any) {
+    private initGameBySaveData(saveData: any) {
         //这边这个按照一个虚拟的年号来做
         this.nowTimeYear = saveData.year;
         //这边设置可以选择出生年月日
@@ -47,7 +47,7 @@ export class Game {
         MyGame.GameManager.maxPersonId = saveData.maxPersonId;
     }
 
-    initGame(month: number, day: number) {
+    private initGame(month: number, day: number) {
         this.allForceArr = MyGame.JsonDataTool.getTableByName('_table_force_force').array.map(function (oneForce) {
             return new Force(oneForce.main_id, undefined);
         });
@@ -115,6 +115,8 @@ export class Game {
         });
         //战斗定时器
         MyGame.BattleManager.timeUpdate(addMinutes);
+        //玩家更新函数
+        MyGame.GameManager.userRole.timeUpdate(addMinutes);
         //更新人物栏目
         MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
     };

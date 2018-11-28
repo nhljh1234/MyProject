@@ -21,7 +21,7 @@ export class Force {
         }
     }
 
-    initForeBySaveData(saveData: any) {
+    private initForeBySaveData(saveData: any) {
         this.forceId = saveData.forceId;
         //配置数据
         let jsonData = MyGame.JsonDataTool.getDataById('_table_force_force', this.forceId);
@@ -33,7 +33,7 @@ export class Force {
         });
     }
 
-    initForce(forceId: number) {
+    private initForce(forceId: number) {
         let jsonData = MyGame.JsonDataTool.getDataById('_table_force_force', forceId);
         this.forceId = forceId;
         this.forceName = jsonData.name;

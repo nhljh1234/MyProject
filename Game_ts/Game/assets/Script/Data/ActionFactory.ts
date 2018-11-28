@@ -7,9 +7,10 @@ export class Action {
     actionId: number = undefined;
     //总用时
     actionCostTime: number;
-    //位置用一个数组表示，第一个元素表示城市id，第二个表示建筑id
     //配置表里面只会配置一个建筑id，当前城市没有这个建筑的话就需要去寻找最近的城市
     actionPos: number;
+    //要使用的建筑功能类型
+    buildingFunctionType: string;
     //收益列表
     //单数是id，双数是数量
     rewardArr: number[];
@@ -32,11 +33,12 @@ export class Action {
         }
     }
 
-    initAction(actionId: number) {
+    private initAction(actionId: number) {
         let jsonData = MyGame.JsonDataTool.getDataById('_table_action_action', actionId);
         this.actionId = actionId;
         this.actionCostTime = jsonData.costTime;
         this.actionPos = parseInt(jsonData.pos);
+        this.buildingFunctionType = jsonData.buildingFunctionType;
         this.rewardArr = ('' + jsonData.rewardArr).split(',').map(function (idStr) {
             return parseInt(idStr);
         });
@@ -47,11 +49,12 @@ export class Action {
         this.isDoing = false;
     }
 
-    initActionBySave(saveData: any) {
+    private initActionBySave(saveData: any) {
         this.actionId = parseInt(saveData.id);
         let jsonData = MyGame.JsonDataTool.getDataById('_table_action_action', this.actionId);
         this.actionCostTime = jsonData.costTime;
         this.actionPos = parseInt(jsonData.pos);
+        this.buildingFunctionType = jsonData.buildingFunctionType;
         this.rewardArr = ('' + jsonData.rewardArr).split(',').map(function (idStr) {
             return parseInt(idStr);
         });
@@ -110,9 +113,9 @@ export class Action {
         if (this.nowCostTime > this.actionCostTime) {
             //判断是否要使用建筑功能
             if (this.actionPos !== MyGame.SELF_HOUSE_ID) {
-                buildingData.useBuilding(personData, false, undefined);
+                buildingData.useBuilding(personData, this.buildingFunctionType);
             } else {
-                personData.home.useBuilding(personData, false, undefined);
+                personData.home.useBuilding(personData, this.buildingFunctionType);
             }
             personData.actionFinishCb(this);
             this.isDoing = false;

@@ -38,7 +38,7 @@ export class City {
         }
     }
 
-    initCityBySaveData(saveData: any) {
+    private initCityBySaveData(saveData: any) {
         this.cityId = saveData.cityId;
         this.peopleNum = saveData.peopleNum;
         this.soldierNum = saveData.soldierNum;
@@ -73,7 +73,7 @@ export class City {
         }.bind(this));
     }
 
-    initCity(cityId: number) {
+    private initCity(cityId: number) {
         let jsonData = MyGame.JsonDataTool.getDataById('_table_city_city', cityId);
         this.cityId = cityId;
         this.peopleNum = jsonData.peopleNum;

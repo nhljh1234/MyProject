@@ -79,6 +79,7 @@ class Game {
     MAX_ITEM_NUM: number = undefined;
     MIN_POWER_NUM: number = undefined;
     BATTLE_TIMER_TIME: number = undefined;
+    QUICK_GAME_SPEED: number = undefined;
 
     ITEM_FUNCTION_TYPE_REST = 'rest';
 
@@ -101,6 +102,8 @@ class Game {
         //自动战斗间隔
         //单位分钟
         this.BATTLE_TIMER_TIME = JsonDataTool.getDataById('_table_Game_gameParameter', 5).num;
+        //快速游戏时间
+        this.QUICK_GAME_SPEED = MyGame.JsonDataTool.getDataById('_table_Game_gameParameter', 6).num;
     }
 }
 

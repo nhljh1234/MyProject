@@ -28,6 +28,12 @@ export function getRandomUserRoleData(sex: number, name: string) {
     return randomData;
 }
 
+export interface updateFuncData {
+    func: Function;
+    id: number;
+    data: any;
+}
+
 export class UserRole {
     //任务姓名
     name: string;
@@ -89,7 +95,9 @@ export class UserRole {
     //回调列表
     //这么设计是主角比较特殊，可能存在多个要处理的状态，标记太多不好
     //比如在自宅休息的时候会存入一个回调，每次调用的时候更新人物的体力和生命值
-    updateFuncArr: Function[];
+    private updateFuncArr: updateFuncData[];
+    //返回一个唯一id
+    private updateFuncIndex: number;
     //自宅
     home: SelfHome;
 
@@ -101,11 +109,11 @@ export class UserRole {
         }
     }
 
-    initUserRoleBySaveData(saveData: any) {
+    private initUserRoleBySaveData(saveData: any) {
 
     }
 
-    initUserRole(randomData: any) {
+    private initUserRole(randomData: any) {
         //名字
         this.name = randomData.name;
         //攻击力
@@ -177,6 +185,7 @@ export class UserRole {
         //这么设计是主角比较特殊，可能存在多个要处理的状态，标记太多不好
         //比如在自宅休息的时候会存入一个回调，每次调用的时候更新人物的体力和生命值
         this.updateFuncArr = [];
+        this.updateFuncIndex = 0;
         //自宅
         this.home = new SelfHome(MyGame.SELF_HOUSE_ID, undefined, undefined);
     }
@@ -199,5 +208,42 @@ export class UserRole {
      */
     inInHomePos(): boolean {
         return this.personPos.cityId === this.homePos;
+    }
+
+    /**
+     * 在人物身上增加一个循环回调函数
+     * @param func 
+     * @param data 
+     */
+    addOneFunction(func: Function, data: any): number {
+        this.updateFuncIndex++;
+        this.updateFuncArr.push({
+            func: func,
+            id: this.updateFuncIndex,
+            data: data
+        });
+        return this.updateFuncIndex;
+    }
+
+    /**
+     * 在人物身上清除一个循环回调函数
+     * @param id 
+     */
+    removeOneFunctionById(id: number): boolean {
+        let i, len;
+        for (i = 0, len = this.updateFuncArr.length; i < len; i++) {
+            if (this.updateFuncArr[i].id === id) {
+                this.updateFuncArr.splice(i, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 时间回调函数
+     */
+    timeUpdate (addMinutes: number) {
+        
     }
 }

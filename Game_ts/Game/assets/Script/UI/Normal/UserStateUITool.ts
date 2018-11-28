@@ -72,7 +72,7 @@ function updateUserPower(userStateNode: cc.Node, showAniFlag: boolean) {
     }
 
     //0.1秒播完
-    const SHOW_SPEED = 0.1;
+    const SHOW_SPEED = 0.1 / MyGame.GameManager.gameSpeed;
     addUpdateFunc(progressAniUpdate, {
         progressNode: progressNode,
         oneSecondAddNum: SHOW_SPEED,

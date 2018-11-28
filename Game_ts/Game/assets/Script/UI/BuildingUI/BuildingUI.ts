@@ -54,6 +54,8 @@ class BuildingUI extends BaseUI {
                     MyGame.GameSceneManager.addNode('Prefab/MainUI/MainUI', MyGame.GAME_SCENE_UI_NODE, 'MainUI',
                         false, undefined, undefined, 100);
                     this.hide(false);
+                } else {
+                    this._buildingData.roleUseBuilding(MyGame.GameManager.userRole, buildingTypeData.functionType);
                 }
                 break;
         }

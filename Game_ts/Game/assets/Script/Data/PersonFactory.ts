@@ -155,7 +155,7 @@ export class Person {
         }
     }
 
-    initperson(personId: number, randomData: any, cityId: number) {
+    private initperson(personId: number, randomData: any, cityId: number) {
         let jsonData = randomData || MyGame.JsonDataTool.getDataById('_table_person_person', personId);
         this.name = jsonData.name;
         this.attack = jsonData.attack;
@@ -194,7 +194,7 @@ export class Person {
         this.home = new SelfHome(MyGame.SELF_HOUSE_ID, undefined, undefined);
     }
 
-    initpersonBySave(saveData: any) {
+    private initpersonBySave(saveData: any) {
         this.name = saveData.name;
         this.attack = saveData.attack;
         this.def = saveData.def;

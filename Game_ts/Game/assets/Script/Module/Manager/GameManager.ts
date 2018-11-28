@@ -19,8 +19,9 @@ let componentDave: cc.Component;
 //标记时间，就是每帧世界运行的分钟数
 const ONE_SECOND_GAME_MINUTE = 10;
 //定时器间隔时间
+export let gameSpeed = 1;
 //设定为可变的
-export const TIMER_TIME = 1;
+export let timerTime = 1;
 //是否暂停时间运行
 let pauseFlag = false;
 
@@ -50,8 +51,21 @@ function timeUpdate() {
     useSeconds = useSeconds > 1 ? 1 : useSeconds;
     //再次执行定时器
     componentDave.unschedule(timeUpdate);
-    componentDave.schedule(timeUpdate, TIMER_TIME - useSeconds, 1);
+    componentDave.schedule(timeUpdate, timerTime - useSeconds, 1);
 };
+
+/**
+ * 改变游戏循环的熟虑
+ */
+export function changeGameSpeed(speed) {
+    gameSpeed = speed;
+    timerTime = timerTime / gameSpeed;
+};
+
+export function gameSpeedResetting() {
+    gameSpeed = 1;
+    changeGameSpeed(gameSpeed);
+}
 
 //获取一个新的人物id
 export function getNewPersonId() {
@@ -80,7 +94,7 @@ export function initGame(gameData: Game) {
  */
 export function start() {
     if (componentDave) {
-        componentDave.schedule(timeUpdate, TIMER_TIME, 1);
+        componentDave.schedule(timeUpdate, timerTime, 1);
     }
 };
 
