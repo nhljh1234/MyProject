@@ -16,7 +16,7 @@ export default class MaterialUI extends cc.Component {
     sprite: cc.Sprite = null;
 
     _material: RenderMaterial;
-    _time: null;
+    _time: number = 0;
 
     start() {
         //新建pass
@@ -41,7 +41,7 @@ export default class MaterialUI extends cc.Component {
             ProgramEnum.BLEND_SRC_ALPHA, ProgramEnum.BLEND_ONE_MINUS_SRC_ALPHA
         );
         //新建Technique
-        let technique = buildTechnique(['test'], [
+        let technique = buildTechnique(['transparent'], [
             {
                 name: 'ratio',
                 type: RenderEnum.PARAM_FLOAT,
@@ -64,10 +64,12 @@ export default class MaterialUI extends cc.Component {
         }, []);
         //新建Material
         this._material = buildMaterial();
-        this._material._effect = effect;
         //绑定到sprite上面
         //接下来这几步不能少
-        this.sprite['_activateMaterial']();
+        //需要赋值两个地方，否则会出错
+        this._material._effect = this._material.effect = effect;
+        let texture = this.sprite.spriteFrame.getTexture();
+        this._material._texture = texture;
         this._material._mainTech = technique;
         this.sprite['_updateMaterial'](this._material);
 
