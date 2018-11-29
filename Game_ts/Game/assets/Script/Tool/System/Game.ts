@@ -10,6 +10,7 @@ import LogTool = require('../../Tool/System/LogTool');
 import MemoryManager = require('../../Tool/System/MemoryManager');
 import PrefabManager = require('../../Tool/System/PrefabManager');
 import SpriteFrameManager = require('../../Tool/System/SpriteFrameManager');
+import Tool = require('../../Tool/System/Tool');
 import TimeTool = require('../../Tool/Time/TimeTool');
 import NodeTool = require('../../UI/Base/NodeTool');
 import ScrollViewTool = require('../../UI/Base/ScrollViewTool');
@@ -49,6 +50,7 @@ class Game {
     ItemModule = ItemModule;
     BuildModule = BuildModule;
     GMTool = GMTool;
+    Tool = Tool;
 
     //多语言相关
     LanguageType_CHS: string = 'CHS';
@@ -84,6 +86,8 @@ class Game {
     ITEM_FUNCTION_TYPE_REST = 'rest';
 
     BUILDING_FUNCTION_TYPE_COME_BACK = 'comeBack';
+    BUILDING_FUNCTION_TYPE_REST = 'rest';
+    BUILDING_FUNCTION_TYPE_WAREHOUSE = 'warehouse';
 
     //自宅
     SELF_HOUSE_ID = 1000;

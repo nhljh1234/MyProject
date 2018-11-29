@@ -62,7 +62,7 @@ class MainUI extends BaseUI {
     }
 
     userRoleUpdateCb() {
-        updateUserState(this._topNode.getChildByName('UserState'));
+        updateUserState(this._topNode.getChildByName('UserState'), true);
     }
 
     showCityBuildingUI() {
@@ -70,7 +70,7 @@ class MainUI extends BaseUI {
         this._buildingTmpNodePool = new cc.NodePool();
         this._buildingScrollviewNode = this._bottomNode.getChildByName('building_scroll_view');
         let userRole = MyGame.GameManager.userRole;
-        let buildArr = MyGame.GameManager.gameDataSave.getCityById(userRole.personPos.cityId).buildingArr;
+        let buildArr: any = MyGame.GameManager.gameDataSave.getCityById(userRole.personPos.cityId).buildingArr;
         //判断有没有自宅
         //自宅排在第一个
         if (userRole.inInHomePos()) {

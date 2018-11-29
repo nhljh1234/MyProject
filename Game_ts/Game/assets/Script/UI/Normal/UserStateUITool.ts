@@ -54,7 +54,7 @@ function progressAniUpdate(data: any, dt: number) {
         (lastProgressNum <= goalProgressNum && nowProgressNum >= goalProgressNum)) {
         nowProgressNum = goalProgressNum;
         //清除掉回调
-        removeUpdateFunc(progressAniUpdate);
+        removeUpdateFunc(progressAniUpdate, data);
     }
     updateUserPowerOnce(nowProgressNum * MyGame.MAX_POWER, data.progressNode);
 }
@@ -65,26 +65,30 @@ function progressAniUpdate(data: any, dt: number) {
  */
 function updateUserPower(userStateNode: cc.Node, showAniFlag: boolean) {
     let progressNode = userStateNode.getChildByName('power');
+    //判断值是否相同，相同的话就不调用了
+    if (MyGame.Tool.equalNum(progressNode.getComponent(cc.ProgressBar).progress, MyGame.GameManager.userRole.power / MyGame.MAX_POWER)) {
+        return;
+    }
     if (!showAniFlag) {
         //直接设置值
         updateUserPowerOnce(MyGame.GameManager.userRole.power, progressNode);
         return;
     }
 
-    //0.1秒播完
-    const SHOW_SPEED = 0.1 / MyGame.GameManager.gameSpeed;
+    //越大播放越快
+    const SHOW_SPEED = 0.3 * MyGame.GameManager.gameSpeed;
     addUpdateFunc(progressAniUpdate, {
         progressNode: progressNode,
         oneSecondAddNum: SHOW_SPEED,
     }, this);
 }
 
-export function updateUserState(userStateNode: cc.Node) {
+export function updateUserState(userStateNode: cc.Node, showAniFlag: boolean = true) {
     updateUserName(userStateNode);
     updateUserCityPos(userStateNode);
     updateTime(userStateNode);
     updateUserMoney(userStateNode);
-    updateUserPower(userStateNode, true);
+    updateUserPower(userStateNode, showAniFlag);
 }
 
 /**
@@ -106,6 +110,6 @@ export function addUserStateNode(node: cc.Node, x: number, y: number, roleUpdate
         if (roleUpdateCb) {
             MyGame.EventManager.on(MyGame.EventName.USER_ROLE_STATUS_CHANGE, roleUpdateCb, thisObj);
         }
-        updateUserState(newNode);
+        updateUserState(newNode, false);
     }, undefined, undefined);
 }
