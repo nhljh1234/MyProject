@@ -77,6 +77,7 @@
      <None Include="Assets\Shader\GaussianBlur.shader" />
      <None Include="Assets\Shader\Blur.shader" />
      <None Include="Assets\LearnProject\Render\Render_5\Shader\render_5_lights.cginc" />
+     <None Include="Assets\LearnProject\Render\Render_5\Shader\render_5_lights_frag.cginc" />
      <None Include="Assets\LearnProject\Render\Render_1\Shader\Color.shader" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/MyProject/Unity/Shader/ShaderLeran/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

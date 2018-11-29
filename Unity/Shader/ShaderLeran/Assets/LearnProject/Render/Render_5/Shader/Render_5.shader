@@ -22,7 +22,7 @@ Shader "LearnProject/Render/Render_5/Color"
 			#pragma vertex vert
 			#pragma fragment frag
 			
-			#include "render_5_lights.cginc"
+			#include "render_5_lights_frag.cginc"
 
 			ENDCG
 		}
@@ -43,7 +43,7 @@ Shader "LearnProject/Render/Render_5/Color"
 			
 			#pragma multi_compile DIRECTIONAL POINT SPOT
 
-			#include "render_5_lights.cginc"
+			#include "render_5_lights_frag.cginc"
 
 			ENDCG
 		}
