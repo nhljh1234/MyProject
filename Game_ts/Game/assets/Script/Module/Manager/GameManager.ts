@@ -22,6 +22,8 @@ const ONE_SECOND_GAME_MINUTE = 10;
 export let gameSpeed = 1;
 //设定为可变的
 export let timerTime = 1;
+//初始的定时器时间
+const TIMER_TIME = 1;
 //是否暂停时间运行
 let pauseFlag = false;
 
@@ -51,7 +53,7 @@ function timeUpdate() {
     useSeconds = useSeconds > 1 ? 1 : useSeconds;
     //再次执行定时器
     componentDave.unschedule(timeUpdate);
-    componentDave.schedule(timeUpdate, timerTime - useSeconds, 1);
+    componentDave.schedule(timeUpdate, (timerTime - useSeconds) < 0 ? 0 : (timerTime - useSeconds), 1);
 };
 
 /**
@@ -59,7 +61,7 @@ function timeUpdate() {
  */
 export function changeGameSpeed(speed) {
     gameSpeed = speed;
-    timerTime = timerTime / gameSpeed;
+    timerTime = TIMER_TIME / gameSpeed;
 };
 
 export function gameSpeedResetting() {

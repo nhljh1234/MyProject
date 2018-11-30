@@ -28,8 +28,12 @@ export class SelfHome extends Building {
     roleUseBuilding(personData: UserRole, typeStr: string) {
         super.roleUseBuilding(personData, typeStr);
         switch (typeStr) {
-            case MyGame.ITEM_FUNCTION_TYPE_REST:
+            case MyGame.BUILDING_FUNCTION_TYPE_REST:
                 this.rest(personData);
+                break;
+            case MyGame.BUILDING_FUNCTION_TYPE_WAREHOUSE:
+                //调用显示仓库界面
+                MyGame.EventManager.send(MyGame.EventName.SHOW_WAREHOUSE_UI);
                 break;
         }
     }
@@ -60,9 +64,12 @@ export class SelfHome extends Building {
                     //恢复运行速度
                     MyGame.GameManager.gameSpeedResetting();
                 }
+            } else {
+                //清除回调
+                personData.removeOneFunctionById(this.restUpdateFuncId);
             }
         }.bind(this), {
-            restOneMinuteAddPowerNum: this.restOneMinuteAddPowerNum
-        });
+                restOneMinuteAddPowerNum: this.restOneMinuteAddPowerNum
+            });
     }
 }

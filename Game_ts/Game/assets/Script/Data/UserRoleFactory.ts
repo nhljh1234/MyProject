@@ -210,12 +210,28 @@ export class UserRole {
         return this.personPos.cityId === this.homePos;
     }
 
+    getIndexByFunc(func: Function, data: any): number {
+        let i: number;
+        for (i = 0; i < this.updateFuncArr.length; i++) {
+            if (this.updateFuncArr[i].func === func) {
+                //判断参数
+                if (MyGame.Tool.equal(data, this.updateFuncArr[i].data)) {
+                    return i;
+                }
+            }
+        }
+        return undefined;
+    }
+
     /**
      * 在人物身上增加一个循环回调函数
      * @param func 
      * @param data 
      */
     addOneFunction(func: Function, data: any): number {
+        if (this.getIndexByFunc(func, data) >= 0) {
+            return;
+        }
         this.updateFuncIndex++;
         this.updateFuncArr.push({
             func: func,
@@ -243,7 +259,9 @@ export class UserRole {
     /**
      * 时间回调函数
      */
-    timeUpdate (addMinutes: number) {
-        
+    timeUpdate(addMinutes: number) {
+        this.updateFuncArr.forEach(function (funcData) {
+            funcData.func(this, addMinutes, funcData.data);
+        }.bind(this));
     }
 }

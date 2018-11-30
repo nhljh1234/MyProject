@@ -62,7 +62,7 @@ class BuildingUI extends BaseUI {
     }
 
     userRoleUpdateCb() {
-        updateUserState(this._topNode.getChildByName('UserState'));
+        updateUserState(this._topNode.getChildByName('UserState'), true);
     }
 
     //显示建筑的功能列表
