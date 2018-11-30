@@ -114,5 +114,5 @@ app.post('/DeleteSellCard', (req, res) => {
 
 app.use('/data', express.static(path.join(__dirname, 'public')));
 
-//app.listen(8888);
-app.listen(3389);
+app.listen(8888);
+//app.listen(3389);

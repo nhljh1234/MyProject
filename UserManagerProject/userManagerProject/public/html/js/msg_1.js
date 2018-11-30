@@ -30,7 +30,7 @@ var getUserTrNode = function(oneData) {
             alert('无法删除超级管理员');
             return;
         }
-        $.post('http://47.92.253.131:3389/deleteUser', {
+        $.post('http://localhost:8888/deleteUser', {
             deleteName: oneData.userName
         }, function(result) {
             if (result.ret === -2) {
@@ -62,7 +62,7 @@ var buildUser = function() {
         alert('参数错误');
         return;
     }
-    $.post('http://47.92.253.131:3389/buildUser', {
+    $.post('http://localhost:8888/buildUser', {
         userName: buildName,
         password: buildPassword,
         type: buildType,
