@@ -7,6 +7,7 @@ Shader "MyShader/SkyEffect"
 		_FogColor ("Fog Color", Color) = (1, 1, 1, 1)
 		_NoiseTex ("Noise Texture", 2D) = "white" {}        // 噪声纹理
 		_FogDensity ("Fog Density", Float) = 1.0
+		_FogAlpha ("Fog Alpha", Float) = 1.0
 		_NoiseAmount ("Noise Amount", Float) = 1
 		_SpeedX ("SpeedX", Float) = 1
 		_SpeedY ("SpeedY", Float) = 1
@@ -44,6 +45,7 @@ Shader "MyShader/SkyEffect"
 			float4 _MainTex_TexelSize;
 
 			float _FogDensity;
+			float _FogAlpha;
 			float4 _FogColor;
 			sampler2D _NoiseTex;
 			float _NoiseAmount;
@@ -70,6 +72,11 @@ Shader "MyShader/SkyEffect"
 				return lerp(lerp(rand(b), rand(b + d.yx), f.x), lerp(rand(b + d.xy), rand(b + d.yy), f.x), f.y);
 			}
 
+			float sharpening(float density)
+			{
+				return ceil(density * 100) / 100;
+			}
+
 			fixed4 frag (v2f i) : SV_Target
 			{
 				
@@ -80,9 +87,12 @@ Shader "MyShader/SkyEffect"
 				total += noise(pos * 4.0 + float2(fmod(_Time.x * _SpeedX * 4.0, 400), 0.0)) * 0.25;
 				total += noise(pos * 8.0 + float2(0.0, fmod(_Time.y * _SpeedY * 5.0, 500))) * 0.125;
 
-				float3 resultColor = _FogColor * total * _FogDensity;
+				float resultDensity = total * _FogDensity;
+				//resultDensity = sharpening(resultDensity);
 
-				return fixed4(resultColor, 1);
+				float3 resultColor = _FogColor * resultDensity;
+
+				return fixed4(resultColor, _FogAlpha);
 			}
 			ENDCG
 		}
