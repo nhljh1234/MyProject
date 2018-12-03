@@ -5,7 +5,7 @@ Shader "LearnProject/Render/Render_6/Color"
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
-		[NoScaleOffset] _NormalMap ("Heights", 2D) = "gray" {}
+		[NoScaleOffset] _NormalMap ("Heights", 2D) = "bump" {}
 		_shininess ("shininess", Int) = 10
 	}
 	SubShader

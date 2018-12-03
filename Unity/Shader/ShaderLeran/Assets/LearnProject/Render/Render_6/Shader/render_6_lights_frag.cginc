@@ -28,8 +28,11 @@ int _shininess;
 			
 void getHeightMapNormal (inout v2f o) 
 {
-	fixed4 heightMapColor = tex2D(_NormalMap, o.uv);
-	o.normal = normalize(float3(0, heightMapColor.x, 0));
+	//fixed4 heightMapColor = tex2D(_NormalMap, o.uv);
+	//o.normal = normalize(float3(0, heightMapColor.x, 0));
+	o.normal = tex2D(_NormalMap, o.uv).rgb * 2 - 1;
+	//o.normal = o.normal.rbg;
+	o.normal = normalize(o.normal);
 }
 
 v2f vert (appdata v)
