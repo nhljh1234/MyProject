@@ -39,7 +39,7 @@ outModule.changeDevice = (req, res) => {
             data.customerPhone = deviceData[data.deviceId].customerPhone;
         }
         FileSaveTool.changeJsonData(GlobalData.DEVICE_SAVE_JSON_FILE_NAME, data.deviceId,
-            FileSaveTool.buildUserData(data.deviceId, data.customerName, data.customerPos, data.customerPhone, data.customerArea), true);
+            FileSaveTool.buildDeviceData(data.deviceId, data.customerName, data.customerPos, data.customerPhone, data.customerArea), true);
         res.send(JSON.stringify({
             ret: 1,
             successStr: '修改设备成功'
