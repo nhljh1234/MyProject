@@ -53,6 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DynamicFog\Scripts\DynamicFog.cs" />
+     <Compile Include="Assets\DynamicFog\Scripts\DynamicFogManager.cs" />
+     <Compile Include="Assets\DynamicFog\Scripts\DynamicFogOfWar.cs" />
+     <Compile Include="Assets\DynamicFog\Scripts\DynamicFogProfile.cs" />
+     <Compile Include="Assets\DynamicFog\Scripts\FogVolume.cs" />
      <Compile Include="Assets\LearnProject\Base\Clock\Script\ClockScript.cs" />
      <Compile Include="Assets\LearnProject\Base\Fractal\Script\FractalCode.cs" />
      <Compile Include="Assets\LearnProject\Base\Graph\Script\GraphPosControl.cs" />
@@ -62,25 +67,62 @@
      <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\MeshDeformerInput.cs" />
      <Compile Include="Assets\LearnProject\Mesh\RoundedCube\Script\RoundedCube.cs" />
      <Compile Include="Assets\LearnProject\Render\Render_1\Script\Render_1_CreateCube.cs" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFOOrthogonal.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFMUnlit.shader" />
      <None Include="Assets\Shader\SkyEffect.shader" />
      <None Include="Assets\Shader\RimLight.shader" />
+     <None Include="Assets\LearnProject\Render\Render_6\Shader\render_6_lights_frag.cginc" />
      <None Include="Assets\LearnProject\Mesh\CubeSphere\Shader\CubeSphere.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\FogOfWar.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFMStandardShader.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFRUnlit.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFOWithSky.shader" />
      <None Include="Assets\Shader\OutLine.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFMSurfaceShaderCommon.cginc" />
      <None Include="Assets\LearnProject\Base\Fractal\Shader\Color.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DynamicFogCommon.cginc" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFRStandardShaderSolid.shader" />
      <None Include="Assets\LearnProject\Render\Render_2\Shader\Render_2.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFMLambertSolidColor.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFGOnlyFog.shader" />
      <None Include="Assets\Shader\BlastEffect.shader" />
      <None Include="Assets\LearnProject\Render\Render_5\Shader\Render_5.shader" />
+     <None Include="Assets\DynamicFog\README.txt" />
      <None Include="Assets\LearnProject\Render\Render_3\Shader\Render_3.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFOBasic.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFGSimple.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFGDesktopPlusOrthogonal.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFRLambert.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFRUnlitSolidColor.shader" />
      <None Include="Assets\Shader\Dissolution.shader" />
      <None Include="Assets\LearnProject\Render\Render_4\Shader\Render_4.shader" />
      <None Include="Assets\LearnProject\Base\Graph\Shader\Color.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFMUnlitSolidColor.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFODesktop.shader" />
      <None Include="Assets\LearnProject\Mesh\RoundedCube\Shader\RoundedCube.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFRLambertSolidColor.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFOOnlyFog.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFGOrthogonal.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFGBasic.shader" />
      <None Include="Assets\Shader\GaussianBlur.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFODesktopPlusOrthogonal.shader" />
+     <None Include="Assets\LearnProject\Render\Render_6\Shader\Render_6.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFODesktopPlus.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFGWithSky.shader" />
      <None Include="Assets\LearnProject\Render\Render_5\Shader\render_5_lights_vert.cginc" />
      <None Include="Assets\Shader\Blur.shader" />
      <None Include="Assets\LearnProject\Render\Render_5\Shader\Render_5_vert.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFGDesktop.shader" />
+     <None Include="Assets\DynamicFog\Demos\How to install demo scenes.txt" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFMVertexFragmentShaderCommon.cginc" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFGDesktopPlus.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFOSimple.shader" />
      <None Include="Assets\LearnProject\Render\Render_5\Shader\render_5_lights_frag.cginc" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DynamicFogDither.cginc" />
      <None Include="Assets\LearnProject\Render\Render_1\Shader\Color.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFMStandardShaderSolid.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFRStandardShader.shader" />
+     <None Include="Assets\DynamicFog\Resources\Shaders\DFMLambert.shader" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/MyProject/Unity/Shader/ShaderLeran/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

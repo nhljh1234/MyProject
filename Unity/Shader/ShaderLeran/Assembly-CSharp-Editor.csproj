@@ -53,40 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\PostProcessing\Editor\Attributes\PostProcessingModelEditorAttribute.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\AmbientOcclusionModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\AntialiasingModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\BloomModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\BuiltinDebugViewsEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\ChromaticAberrationEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\ColorGradingModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\DefaultPostFxModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\DepthOfFieldModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\DitheringModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\EyeAdaptationModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\FogModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\GrainModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\MotionBlurModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\ScreenSpaceReflectionModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\UserLutModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Models\VignetteModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Monitors\HistogramMonitor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Monitors\ParadeMonitor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Monitors\VectorscopeMonitor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Monitors\WaveformMonitor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\PostProcessingBehaviourEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\PostProcessingFactory.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\PostProcessingInspector.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\PostProcessingModelEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\PostProcessingMonitor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\PropertyDrawers\GetSetDrawer.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\PropertyDrawers\MinDrawer.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\PropertyDrawers\TrackballGroupDrawer.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Utils\CurveEditor.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Utils\EditorGUIHelper.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Utils\EditorResources.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Utils\FxStyles.cs" />
-     <Compile Include="Assets\PostProcessing\Editor\Utils\ReflectionUtils.cs" />
+     <Compile Include="Assets\DynamicFog\Editor\DynamicFogEditor.cs" />
+     <Compile Include="Assets\DynamicFog\Editor\DynamicFogGaiaExtension.cs" />
+     <Compile Include="Assets\DynamicFog\Editor\DynamicFogManagerEditor.cs" />
+     <Compile Include="Assets\DynamicFog\Editor\DynamicFogProfileEditor.cs" />
+     <Compile Include="Assets\DynamicFog\Editor\FogVolumeExtensions.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/MyProject/Unity/Shader/ShaderLeran/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
@@ -383,12 +354,8 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{411DD79E-9607-0D96-F75B-1ECBCD71C037}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{6C742247-CC65-FBB5-8A6A-85446FD93279}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-CSharp-Editor-firstpass.csproj">
-      <Project>{65E95B31-21A0-BACC-3858-56C358C38CCD}</Project>      <Name>Assembly-CSharp-Editor-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

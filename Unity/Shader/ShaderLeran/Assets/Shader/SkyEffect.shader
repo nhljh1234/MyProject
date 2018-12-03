@@ -79,7 +79,6 @@ Shader "MyShader/SkyEffect"
 
 			fixed4 frag (v2f i) : SV_Target
 			{
-				
 				float total = 0.0;
 				float2 pos = i.uv * _NoiseAmount;
 				total += noise(pos * 1.0 + float2(fmod(_Time.x * _SpeedX * 2.0, 200), 0.0));
