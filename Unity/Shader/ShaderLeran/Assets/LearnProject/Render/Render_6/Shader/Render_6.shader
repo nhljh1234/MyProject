@@ -7,6 +7,10 @@ Shader "LearnProject/Render/Render_6/Color"
 		_MainTex ("Texture", 2D) = "white" {}
 		[NoScaleOffset] _NormalMap ("Heights", 2D) = "bump" {}
 		_shininess ("shininess", Int) = 10
+		_bumpScale ("bumpScale", Float) = 1
+		_DetailTex ("Detail Texture", 2D) = "gray" {}
+		[NoScaleOffset] _DetailNormalTex ("Detail Normal Texture", 2D) = "gray" {}
+		_detailBumpScale ("detailBumpScale", Float) = 1
 	}
 	SubShader
 	{
@@ -19,6 +23,8 @@ Shader "LearnProject/Render/Render_6/Color"
 			
 			
 			CGPROGRAM
+
+			//#define USER_BASE
 
 			#pragma vertex vert
 			#pragma fragment frag
