@@ -83,6 +83,9 @@ export class UserRole {
     //当前的人物的物品数据
     //物品id -> 物品数量
     itemObj: { [itemId: number]: number };
+    //仓库物品数量数据
+    //物品id -> 物品数量
+    warehouseItemObj: { [itemId: number]: number };
     //装备数据
     equipObj: { [equipId: number]: number };
     //货币输了
@@ -171,6 +174,8 @@ export class UserRole {
         this.nowAction = undefined;
         //当前的人物的物品数据
         this.itemObj = {};
+        //仓库数据
+        this.warehouseItemObj = {};
         //装备数据
         this.equipObj = {};
         //货币数量
