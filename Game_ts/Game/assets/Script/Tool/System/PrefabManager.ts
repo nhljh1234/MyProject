@@ -5,7 +5,12 @@ interface loadData {
     frequency: number;
 };
 //预加载数组
-const PREFAB_INIT_LOAD_ARR: loadData[] = [];
+const PREFAB_INIT_LOAD_ARR: loadData[] = [
+    {
+        pathStr: 'Prefab/Item/Item',
+        frequency: 100
+    }
+];
 
 interface prefabSaveData {
     prefabPath: string;

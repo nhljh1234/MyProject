@@ -33,7 +33,12 @@ export class SelfHome extends Building {
                 break;
             case MyGame.BUILDING_FUNCTION_TYPE_WAREHOUSE:
                 //调用显示仓库界面
-                MyGame.EventManager.send(MyGame.EventName.SHOW_WAREHOUSE_UI);
+                //MyGame.EventManager.send(MyGame.EventName.SHOW_WAREHOUSE_UI);
+                //标记一下打开的是什么界面
+                //背包和仓库都是用一个界面
+                MyGame.GameDataSaveTool.setData('show_warehouseUI_type', MyGame.WAREHOUSEUI_TYPE_WAREHOUSE);
+                MyGame.GameSceneManager.addNode('Prefab/WarehouseUI/WarehouseUI', MyGame.GAME_SCENE_UI_NODE, 'WarehouseUI',
+                    false, undefined, undefined, 100);
                 break;
         }
     }

@@ -11,8 +11,8 @@ class ForceListUI extends BaseUI {
     _uiName: string = 'ForceListUI';
 
     _forceListNodePool: cc.NodePool;
-    _forceListNScrollViewNode: cc.Node;
-    _forceListNScrollViewTmpNode: cc.Node;
+    _forceListScrollViewNode: cc.Node;
+    _forceListScrollViewTmpNode: cc.Node;
 
     onLoad() {
         super.onLoad();
@@ -27,8 +27,8 @@ class ForceListUI extends BaseUI {
     onUIInit() {
         super.onUIInit();
         this._forceListNodePool = new cc.NodePool();
-        this._forceListNScrollViewNode = cc.find('Mid/scrollview', this.node);
-        this._forceListNScrollViewTmpNode = cc.find('view/content/item', this._forceListNScrollViewNode);
+        this._forceListScrollViewNode = cc.find('Mid/scrollview', this.node);
+        this._forceListScrollViewTmpNode = cc.find('view/content/item', this._forceListScrollViewNode);
     }
 
     onShow() {
@@ -36,8 +36,8 @@ class ForceListUI extends BaseUI {
         let gameData = MyGame.GameManager.gameDataSave;
         let forceDataArr = gameData.allForceArr;
         //显示list
-        MyGame.ScrollViewTool.buildScrollView(this._forceListNScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
-            this._forceListNScrollViewTmpNode, function (childNode: cc.Node, data: Force) {
+        MyGame.ScrollViewTool.buildScrollView(this._forceListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
+            this._forceListScrollViewTmpNode, function (childNode: cc.Node, data: Force) {
                 cc.find('button/forceName', childNode).getComponent(cc.Label).string = data.forceName;
                 MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_force_id', data.forceId);
             }.bind(this), forceDataArr, this._forceListNodePool);
