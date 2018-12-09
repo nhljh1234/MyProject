@@ -47,7 +47,7 @@ var getDeviceTrNode = function(oneData) {
         aNode.href = "#";
         aNode.innerText = "删除设备";
         aNode.onclick = function() {
-            $.post('http://localhost:8888/deleteDevice', {
+            $.post('http://47.107.49.227:3389/deleteDevice', {
                 deleteDeviceId: oneData.deviceId
             }, function(result) {
                 if (result.ret === -2) {

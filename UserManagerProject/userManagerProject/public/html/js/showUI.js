@@ -47,7 +47,7 @@ var showDeviceMsgUI = function(isInit) {
     }
     hideAllUI();
     document.getElementById("deviceData").style.display = 'block';
-    $.post('http://localhost:8888/getDeviceMsg', {
+    $.post('http://47.107.49.227:3389/getDeviceMsg', {
         page: 1
     }, function(result) {
         if (result.ret === -2) {
@@ -72,7 +72,7 @@ var showSellCardMsgUI = function() {
     }
     hideAllUI();
     document.getElementById("sellCardData").style.display = 'block';
-    $.post('http://localhost:8888/getSellCardMsg', {
+    $.post('http://47.107.49.227:3389/getSellCardMsg', {
         page: 1
     }, function(result) {
         if (result.ret === -2) {
@@ -98,7 +98,7 @@ var showUserMsgUI = function() {
     hideAllUI();
     document.getElementById("userData").style.display = 'block';
     if (localStorage.getItem('userType') === '1') {
-        $.post('http://localhost:8888/getUserMsg', {
+        $.post('http://47.107.49.227:3389/getUserMsg', {
             page: 1
         }, function(result) {
             if (result.ret === -2) {

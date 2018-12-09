@@ -1,6 +1,6 @@
 let deviceChangeDataSave = {};
 var buildDevice = function() {
-    $.post('http://localhost:8888/buildDevice', {
+    $.post('http://47.107.49.227:3389/buildDevice', {
         deviceId: document.getElementById('b_device_id').value || 1,
         customerName: document.getElementById('b_customer_name') ? document.getElementById('b_customer_name').value : '空',
         customerPhone: document.getElementById('b_customer_phone') ? document.getElementById('b_customer_phone').value : '空',
@@ -170,7 +170,7 @@ var showChangeDeviceMsg = function(data) {
 };
 var changeDevice = function() {
     if (document.getElementById('v_customer_name')) {
-        $.post('http://localhost:8888/changeDevice', {
+        $.post('http://47.107.49.227:3389/changeDevice', {
             deviceId: local.selectDeviceId,
             customerName: document.getElementById('v_customer_name') ? document.getElementById('v_customer_name').value : undefined,
             customerPhone: document.getElementById('v_customer_name') ? document.getElementById('v_customer_phone').value : undefined,
@@ -200,7 +200,6 @@ var changeDevice = function() {
         alert('字符数超出');
         return;
     }
-    //param = param + 'title=' + document.getElementById('v_screenStr').value + ";";
 
     switch (deviceChangeDataSave['v_control_type']) {
         case 0:
@@ -250,6 +249,8 @@ var changeDevice = function() {
             break;
     }
     param = param + 'sensor_enable=' + deviceChangeDataSave.v_show_type + ';';
+    var successNum = 0;
+    var showFailFlag = false;
     $.ajax({
         url: "http://xmenvi.wujjc.com:2008/envi/device_cfg",
         type: 'POST',
@@ -259,14 +260,45 @@ var changeDevice = function() {
             allcfg: param
         }),
         success: function(result) {
-            if (result.code === 0) {
-                alert("设置成功");
-            } else {
-                alert("设置失败");
+            successNum++;
+            if (successNum === 2) {
+                if (result.code === 0) {
+                    alert("设置成功");
+                } else {
+                    alert("设置失败");
+                }
             }
         },
         error: function(error) {
-            alert("设置失败");
+            if (!showFailFlag) {
+                showFailFlag = true;
+                alert("设置失败");
+            }
+        }
+    });
+    $.ajax({
+        url: "http://xmenvi.wujjc.com:2008/envi/device_cfg",
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            device: local.selectDeviceId,
+            title: title
+        }),
+        success: function(result) {
+            successNum++;
+            if (successNum === 2) {
+                if (result.code === 0) {
+                    alert("设置成功");
+                } else {
+                    alert("设置失败");
+                }
+            }
+        },
+        error: function(error) {
+            if (!showFailFlag) {
+                showFailFlag = true;
+                alert("设置失败");
+            }
         }
     });
 };
