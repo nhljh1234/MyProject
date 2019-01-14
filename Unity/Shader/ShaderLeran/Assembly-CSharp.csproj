@@ -62,6 +62,7 @@
      <Compile Include="Assets\LearnProject\Mesh\CubeSphere\Script\MeshDeformerInput.cs" />
      <Compile Include="Assets\LearnProject\Mesh\RoundedCube\Script\RoundedCube.cs" />
      <Compile Include="Assets\LearnProject\Render\Render_1\Script\Render_1_CreateCube.cs" />
+     <Compile Include="Assets\LearnProject\Render\Render_7\Script\test.cs" />
      <None Include="Assets\Shader\SkyEffect.shader" />
      <None Include="Assets\Shader\RimLight.shader" />
      <None Include="Assets\LearnProject\Render\Render_6\Shader\render_6_lights_frag.cginc" />
