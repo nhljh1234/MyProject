@@ -2,6 +2,7 @@
 import RandomNameTool = require('../../Tool/GameUse/RandomNameTool');
 import Language_CHS = require('../../Tool/Language/Language_CHS');
 import Language_EN = require('../../Tool/Language/Language_EN');
+import CodeRunTime = require('../../Tool/System/CodeRunTime');
 import EventManager = require('../../Tool/System/EventManager');
 import GameSceneManager = require('../../Tool/System/GameSceneManager');
 import JsonDataTool = require('../../Tool/System/JsonDataTool');
@@ -30,6 +31,7 @@ class Game {
     RandomNameTool = RandomNameTool;
     Language_CHS = Language_CHS;
     Language_EN = Language_EN;
+    CodeRunTime = CodeRunTime;
     EventManager = EventManager;
     GameSceneManager = GameSceneManager;
     JsonDataTool = JsonDataTool;
