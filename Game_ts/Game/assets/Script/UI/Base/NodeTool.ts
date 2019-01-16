@@ -44,9 +44,11 @@ export function getParentGlobalScale(node: cc.Node) {
 
 const ADD_POS_Y = 10000;
 const POS_Y_KEY = '_posY';
+const HIDE_PROPERTY_KEY = '_nodeActive';
 
 export function hideNode(node: cc.Node) {
     saveNodeValue(node, POS_Y_KEY, node.y);
+    saveNodeValue(node, HIDE_PROPERTY_KEY, false);
     node.y = node.y + ADD_POS_Y / getParentGlobalScale(node).y;
 }
 
@@ -56,5 +58,30 @@ export function showNode(node: cc.Node) {
         MyGame.LogTool.showLog(`NodeTool showNode error !! posY is undefined`);
         return;
     }
+    saveNodeValue(node, HIDE_PROPERTY_KEY, true);
     node.y = posY;
+}
+
+/**
+ * 获取节点是否激活
+ */
+export function getNodeActive(node: cc.Node) {
+    let value = getNodeValue(node, HIDE_PROPERTY_KEY);
+    if (value === undefined) {
+        //没有设置这个值
+        return node.active;
+    }
+    return (!!value) && node.active;
+}
+
+/**
+ * 获取节点是否在场景中激活
+ */
+export function getNodeActiveInHierarchy(node: cc.Node) {
+    let value = getNodeValue(node, HIDE_PROPERTY_KEY);
+    if (value === undefined) {
+        //没有设置这个值
+        return node.activeInHierarchy;
+    }
+    return (!!value) && node.activeInHierarchy;
 }

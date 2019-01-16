@@ -41,7 +41,7 @@ class LoadingUI extends BaseUI {
     onShow() {
         super.onShow();
         this._labelNode = this.node.getChildByName('label');
-        this._labelNode.active = false;
+        this._labelNode.active = true;
         this._loadProgressNode = this.node.getChildByName('progressBar');
         this._loadProgressNode.getComponent(cc.ProgressBar).progress = 0;
         //初始化游戏
@@ -53,7 +53,13 @@ class LoadingUI extends BaseUI {
         //    this.preLoadGameScene();
         //}.bind(this));
 
-        startTest(1000, this._labelNode);
+        //startTest(1000, this._labelNode);
+
+        MyGame.LogTool.showLog(`labelNode active is ${MyGame.NodeTool.getNodeActive(this._labelNode)}`);
+        MyGame.NodeTool.hideNode(this._labelNode);
+        MyGame.LogTool.showLog(`labelNode active is ${MyGame.NodeTool.getNodeActive(this._labelNode)}`);
+        MyGame.NodeTool.showNode(this._labelNode);
+        MyGame.LogTool.showLog(`labelNode active is ${MyGame.NodeTool.getNodeActive(this._labelNode)}`);
     }
 
     onButtonClick(name: string, node: cc.Node, component: cc.Component) {
