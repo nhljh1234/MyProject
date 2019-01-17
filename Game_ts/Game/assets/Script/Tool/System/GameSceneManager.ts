@@ -45,15 +45,12 @@ export function addNode(prefabPath: string, parentNodeType: number, nodeName: st
             parentNode.addChild(node);
             node.active = true;
             //判断有没有onShow函数
-            if (node._components) {
-                node._components.forEach(function (oneComponent) {
-                    if (oneComponent && oneComponent.onShow) {
-                        oneComponent.onShow();
-                    }
-                });
+            let scriptComp = getScriptComp(node);
+            if (scriptComp && scriptComp.onShow) {
+                scriptComp.onShow();
             }
             if (successCb) {
-                successCb();
+                successCb(scriptComp);
             }
         } else {
             //直接复制一个
@@ -63,7 +60,7 @@ export function addNode(prefabPath: string, parentNodeType: number, nodeName: st
             parentNode.addChild(newNode);
             MyGame.PrefabManager.addPrefabNode(prefabPath, newNode);
             if (successCb) {
-                successCb();
+                successCb(getScriptComp(node));
             }
         }
         return;
@@ -76,7 +73,7 @@ export function addNode(prefabPath: string, parentNodeType: number, nodeName: st
         parentNode.addChild(node);
         MyGame.PrefabManager.addPrefabNode(prefabPath, node);
         if (successCb) {
-            successCb();
+            successCb(getScriptComp(node));
         }
     }, (err) => {
         //失败回调
@@ -84,4 +81,12 @@ export function addNode(prefabPath: string, parentNodeType: number, nodeName: st
             failCb(err);
         }
     }, frequency);
+};
+
+/**
+ * 获取挂在组件上的默认脚本
+ * 规定是是prefab名字 + _script
+ */
+function getScriptComp (node: cc.Node) {
+    return node.getComponent(`${node.name}_script`);
 };

@@ -269,4 +269,18 @@ export class UserRole {
             funcData.func(this, addMinutes, funcData.data);
         }.bind(this));
     }
+
+    /**
+     * 获取物品的数量
+     */
+    getItemTotalNum(): number {
+        let totalNum = 0;
+        for (var key in this.itemObj) {
+            if (!this.itemObj.hasOwnProperty(key)) {
+                continue;
+            }
+            totalNum = totalNum + this.itemObj[key];
+        }
+        return totalNum;
+    }
 }

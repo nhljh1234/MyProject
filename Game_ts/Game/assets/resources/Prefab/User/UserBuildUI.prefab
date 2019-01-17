@@ -5132,13 +5132,40 @@
     "_id": ""
   },
   {
-    "__type__": "560d8E0/m9M3p8PDVgFmOzv",
+    "__type__": "e5e93jN+ElEeKKxKjelfzwL",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
+    "randomNameEditBox": {
+      "__id__": 23
+    },
+    "randomSexToggleContainer": {
+      "__id__": 68
+    },
+    "randomSexLabel": {
+      "__id__": 39
+    },
+    "randomAttackLabel": {
+      "__id__": 76
+    },
+    "randomDefLabel": {
+      "__id__": 84
+    },
+    "randomCommandLabel": {
+      "__id__": 92
+    },
+    "randomIntelligenceLabel": {
+      "__id__": 100
+    },
+    "randomCharmLabel": {
+      "__id__": 108
+    },
+    "randomPoliticsLabel": {
+      "__id__": 116
+    },
     "_id": ""
   },
   {

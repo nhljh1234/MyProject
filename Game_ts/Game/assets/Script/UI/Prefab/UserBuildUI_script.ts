@@ -11,14 +11,25 @@ class UserBuildUI extends BaseUI {
 
     uiName: string = 'UserBuildUI';
 
-    _randomNameLabelNode: cc.Node;
-    _randomSexToggleNode: cc.Node;
-    _randomAttackLabelNode: cc.Node;
-    _randomDefLabelNode: cc.Node;
-    _randomCommandLabelNode: cc.Node;
-    _randomIntelligenceLabelNode: cc.Node;
-    _randomCharmLabelNode: cc.Node;
-    _randomPoliticsLabelNode: cc.Node;
+    @property(cc.EditBox)
+    randomNameEditBox: cc.EditBox = undefined;
+    @property(cc.ToggleContainer)
+    randomSexToggleContainer: cc.ToggleContainer = undefined;
+    @property(cc.Label)
+    randomSexLabel: cc.Label = undefined;
+    @property(cc.Label)
+    randomAttackLabel: cc.Label = undefined;
+    @property(cc.Label)
+    randomDefLabel: cc.Label = undefined;
+    @property(cc.Label)
+    randomCommandLabel: cc.Label = undefined;
+    @property(cc.Label)
+    randomIntelligenceLabel: cc.Label = undefined;
+    @property(cc.Label)
+    randomCharmLabel: cc.Label = undefined;
+    @property(cc.Label)
+    randomPoliticsLabel: cc.Label = undefined;
+
     _randomName: string;
     _randomSex: number;
     _randomUserRoleData: UserRole;
@@ -35,10 +46,8 @@ class UserBuildUI extends BaseUI {
 
     onUIInit() {
         super.onUIInit();
-        this._randomNameLabelNode = cc.find('Name/random_name', this._topNode);
-        this._randomNameLabelNode.getComponent(cc.EditBox).placeholder = MyGame.LanguageTool.getLanguageStr('random_name_notice');
-        this._randomSexToggleNode = cc.find('Sex/toggleContainer', this._topNode);
-        this._randomSexToggleNode.getComponent(cc.ToggleContainer).toggleItems.forEach(function (oneToggleComponent) {
+        this.randomNameEditBox.placeholder = MyGame.LanguageTool.getLanguageStr('random_name_notice');
+        this.randomSexToggleContainer.toggleItems.forEach(function (oneToggleComponent) {
             //监听事件
             oneToggleComponent.node.on('toggle', function (event) {
                 if (event.target.name === 'toggle_man') {
@@ -58,13 +67,6 @@ class UserBuildUI extends BaseUI {
                 this.updateRandomNum(this._randomUserRoleData);
             }.bind(this));
         }.bind(this));
-        //随机属性控件相关
-        this._randomAttackLabelNode = cc.find('Attack/Attack', this._topNode);
-        this._randomDefLabelNode = cc.find('Def/Def', this._topNode);
-        this._randomCommandLabelNode = cc.find('Command/Command', this._topNode);
-        this._randomIntelligenceLabelNode = cc.find('Intelligence/Intelligence', this._topNode);
-        this._randomCharmLabelNode = cc.find('Charm/Charm', this._topNode);
-        this._randomPoliticsLabelNode = cc.find('Politics/Politics', this._topNode);
     }
 
     onShow() {
@@ -123,7 +125,7 @@ class UserBuildUI extends BaseUI {
      * @param randomName
      */
     updateRandomName(randomName: string) {
-        this._randomNameLabelNode.getComponent(cc.EditBox).string = randomName;
+        this.randomNameEditBox.string = randomName;
     }
 
 
@@ -132,12 +134,12 @@ class UserBuildUI extends BaseUI {
      * @param randomData
      */
     updateRandomNum(randomData: UserRole) {
-        this._randomAttackLabelNode.getComponent(cc.Label).string = '' + randomData.attack;
-        this._randomDefLabelNode.getComponent(cc.Label).string = '' + randomData.def;
-        this._randomCommandLabelNode.getComponent(cc.Label).string = '' + randomData.command;
-        this._randomIntelligenceLabelNode.getComponent(cc.Label).string = '' + randomData.intelligence;
-        this._randomCharmLabelNode.getComponent(cc.Label).string = '' + randomData.charm;
-        this._randomPoliticsLabelNode.getComponent(cc.Label).string = '' + randomData.politics;
+        this.randomAttackLabel.string = '' + randomData.attack;
+        this.randomDefLabel.string = '' + randomData.def;
+        this.randomCommandLabel.string = '' + randomData.command;
+        this.randomIntelligenceLabel.string = '' + randomData.intelligence;
+        this.randomCharmLabel.string = '' + randomData.charm;
+        this.randomPoliticsLabel.string = '' + randomData.politics;
     }
 
     /**
@@ -147,7 +149,7 @@ class UserBuildUI extends BaseUI {
     updateSexToggle(selectSex: number) {
         selectSex = selectSex || MyGame.SEX_MAN;
         //先更新选中情况
-        this._randomSexToggleNode.getComponent(cc.ToggleContainer).toggleItems.forEach(function (oneToggleComponent) {
+        this.randomSexToggleContainer.toggleItems.forEach(function (oneToggleComponent) {
             if (oneToggleComponent.node.name === 'toggle_man') {
                 oneToggleComponent.isChecked = selectSex === MyGame.SEX_MAN;
             } else {
@@ -155,7 +157,7 @@ class UserBuildUI extends BaseUI {
             }
         });
         //更新显示字符
-        cc.find('Sex/random_sex', this._topNode).getComponent(cc.Label).string =
+        this.randomSexLabel.string = 
             selectSex === MyGame.SEX_MAN ? MyGame.LanguageTool.getLanguageStr('sex_man') : MyGame.LanguageTool.getLanguageStr('sex_woman');
     }
 }

@@ -1,5 +1,5 @@
 import { MyGame } from "../../Tool/System/Game";
-import { addUpdateFunc, removeUpdateFunc } from "../Base/UITimerTool";
+import { addUpdateFunc, removeUpdateFunc } from "./UITimerTool";
 
 function updateUserName(userStateNode: cc.Node) {
     userStateNode.getChildByName('user_name').getComponent(cc.Label).string = MyGame.GameManager.userRole.name;

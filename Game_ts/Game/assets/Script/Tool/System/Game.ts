@@ -14,7 +14,7 @@ import SpriteFrameManager = require('../../Tool/System/SpriteFrameManager');
 import Tool = require('../../Tool/System/Tool');
 import TimeTool = require('../../Tool/Time/TimeTool');
 import NodeTool = require('../../UI/Base/NodeTool');
-import ItemNodeTool = require('../../UI/Normal/ItemNodeTool');
+import ItemNodeTool = require('../../UI/Base/ItemNodeTool');
 import ScrollViewTool = require('../../UI/Base/ScrollViewTool');
 import BattleManager = require('../../Module/Manager/BattleManager');
 import GameManager = require('../../Module/Manager/GameManager');
@@ -92,6 +92,7 @@ class Game {
     BUILDING_FUNCTION_TYPE_COME_BACK = 'comeBack';
     BUILDING_FUNCTION_TYPE_REST = 'rest';
     BUILDING_FUNCTION_TYPE_WAREHOUSE = 'warehouse';
+    BUILDING_FUNCTION_TYPE_FISH = 'fish';
 
     WAREHOUSEUI_TYPE_WAREHOUSE = 'warehouse';
     WAREHOUSEUI_TYPE_BAG = 'bag';

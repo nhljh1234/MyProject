@@ -1,7 +1,7 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { Game } from "../../Data/GameFactory";
-import { addUserStateNode, updateUserState } from "../Normal/UserStateUITool";
+import { addUserStateNode, updateUserState } from "../Base/UserStateUITool";
 import { City } from "../../Data/CityFactory";
 import { Building } from "../../Data/Building/BuildingFactory";
 

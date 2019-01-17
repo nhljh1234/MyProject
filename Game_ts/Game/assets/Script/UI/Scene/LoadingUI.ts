@@ -10,8 +10,12 @@ const { ccclass, property } = cc._decorator;
 class LoadingUI extends BaseUI {
 
     _uiName: string = 'LoadingUI';
-    _labelNode: cc.Node = undefined;
-    _loadProgressNode: cc.Node = undefined;
+
+    @property(cc.Node)
+    labelNode: cc.Node = undefined;
+
+    @property(cc.Node)
+    loadProgressNode: cc.Node = undefined;
 
     onLoad() {
         super.onLoad();
@@ -40,26 +44,18 @@ class LoadingUI extends BaseUI {
 
     onShow() {
         super.onShow();
-        this._labelNode = this.node.getChildByName('label');
-        this._labelNode.active = true;
-        this._loadProgressNode = this.node.getChildByName('progressBar');
-        this._loadProgressNode.getComponent(cc.ProgressBar).progress = 0;
+        this.labelNode = this.node.getChildByName('label');
+        this.labelNode.active = true;
+        this.loadProgressNode = this.node.getChildByName('progressBar');
+        this.loadProgressNode.getComponent(cc.ProgressBar).progress = 0;
         //初始化游戏
         //全局初始化
-        //init(function (num) {
-        //    this._loadProgressNode.getComponent(cc.ProgressBar).progress = num;
-        //}.bind(this), function () {
-        //    //this.node.getChildByName('label').active = true;
-        //    this.preLoadGameScene();
-        //}.bind(this));
-
-        //startTest(1000, this._labelNode);
-
-        MyGame.LogTool.showLog(`labelNode active is ${MyGame.NodeTool.getNodeActive(this._labelNode)}`);
-        MyGame.NodeTool.hideNode(this._labelNode);
-        MyGame.LogTool.showLog(`labelNode active is ${MyGame.NodeTool.getNodeActive(this._labelNode)}`);
-        MyGame.NodeTool.showNode(this._labelNode);
-        MyGame.LogTool.showLog(`labelNode active is ${MyGame.NodeTool.getNodeActive(this._labelNode)}`);
+        init(function (num) {
+            this.loadProgressNode.getComponent(cc.ProgressBar).progress = num;
+        }.bind(this), function () {
+            this.node.getChildByName('label').active = true;
+            this.preLoadGameScene();
+        }.bind(this));
     }
 
     onButtonClick(name: string, node: cc.Node, component: cc.Component) {
@@ -79,8 +75,8 @@ class LoadingUI extends BaseUI {
                 return;
             }
             //显示文本，用户点击就可以切换
-            this._loadProgressNode.active = false;
-            this._labelNode.active = true;
+            this.loadProgressNode.active = false;
+            this.labelNode.active = true;
         }.bind(this));
     }
 }

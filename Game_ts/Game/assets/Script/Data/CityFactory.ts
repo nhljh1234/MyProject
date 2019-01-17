@@ -3,6 +3,7 @@ import { MapPos, Person, createRandomPerson } from "./PersonFactory";
 import { Building } from "./Building/BuildingFactory";
 import { BuildingShop } from "./Building/ShopFactory";
 import { BuildingHospital } from "./Building/HospitalFactory";
+import { BuildingPool } from "./Building/PoolFactory";
 
 export class City {
     //城市id
@@ -60,6 +61,7 @@ export class City {
             return MyGame.GameManager.gameDataSave.getPersonById(personId);
         });
         //建筑列表
+        //在这边就分类了
         this.buildingArr = ('' + jsonData.building).split(',').map(function (buildingId) {
             let useType = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId);
             switch (useType) {
@@ -67,6 +69,8 @@ export class City {
                     return new BuildingShop(parseInt(buildingId), undefined, this);
                 case 'hospital':
                     return new BuildingHospital(parseInt(buildingId), undefined, this);
+                case 'pool':
+                    return new BuildingPool(parseInt(buildingId), undefined, this);
                 default:
                     return new Building(parseInt(buildingId), undefined, this);
             }
