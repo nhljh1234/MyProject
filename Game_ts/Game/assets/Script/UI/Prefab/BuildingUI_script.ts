@@ -1,7 +1,8 @@
 import BaseUI from "../Base/BaseUI";
+import UserState from "./UserState_script";
 import { MyGame } from "../../Tool/System/Game";
 import { Game } from "../../Data/GameFactory";
-import { addUserStateNode, updateUserState } from "../Base/UserStateUITool";
+import { addUserStateNode } from "../Base/UITool";
 import { City } from "../../Data/CityFactory";
 import { Building, buildingFunctionData } from "../../Data/Building/BuildingFactory";
 
@@ -11,14 +12,20 @@ const { ccclass, property } = cc._decorator;
 class BuildingUI extends BaseUI {
 
     _uiName: string = 'BuildingUI';
-    _buildingFunctionScrollviewNode: cc.Node;
     _buildingFunctionTmpNodePool: cc.NodePool;
     _buildingData: Building;
+
+    @property(cc.Node)
+    buildingFunctionScrollviewNode: cc.Node = undefined;
+
+    _userStateScriptComp: UserState;
 
     onLoad() {
         super.onLoad();
         //加载一下人物属性栏
-        addUserStateNode(this._topNode, 0, -75, this.userRoleUpdateCb, this);
+        addUserStateNode(this._topNode, 0, -75, this.userRoleUpdateCb, this, function (scriptComp: UserState) {
+            this._userStateScriptComp = scriptComp;
+        }.bind(this));
     }
 
     update(dt) {
@@ -42,7 +49,6 @@ class BuildingUI extends BaseUI {
 
     hide(deleteFlag: boolean) {
         super.hide(deleteFlag);
-
     }
 
     onButtonClick(name: string, node: cc.Node, component: cc.Component) {
@@ -62,20 +68,20 @@ class BuildingUI extends BaseUI {
     }
 
     userRoleUpdateCb() {
-        updateUserState(this._topNode.getChildByName('UserState'), true);
+        this._userStateScriptComp.updateUserState(true);
     }
 
     //显示建筑的功能列表
     showBuildingFunctionUI() {
         //初始化
         this._buildingFunctionTmpNodePool = new cc.NodePool();
-        this._buildingFunctionScrollviewNode = this._bottomNode.getChildByName('building_type_scroll_view');
+        this.buildingFunctionScrollviewNode = this._bottomNode.getChildByName('building_type_scroll_view');
         let userRole = MyGame.GameManager.userRole;
         //功能列表
         let functionArr = this._buildingData.getFunctionArr();
         //更新现在城市的建筑
-        MyGame.ScrollViewTool.buildScrollView(this._buildingFunctionScrollviewNode, MyGame.ScrollViewTool.SCROLL_TYPE_HORIZONTAL,
-            cc.find('view/content/item', this._buildingFunctionScrollviewNode), function (childNode: cc.Node, data: buildingFunctionData) {
+        MyGame.ScrollViewTool.buildScrollView(this.buildingFunctionScrollviewNode, MyGame.ScrollViewTool.SCROLL_TYPE_HORIZONTAL,
+            cc.find('view/content/item', this.buildingFunctionScrollviewNode), function (childNode: cc.Node, data: buildingFunctionData) {
                 let buttonNode = childNode.getChildByName('building_type_button');
                 buttonNode.getChildByName('Label').getComponent(cc.Label).string = data.functionNameStr;
                 //绑定数据

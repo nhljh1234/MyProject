@@ -1,7 +1,8 @@
 import BaseUI from "../Base/BaseUI";
+import UserState from "./UserState_script";
 import { MyGame } from "../../Tool/System/Game";
 import { Game } from "../../Data/GameFactory";
-import { addUserStateNode, updateUserState } from "../Base/UserStateUITool";
+import { addUserStateNode } from "../Base/UITool";
 import { City } from "../../Data/CityFactory";
 import { Building } from "../../Data/Building/BuildingFactory";
 
@@ -11,13 +12,19 @@ const { ccclass, property } = cc._decorator;
 class MainUI extends BaseUI {
 
     _uiName: string = 'MainUI';
-    _buildingScrollviewNode: cc.Node;
     _buildingTmpNodePool: cc.NodePool;
+
+    @property(cc.Node)
+    buildingScrollviewNode: cc.Node = undefined;
+
+    _userStateScriptComp: UserState;
 
     onLoad() {
         super.onLoad();
         //加载一下人物属性栏
-        addUserStateNode(this._topNode, 0, -75, this.userRoleUpdateCb, this);
+        addUserStateNode(this._topNode, 0, -75, this.userRoleUpdateCb, this, function (scriptComp: UserState) {
+            this._userStateScriptComp = scriptComp;
+        }.bind(this));
     }
 
     update(dt) {
@@ -62,13 +69,13 @@ class MainUI extends BaseUI {
     }
 
     userRoleUpdateCb() {
-        updateUserState(this._topNode.getChildByName('UserState'), true);
+        this._userStateScriptComp.updateUserState(true);
     }
 
     showCityBuildingUI() {
         //初始化
         this._buildingTmpNodePool = new cc.NodePool();
-        this._buildingScrollviewNode = this._bottomNode.getChildByName('building_scroll_view');
+        this.buildingScrollviewNode = this._bottomNode.getChildByName('building_scroll_view');
         let userRole = MyGame.GameManager.userRole;
         let buildArr: any = MyGame.GameManager.gameDataSave.getCityById(userRole.personPos.cityId).buildingArr;
         //判断有没有自宅
@@ -77,8 +84,8 @@ class MainUI extends BaseUI {
             buildArr = [userRole.home].concat(buildArr);
         }
         //更新现在城市的建筑
-        MyGame.ScrollViewTool.buildScrollView(this._buildingScrollviewNode, MyGame.ScrollViewTool.SCROLL_TYPE_HORIZONTAL,
-            cc.find('view/content/item', this._buildingScrollviewNode), function (childNode: cc.Node, data: Building) {
+        MyGame.ScrollViewTool.buildScrollView(this.buildingScrollviewNode, MyGame.ScrollViewTool.SCROLL_TYPE_HORIZONTAL,
+            cc.find('view/content/item', this.buildingScrollviewNode), function (childNode: cc.Node, data: Building) {
                 let buttonNode = childNode.getChildByName('building_button');
                 buttonNode.getChildByName('Label').getComponent(cc.Label).string = data.buildingName;
                 //绑定数据

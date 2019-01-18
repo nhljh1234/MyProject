@@ -10,14 +10,14 @@ class WarehouseUI extends BaseUI {
     _itemDataObj: { [itemId: number]: number } = {};
 
     _itemListNodePool: cc.NodePool;
-    _itemListScrollViewNode: cc.Node;
-    _itemListScrollViewTmpNode: cc.Node;
+
+    @property(cc.Node)
+    itemListScrollViewNode: cc.Node = undefined;
+    @property(cc.Node)
+    itemListScrollViewTmpNode: cc.Node = undefined;
 
     onLoad() {
         super.onLoad();
-        this._itemListNodePool = new cc.NodePool();
-        this._itemListScrollViewNode = this._midNode.getChildByName('scrollview');
-        this._itemListScrollViewTmpNode = cc.find('view/content/item', this._itemListScrollViewNode);
     }
 
     update(dt) {
@@ -27,7 +27,7 @@ class WarehouseUI extends BaseUI {
 
     onUIInit() {
         super.onUIInit();
-
+        this._itemListNodePool = new cc.NodePool();
     }
 
     onShow() {
@@ -80,8 +80,8 @@ class WarehouseUI extends BaseUI {
             });
         }
         //显示list
-        MyGame.ScrollViewTool.buildScrollView(this._itemListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
-            this._itemListScrollViewTmpNode, function (childNode: cc.Node, data: any[]) {
+        MyGame.ScrollViewTool.buildScrollView(this.itemListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
+            this.itemListScrollViewTmpNode, function (childNode: cc.Node, data: any[]) {
                 let i;
                 for (i = 0; i < data.length; i++) {
                     let itemNode, itemData;
@@ -91,9 +91,9 @@ class WarehouseUI extends BaseUI {
                     };
                     if (childNode.children[i]) {
                         itemNode = childNode.children[i];
-                        MyGame.ItemNodeTool.updateItemNodeData(itemData, itemNode);
+                        MyGame.GameSceneManager.getScriptComp(itemNode).updateItemNodeData(itemData);
                     } else {
-                        itemNode = MyGame.ItemNodeTool.createItemNode(itemData);
+                        itemNode = MyGame.UITool.createItemNode(itemData);
                         childNode.addChild(itemNode);
                     }
                     itemNode.x = (childNode.width / 5) * (i + 0.5);

@@ -7,7 +7,7 @@ interface loadData {
 //预加载数组
 const PREFAB_INIT_LOAD_ARR: loadData[] = [
     {
-        pathStr: 'Prefab/Item/Item',
+        pathStr: 'Prefab/Item/ItemNode',
         frequency: 100
     }
 ];

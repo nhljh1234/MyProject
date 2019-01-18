@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Item",
+    "_name": "ItemNode",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -25,9 +25,13 @@
     ],
     "_active": true,
     "_level": 1,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 8
+      }
+    ],
     "_prefab": {
-      "__id__": 8
+      "__id__": 9
     },
     "_opacity": 255,
     "_color": {
@@ -271,6 +275,22 @@
     },
     "fileId": "36DeO1zlZJ5ZgGopFpf5lf",
     "sync": false
+  },
+  {
+    "__type__": "e7ee7kJipZHCL618EM28SV1",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "numLabel": {
+      "__id__": 3
+    },
+    "nameLabel": {
+      "__id__": 6
+    },
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

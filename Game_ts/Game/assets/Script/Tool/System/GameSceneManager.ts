@@ -87,6 +87,6 @@ export function addNode(prefabPath: string, parentNodeType: number, nodeName: st
  * 获取挂在组件上的默认脚本
  * 规定是是prefab名字 + _script
  */
-function getScriptComp (node: cc.Node) {
+export function getScriptComp (node: cc.Node) {
     return node.getComponent(`${node.name}_script`);
 };

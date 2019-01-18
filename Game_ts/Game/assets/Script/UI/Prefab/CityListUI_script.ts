@@ -10,8 +10,11 @@ class CityListUI extends BaseUI {
     _uiName: string = 'CityListUI';
 
     _cityListNodePool: cc.NodePool;
-    _cityListScrollViewNode: cc.Node;
-    _cityListScrollViewTmpNode: cc.Node;
+
+    @property(cc.Node)
+    cityListScrollViewNode: cc.Node = undefined;
+    @property(cc.Node)
+    cityListScrollViewTmpNode: cc.Node = undefined;
 
     onLoad() {
         super.onLoad();
@@ -26,8 +29,6 @@ class CityListUI extends BaseUI {
     onUIInit() {
         super.onUIInit();
         this._cityListNodePool = new cc.NodePool();
-        this._cityListScrollViewNode = cc.find('Mid/scrollview', this.node);
-        this._cityListScrollViewTmpNode = cc.find('view/content/item', this._cityListScrollViewNode);
     }
 
     onShow() {
@@ -36,8 +37,8 @@ class CityListUI extends BaseUI {
         let forceId = MyGame.GameDataSaveTool.getData('show_force_id');
         let cityArr = gameData.getForceById(forceId).cityArr;
         //显示list
-        MyGame.ScrollViewTool.buildScrollView(this._cityListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
-            this._cityListScrollViewTmpNode, function (childNode: cc.Node, data: City) {
+        MyGame.ScrollViewTool.buildScrollView(this.cityListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
+            this.cityListScrollViewTmpNode, function (childNode: cc.Node, data: City) {
                 cc.find('button/cityName', childNode).getComponent(cc.Label).string = data.cityName;
                 MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_city_id', data.cityId);
             }.bind(this), cityArr, this._cityListNodePool);

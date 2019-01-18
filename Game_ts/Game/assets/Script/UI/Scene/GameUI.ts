@@ -2,7 +2,7 @@ import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { Game } from "../../Data/GameFactory";
 import { getUpdateFunc } from "../Base/UITimerTool";
-import { addUserStateNode } from "../Base/UserStateUITool";
+import { addUserStateNode } from "../Base/UITool";
 
 const { ccclass, property } = cc._decorator;
 
@@ -41,9 +41,7 @@ class GameUI extends BaseUI {
             //MyGame.GameManager.init(this, new Game(undefined, 7, 13));
             //先显示新建角色的名字
             MyGame.GameSceneManager.addNode('Prefab/User/UserBuildUI', MyGame.GAME_SCENE_UI_NODE, 'UserBuildUI',
-                false, function (scriptComp: cc.Component) {
-                    cc.log(scriptComp);
-                }, undefined, 100);
+                false, undefined, undefined, 100);
         }
         //MyGame.GameManager.start();
     }
