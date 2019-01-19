@@ -24,8 +24,8 @@ export class BuildingPool extends Building {
         if (personData.getItemTotalNum() > MyGame.MAX_ITEM_NUM) {
             MyGame.LogTool.showLog(`fish error, max item num in bag`);
             return;
-        }
-
+        }   
+        //开始钓鱼
         
     }
 }

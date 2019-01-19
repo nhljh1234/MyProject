@@ -4,7 +4,7 @@
             "name" : "池塘",
             "useType" : "pool",
             "function" : 3,
-            "functionNum" : 10,
+            "functionNum" : 0.1,
             "showFlag" : 1
         },    
         "2" : {
@@ -42,7 +42,7 @@
             "name" : "池塘",
             "useType" : "pool",
             "function" : 3,
-            "functionNum" : 10,
+            "functionNum" : 0.1,
             "showFlag" : 1
         },    
         {
