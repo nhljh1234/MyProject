@@ -3,6 +3,7 @@ import { Person } from "../PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
 import { UserRole } from "../UserRoleFactory";
+import WarehouseUI from "../../UI/Prefab/WarehouseUI_script";
 
 export class SelfHome extends Building {
     //自宅
@@ -36,9 +37,10 @@ export class SelfHome extends Building {
                 //MyGame.EventManager.send(MyGame.EventName.SHOW_WAREHOUSE_UI);
                 //标记一下打开的是什么界面
                 //背包和仓库都是用一个界面
-                MyGame.GameDataSaveTool.setData('show_warehouseUI_type', MyGame.WAREHOUSEUI_TYPE_WAREHOUSE);
                 MyGame.GameSceneManager.addNode('Prefab/WarehouseUI/WarehouseUI', MyGame.GAME_SCENE_UI_NODE, 'WarehouseUI',
-                    false, undefined, undefined, 100);
+                    false, function (scriptComp: WarehouseUI) {
+                        scriptComp.setWarehouseType(MyGame.WAREHOUSEUI_TYPE_WAREHOUSE);
+                    }, undefined, 100);
                 break;
         }
     }
@@ -51,7 +53,7 @@ export class SelfHome extends Building {
         //开始休息
         //获取恢复满体力需要的时间
         if (!this.restMaxPowerNeedTime) {
-            let restFunctionData = this.getFunctionByType(MyGame.ITEM_FUNCTION_TYPE_REST);
+            let restFunctionData = this.getFunctionByType(MyGame.BUILDING_FUNCTION_TYPE_REST);
             this.restMaxPowerNeedTime = restFunctionData.functionNumArr[0];
         }
         if (!this.restOneMinuteAddPowerNum) {
@@ -62,7 +64,7 @@ export class SelfHome extends Building {
             if (personData.power < MyGame.MAX_POWER) {
                 MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
                 MyGame.GameManager.userRole.power = MyGame.GameManager.userRole.power + data.restOneMinuteAddPowerNum * addMinute;
-                if (MyGame.GameManager.userRole.power > MyGame.MAX_POWER) {
+                if (MyGame.GameManager.userRole.power >= MyGame.MAX_POWER) {
                     MyGame.GameManager.userRole.power = MyGame.MAX_POWER;
                     //清除掉这个回调
                     personData.removeOneFunctionById(this.restUpdateFuncId);

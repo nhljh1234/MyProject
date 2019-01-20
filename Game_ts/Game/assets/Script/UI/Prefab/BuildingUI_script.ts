@@ -9,7 +9,7 @@ import { Building, buildingFunctionData } from "../../Data/Building/BuildingFact
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-class BuildingUI extends BaseUI {
+export default class BuildingUI extends BaseUI {
 
     _uiName: string = 'BuildingUI';
     _buildingFunctionTmpNodePool: cc.NodePool;
@@ -35,16 +35,20 @@ class BuildingUI extends BaseUI {
 
     onUIInit() {
         super.onUIInit();
+        this._buildingFunctionTmpNodePool = new cc.NodePool();
     }
 
-    onShow() {
-        super.onShow();
-        this._buildingData = MyGame.GameDataSaveTool.getData('showBuildingData');
+    setBuildingData(buildingData: Building) {
+        this._buildingData = buildingData;
         //更新建筑功能栏
         this.showBuildingFunctionUI();
         //更新建筑名称
         this._midNode.getChildByName('building_name').getComponent(cc.Label).string = this._buildingData.buildingName;
         this.buttonTravelRegister(this.node);
+    }
+
+    onShow() {
+        super.onShow();
     }
 
     hide(deleteFlag: boolean) {
@@ -74,7 +78,6 @@ class BuildingUI extends BaseUI {
     //显示建筑的功能列表
     showBuildingFunctionUI() {
         //初始化
-        this._buildingFunctionTmpNodePool = new cc.NodePool();
         this.buildingFunctionScrollviewNode = this._bottomNode.getChildByName('building_type_scroll_view');
         let userRole = MyGame.GameManager.userRole;
         //功能列表

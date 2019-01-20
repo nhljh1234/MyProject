@@ -53,7 +53,7 @@ export default class BaseUI extends cc.Component {
     * 隐藏UI
     * @param {boolean} deleteFlag 是否清除
     */
-    hide(deleteFlag: boolean) {
+    hide(deleteFlag: boolean = false) {
         this.node.active = false;
         if (deleteFlag) {
             this.node.removeFromParent(true);

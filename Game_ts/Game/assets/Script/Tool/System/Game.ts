@@ -89,10 +89,16 @@ class Game {
 
     ITEM_FUNCTION_TYPE_REST = 'rest';
 
+    BUILDING_TYPE_SHOP = 'shop';
+    BUILDING_TYPE_HOSPITAL = 'hospital';
+    BUILDING_TYPE_POOL = 'pool';
+    BUILDING_TYPE_FOREST = 'forest';
+
     BUILDING_FUNCTION_TYPE_COME_BACK = 'comeBack';
     BUILDING_FUNCTION_TYPE_REST = 'rest';
     BUILDING_FUNCTION_TYPE_WAREHOUSE = 'warehouse';
     BUILDING_FUNCTION_TYPE_FISH = 'fish';
+    BUILDING_FUNCTION_TYPE_HUNT = 'hunt';
 
     WAREHOUSEUI_TYPE_WAREHOUSE = 'warehouse';
     WAREHOUSEUI_TYPE_BAG = 'bag';

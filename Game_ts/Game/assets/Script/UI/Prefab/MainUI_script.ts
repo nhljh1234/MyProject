@@ -4,7 +4,9 @@ import { MyGame } from "../../Tool/System/Game";
 import { Game } from "../../Data/GameFactory";
 import { addUserStateNode } from "../Base/UITool";
 import { City } from "../../Data/CityFactory";
+import BuildingUI from "./BuildingUI_script";
 import { Building } from "../../Data/Building/BuildingFactory";
+import WarehouseUI from "./WarehouseUI_script";
 
 const { ccclass, property } = cc._decorator;
 
@@ -34,7 +36,7 @@ class MainUI extends BaseUI {
 
     onUIInit() {
         super.onUIInit();
-
+        this._buildingTmpNodePool = new cc.NodePool();
     }
 
     onShow() {
@@ -54,14 +56,21 @@ class MainUI extends BaseUI {
                 MyGame.GameSceneManager.addNode('Prefab/Msg/ForceListUI', MyGame.GAME_SCENE_UI_NODE, 'ForceListUI',
                     false, undefined, undefined, 100);
                 break;
+            case 'BagBtn':
+                MyGame.GameSceneManager.addNode('Prefab/WarehouseUI/WarehouseUI', MyGame.GAME_SCENE_UI_NODE, 'WarehouseUI',
+                    false, function (scriptComp: WarehouseUI) {
+                        scriptComp.setWarehouseType(MyGame.WAREHOUSEUI_TYPE_BAG);
+                    }, undefined, 100);
+                break;
             case 'building_button':
                 var buildingData = MyGame.NodeTool.getNodeValue(node, 'buildData');
                 if (buildingData) {
                     //跳转到建筑中
                     //加载BuildingUI界面
-                    MyGame.GameDataSaveTool.setData('showBuildingData', buildingData);
                     MyGame.GameSceneManager.addNode('Prefab/BuildingUI/BuildingUI', MyGame.GAME_SCENE_UI_NODE, 'BuildingUI',
-                        false, undefined, undefined, 100);
+                        false, function (scriptComp: BuildingUI) {
+                            scriptComp.setBuildingData(buildingData);
+                        }, undefined, 100);
                     this.hide(false);
                 }
                 break;
@@ -74,7 +83,6 @@ class MainUI extends BaseUI {
 
     showCityBuildingUI() {
         //初始化
-        this._buildingTmpNodePool = new cc.NodePool();
         this.buildingScrollviewNode = this._bottomNode.getChildByName('building_scroll_view');
         let userRole = MyGame.GameManager.userRole;
         let buildArr: any = MyGame.GameManager.gameDataSave.getCityById(userRole.personPos.cityId).buildingArr;

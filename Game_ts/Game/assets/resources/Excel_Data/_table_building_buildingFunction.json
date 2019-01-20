@@ -11,6 +11,10 @@
         "3" : {
             "name" : "钓鱼",
             "type" : "fish"
+        },    
+        "4" : {
+            "name" : "打猎",
+            "type" : "hunt"
         }    
     },
 
@@ -29,6 +33,11 @@
             "main_id" : 3,
             "name" : "钓鱼",
             "type" : "fish"
+        },    
+        {
+            "main_id" : 4,
+            "name" : "打猎",
+            "type" : "hunt"
         }    
     ]
 }

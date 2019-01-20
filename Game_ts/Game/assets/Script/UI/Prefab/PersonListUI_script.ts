@@ -7,12 +7,14 @@ import { Person } from "../../Data/PersonFactory";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-class PersonListUI extends BaseUI {
+export default class PersonListUI extends BaseUI {
 
     _uiName: string = 'PersonListUI';
 
     _personListNodePool: cc.NodePool;
-    
+
+    _cityId: number;
+
     @property(cc.Node)
     personListScrollViewNode: cc.Node = undefined;
     @property(cc.Node)
@@ -28,16 +30,10 @@ class PersonListUI extends BaseUI {
 
     }
 
-    onUIInit() {
-        super.onUIInit();
-        this._personListNodePool = new cc.NodePool();
-    }
-
-    onShow() {
-        super.onShow();
+    setCityId(cityId: number) {
+        this._cityId = cityId;
         let gameData = MyGame.GameManager.gameDataSave;
-        let cityId = MyGame.GameDataSaveTool.getData('show_city_id');
-        let personArr = gameData.getCityById(cityId).personArr;
+        let personArr = gameData.getCityById(this._cityId).personArr;
         //显示list
         MyGame.ScrollViewTool.buildScrollView(this.personListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
             this.personListScrollViewTmpNode, function (childNode: cc.Node, data: Person) {
@@ -45,6 +41,15 @@ class PersonListUI extends BaseUI {
                 MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_person_id', data.personId);
             }.bind(this), personArr, this._personListNodePool);
         this.buttonTravelRegister(this.node);
+    }
+
+    onUIInit() {
+        super.onUIInit();
+        this._personListNodePool = new cc.NodePool();
+    }
+
+    onShow() {
+        super.onShow();
     }
 
     hide(deleteFlag) {

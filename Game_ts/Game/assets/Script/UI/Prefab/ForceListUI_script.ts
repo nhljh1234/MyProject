@@ -2,6 +2,7 @@ import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../../Data/CityFactory";
 import { Force } from "../../Data/ForceFactory";
+import CityListUI from "./CityListUI_script";
 
 const { ccclass, property } = cc._decorator;
 
@@ -63,9 +64,10 @@ class ForceListUI extends BaseUI {
             case 'button':
                 var forceId = MyGame.NodeTool.getNodeValue(node, '_force_id');
                 if (forceId) {
-                    MyGame.GameDataSaveTool.setData('show_force_id', forceId);
                     MyGame.GameSceneManager.addNode('Prefab/Msg/CityListUI', MyGame.GAME_SCENE_UI_NODE, 'CityListUI',
-                        false, undefined, undefined, 100);
+                        false, function (scriptComp: CityListUI) {
+                            scriptComp.setForceId(forceId);
+                        }, undefined, 100);
                 }
                 break;
         }

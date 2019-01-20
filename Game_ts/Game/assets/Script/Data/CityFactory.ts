@@ -4,6 +4,7 @@ import { Building } from "./Building/BuildingFactory";
 import { BuildingShop } from "./Building/ShopFactory";
 import { BuildingHospital } from "./Building/HospitalFactory";
 import { BuildingPool } from "./Building/PoolFactory";
+import { BuildingForest } from "./Building/ForestFactory";
 
 export class City {
     //城市id
@@ -49,32 +50,7 @@ export class City {
         this.cityDefNum = saveData.cityDefNum;
         let jsonData = MyGame.JsonDataTool.getDataById('_table_city_city', this.cityId);
         this.cityName = jsonData.name;
-        //城市位置
-        //用两个元素表示，类似于经纬度
-        this.cityPos = jsonData.cityPos.split(',').map(function (num) {
-            return parseInt(num);
-        });
-        this.cityPos = MyGame.GameTool.buildPos(this.cityPos[0], this.cityPos[1]);
-        //人物列表
-        //表示家在这个城市的人
-        this.personArr = saveData.personArr.map((personId) => {
-            return MyGame.GameManager.gameDataSave.getPersonById(personId);
-        });
-        //建筑列表
-        //在这边就分类了
-        this.buildingArr = ('' + jsonData.building).split(',').map(function (buildingId) {
-            let useType = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId);
-            switch (useType) {
-                case 'shop':
-                    return new BuildingShop(parseInt(buildingId), undefined, this);
-                case 'hospital':
-                    return new BuildingHospital(parseInt(buildingId), undefined, this);
-                case 'pool':
-                    return new BuildingPool(parseInt(buildingId), undefined, this);
-                default:
-                    return new Building(parseInt(buildingId), undefined, this);
-            }
-        }.bind(this));
+        this.initBuildingData(this, jsonData);
     }
 
     private initCity(cityId: number) {
@@ -87,8 +63,15 @@ export class City {
         this.moneyNum = jsonData.moneyNum;
         this.cityDefNum = jsonData.cityDef;
         this.cityName = jsonData.name;
+        this.initBuildingData(this, jsonData);
+        //随机人物
+        for (let i = 0; i < jsonData.randomNpcNum; i++) {
+            this.personArr.push(this.createOneRandomPerson(undefined));
+        }
+    }
+
+    private initBuildingData(thisData: City, jsonData: any) {
         //城市位置
-        //用两个元素表示，类似于经纬度
         this.cityPos = jsonData.cityPos.split(',').map(function (num) {
             return parseInt(num);
         });
@@ -97,18 +80,18 @@ export class City {
         this.personArr = ('' + jsonData.npc).split(',').map((personId) => {
             return new Person(parseInt(personId), undefined, this.cityId, undefined);
         });
-        //随机人物
-        for (let i = 0; i < jsonData.randomNpcNum; i++) {
-            this.personArr.push(this.createOneRandomPerson(undefined));
-        }
         //建筑列表
-        this.buildingArr = ('' + jsonData.building).split(',').map((buildingId) => {
-            let useType = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId);
+        thisData.buildingArr = ('' + jsonData.building).split(',').map((buildingId) => {
+            let useType = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId).useType;
             switch (useType) {
-                case 'shop':
+                case MyGame.BUILDING_TYPE_SHOP:
                     return new BuildingShop(parseInt(buildingId), undefined, this);
-                case 'hospital':
+                case MyGame.BUILDING_TYPE_HOSPITAL:
                     return new BuildingHospital(parseInt(buildingId), undefined, this);
+                case MyGame.BUILDING_TYPE_POOL:
+                    return new BuildingPool(parseInt(buildingId), undefined, this);
+                case MyGame.BUILDING_TYPE_FOREST:
+                    return new BuildingForest(parseInt(buildingId), undefined, this);
                 default:
                     return new Building(parseInt(buildingId), undefined, this);
             }

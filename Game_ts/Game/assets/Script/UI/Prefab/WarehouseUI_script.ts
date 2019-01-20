@@ -3,13 +3,15 @@ import { MyGame } from "../../Tool/System/Game";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
-class WarehouseUI extends BaseUI {
+export default class WarehouseUI extends BaseUI {
 
     _uiName: string = 'WarehouseUI';
 
     _itemDataObj: { [itemId: number]: number } = {};
 
     _itemListNodePool: cc.NodePool;
+
+    _showType: string;
 
     @property(cc.Node)
     itemListScrollViewNode: cc.Node = undefined;
@@ -30,10 +32,12 @@ class WarehouseUI extends BaseUI {
         this._itemListNodePool = new cc.NodePool();
     }
 
-    onShow() {
-        super.onShow();
-        let showType = MyGame.GameDataSaveTool.getData('show_warehouseUI_type');
-        switch (showType) {
+    /**
+     * 初始化
+     */
+    setWarehouseType(showType: string) {
+        this._showType = showType;
+        switch (this._showType) {
             case MyGame.WAREHOUSEUI_TYPE_WAREHOUSE:
                 this._itemDataObj = MyGame.GameManager.userRole.warehouseItemObj;
                 break;
@@ -42,6 +46,10 @@ class WarehouseUI extends BaseUI {
                 break;
         }
         this.showItemList();
+    }
+
+    onShow() {
+        super.onShow();
     }
 
     hide(deleteFlag) {

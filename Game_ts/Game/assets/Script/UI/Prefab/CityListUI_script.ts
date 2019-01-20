@@ -1,15 +1,18 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../../Data/CityFactory";
+import PersonListUI from "./PersonListUI_script";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-class CityListUI extends BaseUI {
+export default class CityListUI extends BaseUI {
 
     _uiName: string = 'CityListUI';
 
     _cityListNodePool: cc.NodePool;
+
+    _forceId: number;
 
     @property(cc.Node)
     cityListScrollViewNode: cc.Node = undefined;
@@ -31,11 +34,10 @@ class CityListUI extends BaseUI {
         this._cityListNodePool = new cc.NodePool();
     }
 
-    onShow() {
-        super.onShow();
+    setForceId(forceId: number) {
+        this._forceId = forceId;
         let gameData = MyGame.GameManager.gameDataSave;
-        let forceId = MyGame.GameDataSaveTool.getData('show_force_id');
-        let cityArr = gameData.getForceById(forceId).cityArr;
+        let cityArr = gameData.getForceById(this._forceId).cityArr;
         //显示list
         MyGame.ScrollViewTool.buildScrollView(this.cityListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
             this.cityListScrollViewTmpNode, function (childNode: cc.Node, data: City) {
@@ -43,6 +45,10 @@ class CityListUI extends BaseUI {
                 MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_city_id', data.cityId);
             }.bind(this), cityArr, this._cityListNodePool);
         this.buttonTravelRegister(this.node);
+    }
+
+    onShow() {
+        super.onShow();
     }
 
     hide(deleteFlag) {
@@ -63,9 +69,10 @@ class CityListUI extends BaseUI {
             case 'button':
                 var cityId = MyGame.NodeTool.getNodeValue(node, '_city_id');
                 if (cityId) {
-                    MyGame.GameDataSaveTool.setData('show_city_id', cityId);
                     MyGame.GameSceneManager.addNode('Prefab/Msg/PersonListUI', MyGame.GAME_SCENE_UI_NODE, 'PersonListUI',
-                        false, undefined, undefined, 100);
+                        false, function (scriptComp: PersonListUI) {
+                            scriptComp.setCityId(cityId);
+                        }, undefined, 100);
                 }
                 break;
         }

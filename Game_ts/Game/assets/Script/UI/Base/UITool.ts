@@ -1,4 +1,5 @@
 import { MyGame } from "../../Tool/System/Game";
+import AskNumBox from "../Prefab/AskNumBox_script";
 
 
 /**
@@ -21,7 +22,7 @@ export function addUserStateNode(node: cc.Node, x: number, y: number, roleUpdate
             MyGame.EventManager.on(MyGame.EventName.USER_ROLE_STATUS_CHANGE, roleUpdateCb, thisObj);
         }
         let scriptComp = MyGame.GameSceneManager.getScriptComp(newNode);
-        scriptComp.updateUserState(false); 
+        scriptComp.updateUserState(false);
         if (successCb) {
             successCb(scriptComp);
         }
@@ -40,4 +41,21 @@ export function createItemNode(itemData: any): cc.Node {
     let itemNode = cc.instantiate(itemPrefab);
     MyGame.GameSceneManager.getScriptComp(itemNode).updateItemNodeData(itemData);
     return itemNode;
+}
+
+/**
+ * 创建一个要求输入的结点
+ * @param askLabel 显示的文本
+ * @param noticeLabel 提示的文本，一般是显示最大数量
+ * @param maxNum 最大数量
+ * @param startNum 起始数量
+ * @param onceAddNum 每次修改的数量
+ * @param sureCb 确定的回调
+ */
+export function showAskTimeNode(askLabel: string, noticeLabel: string, maxNum: number,
+    startNum: number = 0, onceAddNum: number, sureCb: Function) {
+    MyGame.GameSceneManager.addNode('Prefab/Notice/AskNumBox', MyGame.GAME_SCENE_ALERT_NODE, 'AskNumBox',
+        false, function (scriptComp: AskNumBox) {
+            scriptComp.showMsg(askLabel, noticeLabel, maxNum, startNum, onceAddNum, sureCb);
+        }, undefined, 100);
 }

@@ -67,7 +67,7 @@ export class Building {
                 functionNameStr: buildingFunctionTypeData.name,
                 functionType: buildingFunctionTypeData.type,
                 functionNumArr: functionNumArr[index].split('/').map(function (numStr) {
-                    return parseInt(numStr);
+                    return parseFloat(numStr);
                 })
             }
         });

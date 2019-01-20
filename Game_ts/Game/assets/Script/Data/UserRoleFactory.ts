@@ -283,4 +283,18 @@ export class UserRole {
         }
         return totalNum;
     }
+
+    /**
+     * 增加物品数量
+     */
+    addItemNum(itemId: number, num: number) {
+        this.itemObj[itemId] = (this.itemObj[itemId] || 0) + num;
+    }
+
+    /**
+     * 设置物品数量
+     */
+    setItemNum(itemId: number, num: number) {
+        this.itemObj[itemId] = num;
+    }
 }

@@ -45,7 +45,7 @@ class LoadingUI extends BaseUI {
     onShow() {
         super.onShow();
         this.labelNode = this.node.getChildByName('label');
-        this.labelNode.active = true;
+        this.labelNode.active = false;
         this.loadProgressNode = this.node.getChildByName('progressBar');
         this.loadProgressNode.getComponent(cc.ProgressBar).progress = 0;
         //初始化游戏
