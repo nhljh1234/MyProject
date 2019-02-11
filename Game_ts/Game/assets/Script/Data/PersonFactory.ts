@@ -271,14 +271,14 @@ export class Person {
         this.nowAction = undefined;
         this.getItem(action.rewardArr);
         //TODO 要不要修改成实时的改变，中间人物可以停止
-        this.power = this.power - action.costPower;
-        this.money = this.money - action.costMoney || 0;
+        this.changePowerNum(-1 * action.costPower);
+        this.changeMoneyNum(-1 * (action.costMoney || 0));
         if (this.power < 0) {
-            this.power = 0;
+            this.setPowerNum(0);
             MyGame.LogTool.showLog(`${this.name} power error, action is ${this.name}`);
         }
         if (this.money < 0) {
-            this.money = 0;
+            this.setMoneyNum(0);
             MyGame.LogTool.showLog(`${this.name} money error, action is ${action.actionName}`);
         }
     }
@@ -432,6 +432,54 @@ export class Person {
             totalNum = totalNum + this.itemObj[key];
         }
         return totalNum;
+    }
+
+    /**
+     * 改变金钱数量
+     * @param changeMoneyNum 改变金钱数量
+     */
+    changeMoneyNum(changeMoneyNum: number) {
+        this.money = this.money + changeMoneyNum;
+        MyGame.LogTool.showLog(`money change num is ${changeMoneyNum}`);
+    }
+
+    /**
+     * 直接设置当前的金钱数量
+     * @param newMoneyNum 
+     */
+    setMoneyNum(newMoneyNum: number) {
+        this.money = newMoneyNum;
+        MyGame.LogTool.showLog(`money now num is ${newMoneyNum}`);
+    }
+
+    /**
+     * 改变体力数量
+     * @param changePowerNum
+     */
+    changePowerNum(changePowerNum: number) {
+        this.power = this.power + changePowerNum;
+        if (this.power > MyGame.MAX_POWER) {
+            this.power = MyGame.MAX_POWER;
+        } 
+        if (this.power < 0) {
+            this.power = 0;
+        }
+        MyGame.LogTool.showLog(`power change num is ${changePowerNum}`);
+    }
+
+    /**
+     * 直接设置当前的体力数量
+     * @param newPowerNum 
+     */
+    setPowerNum(newPowerNum: number) {
+        this.power = newPowerNum;
+        if (this.power > MyGame.MAX_POWER) {
+            this.power = MyGame.MAX_POWER;
+        } 
+        if (this.power < 0) {
+            this.power = 0;
+        }
+        MyGame.LogTool.showLog(`power now num is ${newPowerNum}`);
     }
 }
 

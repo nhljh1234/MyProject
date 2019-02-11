@@ -17,6 +17,8 @@
         "3" : {
             "name" : "旅舍",
             "useType" : "hotel",
+            "function" : 1,
+            "functionNum" : "480/10",
             "showFlag" : 1
         },    
         "4" : {
@@ -27,13 +29,15 @@
         "5" : {
             "name" : "医馆",
             "useType" : "hospital",
+            "function" : 5,
+            "functionNum" : "10/200",
             "showFlag" : 1
         },    
         "1000" : {
             "name" : "自宅",
             "useType" : "self_house",
             "function" : "1,2",
-            "functionNum" : "480,0",
+            "functionNum" : "480/0,0",
             "showFlag" : 1
         }    
     },
@@ -59,6 +63,8 @@
             "main_id" : 3,
             "name" : "旅舍",
             "useType" : "hotel",
+            "function" : 1,
+            "functionNum" : "480/10",
             "showFlag" : 1
         },    
         {
@@ -71,6 +77,8 @@
             "main_id" : 5,
             "name" : "医馆",
             "useType" : "hospital",
+            "function" : 5,
+            "functionNum" : "10/200",
             "showFlag" : 1
         },    
         {
@@ -78,7 +86,7 @@
             "name" : "自宅",
             "useType" : "self_house",
             "function" : "1,2",
-            "functionNum" : "480,0",
+            "functionNum" : "480/0,0",
             "showFlag" : 1
         }    
     ]

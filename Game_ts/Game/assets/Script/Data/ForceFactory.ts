@@ -1,9 +1,12 @@
-import { MyGame } from "../Tool/System/Game";
-import { City } from "./CityFactory";
-
 /**
  * 割据势力数据工厂
+ * force.xml
+ * _table_force_force.json
+ * 一个世界可能存在很多势力，每个势力拥有自己的城市
  */
+
+import { MyGame } from "../Tool/System/Game";
+import { City } from "./CityFactory";
 
 export class Force {
     //势力id
@@ -13,6 +16,7 @@ export class Force {
     //所属城市列表
     cityArr: City[];
 
+    //所有的构造函数都需要考虑存档的问题
     constructor(forceId: number, saveData: any) {
         if (saveData) {
             this.initForeBySaveData(saveData);

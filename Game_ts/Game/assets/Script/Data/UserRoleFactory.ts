@@ -88,7 +88,7 @@ export class UserRole {
     warehouseItemObj: { [itemId: number]: number };
     //装备数据
     equipObj: { [equipId: number]: number };
-    //货币输了
+    //货币
     money: number;
     //体力
     power: number;
@@ -199,15 +199,6 @@ export class UserRole {
 
     }
 
-    changePower(nowPower) {
-        if (nowPower > MyGame.MAX_POWER || nowPower < 0) {
-            MyGame.LogTool.showLog(`nowPower error ! in is ${nowPower}`);
-            return;
-        }
-        this.power = nowPower;
-        MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
-    }
-
     /**
      * 判断是否在自己家所在的城市
      */
@@ -230,6 +221,7 @@ export class UserRole {
 
     /**
      * 在人物身上增加一个循环回调函数
+     * 这个循环函数是每分钟都会调用一次的
      * @param func 
      * @param data 
      */
@@ -296,5 +288,57 @@ export class UserRole {
      */
     setItemNum(itemId: number, num: number) {
         this.itemObj[itemId] = num;
+    }
+
+        /**
+     * 改变金钱数量
+     * @param changeMoneyNum 改变金钱数量
+     */
+    changeMoneyNum(changeMoneyNum: number) {
+        this.money = this.money + changeMoneyNum;
+        MyGame.LogTool.showLog(`money change num is ${changeMoneyNum}`);
+        MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
+    }
+
+    /**
+     * 直接设置当前的金钱数量
+     * @param newMoneyNum 
+     */
+    setMoneyNum(newMoneyNum: number) {
+        this.money = newMoneyNum;
+        MyGame.LogTool.showLog(`money now num is ${newMoneyNum}`);
+        MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
+    }
+
+    /**
+     * 改变体力数量
+     * @param changePowerNum
+     */
+    changePowerNum(changePowerNum: number) {
+        this.power = this.power + changePowerNum;
+        if (this.power > MyGame.MAX_POWER) {
+            this.power = MyGame.MAX_POWER;
+        } 
+        if (this.power < 0) {
+            this.power = 0;
+        }
+        MyGame.LogTool.showLog(`power change num is ${changePowerNum}`);
+        MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
+    }
+
+    /**
+     * 直接设置当前的体力数量
+     * @param newPowerNum 
+     */
+    setPowerNum(newPowerNum: number) {
+        this.power = newPowerNum;
+        if (this.power > MyGame.MAX_POWER) {
+            this.power = MyGame.MAX_POWER;
+        } 
+        if (this.power < 0) {
+            this.power = 0;
+        }
+        MyGame.LogTool.showLog(`power now num is ${newPowerNum}`);
+        MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
     }
 }

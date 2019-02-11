@@ -3,7 +3,7 @@ import { MyGame } from "../System/Game";
 export function changeUserRolePower(nowPower: number) {
     let userRole = MyGame.GameManager.userRole;
     if (userRole) {
-        userRole.changePower(nowPower);
+        userRole.setPowerNum(nowPower);
     }
 }
 

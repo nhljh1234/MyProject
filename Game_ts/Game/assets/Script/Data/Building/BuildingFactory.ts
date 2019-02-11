@@ -1,11 +1,17 @@
 /**
  * 城市数据工厂
+ * 生成一个城市数据
+ * 
  */
 import { MyGame } from "../../Tool/System/Game";
 import { Person } from "../PersonFactory";
 import { City } from "../CityFactory";
 import { UserRole } from "../UserRoleFactory";
 
+/**
+ * 描述建筑某个功能的数据
+ * 在建筑界面会把这个数据绑定在按钮上
+ */
 export interface buildingFunctionData {
     //显示的文本
     functionNameStr: string;
@@ -109,6 +115,10 @@ export class Building {
         });
     }
 
+    /**
+     * 根据功能类型，获取缓存的功能参数
+     * @param type 功能类型
+     */
     protected getFunctionByType(type: string): buildingFunctionData {
         let i;
         for (i = 0; i < this.functionArr.length; i++) {
@@ -117,5 +127,46 @@ export class Building {
             }
         }
         return undefined;
+    }
+
+    /**
+     * 治疗体力
+     */
+    rest(personData: UserRole, typeStr: string) {
+        if (personData.power >= MyGame.MAX_POWER) {
+            MyGame.LogTool.showLog(`rest error ! power is max`);
+            return;
+        }
+        //开始休息
+        //获取恢复满体力需要的时间
+        let restFunctionData = this.getFunctionByType(typeStr);
+        //判断要不要钱
+        let needMoney = restFunctionData.functionNumArr[1];
+        if (personData.money < needMoney) {
+            MyGame.LogTool.showLog(`${this.buildingName} use error, money error`);
+            return;
+        }
+        personData.changeMoneyNum(-1 * needMoney);
+        let restMaxPowerNeedTime: number = restFunctionData.functionNumArr[0];
+        let restOneMinuteAddPowerNum: number = MyGame.MAX_POWER / restMaxPowerNeedTime;
+        let restUpdateFuncId: number;
+        //加入回调函数
+        restUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
+            if (personData.power < MyGame.MAX_POWER) {
+                MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
+                personData.changePowerNum(data.restOneMinuteAddPowerNum * addMinute);
+                if (personData.power >= MyGame.MAX_POWER) {
+                    //清除掉这个回调
+                    personData.removeOneFunctionById(restUpdateFuncId);
+                    //恢复运行速度
+                    MyGame.GameManager.gameSpeedResetting();
+                }
+            } else {
+                //清除回调
+                personData.removeOneFunctionById(restUpdateFuncId);
+            }
+        }.bind(this), {
+                restOneMinuteAddPowerNum: restOneMinuteAddPowerNum
+            });
     }
 }

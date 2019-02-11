@@ -4,12 +4,12 @@ import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
 import { UserRole } from "../UserRoleFactory";
 
-export class BuildingHospital extends Building {
+export class BuildingHotel extends Building {
     constructor(buildingId: number, saveData: any, city: City) {
         super(buildingId, saveData, city);
     }
 
-    //使用医院
+    //旅馆
     useBuilding(personData: Person, typeStr: string) {
 
     }
@@ -17,7 +17,7 @@ export class BuildingHospital extends Building {
     roleUseBuilding(personData: UserRole, typeStr: string) {
         super.roleUseBuilding(personData, typeStr);
         switch (typeStr) {
-            case MyGame.BUILDING_FUNCTION_TYPE_TREAT:
+            case MyGame.BUILDING_FUNCTION_TYPE_REST:
                 this.rest(personData, typeStr);
                 break;
         }

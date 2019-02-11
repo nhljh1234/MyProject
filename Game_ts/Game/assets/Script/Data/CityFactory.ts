@@ -1,3 +1,7 @@
+/**
+ * 城市数据
+ */
+
 import { MyGame } from "../Tool/System/Game";
 import { MapPos, Person, createRandomPerson } from "./PersonFactory";
 import { Building } from "./Building/BuildingFactory";
@@ -5,6 +9,8 @@ import { BuildingShop } from "./Building/ShopFactory";
 import { BuildingHospital } from "./Building/HospitalFactory";
 import { BuildingPool } from "./Building/PoolFactory";
 import { BuildingForest } from "./Building/ForestFactory";
+import { BuildingHotel } from "./Building/HotelFactory";
+import { BuildingGate } from "./Building/GateFactory";
 
 export class City {
     //城市id
@@ -92,6 +98,10 @@ export class City {
                     return new BuildingPool(parseInt(buildingId), undefined, this);
                 case MyGame.BUILDING_TYPE_FOREST:
                     return new BuildingForest(parseInt(buildingId), undefined, this);
+                case MyGame.BUILDING_TYPE_HOTEL:
+                    return new BuildingHotel(parseInt(buildingId), undefined, this);
+                case MyGame.BUILDING_FUNCTION_TYPE_TRAVEL:
+                    return new BuildingGate(parseInt(buildingId), undefined, this);
                 default:
                     return new Building(parseInt(buildingId), undefined, this);
             }

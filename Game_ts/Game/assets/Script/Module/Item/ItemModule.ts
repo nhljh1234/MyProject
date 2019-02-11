@@ -82,7 +82,7 @@ let useItemFuncObj: { [key: string]: Function } = {};
 //治疗
 useItemFuncObj.rest = function (personData: Person, itemId: number, funcName: string) {
     let funcNum = getItemFunctionNum(itemId, funcName);
-    personData.power = personData.power + funcNum;
+    personData.changePowerNum(funcNum);
 };
 
 /**

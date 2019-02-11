@@ -51,7 +51,9 @@ export class Game {
         this.allForceArr = MyGame.JsonDataTool.getTableByName('_table_force_force').array.map(function (oneForce) {
             return new Force(oneForce.main_id, undefined);
         });
+        //所有的城市数据
         this.allCityArr = [];
+        //所有的人物数据
         this.allPersonArr = [];
         this.nowTimeYear = 1;
         this.nowTimeMonth = month || 6;

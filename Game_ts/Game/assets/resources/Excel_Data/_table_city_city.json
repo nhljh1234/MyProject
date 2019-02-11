@@ -2,7 +2,7 @@
     "object" : {
         "1" : {
             "name" : "小鱼村",
-            "building" : "1,2,3",
+            "building" : "1,2,3,5",
             "npc" : 1,
             "peopleNum" : 400,
             "soldierNum" : 10,
@@ -32,7 +32,7 @@
         {
             "main_id" : 1,
             "name" : "小鱼村",
-            "building" : "1,2,3",
+            "building" : "1,2,3,5",
             "npc" : 1,
             "peopleNum" : 400,
             "soldierNum" : 10,

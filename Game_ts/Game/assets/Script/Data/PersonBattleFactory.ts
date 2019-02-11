@@ -37,9 +37,9 @@ export class PersonBattle {
         //伤害量先这么处理
         hurtNum = Math.ceil(hurtNum / 10);
         hurtNum = hurtNum < 0 ? 0 : hurtNum;
-        personDef.power = personDef.power - hurtNum;
+        personDef.changePowerNum(-1 * hurtNum);
         if (personDef.power < 0) {
-            personDef.power = 0;
+            personDef.setPowerNum(0);
             personDef.deadCb(personAttack);
             personDef.battleFinishCb();
             personAttack.battleFinishCb();
@@ -47,9 +47,9 @@ export class PersonBattle {
         }
         hurtNum = personDef.attack - personAttack.def;
         hurtNum = hurtNum < 0 ? 0 : hurtNum;
-        personAttack.power = personAttack.power - hurtNum;
+        personAttack.changePowerNum(-1 * hurtNum);
         if (personAttack.power < 0) {
-            personAttack.power = 0;
+            personAttack.setPowerNum(0);
             personAttack.deadCb(personDef);
             personAttack.battleFinishCb();
             personDef.battleFinishCb();

@@ -48,7 +48,7 @@ export class BuildingShop extends Building {
             let itemData = MyGame.JsonDataTool.getDataById('_table_item_sellGood', key);
             let sellPrice = getSellPrice(this.city, itemData, this, parseInt(key));
             //增加金钱
-            personData.money = personData.money + sellPrice * personData.itemObj[key];
+            personData.changeMoneyNum(sellPrice * personData.itemObj[key]);
             this.itemObj[key] = this.itemObj[key] + personData.itemObj[key];
             personData.removeItemByItemId(parseInt(key), personData.itemObj[key]);
         }
