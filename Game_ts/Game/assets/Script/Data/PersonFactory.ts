@@ -464,6 +464,7 @@ export class Person {
         if (this.power < 0) {
             this.power = 0;
         }
+        this.power = Math.floor(this.power * 100000) / 100000;
         MyGame.LogTool.showLog(`power change num is ${changePowerNum}`);
     }
 
@@ -479,6 +480,7 @@ export class Person {
         if (this.power < 0) {
             this.power = 0;
         }
+        this.power = Math.floor(this.power * 100000) / 100000;
         MyGame.LogTool.showLog(`power now num is ${newPowerNum}`);
     }
 }

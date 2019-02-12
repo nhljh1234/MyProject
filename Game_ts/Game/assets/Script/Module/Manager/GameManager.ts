@@ -14,10 +14,10 @@ export let userRole: UserRole;
 //已用的最大人物id
 export let maxPersonId: number = 1;
 //承载定时器的component
-let componentDave: cc.Component;
+let componentSave: cc.Component;
 
 //标记时间，就是每帧世界运行的分钟数
-const ONE_SECOND_GAME_MINUTE = 10;
+const ONE_SECOND_GAME_MINUTE = 1;
 //定时器间隔时间
 export let gameSpeed = 1;
 //设定为可变的
@@ -42,6 +42,11 @@ function minuteUpdate() {
  * local.pause作用于此
  */
 function timeUpdate() {
+    componentSave.unschedule(timeUpdate);
+    if (timerTime === 0) {
+        //表示停止
+        return;
+    }
     let lastTime, nowTime;
     lastTime = new Date().getTime();
     if (!pauseFlag) {
@@ -52,8 +57,7 @@ function timeUpdate() {
     //保证不超过1
     useSeconds = useSeconds > 1 ? 1 : useSeconds;
     //再次执行定时器
-    componentDave.unschedule(timeUpdate);
-    componentDave.schedule(timeUpdate, (timerTime - useSeconds) < 0 ? 0 : (timerTime - useSeconds), 1);
+    componentSave.schedule(timeUpdate, (timerTime - useSeconds) < 0 ? 0 : (timerTime - useSeconds), 1);
 };
 
 /**
@@ -61,11 +65,14 @@ function timeUpdate() {
  */
 export function changeGameSpeed(speed) {
     gameSpeed = speed;
-    timerTime = TIMER_TIME / gameSpeed;
+    timerTime = gameSpeed ? (TIMER_TIME / gameSpeed) : 0;
+    if (speed !== 0) {
+        componentSave.schedule(timeUpdate, timerTime, 1);
+    }
 };
 
 export function gameSpeedResetting() {
-    gameSpeed = 1;
+    gameSpeed = 0;
     changeGameSpeed(gameSpeed);
 }
 
@@ -79,7 +86,7 @@ export function getNewPersonId() {
  * @param component 组件
  */
 export function initComponent(component: cc.Component) {
-    componentDave = component;
+    componentSave = component;
 };
 
 /**
@@ -95,8 +102,9 @@ export function initGame(gameData: Game) {
  * 开始游戏中的定时器
  */
 export function start() {
-    if (componentDave) {
-        componentDave.schedule(timeUpdate, timerTime, 1);
+    if (componentSave) {
+        this.gameSpeedResetting();
+        //componentSave.schedule(timeUpdate, timerTime, 1);
     }
 };
 
@@ -104,7 +112,7 @@ export function start() {
  * 停止游戏的定时器
  */
 export function stop() {
-    componentDave.unschedule(timeUpdate);
+    componentSave.unschedule(timeUpdate);
 };
 
 /**

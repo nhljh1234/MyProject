@@ -45,6 +45,9 @@ export function removeUpdateFunc(func: Function, data: any) {
     }
 }
 
+/**
+ * 这边的循环函数会在Scene的update中执行
+ */
 export function getUpdateFunc(): updateFuncData[] {
     return updateFuncDataArr;
 };

@@ -24,7 +24,7 @@ class MainUI extends BaseUI {
     onLoad() {
         super.onLoad();
         //加载一下人物属性栏
-        addUserStateNode(this._topNode, 0, -75, this.userRoleUpdateCb, this, function (scriptComp: UserState) {
+        addUserStateNode(this._topNode, 0, -75, function (scriptComp: UserState) {
             this._userStateScriptComp = scriptComp;
         }.bind(this));
     }

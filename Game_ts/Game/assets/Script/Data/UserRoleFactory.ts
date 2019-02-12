@@ -2,6 +2,7 @@ import { MyGame } from "../Tool/System/Game";
 import { MapPos, PersonPos } from "./PersonFactory";
 import { Action } from "./ActionFactory";
 import { SelfHome } from "./Building/SelfHome";
+import { City } from "./CityFactory";
 
 /**
  * 获取一个玩家角色的随机数据
@@ -322,6 +323,7 @@ export class UserRole {
         if (this.power < 0) {
             this.power = 0;
         }
+        this.power = Math.floor(this.power * 100000) / 100000;
         MyGame.LogTool.showLog(`power change num is ${changePowerNum}`);
         MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
     }
@@ -338,7 +340,15 @@ export class UserRole {
         if (this.power < 0) {
             this.power = 0;
         }
+        this.power = Math.floor(this.power * 100000) / 100000;
         MyGame.LogTool.showLog(`power now num is ${newPowerNum}`);
         MyGame.EventManager.send(MyGame.EventName.USER_ROLE_STATUS_CHANGE);
+    }
+
+    /**
+     * 设置所在的地点
+     */
+    setPersonCityPos(cityId: number) {
+        this.personPos.cityId = cityId;
     }
 }

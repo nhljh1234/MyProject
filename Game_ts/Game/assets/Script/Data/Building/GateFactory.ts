@@ -3,6 +3,7 @@ import { Person } from "../PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
 import { UserRole } from "../UserRoleFactory";
+import GateCityListUI from "../../UI/Prefab/GateCityListUI_script";
 
 export class BuildingGate extends Building {
     constructor(buildingId: number, saveData: any, city: City) {
@@ -25,5 +26,9 @@ export class BuildingGate extends Building {
 
     private travel(personData: UserRole) {
         //先显示所有城市的列表
+        MyGame.GameSceneManager.addNode('Prefab/BuildingUI/GateCityListUI', MyGame.GAME_SCENE_UI_NODE, 'GateCityListUI',
+        false, function (scriptComp: GateCityListUI) {
+            scriptComp.showTravelCityList();
+        }, undefined, 100);
     }
 }

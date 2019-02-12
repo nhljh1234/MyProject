@@ -26,6 +26,7 @@ import MapRandomEvent = require('../../ModulE/Event/MapRandomEvent');
 import ItemModule = require('../../Module/Item/ItemModule');
 import BuildModule = require('../../Module/Building/BuildModule');
 import GMTool = require('../GameUse/GMTool');
+import TravelModule = require('../../Module/Travel/TravelModule');
 
 class Game {
     RandomNameTool = RandomNameTool;
@@ -55,6 +56,7 @@ class Game {
     BuildModule = BuildModule;
     GMTool = GMTool;
     Tool = Tool;
+    TravelModule = TravelModule;
 
     //多语言相关
     LanguageType_CHS: string = 'CHS';
@@ -86,6 +88,8 @@ class Game {
     MIN_POWER_NUM: number = undefined;
     BATTLE_TIMER_TIME: number = undefined;
     QUICK_GAME_SPEED: number = undefined;
+    MAP_MOVE_SPEED_MINUTE: number = undefined;
+    MAP_MOVE_COST_POWER_MINUTE: number = undefined;
 
     ITEM_FUNCTION_TYPE_REST = 'rest';
 
@@ -125,6 +129,10 @@ class Game {
         this.BATTLE_TIMER_TIME = JsonDataTool.getDataById('_table_Game_gameParameter', 5).num;
         //快速游戏时间
         this.QUICK_GAME_SPEED = MyGame.JsonDataTool.getDataById('_table_Game_gameParameter', 6).num;
+        //大地图每分钟移动速度
+        this.MAP_MOVE_SPEED_MINUTE = MyGame.JsonDataTool.getDataById('_table_Game_gameParameter', 7).num;
+        //大地图每分钟消耗的体力
+        this.MAP_MOVE_COST_POWER_MINUTE = MyGame.JsonDataTool.getDataById('_table_Game_gameParameter', 8).num;
     }
 }
 

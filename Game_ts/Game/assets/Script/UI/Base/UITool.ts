@@ -7,10 +7,8 @@ import AskNumBox from "../Prefab/AskNumBox_script";
  * @param node 
  * @param x 新的位置
  * @param y 新的位置
- * @param roleUpdateCb 人物信息改变的回调，这边会一起绑定
- * @param thisObj this作用域
  */
-export function addUserStateNode(node: cc.Node, x: number, y: number, roleUpdateCb: Function, thisObj: any, successCb: Function) {
+export function addUserStateNode(node: cc.Node, x: number, y: number, successCb: Function) {
     MyGame.PrefabManager.loadPrefab('Prefab/Normal/UserState', function (prefab) {
         let newNode: cc.Node = cc.instantiate(prefab);
         MyGame.PrefabManager.addPrefabNode('Prefab/Normal/UserState', newNode);
@@ -18,9 +16,6 @@ export function addUserStateNode(node: cc.Node, x: number, y: number, roleUpdate
         newNode.setPosition(x, y);
         //初始化
         newNode.name = 'UserState';
-        if (roleUpdateCb) {
-            MyGame.EventManager.on(MyGame.EventName.USER_ROLE_STATUS_CHANGE, roleUpdateCb, thisObj);
-        }
         let scriptComp = MyGame.GameSceneManager.getScriptComp(newNode);
         scriptComp.updateUserState(false);
         if (successCb) {

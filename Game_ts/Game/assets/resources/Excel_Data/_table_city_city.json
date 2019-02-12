@@ -2,7 +2,7 @@
     "object" : {
         "1" : {
             "name" : "小鱼村",
-            "building" : "1,2,3,5",
+            "building" : "1,2,3,6",
             "npc" : 1,
             "peopleNum" : 400,
             "soldierNum" : 10,
@@ -15,7 +15,7 @@
         },    
         "2" : {
             "name" : "荣阳城",
-            "building" : "3,4,5",
+            "building" : "3,4,5,6",
             "npc" : "2,3,4",
             "peopleNum" : 40000,
             "soldierNum" : 1000,
@@ -32,7 +32,7 @@
         {
             "main_id" : 1,
             "name" : "小鱼村",
-            "building" : "1,2,3,5",
+            "building" : "1,2,3,6",
             "npc" : 1,
             "peopleNum" : 400,
             "soldierNum" : 10,
@@ -46,7 +46,7 @@
         {
             "main_id" : 2,
             "name" : "荣阳城",
-            "building" : "3,4,5",
+            "building" : "3,4,5,6",
             "npc" : "2,3,4",
             "peopleNum" : 40000,
             "soldierNum" : 1000,

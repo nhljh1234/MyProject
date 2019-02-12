@@ -72,9 +72,9 @@ export class Building {
             return {
                 functionNameStr: buildingFunctionTypeData.name,
                 functionType: buildingFunctionTypeData.type,
-                functionNumArr: functionNumArr[index].split('/').map(function (numStr) {
+                functionNumArr: functionNumArr.length ? functionNumArr[index].split('/').map(function (numStr) {
                     return parseFloat(numStr);
-                })
+                }) : []
             }
         });
     }
@@ -146,6 +146,7 @@ export class Building {
             MyGame.LogTool.showLog(`${this.buildingName} use error, money error`);
             return;
         }
+        MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
         personData.changeMoneyNum(-1 * needMoney);
         let restMaxPowerNeedTime: number = restFunctionData.functionNumArr[0];
         let restOneMinuteAddPowerNum: number = MyGame.MAX_POWER / restMaxPowerNeedTime;
@@ -153,7 +154,6 @@ export class Building {
         //加入回调函数
         restUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
             if (personData.power < MyGame.MAX_POWER) {
-                MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
                 personData.changePowerNum(data.restOneMinuteAddPowerNum * addMinute);
                 if (personData.power >= MyGame.MAX_POWER) {
                     //清除掉这个回调

@@ -1,8 +1,6 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
-import { Game } from "../../Data/GameFactory";
 import { getUpdateFunc } from "../Base/UITimerTool";
-import { addUserStateNode } from "../Base/UITool";
 
 const { ccclass, property } = cc._decorator;
 

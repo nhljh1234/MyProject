@@ -38,29 +38,28 @@ export class BuildingPool extends Building {
                 if (!fishTimeHour) {
                     return;
                 }
+                MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
                 //转为分钟
                 let finshTimeMinute = Math.min(fishTimeHour * 60, maxMinuteNum);
                 let costTimeMinuteTotal = 0;
                 //加入回调函数
-                this.restUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
+                let fishUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
                     if (costTimeMinuteTotal < finshTimeMinute) {
-                        MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
                         costTimeMinuteTotal = costTimeMinuteTotal + addMinute;
+                        personData.changePowerNum(-1 * fishFunctionData.functionNumArr[2]);
                         if (costTimeMinuteTotal >= finshTimeMinute) {
                             let addNum = finshTimeMinute * oneMinuteGetFishNum;
                             personData.addItemNum(fishFunctionData.functionNumArr[0], addNum);
                             //清除掉这个回调
-                            personData.removeOneFunctionById(this.restUpdateFuncId);
+                            personData.removeOneFunctionById(fishUpdateFuncId);
                             //恢复运行速度
                             MyGame.GameManager.gameSpeedResetting();
                         }
                     } else {
                         //清除回调
-                        personData.removeOneFunctionById(this.restUpdateFuncId);
+                        personData.removeOneFunctionById(fishUpdateFuncId);
                     }
-                }.bind(this), {
-                        restOneMinuteAddPowerNum: this.restOneMinuteAddPowerNum
-                    });
+                }.bind(this), undefined);
             });
     }
 }

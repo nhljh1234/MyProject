@@ -19,6 +19,10 @@
         "5" : {
             "name" : "治疗",
             "type" : "treat"
+        },    
+        "6" : {
+            "name" : "旅行",
+            "type" : "travel"
         }    
     },
 
@@ -47,6 +51,11 @@
             "main_id" : 5,
             "name" : "治疗",
             "type" : "treat"
+        },    
+        {
+            "main_id" : 6,
+            "name" : "旅行",
+            "type" : "travel"
         }    
     ]
 }

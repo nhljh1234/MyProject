@@ -38,32 +38,31 @@ export class BuildingForest extends Building {
                 if (!huntTimeHour) {
                     return;
                 }
+                //快速运行
+                MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
                 //转为分钟
                 //计算结束时间，总时间超过这个这个就表示打猎完了
                 let finshTimeMinute = Math.min(huntTimeHour * 60, maxMinuteNum);
                 let costTimeMinuteTotal = 0;
                 //加入回调函数
-                this.restUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
+                let huntUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
                     if (costTimeMinuteTotal < finshTimeMinute) {
-                        //快速运行
-                        MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
                         //打猎时间增加
                         costTimeMinuteTotal = costTimeMinuteTotal + addMinute;
+                        personData.changePowerNum(-1 * huntFunctionData.functionNumArr[2]);
                         if (costTimeMinuteTotal >= finshTimeMinute) {
                             let addNum = finshTimeMinute * oneMinuteGetHuntNum;
                             personData.addItemNum(huntFunctionData.functionNumArr[0], addNum);
                             //清除掉这个回调
-                            personData.removeOneFunctionById(this.restUpdateFuncId);
+                            personData.removeOneFunctionById(huntUpdateFuncId);
                             //恢复运行速度
                             MyGame.GameManager.gameSpeedResetting();
                         }
                     } else {
                         //清除回调
-                        personData.removeOneFunctionById(this.restUpdateFuncId);
+                        personData.removeOneFunctionById(huntUpdateFuncId);
                     }
-                }.bind(this), {
-                        restOneMinuteAddPowerNum: this.restOneMinuteAddPowerNum
-                    });
+                }.bind(this), undefined);
             });
     }
 }

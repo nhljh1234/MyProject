@@ -22,7 +22,7 @@ export default class UserState extends BaseUI {
 
     onLoad() {
         super.onLoad();
-
+        MyGame.EventManager.on(MyGame.EventName.USER_ROLE_STATUS_CHANGE, this.updateUserStateEventCb, this);
     }
 
     update(dt) {
@@ -50,7 +50,7 @@ export default class UserState extends BaseUI {
 
     onDestroy() {
         super.onDestroy();
-
+        MyGame.EventManager.off(MyGame.EventName.USER_ROLE_STATUS_CHANGE, this.updateUserStateEventCb);
     }
 
     onButtonClick(name: string, node: cc.Node, component: cc.Component) {
@@ -146,5 +146,9 @@ export default class UserState extends BaseUI {
         this.updateTime();
         this.updateUserMoney();
         this.updateUserPower(showAniFlag);
+    }
+
+    updateUserStateEventCb() {
+        this.updateUserState(true);
     }
 }
