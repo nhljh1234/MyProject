@@ -39,14 +39,27 @@ namespace Back_Project
             translateFileRead();
             //先清除原有的配置数据
             string workDir = Environment.CurrentDirectory;
-            Console.WriteLine(workDir);
+            //输出配置
             DirectoryInfo workDirInfo = new DirectoryInfo(workDir);
+            string outputFilePath = workDirInfo.FullName + @"\_output.xml";
+            Console.WriteLine(workDir);
+            //读取配置
+            //读取文件
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(outputFilePath);
+            XmlElement root = xmlDoc.DocumentElement;//取到根结点
             //客户端数据文件夹
-            string excelDataDirPathClient = workDirInfo.Parent.FullName +
-                @"\Game\assets\resources\Excel_Data";
+            string excelDataDirPathClient = "";
             //服务端数据库文件夹
-            string excelDataDirPathServer = workDirInfo.Parent.FullName +
-                @"\serverData";
+            string excelDataDirPathServer = "";
+            foreach (XmlElement fileNode in root.GetElementsByTagName("client"))
+            {
+                excelDataDirPathClient = fileNode.GetAttribute("path");
+            }
+            foreach (XmlElement fileNode in root.GetElementsByTagName("server"))
+            {
+                excelDataDirPathServer = fileNode.GetAttribute("path");
+            }
             DirectoryInfo workExcelDirInfo = new DirectoryInfo(workDirInfo.FullName);
             if (Directory.Exists(excelDataDirPathClient))
             {
@@ -67,12 +80,18 @@ namespace Back_Project
                 }
                 if (xmlFile.Name.IndexOf(".xml") >= 0)
                 {
+                    //拷贝一次
+                    string newName = @"\_copy_" + xmlFile.Name;
+                    string newFullName = workExcelDirInfo.FullName + @"\_copy_" + xmlFile.Name;
+                    xmlFile.CopyTo(workExcelDirInfo.FullName + @"\_copy_" + xmlFile.Name, true);
                     string fileName = xmlFile.Name.Split('.')[0];
                     code.Tool.Reader.FileNodeReader fileNodeReader = 
-                        new code.Tool.Reader.FileNodeReader(fileName, xmlFile.FullName);
+                        new code.Tool.Reader.FileNodeReader(fileName, newFullName);
                     code.Data.FileNode fileNode = fileNodeReader.getFileNode();
                     new code.Tool.Writer.FileNodeWriter().xmlDataWrite(fileNode, 
                         excelDataDirPathClient, excelDataDirPathServer);
+                    //删除临时文件
+                    File.Delete(newFullName);
                 }
             }
             Console.WriteLine("结束！按回车结束！");
