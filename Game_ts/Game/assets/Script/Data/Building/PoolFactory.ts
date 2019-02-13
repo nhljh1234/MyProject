@@ -3,6 +3,7 @@ import { Person } from "../PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
 import { UserRole } from "../UserRoleFactory";
+import ProgressNotice from "../../UI/Prefab/ProgressNotice_script";
 
 export class BuildingPool extends Building {
     constructor(buildingId: number, saveData: any, city: City) {
@@ -32,34 +33,21 @@ export class BuildingPool extends Building {
         let maxGetNum = MyGame.MAX_ITEM_NUM - nowBagItemNum;
         let maxMinuteNum = Math.ceil(maxGetNum / oneMinuteGetFishNum);
         let maxHour = Math.ceil(maxMinuteNum / 60);
+        let that = this;
         //开始钓鱼
         MyGame.UITool.showAskTimeNode(MyGame.LanguageTool.getLanguageStr('fish_time_title_label'),
             MyGame.LanguageTool.getLanguageStr('fish_time_max_label', `${maxHour}`), maxHour, 0, 1, function (fishTimeHour: number) {
                 if (!fishTimeHour) {
                     return;
                 }
-                MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
-                //转为分钟
-                let finshTimeMinute = Math.min(fishTimeHour * 60, maxMinuteNum);
-                let costTimeMinuteTotal = 0;
-                //加入回调函数
-                let fishUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
-                    if (costTimeMinuteTotal < finshTimeMinute) {
-                        costTimeMinuteTotal = costTimeMinuteTotal + addMinute;
-                        personData.changePowerNum(-1 * fishFunctionData.functionNumArr[2]);
-                        if (costTimeMinuteTotal >= finshTimeMinute) {
-                            let addNum = finshTimeMinute * oneMinuteGetFishNum;
-                            personData.addItemNum(fishFunctionData.functionNumArr[0], addNum);
-                            //清除掉这个回调
-                            personData.removeOneFunctionById(fishUpdateFuncId);
-                            //恢复运行速度
-                            MyGame.GameManager.gameSpeedResetting();
-                        }
-                    } else {
-                        //清除回调
-                        personData.removeOneFunctionById(fishUpdateFuncId);
-                    }
-                }.bind(this), undefined);
+                MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
+                    false, function (scriptComp: ProgressNotice) {
+                        //更新提示标题
+                        scriptComp.updateTitle(MyGame.LanguageTool.getLanguageStr('progress_notice_title'));
+                        //调用基本函数
+                        that.work(fishTimeHour, maxMinuteNum, fishFunctionData.functionNumArr[2], 
+                            fishFunctionData.functionNumArr[0], fishFunctionData.functionNumArr[1], scriptComp);
+                    }, undefined, 100);
             });
     }
 }

@@ -3,6 +3,7 @@ import { Person } from "../PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
 import { UserRole } from "../UserRoleFactory";
+import ProgressNotice from "../../UI/Prefab/ProgressNotice_script";
 
 export class BuildingForest extends Building {
     constructor(buildingId: number, saveData: any, city: City) {
@@ -32,37 +33,21 @@ export class BuildingForest extends Building {
         let maxGetNum = MyGame.MAX_ITEM_NUM - nowBagItemNum;
         let maxMinuteNum = Math.ceil(maxGetNum / oneMinuteGetHuntNum);
         let maxHour = Math.ceil(maxMinuteNum / 60);
+        let that = this;
         //开始打猎
         MyGame.UITool.showAskTimeNode(MyGame.LanguageTool.getLanguageStr('hunt_time_title_label'),
             MyGame.LanguageTool.getLanguageStr('hunt_time_max_label', `${maxHour}`), maxHour, 0, 1, function (huntTimeHour: number) {
                 if (!huntTimeHour) {
                     return;
                 }
-                //快速运行
-                MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
-                //转为分钟
-                //计算结束时间，总时间超过这个这个就表示打猎完了
-                let finshTimeMinute = Math.min(huntTimeHour * 60, maxMinuteNum);
-                let costTimeMinuteTotal = 0;
-                //加入回调函数
-                let huntUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
-                    if (costTimeMinuteTotal < finshTimeMinute) {
-                        //打猎时间增加
-                        costTimeMinuteTotal = costTimeMinuteTotal + addMinute;
-                        personData.changePowerNum(-1 * huntFunctionData.functionNumArr[2]);
-                        if (costTimeMinuteTotal >= finshTimeMinute) {
-                            let addNum = finshTimeMinute * oneMinuteGetHuntNum;
-                            personData.addItemNum(huntFunctionData.functionNumArr[0], addNum);
-                            //清除掉这个回调
-                            personData.removeOneFunctionById(huntUpdateFuncId);
-                            //恢复运行速度
-                            MyGame.GameManager.gameSpeedResetting();
-                        }
-                    } else {
-                        //清除回调
-                        personData.removeOneFunctionById(huntUpdateFuncId);
-                    }
-                }.bind(this), undefined);
+                MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
+                    false, function (scriptComp: ProgressNotice) {
+                        //更新提示标题
+                        scriptComp.updateTitle(MyGame.LanguageTool.getLanguageStr('progress_notice_title'));
+                        //调用基本函数
+                        that.work(huntTimeHour, maxMinuteNum, huntFunctionData.functionNumArr[2], 
+                            huntFunctionData.functionNumArr[0], huntFunctionData.functionNumArr[1], scriptComp);
+                    }, undefined, 100);
             });
     }
 }

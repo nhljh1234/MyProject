@@ -33,3 +33,6 @@ export let fish_time_title_label: string = '钓鱼多少小时';
 export let fish_time_max_label: string = '最多钓鱼%s小时';
 export let hunt_time_title_label: string = '打猎多少小时';
 export let hunt_time_max_label: string = '最多打猎%s小时';
+export let travel_progress_notice_title: string = '旅行进度';
+export let rest_progress_notice_title: string = '休息进度';
+export let progress_notice_title: string = '进度';

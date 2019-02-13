@@ -3,6 +3,7 @@ import { MyGame } from "../../Tool/System/Game";
 import { City } from "../../Data/CityFactory";
 import PersonListUI from "./PersonListUI_script";
 import { UserRole } from "../../Data/UserRoleFactory";
+import ProgressNotice from "./ProgressNotice_script";
 
 const { ccclass, property } = cc._decorator;
 
@@ -75,31 +76,39 @@ export default class GateCityListUI extends BaseUI {
             case 'button':
                 var cityId = MyGame.NodeTool.getNodeValue(node, '_city_id');
                 if (cityId) {
-                    let costTime: number = MyGame.TravelModule.getTravelCostTime(MyGame.GameManager.userRole.personPos.cityId,
-                        cityId);
-                    MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
-                    //转为分钟
-                    let costTimeMinuteTotal = 0;
-                    //加入回调函数
-                    let userRole = MyGame.GameManager.userRole;
-                    let travelUpdateFuncId = userRole.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
-                        if (costTimeMinuteTotal < costTime) {
-                            costTimeMinuteTotal = costTimeMinuteTotal + addMinute;
-                            personData.changePowerNum(-1 * MyGame.MAP_MOVE_COST_POWER_MINUTE * addMinute);
-                            if (costTimeMinuteTotal >= costTime) {
-                                personData.setPersonCityPos(cityId);
-                                //清除掉这个回调
-                                personData.removeOneFunctionById(travelUpdateFuncId);
-                                //恢复运行速度
-                                MyGame.GameManager.gameSpeedResetting();
-                                this.hide();
-                            }
-                        } else {
-                            //清除回调
-                            personData.removeOneFunctionById(travelUpdateFuncId);
-                            this.hide();
-                        }
-                    }.bind(this), undefined);
+                    this.hide(false);
+                    MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
+                        false, function (scriptComp: ProgressNotice) {
+                            //更新提示标题
+                            scriptComp.updateTitle(MyGame.LanguageTool.getLanguageStr('travel_progress_notice_title'));
+                            let costTime: number = MyGame.TravelModule.getTravelCostTime(MyGame.GameManager.userRole.personPos.cityId,
+                                cityId);
+                            MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
+                            //转为分钟
+                            let costTimeMinuteTotal = 0;
+                            //加入回调函数
+                            let userRole = MyGame.GameManager.userRole;
+                            let travelUpdateFuncId = userRole.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
+                                if (costTimeMinuteTotal < costTime) {
+                                    costTimeMinuteTotal = costTimeMinuteTotal + addMinute;
+                                    //更新进度
+                                    scriptComp.updateProgressNum(costTimeMinuteTotal / costTime);
+                                    personData.changePowerNum(-1 * MyGame.MAP_MOVE_COST_POWER_MINUTE * addMinute);
+                                    if (costTimeMinuteTotal >= costTime) {
+                                        personData.setPersonCityPos(cityId);
+                                        //清除掉这个回调
+                                        personData.removeOneFunctionById(travelUpdateFuncId);
+                                        //恢复运行速度
+                                        MyGame.GameManager.gameSpeedResetting();
+                                        scriptComp.hide(false);
+                                    }
+                                } else {
+                                    //清除回调
+                                    personData.removeOneFunctionById(travelUpdateFuncId);
+                                    scriptComp.hide(false);
+                                }
+                            }.bind(this), undefined);
+                        }, undefined, 100);
                 }
                 break;
         }

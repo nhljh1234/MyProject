@@ -83,9 +83,9 @@ export class City {
         });
         this.cityPos = MyGame.GameTool.buildPos(this.cityPos[0], this.cityPos[1]);
         //人物列表
-        this.personArr = ('' + jsonData.npc).split(',').map((personId) => {
+        this.personArr = jsonData.npc ? ('' + jsonData.npc).split(',').map((personId) => {
             return new Person(parseInt(personId), undefined, this.cityId, undefined);
-        });
+        }) : [];
         //建筑列表
         thisData.buildingArr = ('' + jsonData.building).split(',').map((buildingId) => {
             let useType = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId).useType;
