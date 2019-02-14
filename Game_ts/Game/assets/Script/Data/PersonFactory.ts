@@ -146,6 +146,8 @@ export class Person {
     inInBattle: boolean;
     //自宅
     home: SelfHome;
+    //收买价格
+    price: number;
 
     constructor(personId: number, saveData: any, cityId: number, randomData: any) {
         if (saveData) {
@@ -166,6 +168,7 @@ export class Person {
         this.politics = jsonData.politics;
         this.sex = jsonData.sex;
         this.mapMoveSpeed = jsonData.moveSpeed;
+        this.price = jsonData.price;
         this.presonSkillIdArr = jsonData.personSkillId ? ('' + jsonData.personSkillId).split(',').map(function (idStr) {
             return parseInt(idStr);
         }) : [];
@@ -204,6 +207,7 @@ export class Person {
         this.politics = saveData.politics;
         this.sex = saveData.sex;
         this.mapMoveSpeed = saveData.mapMoveSpeed;
+        this.price = saveData.price;
         this.presonSkillIdArr = saveData.presonSkillIdArr;
         this.battleSkillIdArr = saveData.battleSkillIdArr;
         this.equipAttack = saveData.equipAttack;
@@ -369,7 +373,8 @@ export class Person {
             equipObj: this.equipObj,
             money: this.money,
             power: this.power,
-            inInBattle: this.inInBattle
+            inInBattle: this.inInBattle,
+            price: this.price,
         }
     }
     //死亡回调
@@ -503,6 +508,7 @@ export function createRandomPerson(sex: number, cityId: number) {
     randomData.charm = 40 + Math.ceil(Math.random() * 60);
     randomData.politics = 40 + Math.ceil(Math.random() * 60);
     randomData.hp = 600 + Math.ceil(Math.random() * 400);
+    randomData.price = 8000 + Math.ceil(Math.random() * 2000);
     randomData.moveSpeed = 5;
     return new Person(undefined, undefined, cityId, randomData);
 };

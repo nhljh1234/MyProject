@@ -9,6 +9,10 @@ const PREFAB_INIT_LOAD_ARR: loadData[] = [
     {
         pathStr: 'Prefab/Item/ItemNode',
         frequency: 100
+    },
+    {
+        pathStr: 'Prefab/Item/PersonHireNode',
+        frequency: 100
     }
 ];
 

@@ -23,6 +23,14 @@
         "6" : {
             "name" : "旅行",
             "type" : "travel"
+        },    
+        "7" : {
+            "name" : "交易",
+            "type" : "trade"
+        },    
+        "8" : {
+            "name" : "雇佣",
+            "type" : "hire"
         }    
     },
 
@@ -56,6 +64,16 @@
             "main_id" : 6,
             "name" : "旅行",
             "type" : "travel"
+        },    
+        {
+            "main_id" : 7,
+            "name" : "交易",
+            "type" : "trade"
+        },    
+        {
+            "main_id" : 8,
+            "name" : "雇佣",
+            "type" : "hire"
         }    
     ]
 }

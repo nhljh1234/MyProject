@@ -1,5 +1,6 @@
 import { MyGame } from "../../Tool/System/Game";
 import AskNumBox from "../Prefab/AskNumBox_script";
+import { Person } from "../../Data/PersonFactory";
 
 
 /**
@@ -39,6 +40,20 @@ export function createItemNode(itemData: any): cc.Node {
 }
 
 /**
+ * 创建一个人物雇佣结点
+ * @param personData 
+ */
+export function createPersonHireNode(personData: Person): cc.Node {
+    var personHirePrefab = MyGame.PrefabManager.getPrefab('Prefab/Item/PersonHireNode');
+    if (!personHirePrefab) {
+        return;
+    }
+    let personHireNode = cc.instantiate(personHirePrefab);
+    MyGame.GameSceneManager.getScriptComp(personHireNode).updatePersonHireNodeData(personData);
+    return personHireNode;
+}
+
+/**
  * 创建一个要求输入的结点
  * @param askLabel 显示的文本
  * @param noticeLabel 提示的文本，一般是显示最大数量
@@ -53,4 +68,53 @@ export function showAskTimeNode(askLabel: string, noticeLabel: string, maxNum: n
         false, function (scriptComp: AskNumBox) {
             scriptComp.showMsg(askLabel, noticeLabel, maxNum, startNum, onceAddNum, sureCb);
         }, undefined, 100);
+}
+
+export function showItemScrollView(lineShowItemNum: number, itemObj: { [itemId: number]: number },
+    itemListScrollViewNode: cc.Node, itemListScrollViewTmpNode: cc.Node, itemListNodePool: cc.NodePool) {
+    //组装参数给scrollviewTool使用
+    let dataArr = [];
+    let count = 0;
+    for (var key in itemObj) {
+        if (!itemObj.hasOwnProperty(key)) {
+            continue;
+        }
+        if (!itemObj[key]) {
+            continue;
+        }
+        let index = Math.floor(count / lineShowItemNum);
+        if (!dataArr[index]) {
+            dataArr.push([]);
+        }
+        dataArr[index].push({
+            number: itemObj[key],
+            data: MyGame.JsonDataTool.getDataById('_table_item_sellGood', parseInt(key)),
+            id: parseInt(key)
+        });
+    }
+    //显示list
+    MyGame.ScrollViewTool.buildScrollView(itemListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
+        itemListScrollViewTmpNode, function (childNode: cc.Node, data: any[]) {
+            let i: number;
+            for (i = 0; i < data.length; i++) {
+                let itemNode: cc.Node, itemData: any;
+                itemData = {
+                    number: data[i].number,
+                    name: data[i].data.name,
+                    id: data[i].id,
+                    price: data[i].data.price
+                };
+                if (childNode.children[i]) {
+                    itemNode = childNode.children[i];
+                    MyGame.GameSceneManager.getScriptComp(itemNode).updateItemNodeData(itemData);
+                } else {
+                    itemNode = MyGame.UITool.createItemNode(itemData);
+                    childNode.addChild(itemNode);
+                    //绑定数据
+                    MyGame.NodeTool.saveNodeValue(itemNode, 'itemData', itemData);
+                }
+                itemNode.x = (childNode.width / lineShowItemNum) * (i + 0.5);
+                itemNode.y = -1 * childNode.height / 2;
+            }
+        }, dataArr, itemListNodePool);
 }

@@ -36,3 +36,5 @@ export let hunt_time_max_label: string = '最多打猎%s小时';
 export let travel_progress_notice_title: string = '旅行进度';
 export let rest_progress_notice_title: string = '休息进度';
 export let progress_notice_title: string = '进度';
+export let trade_item_label: string = '出售物品';
+export let trade_item_max_label: string = '最大出售物品：%s';

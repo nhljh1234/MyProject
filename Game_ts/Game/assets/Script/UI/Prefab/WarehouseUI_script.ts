@@ -71,43 +71,9 @@ export default class WarehouseUI extends BaseUI {
     }
 
     showItemList() {
-        //组装参数给scrollviewTool使用
-        let dataArr = [];
-        let count = 0;
-        for (var key in this._itemDataObj) {
-            if (!this._itemDataObj.hasOwnProperty(key)) {
-                continue;
-            }
-            let index = Math.floor(count / 5);
-            if (!dataArr[index]) {
-                dataArr.push([]);
-            }
-            dataArr[index].push({
-                number: this._itemDataObj[key],
-                data: MyGame.JsonDataTool.getDataById('_table_item_sellGood', parseInt(key))
-            });
-        }
-        //显示list
-        MyGame.ScrollViewTool.buildScrollView(this.itemListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
-            this.itemListScrollViewTmpNode, function (childNode: cc.Node, data: any[]) {
-                let i;
-                for (i = 0; i < data.length; i++) {
-                    let itemNode, itemData;
-                    itemData = {
-                        number: data[i].number,
-                        name: data[i].data.name
-                    };
-                    if (childNode.children[i]) {
-                        itemNode = childNode.children[i];
-                        MyGame.GameSceneManager.getScriptComp(itemNode).updateItemNodeData(itemData);
-                    } else {
-                        itemNode = MyGame.UITool.createItemNode(itemData);
-                        childNode.addChild(itemNode);
-                    }
-                    itemNode.x = (childNode.width / 5) * (i + 0.5);
-                    itemNode.y = -1 * childNode.height / 2;
-                }
-            }.bind(this), dataArr, this._itemListNodePool);
+        const LINE_SHOW_ITEM_NUM = 5;
+        MyGame.UITool.showItemScrollView(LINE_SHOW_ITEM_NUM, this._itemDataObj,
+            this.itemListScrollViewNode, this.itemListScrollViewTmpNode, this._itemListNodePool);
         this.buttonTravelRegister(this.node);
     }
 }

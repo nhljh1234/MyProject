@@ -282,6 +282,10 @@ export class UserRole {
      */
     addItemNum(itemId: number, num: number) {
         this.itemObj[itemId] = (this.itemObj[itemId] || 0) + num;
+        if (this.itemObj[itemId] < 0) {
+            MyGame.LogTool.showLog(`addItemNum error ! now num is ${this.itemObj[itemId]}`);
+            this.itemObj[itemId] = 0;
+        }
     }
 
     /**

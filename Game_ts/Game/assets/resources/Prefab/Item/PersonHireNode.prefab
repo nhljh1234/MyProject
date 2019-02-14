@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "ItemNode",
+    "_name": "PersonHireNode",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -83,7 +83,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "num",
+    "_name": "price",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -175,7 +175,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "732bd0d7-6544-4944-a3d6-aa9b9f0017e0"
+      "__uuid__": "bcd56b8e-fa12-43b3-bdab-9d5285ec550e"
     },
     "fileId": "246PYva9lMdbuLLuq8aFAO",
     "sync": false
@@ -274,26 +274,10 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "732bd0d7-6544-4944-a3d6-aa9b9f0017e0"
+      "__uuid__": "bcd56b8e-fa12-43b3-bdab-9d5285ec550e"
     },
     "fileId": "36DeO1zlZJ5ZgGopFpf5lf",
     "sync": false
-  },
-  {
-    "__type__": "e7ee7kJipZHCL618EM28SV1",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "numLabel": {
-      "__id__": 3
-    },
-    "nameLabel": {
-      "__id__": 6
-    },
-    "_id": ""
   },
   {
     "__type__": "cc.Button",
@@ -349,12 +333,28 @@
     "_id": ""
   },
   {
+    "__type__": "f332etDwrBJgKlktpTH71S6",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "priceLabel": {
+      "__id__": 3
+    },
+    "nameLabel": {
+      "__id__": 6
+    },
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "732bd0d7-6544-4944-a3d6-aa9b9f0017e0"
+      "__uuid__": "bcd56b8e-fa12-43b3-bdab-9d5285ec550e"
     },
     "fileId": "afOKqPyWxPAoethscCTfV+",
     "sync": false

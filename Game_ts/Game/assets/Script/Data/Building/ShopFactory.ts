@@ -3,6 +3,8 @@ import { Person } from "../PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
 import { UserRole } from "../UserRoleFactory";
+import TradeItemUI from "../../UI/Prefab/TradeItemUI_script";
+import HireListUI from "../../UI/Prefab/HireListUI_script";
 
 //计算公式
 function getSellPrice(cityData: City, itemData: any, building: BuildingShop, itemId: number): number {
@@ -54,5 +56,25 @@ export class BuildingShop extends Building {
         }
         MyGame.LogTool.showLog(`${personData.name} 卖东西`);
         MyGame.LogTool.showLog(`${personData.name} 获得了 ${personData.money - lastMoney}金钱`);
+    }
+
+    roleUseBuilding(personData: UserRole, typeStr: string) {
+        super.roleUseBuilding(personData, typeStr);
+        switch (typeStr) {
+            case MyGame.BUILDING_FUNCTION_TYPE_TRADE:
+                //交易
+                MyGame.GameSceneManager.addNode('Prefab/BuildingUI/TradeItemUI', MyGame.GAME_SCENE_UI_NODE, 'TradeItemUI',
+                    false, function (scriptComp: TradeItemUI) {
+                        scriptComp.showItemList();
+                    }, undefined, 100);
+                break;
+            case MyGame.BUILDING_FUNCTION_TYPE_HIRE:
+                //雇佣
+                MyGame.GameSceneManager.addNode('Prefab/BuildingUI/HireListUI', MyGame.GAME_SCENE_UI_NODE, 'HireListUI',
+                    false, function (scriptComp: HireListUI) {
+                        scriptComp.showPersonHireList();
+                    }, undefined, 100);
+                break;
+        }
     }
 }
