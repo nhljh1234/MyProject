@@ -1,5 +1,5 @@
 import { MyGame } from "../Tool/System/Game";
-import { MapPos, PersonPos } from "./PersonFactory";
+import { MapPos, PersonPos, Person } from "./PersonFactory";
 import { Action } from "./ActionFactory";
 import { SelfHome } from "./Building/SelfHome";
 import { City } from "./CityFactory";
@@ -104,6 +104,8 @@ export class UserRole {
     private updateFuncIndex: number;
     //自宅
     home: SelfHome;
+    //雇佣列表
+    hireIds: number[];
 
     constructor(saveData: any, randomData: any) {
         if (saveData) {
@@ -194,6 +196,8 @@ export class UserRole {
         this.updateFuncIndex = 0;
         //自宅
         this.home = new SelfHome(MyGame.SELF_HOUSE_ID, undefined, undefined);
+        //雇佣的人
+        this.hireIds = [];
     }
 
     getSaveData() {
@@ -354,5 +358,23 @@ export class UserRole {
      */
     setPersonCityPos(cityId: number) {
         this.personPos.cityId = cityId;
+    }
+
+    /**
+     * 雇佣一个人
+     * @param personId 
+     */
+    hirePerson(personId: number) {
+        let personData: Person = MyGame.GameManager.gameDataSave.getPersonById(personId);
+        if (!personData) {
+            MyGame.LogTool.showLog(`hire error! no person!`);
+            return;
+        }
+        if (this.hireIds.indexOf(personId) >= 0) {
+            MyGame.LogTool.showLog(`hire error! has hire!`);
+            return;
+        }
+        this.hireIds.push(personId);
+        MyGame.EventManager.send(MyGame.EventName.HIRE_PRESON_SUCCESS);
     }
 }

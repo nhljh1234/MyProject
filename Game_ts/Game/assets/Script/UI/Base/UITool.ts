@@ -1,7 +1,19 @@
 import { MyGame } from "../../Tool/System/Game";
 import AskNumBox from "../Prefab/AskNumBox_script";
 import { Person } from "../../Data/PersonFactory";
+import SureNoticeBox from "../Prefab/SureNoticeBox_script";
 
+/**
+ * 确认提示框
+ */
+export interface SureNoticeBoxButtonData {
+    //按钮显示的文本
+    label: string,
+    //按钮Node绑定的数据
+    data: any,
+    //按钮的回调函数
+    func: Function,
+};
 
 /**
  * 在指定结点下增加一个用户状态栏
@@ -54,7 +66,7 @@ export function createPersonHireNode(personData: Person): cc.Node {
 }
 
 /**
- * 创建一个要求输入的结点
+ * 创建一个要求输入数量的结点
  * @param askLabel 显示的文本
  * @param noticeLabel 提示的文本，一般是显示最大数量
  * @param maxNum 最大数量
@@ -96,6 +108,10 @@ export function showItemScrollView(lineShowItemNum: number, itemObj: { [itemId: 
     MyGame.ScrollViewTool.buildScrollView(itemListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
         itemListScrollViewTmpNode, function (childNode: cc.Node, data: any[]) {
             let i: number;
+            //隐藏多余节点
+            childNode.children.forEach(function (node: cc.Node, index) {
+                node.active = index < data.length;
+            });
             for (i = 0; i < data.length; i++) {
                 let itemNode: cc.Node, itemData: any;
                 itemData = {
@@ -117,4 +133,20 @@ export function showItemScrollView(lineShowItemNum: number, itemObj: { [itemId: 
                 itemNode.y = -1 * childNode.height / 2;
             }
         }, dataArr, itemListNodePool);
+}
+
+/**
+ * 创建一个确认提示框
+ * @param askLabel 显示的文本
+ * @param noticeLabel 提示的文本，一般是显示最大数量
+ * @param maxNum 最大数量
+ * @param startNum 起始数量
+ * @param onceAddNum 每次修改的数量
+ * @param sureCb 确定的回调
+ */
+export function showMakeSureNode(msgString: string, buttonDatas: SureNoticeBoxButtonData[]) {
+    MyGame.GameSceneManager.addNode('Prefab/Notice/SureNoticeBox', MyGame.GAME_SCENE_ALERT_NODE, 'SureNoticeBox',
+        false, function (scriptComp: SureNoticeBox) {
+            scriptComp.init(msgString, buttonDatas);
+        }, undefined, 100);
 }
