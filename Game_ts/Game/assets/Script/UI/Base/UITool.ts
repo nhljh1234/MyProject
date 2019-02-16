@@ -1,6 +1,6 @@
 import { MyGame } from "../../Tool/System/Game";
 import AskNumBox from "../Prefab/AskNumBox_script";
-import { Person } from "../../Data/PersonFactory";
+import { Person } from "../../Data/Person/PersonFactory";
 import SureNoticeBox from "../Prefab/SureNoticeBox_script";
 
 /**

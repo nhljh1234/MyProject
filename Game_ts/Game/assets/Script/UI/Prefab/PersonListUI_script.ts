@@ -2,7 +2,7 @@ import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../../Data/CityFactory";
 import { Force } from "../../Data/ForceFactory";
-import { Person } from "../../Data/PersonFactory";
+import { Person } from "../../Data/Person/PersonFactory";
 
 const { ccclass, property } = cc._decorator;
 

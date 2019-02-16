@@ -1,8 +1,8 @@
 import { Building } from "./BuildingFactory";
-import { Person } from "../PersonFactory";
+import { Person } from "../Person/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
-import { UserRole } from "../UserRoleFactory";
+import { UserRole } from "../Person/UserRoleFactory";
 
 export class BuildingHotel extends Building {
     constructor(buildingId: number, saveData: any, city: City) {
@@ -18,7 +18,7 @@ export class BuildingHotel extends Building {
         super.roleUseBuilding(personData, typeStr);
         switch (typeStr) {
             case MyGame.BUILDING_FUNCTION_TYPE_REST:
-                this.rest(personData, typeStr);
+                //this.rest(personData, typeStr);
                 break;
         }
     }

@@ -1,6 +1,7 @@
 import { MyGame } from "../../Tool/System/Game";
 import { PersonBattle } from "../../Data/PersonBattleFactory";
-import { Person } from "../../Data/PersonFactory";
+import { Person } from "../../Data/Person/PersonFactory";
+import { BasePerson } from "../../Data/Person/BasePersonFactory";
 
 /**
  * 大地图随机事件
@@ -12,7 +13,7 @@ eventFuncObj.battle = function (personData, dataArr) {
 };
 
 //判断会不会有随机事件
-export function judgeMapRandomEvent (personData: Person) {
+export function judgeMapRandomEvent (personData: BasePerson) {
     if (Math.random() >= (MyGame.MAP_RANDOM_EVENT_RECORD / 100)) {
         return;
     }

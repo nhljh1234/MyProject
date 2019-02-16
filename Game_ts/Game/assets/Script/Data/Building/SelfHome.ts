@@ -1,8 +1,8 @@
 import { Building } from "./BuildingFactory";
-import { Person } from "../PersonFactory";
+import { Person } from "../Person/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
-import { UserRole } from "../UserRoleFactory";
+import { UserRole } from "../Person/UserRoleFactory";
 import WarehouseUI from "../../UI/Prefab/WarehouseUI_script";
 
 export class SelfHome extends Building {
@@ -24,7 +24,7 @@ export class SelfHome extends Building {
         super.roleUseBuilding(personData, typeStr);
         switch (typeStr) {
             case MyGame.BUILDING_FUNCTION_TYPE_REST:
-                this.rest(personData, typeStr);
+                //this.rest(personData, typeStr);
                 break;
             case MyGame.BUILDING_FUNCTION_TYPE_WAREHOUSE:
                 //调用显示仓库界面

@@ -1,6 +1,6 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
-import { Person } from "../../Data/PersonFactory";
+import { Person } from "../../Data/Person/PersonFactory";
 import { SureNoticeBoxButtonData } from "../Base/UITool";
 
 const { ccclass, property } = cc._decorator;

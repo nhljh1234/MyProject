@@ -1,8 +1,8 @@
 import { Building } from "./BuildingFactory";
-import { Person } from "../PersonFactory";
+import { Person } from "../Person/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
-import { UserRole } from "../UserRoleFactory";
+import { UserRole } from "../Person/UserRoleFactory";
 import TradeItemUI from "../../UI/Prefab/TradeItemUI_script";
 import HireListUI from "../../UI/Prefab/HireListUI_script";
 

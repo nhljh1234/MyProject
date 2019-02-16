@@ -1,4 +1,4 @@
-import { Person } from "./PersonFactory";
+import { Person } from "./Person/PersonFactory";
 
 /**
  * 战斗生成工厂

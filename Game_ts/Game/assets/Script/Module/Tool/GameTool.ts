@@ -1,11 +1,35 @@
-import { MapPos } from "../../Data/PersonFactory";
-import { Person } from "../../Data/PersonFactory";
+import { MapPos } from "../../Data/Person/PersonFactory";
+import { Person } from "../../Data/Person/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../../Data/CityFactory";
+import { BasePerson } from "../../Data/Person/BasePersonFactory";
 
 /**
  * 这边封装了很多游戏内用的函数
  */
+
+/**
+ * 新建一个随机人物
+ * @param sex 性别，默认男性
+ * @param cityId 家的地址
+ */
+export function createRandomPerson(sex: number, cityId: number) {
+    var randomData: { [key: string]: any } = {};
+    //默认是男性
+    randomData.sex = sex || MyGame.SEX_MAN;
+    randomData.name = MyGame.RandomNameTool.getRandomName(randomData.sex);
+    //随机数据
+    randomData.attack = 40 + Math.ceil(Math.random() * 60);
+    randomData.def = 40 + Math.ceil(Math.random() * 60);
+    randomData.command = 40 + Math.ceil(Math.random() * 60);
+    randomData.intelligence = 40 + Math.ceil(Math.random() * 60);
+    randomData.charm = 40 + Math.ceil(Math.random() * 60);
+    randomData.politics = 40 + Math.ceil(Math.random() * 60);
+    randomData.hp = 600 + Math.ceil(Math.random() * 400);
+    randomData.price = 8000 + Math.ceil(Math.random() * 2000);
+    randomData.moveSpeed = 5;
+    return new Person(undefined, undefined, cityId, randomData);
+};
 
 /**
  * 判断两个二位数组的坐标是否相同
@@ -36,7 +60,7 @@ export function buildPos(x, y): MapPos {
  * @param nowCityData 出发城市的数据
  * @param personData 
  */
-export function getNearBuildingCity(buildingId: number, nowCityId: number, nowCityData: City, personData: Person): City {
+export function getNearBuildingCity(buildingId: number, nowCityId: number, nowCityData: City, personData: BasePerson): City {
     let nowMapPos;
     if (nowCityId === MyGame.USER_IN_FIELD) {
         nowMapPos = personData.nowMapPos;

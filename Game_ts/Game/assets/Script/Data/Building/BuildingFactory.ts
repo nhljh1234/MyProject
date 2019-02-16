@@ -4,9 +4,9 @@
  * 
  */
 import { MyGame } from "../../Tool/System/Game";
-import { Person } from "../PersonFactory";
+import { Person } from "../Person/PersonFactory";
 import { City } from "../CityFactory";
-import { UserRole } from "../UserRoleFactory";
+import { UserRole } from "../Person/UserRoleFactory";
 import ProgressNotice from "../../UI/Prefab/ProgressNotice_script";
 
 /**
@@ -128,97 +128,5 @@ export class Building {
             }
         }
         return undefined;
-    }
-
-    /**
-     * 治疗体力
-     */
-    rest(personData: UserRole, typeStr: string) {
-        if (personData.power >= MyGame.MAX_POWER) {
-            MyGame.LogTool.showLog(`rest error ! power is max`);
-            return;
-        }
-        //开始休息
-        //获取恢复满体力需要的时间
-        let restFunctionData = this.getFunctionByType(typeStr);
-        //判断要不要钱
-        let needMoney = restFunctionData.functionNumArr[1];
-        if (personData.money < needMoney) {
-            MyGame.LogTool.showLog(`${this.buildingName} use error, money error`);
-            return;
-        }
-        MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
-            false, function (scriptComp: ProgressNotice) {
-                MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
-                personData.changeMoneyNum(-1 * needMoney);
-                let restMaxPowerNeedTime: number = restFunctionData.functionNumArr[0];
-                let restOneMinuteAddPowerNum: number = MyGame.MAX_POWER / restMaxPowerNeedTime;
-                let restUpdateFuncId: number;
-                //更新提示标题
-                scriptComp.updateTitle(MyGame.LanguageTool.getLanguageStr('rest_progress_notice_title'));
-                //加入回调函数
-                restUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
-                    if (personData.power < MyGame.MAX_POWER) {
-                        personData.changePowerNum(data.restOneMinuteAddPowerNum * addMinute);
-                        scriptComp.updateProgressNum(personData.power / MyGame.MAX_POWER);
-                        if (personData.power >= MyGame.MAX_POWER) {
-                            //清除掉这个回调
-                            personData.removeOneFunctionById(restUpdateFuncId);
-                            //恢复运行速度
-                            MyGame.GameManager.gameSpeedResetting();
-                            scriptComp.hide(false);
-                        }
-                    } else {
-                        //清除回调
-                        personData.removeOneFunctionById(restUpdateFuncId);
-                        scriptComp.hide(false);
-                    }
-                }.bind(this), {
-                        restOneMinuteAddPowerNum: restOneMinuteAddPowerNum
-                    });
-            }, undefined, 100);
-    }
-
-    /**
-     * 钓鱼、打猎啥的基本函数
-     * @param workTimeHour 工作时间
-     * @param maxMinuteNum 最长工作时间
-     * @param oneMinUsePower 每分钟消耗体力
-     * @param getItemId 获取的物品id
-     * @param oneMinGetNum 每分钟获得数量
-     * @param scriptComp 进度提示控件
-     */
-    work(workTimeHour: number, maxMinuteNum: number, oneMinUsePower: number, getItemId: number,
-        oneMinGetNum: number, scriptComp: ProgressNotice) {
-        //玩家数据
-        let personData = MyGame.GameManager.userRole;
-        //快速运行
-        MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
-        //转为分钟
-        //计算结束时间，总时间超过这个这个就表示打猎完了
-        let finshTimeMinute = Math.min(workTimeHour * 60, maxMinuteNum);
-        let costTimeMinuteTotal = 0;
-        //加入回调函数
-        let huntUpdateFuncId = personData.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
-            if (costTimeMinuteTotal < finshTimeMinute) {
-                //打猎时间增加
-                costTimeMinuteTotal = costTimeMinuteTotal + addMinute;
-                personData.changePowerNum(-1 * oneMinUsePower * addMinute);
-                scriptComp.updateProgressNum(costTimeMinuteTotal / finshTimeMinute);
-                if (costTimeMinuteTotal >= finshTimeMinute) {
-                    let addNum = finshTimeMinute * oneMinGetNum;
-                    personData.addItemNum(getItemId, addNum);
-                    //清除掉这个回调
-                    personData.removeOneFunctionById(huntUpdateFuncId);
-                    //恢复运行速度
-                    MyGame.GameManager.gameSpeedResetting();
-                    scriptComp.hide(false);
-                }
-            } else {
-                //清除回调
-                personData.removeOneFunctionById(huntUpdateFuncId);
-                scriptComp.hide(false);
-            }
-        }.bind(this), undefined);
     }
 }

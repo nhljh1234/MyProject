@@ -2,7 +2,7 @@ import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../../Data/CityFactory";
 import PersonListUI from "./PersonListUI_script";
-import { UserRole } from "../../Data/UserRoleFactory";
+import { UserRole } from "../../Data/Person/UserRoleFactory";
 import ProgressNotice from "./ProgressNotice_script";
 
 const { ccclass, property } = cc._decorator;
@@ -95,7 +95,6 @@ export default class GateCityListUI extends BaseUI {
                                     scriptComp.updateProgressNum(costTimeMinuteTotal / costTime);
                                     personData.changePowerNum(-1 * MyGame.MAP_MOVE_COST_POWER_MINUTE * addMinute);
                                     if (costTimeMinuteTotal >= costTime) {
-                                        personData.setPersonCityPos(cityId);
                                         //清除掉这个回调
                                         personData.removeOneFunctionById(travelUpdateFuncId);
                                         //恢复运行速度
@@ -105,6 +104,8 @@ export default class GateCityListUI extends BaseUI {
                                 } else {
                                     //清除回调
                                     personData.removeOneFunctionById(travelUpdateFuncId);
+                                    //恢复运行速度
+                                    MyGame.GameManager.gameSpeedResetting();
                                     scriptComp.hide(false);
                                 }
                             }.bind(this), undefined);

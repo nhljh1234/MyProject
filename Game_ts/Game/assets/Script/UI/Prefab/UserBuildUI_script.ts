@@ -1,7 +1,7 @@
 import BaseUI from "../Base/BaseUI";
 import { MyGame } from "../../Tool/System/Game";
-import { Person, createRandomPerson } from "../../Data/PersonFactory";
-import { getRandomUserRoleData, UserRole } from "../../Data/UserRoleFactory";
+import { Person } from "../../Data/Person/PersonFactory";
+import { getRandomUserRoleData, UserRole } from "../../Data/Person/UserRoleFactory";
 import { Game } from "../../Data/GameFactory";
 
 const { ccclass, property } = cc._decorator;

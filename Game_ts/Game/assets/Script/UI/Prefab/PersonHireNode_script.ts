@@ -1,5 +1,5 @@
 import BaseUI from "../Base/BaseUI";
-import { Person } from "../../Data/PersonFactory";
+import { Person } from "../../Data/Person/PersonFactory";
 
 const { ccclass, property } = cc._decorator;
 @ccclass

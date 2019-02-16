@@ -16,6 +16,7 @@ import TimeTool = require('../../Tool/Time/TimeTool');
 import NodeTool = require('../../UI/Base/NodeTool');
 import ScrollViewTool = require('../../UI/Base/ScrollViewTool');
 import UITool = require('../../UI/Base/UITool');
+import ActionModule = require('../../Module/Action/ActionModule');
 import BattleManager = require('../../Module/Manager/BattleManager');
 import GameManager = require('../../Module/Manager/GameManager');
 import GameDataSaveTool = require('../../Module/Tool/GameDataSaveTool');
@@ -45,6 +46,7 @@ class Game {
     NodeTool = NodeTool;
     ScrollViewTool = ScrollViewTool;
     UITool = UITool;
+    ActionModule = ActionModule;
     BattleManager = BattleManager;
     GameManager = GameManager;
     GameDataSaveTool = GameDataSaveTool;

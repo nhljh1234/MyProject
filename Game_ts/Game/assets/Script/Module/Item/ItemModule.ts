@@ -1,5 +1,7 @@
-import { Person } from "../../Data/PersonFactory";
+import { Person } from "../../Data/Person/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
+import { BasePerson } from "../../Data/Person/BasePersonFactory";
+import { actionSaveData } from "../../Data/Action/ActionFactory";
 
 /**
  * 判断一个物品是否有某个功能

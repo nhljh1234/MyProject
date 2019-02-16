@@ -1,6 +1,6 @@
 import { MyGame } from "../../Tool/System/Game";
 import { Game } from "../../Data/GameFactory";
-import { UserRole } from "../../Data/UserRoleFactory";
+import { UserRole } from "../../Data/Person/UserRoleFactory";
 
 /*global module, require, cc, client */
 /**

@@ -3,7 +3,7 @@
  */
 
 import { MyGame } from "../Tool/System/Game";
-import { MapPos, Person, createRandomPerson } from "./PersonFactory";
+import { MapPos, Person } from "./Person/PersonFactory";
 import { Building } from "./Building/BuildingFactory";
 import { BuildingShop } from "./Building/ShopFactory";
 import { BuildingHospital } from "./Building/HospitalFactory";
@@ -120,7 +120,7 @@ export class City {
     //在这个城市新建一个随机人物
     createOneRandomPerson(sex: number) {
         sex = sex ? sex : (Math.random() < 0.5 ? MyGame.SEX_MAN : MyGame.SEX_WOMAN);
-        return createRandomPerson(sex, this.cityId);
+        return MyGame.GameTool.createRandomPerson(sex, this.cityId);
     }
     //新的一天
     dayUpdate() {

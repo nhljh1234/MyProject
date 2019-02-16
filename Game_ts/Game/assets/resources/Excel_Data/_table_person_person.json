@@ -9,7 +9,6 @@
             "charm" : 99,
             "politics" : 90,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         "2" : {
@@ -21,7 +20,6 @@
             "charm" : 90,
             "politics" : 65,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         "3" : {
@@ -33,7 +31,6 @@
             "charm" : 100,
             "politics" : 80,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         "4" : {
@@ -45,7 +42,6 @@
             "charm" : 80,
             "politics" : 79,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         "5" : {
@@ -57,7 +53,6 @@
             "charm" : 80,
             "politics" : 79,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         "6" : {
@@ -69,7 +64,6 @@
             "charm" : 100,
             "politics" : 80,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         }    
     },
@@ -85,7 +79,6 @@
             "charm" : 99,
             "politics" : 90,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         {
@@ -98,7 +91,6 @@
             "charm" : 90,
             "politics" : 65,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         {
@@ -111,7 +103,6 @@
             "charm" : 100,
             "politics" : 80,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         {
@@ -124,7 +115,6 @@
             "charm" : 80,
             "politics" : 79,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         {
@@ -137,7 +127,6 @@
             "charm" : 80,
             "politics" : 79,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         },    
         {
@@ -150,7 +139,6 @@
             "charm" : 100,
             "politics" : 80,
             "sex" : 1,
-            "moveSpeed" : 5,
             "price" : 10000
         }    
     ]

@@ -1,4 +1,4 @@
-import { Person } from "../../Data/PersonFactory";
+import { Person } from "../../Data/Person/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { PersonBattle } from "../../Data/PersonBattleFactory";
 

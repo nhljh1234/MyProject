@@ -4,21 +4,18 @@
             "name" : "池塘",
             "useType" : "pool",
             "function" : 3,
-            "functionNum" : "1/0.1/0.1",
             "showFlag" : 1
         },    
         "2" : {
             "name" : "森林",
             "useType" : "forest",
             "function" : 4,
-            "functionNum" : "3/0.1/0.1",
             "showFlag" : 1
         },    
         "3" : {
             "name" : "旅舍",
             "useType" : "hotel",
             "function" : 1,
-            "functionNum" : "480/10",
             "showFlag" : 1
         },    
         "4" : {
@@ -31,7 +28,6 @@
             "name" : "医馆",
             "useType" : "hospital",
             "function" : 5,
-            "functionNum" : "10/200",
             "showFlag" : 1
         },    
         "6" : {
@@ -44,7 +40,6 @@
             "name" : "自宅",
             "useType" : "self_house",
             "function" : "1,2",
-            "functionNum" : "480/0,0",
             "showFlag" : 1
         }    
     },
@@ -55,7 +50,6 @@
             "name" : "池塘",
             "useType" : "pool",
             "function" : 3,
-            "functionNum" : "1/0.1/0.1",
             "showFlag" : 1
         },    
         {
@@ -63,7 +57,6 @@
             "name" : "森林",
             "useType" : "forest",
             "function" : 4,
-            "functionNum" : "3/0.1/0.1",
             "showFlag" : 1
         },    
         {
@@ -71,7 +64,6 @@
             "name" : "旅舍",
             "useType" : "hotel",
             "function" : 1,
-            "functionNum" : "480/10",
             "showFlag" : 1
         },    
         {
@@ -86,7 +78,6 @@
             "name" : "医馆",
             "useType" : "hospital",
             "function" : 5,
-            "functionNum" : "10/200",
             "showFlag" : 1
         },    
         {
@@ -101,7 +92,6 @@
             "name" : "自宅",
             "useType" : "self_house",
             "function" : "1,2",
-            "functionNum" : "480/0,0",
             "showFlag" : 1
         }    
     ]

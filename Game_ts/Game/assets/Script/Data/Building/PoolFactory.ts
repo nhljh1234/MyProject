@@ -1,9 +1,10 @@
 import { Building } from "./BuildingFactory";
-import { Person } from "../PersonFactory";
+import { Person } from "../Person/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
-import { UserRole } from "../UserRoleFactory";
+import { UserRole } from "../Person/UserRoleFactory";
 import ProgressNotice from "../../UI/Prefab/ProgressNotice_script";
+import { Action } from "../Action/ActionFactory";
 
 export class BuildingPool extends Building {
     constructor(buildingId: number, saveData: any, city: City) {
@@ -28,26 +29,15 @@ export class BuildingPool extends Building {
             return;
         }
         //计算最大时间
-        let fishFunctionData = this.getFunctionByType(MyGame.BUILDING_FUNCTION_TYPE_FISH);
-        let oneMinuteGetFishNum = fishFunctionData.functionNumArr[1];
-        let maxGetNum = MyGame.MAX_ITEM_NUM - nowBagItemNum;
-        let maxMinuteNum = Math.ceil(maxGetNum / oneMinuteGetFishNum);
-        let maxHour = Math.ceil(maxMinuteNum / 60);
-        let that = this;
-        //开始钓鱼
+        let maxMinute = MyGame.ActionModule.getActionRunMaxTime(1, personData);
+        let maxHour = Math.ceil(maxMinute / 60);
+        //开始打猎
         MyGame.UITool.showAskTimeNode(MyGame.LanguageTool.getLanguageStr('fish_time_title_label'),
             MyGame.LanguageTool.getLanguageStr('fish_time_max_label', `${maxHour}`), maxHour, 0, 1, function (fishTimeHour: number) {
                 if (!fishTimeHour) {
                     return;
                 }
-                MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
-                    false, function (scriptComp: ProgressNotice) {
-                        //更新提示标题
-                        scriptComp.updateTitle(MyGame.LanguageTool.getLanguageStr('progress_notice_title'));
-                        //调用基本函数
-                        that.work(fishTimeHour, maxMinuteNum, fishFunctionData.functionNumArr[2], 
-                            fishFunctionData.functionNumArr[0], fishFunctionData.functionNumArr[1], scriptComp);
-                    }, undefined, 100);
+                personData.addOneAction(new Action(1, Math.min(fishTimeHour * 60, maxMinute), undefined));
             });
     }
 }

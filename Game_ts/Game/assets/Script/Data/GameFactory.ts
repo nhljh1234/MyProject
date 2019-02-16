@@ -1,6 +1,6 @@
 import { Force } from "./ForceFactory";
 import { City } from "./CityFactory";
-import { Person } from "./PersonFactory";
+import { Person } from "./Person/PersonFactory";
 import { MyGame } from "../Tool/System/Game";
 
 /**
@@ -113,7 +113,7 @@ export class Game {
         }
         //人物更新函数
         this.allPersonArr.forEach(function (onePersonData) {
-            //onePersonData.timeUpdate(addMinutes);
+            onePersonData.timeUpdate(addMinutes);
         });
         //战斗定时器
         MyGame.BattleManager.timeUpdate(addMinutes);
