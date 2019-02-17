@@ -31,12 +31,12 @@ export function startTest(testNodeNum: number, testNode: cc.Node = new cc.Node()
     MyGame.CodeRunTime.recordStartTime('position total use time');
     MyGame.CodeRunTime.recordStartTime('position hide use time');
     nowSceneNode.children.forEach(function(childNode) {
-        MyGame.NodeTool.hideNode(childNode);
+        MyGame.UITool.hideNode(childNode);
     });
     MyGame.CodeRunTime.printUseTime('position hide use time');
     MyGame.CodeRunTime.recordStartTime('position show use time');
     nowSceneNode.children.forEach(function(childNode) {
-        MyGame.NodeTool.showNode(childNode);
+        MyGame.UITool.showNode(childNode);
     });
     MyGame.CodeRunTime.printUseTime('position show use time');
     MyGame.CodeRunTime.printUseTime('position total use time');

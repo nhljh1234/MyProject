@@ -13,7 +13,6 @@ import PrefabManager = require('../../Tool/System/PrefabManager');
 import SpriteFrameManager = require('../../Tool/System/SpriteFrameManager');
 import Tool = require('../../Tool/System/Tool');
 import TimeTool = require('../../Tool/Time/TimeTool');
-import NodeTool = require('../../UI/Base/NodeTool');
 import ScrollViewTool = require('../../UI/Base/ScrollViewTool');
 import UITool = require('../../UI/Base/UITool');
 import ActionModule = require('../../Module/Action/ActionModule');
@@ -43,7 +42,6 @@ class Game {
     PrefabManager = PrefabManager;
     SpriteFrameManager = SpriteFrameManager;
     TimeTool = TimeTool;
-    NodeTool = NodeTool;
     ScrollViewTool = ScrollViewTool;
     UITool = UITool;
     ActionModule = ActionModule;

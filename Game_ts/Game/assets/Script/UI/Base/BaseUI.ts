@@ -58,7 +58,7 @@ export default class BaseUI extends cc.Component {
         if (deleteFlag) {
             this.node.removeFromParent(true);
             this.node.destroy();
-            MyGame.NodeTool.saveNodeValue(this.node, '_tj_isDestroy', true);
+            MyGame.UITool.saveNodeValue(this.node, '_tj_isDestroy', true);
             MyGame.SpriteFrameManager.clearDestroyNode();
         }
     }

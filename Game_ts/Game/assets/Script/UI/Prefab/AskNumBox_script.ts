@@ -35,7 +35,8 @@ export default class AskNumBox extends BaseUI {
     //onLoad super的时候会调用，在onShow之前
     onUIInit() {
         super.onUIInit();
-
+        //绑定文本改变函数
+        this.editBox.node.on('text-changed', this.textChange.bind(this));
     }
 
     //结点active的时候会调用
@@ -88,6 +89,10 @@ export default class AskNumBox extends BaseUI {
      */
     updateNowNum() {
         this.editBox.string = '' + this._nowNum;
+    }
+
+    textChange() {
+        this._nowNum = parseInt(this.editBox.string);
     }
 
     /**

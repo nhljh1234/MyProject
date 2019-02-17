@@ -84,7 +84,7 @@ export function clearDestroyNode() {
         let array: SpriteUseData[] = spriteUseNodeObj[key];
         let newArray: SpriteUseData[] = [];
         array.forEach((nodeObj) => {
-            if (nodeObj.UINode && nodeObj.UINode.isValid && !MyGame.NodeTool.getNodeValue(nodeObj.UINode, '_tj_isDestroy')) {
+            if (nodeObj.UINode && nodeObj.UINode.isValid && !MyGame.UITool.getNodeValue(nodeObj.UINode, '_tj_isDestroy')) {
                 newArray.push(nodeObj);
             }
         });

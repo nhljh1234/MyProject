@@ -49,7 +49,7 @@ export default class GateCityListUI extends BaseUI {
                 let costTime: number = MyGame.TravelModule.getTravelCostTime(MyGame.GameManager.userRole.personPos.cityId,
                     data.cityId);
                 cc.find('button/cityName', childNode).getComponent(cc.Label).string = `${data.cityName}(${costTime}min)`;
-                MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_city_id', data.cityId);
+                MyGame.UITool.saveNodeValue(childNode.getChildByName('button'), '_city_id', data.cityId);
             }.bind(this), cityArr, this._cityListNodePool);
         this.buttonTravelRegister(this.node);
     }
@@ -74,7 +74,7 @@ export default class GateCityListUI extends BaseUI {
                 this.hide(false);
                 break;
             case 'button':
-                var cityId = MyGame.NodeTool.getNodeValue(node, '_city_id');
+                var cityId = MyGame.UITool.getNodeValue(node, '_city_id');
                 if (cityId) {
                     this.hide(false);
                     MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
@@ -88,27 +88,7 @@ export default class GateCityListUI extends BaseUI {
                             let costTimeMinuteTotal = 0;
                             //加入回调函数
                             let userRole = MyGame.GameManager.userRole;
-                            let travelUpdateFuncId = userRole.addOneFunction(function (personData: UserRole, addMinute: number, data: any) {
-                                if (costTimeMinuteTotal < costTime) {
-                                    costTimeMinuteTotal = costTimeMinuteTotal + addMinute;
-                                    //更新进度
-                                    scriptComp.updateProgressNum(costTimeMinuteTotal / costTime);
-                                    personData.changePowerNum(-1 * MyGame.MAP_MOVE_COST_POWER_MINUTE * addMinute);
-                                    if (costTimeMinuteTotal >= costTime) {
-                                        //清除掉这个回调
-                                        personData.removeOneFunctionById(travelUpdateFuncId);
-                                        //恢复运行速度
-                                        MyGame.GameManager.gameSpeedResetting();
-                                        scriptComp.hide(false);
-                                    }
-                                } else {
-                                    //清除回调
-                                    personData.removeOneFunctionById(travelUpdateFuncId);
-                                    //恢复运行速度
-                                    MyGame.GameManager.gameSpeedResetting();
-                                    scriptComp.hide(false);
-                                }
-                            }.bind(this), undefined);
+                           
                         }, undefined, 100);
                 }
                 break;

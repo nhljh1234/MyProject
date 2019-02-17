@@ -18,7 +18,7 @@ export class BuildingHospital extends Building {
         super.roleUseBuilding(personData, typeStr);
         switch (typeStr) {
             case MyGame.BUILDING_FUNCTION_TYPE_TREAT:
-                //this.rest(personData, typeStr);
+                this.rest(MyGame.ActionModule.ACTION_REST_IN_HOSPITAL_ID, personData);
                 break;
         }
     }

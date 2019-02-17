@@ -1,6 +1,4 @@
 import { MyGame } from "../../Tool/System/Game";
-import { Person } from "../Person/PersonFactory";
-import { Building } from "../Building/BuildingFactory";
 import { BasePerson } from "../Person/BasePersonFactory";
 import ProgressNotice from "../../UI/Prefab/ProgressNotice_script";
 

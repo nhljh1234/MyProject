@@ -38,7 +38,7 @@ export default class PersonListUI extends BaseUI {
         MyGame.ScrollViewTool.buildScrollView(this.personListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
             this.personListScrollViewTmpNode, function (childNode: cc.Node, data: Person) {
                 cc.find('button/personName', childNode).getComponent(cc.Label).string = data.name;
-                MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_person_id', data.personId);
+                MyGame.UITool.saveNodeValue(childNode.getChildByName('button'), '_person_id', data.personId);
             }.bind(this), personArr, this._personListNodePool);
         this.buttonTravelRegister(this.node);
     }

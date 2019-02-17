@@ -24,7 +24,7 @@ export class SelfHome extends Building {
         super.roleUseBuilding(personData, typeStr);
         switch (typeStr) {
             case MyGame.BUILDING_FUNCTION_TYPE_REST:
-                //this.rest(personData, typeStr);
+                this.rest(MyGame.ActionModule.ACTION_REST_IN_HOME_ID, personData);
                 break;
             case MyGame.BUILDING_FUNCTION_TYPE_WAREHOUSE:
                 //调用显示仓库界面

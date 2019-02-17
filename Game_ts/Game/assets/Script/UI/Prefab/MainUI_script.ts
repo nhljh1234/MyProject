@@ -63,7 +63,7 @@ class MainUI extends BaseUI {
                     }, undefined, 100);
                 break;
             case 'building_button':
-                var buildingData = MyGame.NodeTool.getNodeValue(node, 'buildData');
+                var buildingData = MyGame.UITool.getNodeValue(node, 'buildData');
                 if (buildingData) {
                     //跳转到建筑中
                     //加载BuildingUI界面
@@ -97,7 +97,7 @@ class MainUI extends BaseUI {
                 let buttonNode = childNode.getChildByName('building_button');
                 buttonNode.getChildByName('Label').getComponent(cc.Label).string = data.buildingName;
                 //绑定数据
-                MyGame.NodeTool.saveNodeValue(buttonNode, 'buildData', data);
+                MyGame.UITool.saveNodeValue(buttonNode, 'buildData', data);
             }, buildArr, this._buildingTmpNodePool);
     }
 }

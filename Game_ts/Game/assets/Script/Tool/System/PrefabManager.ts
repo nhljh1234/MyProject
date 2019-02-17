@@ -130,7 +130,7 @@ export function clearPrefabWithoutUseSpreite(clearArr: prefabSaveData[]) {
     clearArr.forEach((onePrefabData) => {
         onePrefabData.prefabNodeArr.forEach(function (node) {
             node.destroy();
-            MyGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
+            MyGame.UITool.saveNodeValue(node, '_tj_isDestroy', true);
         });
     });
     let allClearDepends = getAllClearDepends(clearArr);
@@ -148,7 +148,7 @@ export function clearPrefabWithoutUseSpreite(clearArr: prefabSaveData[]) {
         }
         let i, len = spriteUseNodeArr.length;
         for (i = 0; i < len; i++) {
-            if (spriteUseNodeArr[i] && spriteUseNodeArr[i].UINode.isValid && !MyGame.NodeTool.getNodeValue(spriteUseNodeArr[i].UINode, '_tj_isDestroy')) {
+            if (spriteUseNodeArr[i] && spriteUseNodeArr[i].UINode.isValid && !MyGame.UITool.getNodeValue(spriteUseNodeArr[i].UINode, '_tj_isDestroy')) {
                 return;
             } else {
                 MyGame.SpriteFrameManager.clearSprite(loadResPathStr);
@@ -184,7 +184,7 @@ export function clearPrefabInStrongMode(clearArr: prefabSaveData[], canNotClearA
     clearArr.forEach((onePrefabData) => {
         onePrefabData.prefabNodeArr.forEach(function (node) {
             node.destroy();
-            MyGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
+            MyGame.UITool.saveNodeValue(node, '_tj_isDestroy', true);
         });
     });
     let allClearDepends = getAllClearDepends(clearArr);
@@ -205,7 +205,7 @@ export function clearPrefabInStrongMode(clearArr: prefabSaveData[], canNotClearA
         }
         let i, len = spriteUseNodeArr.length;
         for (i = 0; i < len; i++) {
-            if (spriteUseNodeArr[i] && spriteUseNodeArr[i].UINode.isValid && !MyGame.NodeTool.getNodeValue(spriteUseNodeArr[i].UINode, '_tj_isDestroy')) {
+            if (spriteUseNodeArr[i] && spriteUseNodeArr[i].UINode.isValid && !MyGame.UITool.getNodeValue(spriteUseNodeArr[i].UINode, '_tj_isDestroy')) {
                 return;
             } else {
                 MyGame.SpriteFrameManager.clearSprite(loadResPathStr);
@@ -231,7 +231,7 @@ export function clearPrefab(prefabPath: string) {
     //清除节点
     prefabSave[prefabPath].prefabNodeArr.forEach(function (node) {
         node.destroy();
-        MyGame.NodeTool.saveNodeValue(node, '_tj_isDestroy', true);
+        MyGame.UITool.saveNodeValue(node, '_tj_isDestroy', true);
     });
     let depends = cc.loader.getDependsRecursively(prefabSave[prefabPath].prefab);
     cc.loader.release(depends);

@@ -41,7 +41,7 @@ class ForceListUI extends BaseUI {
         MyGame.ScrollViewTool.buildScrollView(this.forceListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
             this.forceListScrollViewTmpNode, function (childNode: cc.Node, data: Force) {
                 cc.find('button/forceName', childNode).getComponent(cc.Label).string = data.forceName;
-                MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_force_id', data.forceId);
+                MyGame.UITool.saveNodeValue(childNode.getChildByName('button'), '_force_id', data.forceId);
             }.bind(this), forceDataArr, this._forceListNodePool);
         this.buttonTravelRegister(this.node);
     }
@@ -62,7 +62,7 @@ class ForceListUI extends BaseUI {
                 this.hide(false);
                 break;
             case 'button':
-                var forceId = MyGame.NodeTool.getNodeValue(node, '_force_id');
+                var forceId = MyGame.UITool.getNodeValue(node, '_force_id');
                 if (forceId) {
                     MyGame.GameSceneManager.addNode('Prefab/Msg/CityListUI', MyGame.GAME_SCENE_UI_NODE, 'CityListUI',
                         false, function (scriptComp: CityListUI) {

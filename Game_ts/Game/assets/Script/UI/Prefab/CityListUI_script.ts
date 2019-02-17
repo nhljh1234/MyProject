@@ -42,7 +42,7 @@ export default class CityListUI extends BaseUI {
         MyGame.ScrollViewTool.buildScrollView(this.cityListScrollViewNode, MyGame.ScrollViewTool.SCROLL_TYPE_VERTICAL,
             this.cityListScrollViewTmpNode, function (childNode: cc.Node, data: City) {
                 cc.find('button/cityName', childNode).getComponent(cc.Label).string = data.cityName;
-                MyGame.NodeTool.saveNodeValue(childNode.getChildByName('button'), '_city_id', data.cityId);
+                MyGame.UITool.saveNodeValue(childNode.getChildByName('button'), '_city_id', data.cityId);
             }.bind(this), cityArr, this._cityListNodePool);
         this.buttonTravelRegister(this.node);
     }
@@ -67,7 +67,7 @@ export default class CityListUI extends BaseUI {
                 this.hide(false);
                 break;
             case 'button':
-                var cityId = MyGame.NodeTool.getNodeValue(node, '_city_id');
+                var cityId = MyGame.UITool.getNodeValue(node, '_city_id');
                 if (cityId) {
                     MyGame.GameSceneManager.addNode('Prefab/Msg/PersonListUI', MyGame.GAME_SCENE_UI_NODE, 'PersonListUI',
                         false, function (scriptComp: PersonListUI) {

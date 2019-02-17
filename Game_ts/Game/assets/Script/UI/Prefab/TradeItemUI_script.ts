@@ -70,7 +70,7 @@ export default class TradeItemUI extends BaseUI {
                 this.hide(false);
                 break;
             case 'ItemNode':
-                var itemData = MyGame.NodeTool.getNodeValue(node, 'itemData');
+                var itemData = MyGame.UITool.getNodeValue(node, 'itemData');
                 if (itemData) {
                     this._selectItemData = itemData;
                     //显示交易进度条

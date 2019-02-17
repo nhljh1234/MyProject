@@ -58,7 +58,7 @@ export default class BuildingUI extends BaseUI {
     onButtonClick(name: string, node: cc.Node, component: cc.Component) {
         switch (name) {
             case 'building_type_button':
-                var buildingTypeData: buildingFunctionData = MyGame.NodeTool.getNodeValue(node, 'buildingTypeData');
+                var buildingTypeData: buildingFunctionData = MyGame.UITool.getNodeValue(node, 'buildingTypeData');
                 if (buildingTypeData.functionType === MyGame.BUILDING_FUNCTION_TYPE_COME_BACK) {
                     //加载MainUI界面
                     MyGame.GameSceneManager.addNode('Prefab/MainUI/MainUI', MyGame.GAME_SCENE_UI_NODE, 'MainUI',
@@ -88,7 +88,7 @@ export default class BuildingUI extends BaseUI {
                 let buttonNode = childNode.getChildByName('building_type_button');
                 buttonNode.getChildByName('Label').getComponent(cc.Label).string = data.functionNameStr;
                 //绑定数据
-                MyGame.NodeTool.saveNodeValue(buttonNode, 'buildingTypeData', data);
+                MyGame.UITool.saveNodeValue(buttonNode, 'buildingTypeData', data);
             }, functionArr, this._buildingFunctionTmpNodePool);
     }
 }

@@ -40,3 +40,7 @@ export let progress_notice_title: string = '进度';
 export let trade_item_label: string = '出售物品';
 export let trade_item_max_label: string = '最大出售物品：%s';
 export let hire_make_sure_label: string = '确认花费%s雇佣%s？';
+export let rest_recover_label: string = '恢复体力';
+export let rest_user_time_label: string = '指定时间';
+export let rest_time_title_label: string = '休息多少小时';
+export let rest_time_max_label: string = '最多休息%s小时';

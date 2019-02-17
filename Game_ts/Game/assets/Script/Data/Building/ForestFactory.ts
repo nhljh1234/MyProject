@@ -1,9 +1,7 @@
 import { Building } from "./BuildingFactory";
-import { Person } from "../Person/PersonFactory";
 import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
 import { UserRole } from "../Person/UserRoleFactory";
-import ProgressNotice from "../../UI/Prefab/ProgressNotice_script";
 import { Action } from "../Action/ActionFactory";
 
 export class BuildingForest extends Building {
@@ -29,7 +27,7 @@ export class BuildingForest extends Building {
             return;
         }
         //计算最大时间
-        let maxMinute = MyGame.ActionModule.getActionRunMaxTime(2, personData);
+        let maxMinute = MyGame.ActionModule.getActionRunMaxTime(MyGame.ActionModule.ACTION_HUNT_ID, personData);
         let maxHour = Math.ceil(maxMinute / 60);
         //开始打猎
         MyGame.UITool.showAskTimeNode(MyGame.LanguageTool.getLanguageStr('hunt_time_title_label'),
@@ -37,7 +35,7 @@ export class BuildingForest extends Building {
                 if (!huntTimeHour) {
                     return;
                 }
-                personData.addOneAction(new Action(2, Math.min(huntTimeHour * 60, maxMinute), undefined));
+                personData.addOneAction(new Action(MyGame.ActionModule.ACTION_HUNT_ID, Math.min(huntTimeHour * 60, maxMinute), undefined));
             });
     }
 }

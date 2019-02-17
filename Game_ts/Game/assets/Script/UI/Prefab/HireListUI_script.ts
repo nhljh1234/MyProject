@@ -72,7 +72,7 @@ export default class HireListUI extends BaseUI {
                 this.hide(false);
                 break;
             case 'PersonHireNode':
-                var personData: Person = MyGame.NodeTool.getNodeValue(node, 'personData');
+                var personData: Person = MyGame.UITool.getNodeValue(node, 'personData');
                 if (personData) {
                     //显示确认提示框
                     if (MyGame.GameManager.userRole.money < personData.price) {
@@ -134,7 +134,7 @@ export default class HireListUI extends BaseUI {
                         personHireNode = MyGame.UITool.createPersonHireNode(persons[i]);
                         childNode.addChild(personHireNode);
                         //绑定数据
-                        MyGame.NodeTool.saveNodeValue(personHireNode, 'personData', persons[i]);
+                        MyGame.UITool.saveNodeValue(personHireNode, 'personData', persons[i]);
                     }
                     personHireNode.x = (childNode.width / LINE_SHOW_ITEM_NUM) * (i + 0.5);
                     personHireNode.y = -1 * childNode.height / 2;
