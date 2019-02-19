@@ -15,12 +15,23 @@ export default class AskNumBox extends BaseUI {
     //确认回调函数
     _sureCb: Function;
 
+    @property(cc.Node)
+    boxBgNode: cc.Node = undefined;
     @property(cc.Label)
     askTitleLabel: cc.Label = undefined;
     @property(cc.EditBox)
     editBox: cc.EditBox = undefined;
     @property(cc.Label)
     askNoticeLabel: cc.Label = undefined;
+    @property(cc.Node)
+    layoutNode: cc.Node = undefined;
+    @property(cc.Node)
+    btnSureNode: cc.Node = undefined;
+
+    //背景高度
+    _bgHeight: number;
+    //ask_label初始高度
+    _askNoticeLabelHeight: number;
 
     onLoad() {
         super.onLoad();
@@ -37,6 +48,9 @@ export default class AskNumBox extends BaseUI {
         super.onUIInit();
         //绑定文本改变函数
         this.editBox.node.on('text-changed', this.textChange.bind(this));
+        //绑定初始数据
+        this._bgHeight = this.boxBgNode.height;
+        this._askNoticeLabelHeight = this.askNoticeLabel.node.height;
     }
 
     //结点active的时候会调用
@@ -96,6 +110,15 @@ export default class AskNumBox extends BaseUI {
     }
 
     /**
+     * 改变尺寸
+     */
+    updateLayoutSize() {
+        this.boxBgNode.height = this._bgHeight + this.askNoticeLabel.node.height - this._askNoticeLabelHeight;
+        this.layoutNode.height = this.btnSureNode.height +
+            this.askNoticeLabel.node.height + this.layoutNode.getComponent(cc.Layout).spacingY;
+    }
+
+    /**
      * 显示数据
      */
     showMsg(askLabel: string, noticeLabel: string, maxNum: number, startNum: number = 0,
@@ -106,6 +129,7 @@ export default class AskNumBox extends BaseUI {
         this._nowNum = startNum;
         this._onceAddNum = onceAddNum;
         this._sureCb = sureCb;
+        this.updateLayoutSize();
         this.updateNowNum();
     }
 }
