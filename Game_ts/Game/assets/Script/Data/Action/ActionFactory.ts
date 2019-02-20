@@ -138,15 +138,14 @@ export class Action {
             //加快游戏速度
             MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
             if (this.showProgressFlag) {
-                MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
-                    false, function (scriptComp: ProgressNotice) {
-                        //更新提示标题
-                        scriptComp.updateTitle(this.noticeLabel);
-                        this._progressScriptComp = scriptComp;
-                        if (this.actionRunTimeMinute > this.actionTimeMinute) {
-                            this._progressScriptComp.hide(false);
-                        }
-                    }.bind(this), undefined, 100);
+                MyGame.UITool.showProgressBartNode(function (scriptComp: ProgressNotice) {
+                    //更新提示标题
+                    scriptComp.updateTitle(this.noticeLabel);
+                    this._progressScriptComp = scriptComp;
+                    if (this.actionRunTimeMinute > this.actionTimeMinute) {
+                        this._progressScriptComp.hide(false);
+                    }
+                });
             }
         }
     }

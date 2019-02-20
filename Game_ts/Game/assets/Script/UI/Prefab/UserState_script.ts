@@ -64,6 +64,10 @@ export default class UserState extends BaseUI {
     }
 
     updateUserCityPos() {
+        if (MyGame.GameManager.userRole.personPos.cityId === MyGame.USER_IN_FIELD) {
+            this.cityNameLabel.string = MyGame.LanguageTool.getLanguageStr('travel_in_filed');
+            return;
+        }
         let nowCityData = MyGame.GameManager.gameDataSave.getCityById(MyGame.GameManager.userRole.personPos.cityId);
         this.cityNameLabel.string = nowCityData.cityName;
     }

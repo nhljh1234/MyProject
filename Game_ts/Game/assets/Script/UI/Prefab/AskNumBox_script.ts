@@ -14,6 +14,8 @@ export default class AskNumBox extends BaseUI {
     _onceAddNum: number;
     //确认回调函数
     _sureCb: Function;
+    //修改数量会修改noticeLabel的函数
+    _noticeLabelCb: Function;
 
     @property(cc.Node)
     boxBgNode: cc.Node = undefined;
@@ -103,10 +105,16 @@ export default class AskNumBox extends BaseUI {
      */
     updateNowNum() {
         this.editBox.string = '' + this._nowNum;
+        if (this._noticeLabelCb) {
+            this._noticeLabelCb(this.askNoticeLabel, this._nowNum);
+        }
     }
 
     textChange() {
         this._nowNum = parseInt(this.editBox.string);
+        if (this._noticeLabelCb) {
+            this._noticeLabelCb(this.askNoticeLabel, this._nowNum);
+        }
     }
 
     /**
@@ -122,13 +130,14 @@ export default class AskNumBox extends BaseUI {
      * 显示数据
      */
     showMsg(askLabel: string, noticeLabel: string, maxNum: number, startNum: number = 0,
-        onceAddNum: number, sureCb: Function) {
+        onceAddNum: number, sureCb: Function, noticeLabelCb: Function) {
         this.askTitleLabel.string = askLabel;
         this.askNoticeLabel.string = noticeLabel;
         this._maxNum = maxNum;
         this._nowNum = startNum;
         this._onceAddNum = onceAddNum;
         this._sureCb = sureCb;
+        this._noticeLabelCb = noticeLabelCb;
         this.updateLayoutSize();
         this.updateNowNum();
     }

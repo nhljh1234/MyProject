@@ -38,6 +38,6 @@ export class BuildingPool extends Building {
                     return;
                 }
                 personData.addOneAction(new Action(MyGame.ActionModule.ACTION_FISH_ID, Math.min(fishTimeHour * 60, maxMinute), undefined));
-            });
+            }, undefined);
     }
 }

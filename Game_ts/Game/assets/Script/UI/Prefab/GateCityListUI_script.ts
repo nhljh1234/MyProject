@@ -77,19 +77,13 @@ export default class GateCityListUI extends BaseUI {
                 var cityId = MyGame.UITool.getNodeValue(node, '_city_id');
                 if (cityId) {
                     this.hide(false);
-                    MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
-                        false, function (scriptComp: ProgressNotice) {
-                            //更新提示标题
-                            scriptComp.updateTitle(MyGame.LanguageTool.getLanguageStr('travel_progress_notice_title'));
-                            let costTime: number = MyGame.TravelModule.getTravelCostTime(MyGame.GameManager.userRole.personPos.cityId,
-                                cityId);
-                            MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
-                            //转为分钟
-                            let costTimeMinuteTotal = 0;
-                            //加入回调函数
-                            let userRole = MyGame.GameManager.userRole;
-                           
-                        }, undefined, 100);
+                    MyGame.UITool.showProgressBartNode(function (scriptComp: ProgressNotice) {
+                        //更新提示标题
+                        scriptComp.updateTitle(MyGame.LanguageTool.getLanguageStr('travel_progress_notice_title'));
+                        MyGame.GameManager.changeGameSpeed(MyGame.QUICK_GAME_SPEED);
+                        MyGame.GameManager.userRole.travelProgressNotice = scriptComp;
+                        MyGame.GameManager.userRole.goToCity(cityId);
+                    });
                 }
                 break;
         }

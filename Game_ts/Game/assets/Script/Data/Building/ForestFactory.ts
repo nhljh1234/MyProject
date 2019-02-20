@@ -36,6 +36,6 @@ export class BuildingForest extends Building {
                     return;
                 }
                 personData.addOneAction(new Action(MyGame.ActionModule.ACTION_HUNT_ID, Math.min(huntTimeHour * 60, maxMinute), undefined));
-            });
+            }, undefined);
     }
 }

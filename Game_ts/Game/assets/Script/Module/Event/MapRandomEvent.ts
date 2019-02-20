@@ -14,6 +14,9 @@ eventFuncObj.battle = function (personData, dataArr) {
 
 //判断会不会有随机事件
 export function judgeMapRandomEvent (personData: BasePerson) {
+    if (personData.isUserRole) {
+        return false;
+    }
     if (Math.random() >= (MyGame.MAP_RANDOM_EVENT_RECORD / 100)) {
         return;
     }
