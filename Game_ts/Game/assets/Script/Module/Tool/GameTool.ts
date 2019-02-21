@@ -102,3 +102,10 @@ export function getCityDis(cityId_1: number, cityId_2: number) {
     return Math.sqrt((cityData_1._cityPos.x - cityData_2._cityPos.x) * (cityData_1._cityPos.x - cityData_2._cityPos.x) +
         (cityData_1._cityPos.y - cityData_2._cityPos.y) * (cityData_1._cityPos.y - cityData_2._cityPos.y));
 };
+
+export function createMapPos(x: number, y: number): MapPos {
+    return {
+        x: x,
+        y: y
+    }
+}

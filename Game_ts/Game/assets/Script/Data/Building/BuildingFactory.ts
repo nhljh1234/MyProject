@@ -158,7 +158,7 @@ export class Building {
                                 return;
                             }
                             personData.addOneAction(new Action(actionId, Math.min(fishTimeHour * 60, maxMinute), undefined));
-                        });
+                        }, undefined);
                 },
                 funcData: undefined
             });

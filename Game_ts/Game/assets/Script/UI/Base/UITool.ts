@@ -3,6 +3,7 @@ import AskNumBox from "../Prefab/AskNumBox_script";
 import { Person } from "../../Data/Person/PersonFactory";
 import SureNoticeBox from "../Prefab/SureNoticeBox_script";
 import ChoiceBox, { ChoiceBoxButtonData } from "../Prefab/ChoiceBox_script";
+import ProgressNotice from "../Prefab/ProgressNotice_script";
 
 /**
  * 确认提示框
@@ -74,12 +75,13 @@ export function createPersonHireNode(personData: Person): cc.Node {
  * @param startNum 起始数量
  * @param onceAddNum 每次修改的数量
  * @param sureCb 确定的回调
+ * @param noticeLabelCb 每次修改数量的时候会调用这个函数
  */
 export function showAskTimeNode(askLabel: string, noticeLabel: string, maxNum: number,
-    startNum: number = 0, onceAddNum: number, sureCb: Function) {
+    startNum: number = 0, onceAddNum: number, sureCb: Function, noticeLabelCb: Function) {
     MyGame.GameSceneManager.addNode('Prefab/Notice/AskNumBox', MyGame.GAME_SCENE_ALERT_NODE, 'AskNumBox',
         false, function (scriptComp: AskNumBox) {
-            scriptComp.showMsg(askLabel, noticeLabel, maxNum, startNum, onceAddNum, sureCb);
+            scriptComp.showMsg(askLabel, noticeLabel, maxNum, startNum, onceAddNum, sureCb, noticeLabelCb);
         }, undefined, 100);
 }
 
@@ -153,7 +155,7 @@ export function showMakeSureNode(msgString: string, buttonDatas: SureNoticeBoxBu
 }
 
 /**
- * 创建一个选项提示框框
+ * 创建一个选项提示框
  * @param askLabel 显示的文本
  */
 export function showChoiceListNode(choiceBoxButtonDatas: ChoiceBoxButtonData[]) {
@@ -161,6 +163,19 @@ export function showChoiceListNode(choiceBoxButtonDatas: ChoiceBoxButtonData[]) 
         false, function (scriptComp: ChoiceBox) {
             scriptComp.showChoiceList(choiceBoxButtonDatas);
         }, undefined, 100);
+}
+
+/**
+ * 创建一个进度提示框
+ * @param askLabel 显示的文本
+ */
+export function showProgressBartNode(buildCb: Function) {
+    MyGame.GameSceneManager.addNode('Prefab/Notice/ProgressNotice', MyGame.GAME_SCENE_ALERT_NODE, 'ProgressNotice',
+        false, function (scriptComp: ProgressNotice) {
+            if (buildCb) {
+                buildCb(scriptComp);
+            }
+        }.bind(this), undefined, 100);
 }
 
 let nodeDataSave: { [num: number]: { [key: string]: any } } = {};

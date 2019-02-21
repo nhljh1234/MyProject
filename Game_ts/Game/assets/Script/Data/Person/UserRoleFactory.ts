@@ -4,6 +4,7 @@ import { Action } from "../Action/ActionFactory";
 import { SelfHome } from "../Building/SelfHome";
 import { City } from "../CityFactory";
 import { BasePerson } from "./BasePersonFactory";
+import ProgressNotice from "../../UI/Prefab/ProgressNotice_script";
 
 /**
  * 获取一个玩家角色的随机数据

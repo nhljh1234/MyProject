@@ -1,6 +1,7 @@
 import { Action, actionSaveData } from '../Action/ActionFactory';
 import { MyGame } from '../../Tool/System/Game';
 import { SelfHome } from '../Building/SelfHome';
+import ProgressNotice from '../../UI/Prefab/ProgressNotice_script';
 
 export interface PersonPos {
     cityId: number;
@@ -72,6 +73,10 @@ export class BasePerson {
     nowActions: Action[];
     //正在执行的动作的进度保存
     nowActionData: { [actionId: number]: actionSaveData };
+    //绑定一个progressBar
+    travelProgressNotice: ProgressNotice;
+    //上一个城市
+    lastCityId: number;
 
 
     constructor() {
@@ -98,6 +103,8 @@ export class BasePerson {
             let dis = Math.sqrt(disX * disX + disY * disY);
             let addX = disX / dis * moveNum;
             let addY = disY / dis * moveNum;
+            //改变体力
+            this.changePowerNum(-1 * MyGame.MAP_MOVE_COST_POWER_MINUTE * addMinutes);
             //x距离增加
             if (person.goalCityMapPos.x !== person.nowMapPos.x) {
                 if (person.goalCityMapPos.x > person.nowMapPos.x) {
@@ -115,7 +122,7 @@ export class BasePerson {
             //y距离增加
             if (person.goalCityMapPos.y !== person.nowMapPos.y) {
                 if (person.goalCityMapPos.y > person.nowMapPos.y) {
-                    person.nowMapPos.y = person.nowMapPos.x + addY;
+                    person.nowMapPos.y = person.nowMapPos.y + addY;
                     if (person.nowMapPos.y >= person.goalCityMapPos.y) {
                         person.nowMapPos.y = person.goalCityMapPos.y;
                     }
@@ -126,6 +133,16 @@ export class BasePerson {
                     }
                 }
             }
+            //改变进度条
+            if (this.travelProgressNotice) {
+                let lastCityData = MyGame.GameManager.gameDataSave.getCityById(this.lastCityId);
+                if (lastCityData) {
+                    let disXTotal = Math.abs(person.goalCityMapPos.x - lastCityData.cityPos.x);
+                    let disYTotal = Math.abs(person.goalCityMapPos.y - lastCityData.cityPos.y);
+                    let disTotal = Math.sqrt(disXTotal * disXTotal + disYTotal * disYTotal);
+                    this.travelProgressNotice.updateProgressNum(1 - (dis / disTotal));
+                }
+            }
             if (MyGame.GameTool.judgeEqualPos(person.nowMapPos, person.goalCityMapPos)) {
                 person.personPos.cityId = person.goalCityId;
                 person.nowMapPos = person.goalCityMapPos;
@@ -133,6 +150,12 @@ export class BasePerson {
                 person.goalCityId = undefined;
                 if (this.mapMoveFinishCb) {
                     this.mapMoveFinishCb();
+                    if (this.isUserRole) {
+                        MyGame.GameManager.gameSpeedResetting();
+                    }
+                }
+                if (this.travelProgressNotice) {
+                    this.travelProgressNotice.hide(false);
                 }
             }
         }
@@ -157,8 +180,10 @@ export class BasePerson {
         this.goalCityId = cityId;
         //如果当前有大地图坐标的话就以这个数据为出发点，否则使用当前城市的大地图坐标为出发点
         if (this.personPos.cityId !== MyGame.USER_IN_FIELD) {
-            this.nowMapPos = MyGame.GameManager.gameDataSave.getCityById(this.personPos.cityId).cityPos;
+            let cityPos = MyGame.GameManager.gameDataSave.getCityById(this.personPos.cityId).cityPos;
+            this.nowMapPos = MyGame.GameTool.createMapPos(cityPos.x, cityPos.y);
         }
+        this.lastCityId = this.personPos.cityId;
         //立马出城
         this.personPos.cityId = MyGame.USER_IN_FIELD;
     }
@@ -257,7 +282,8 @@ export class BasePerson {
             power: this.power,
             inInBattle: this.inInBattle,
             nowActionIds: this.nowActionIds,
-            nowActionData: this.nowActionData
+            nowActionData: this.nowActionData,
+            lastCityId: this.lastCityId
         }
     }
     //死亡回调

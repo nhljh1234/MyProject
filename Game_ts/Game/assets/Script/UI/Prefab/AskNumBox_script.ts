@@ -14,13 +14,26 @@ export default class AskNumBox extends BaseUI {
     _onceAddNum: number;
     //确认回调函数
     _sureCb: Function;
+    //修改数量会修改noticeLabel的函数
+    _noticeLabelCb: Function;
 
+    @property(cc.Node)
+    boxBgNode: cc.Node = undefined;
     @property(cc.Label)
     askTitleLabel: cc.Label = undefined;
     @property(cc.EditBox)
     editBox: cc.EditBox = undefined;
     @property(cc.Label)
     askNoticeLabel: cc.Label = undefined;
+    @property(cc.Node)
+    layoutNode: cc.Node = undefined;
+    @property(cc.Node)
+    btnSureNode: cc.Node = undefined;
+
+    //背景高度
+    _bgHeight: number;
+    //ask_label初始高度
+    _askNoticeLabelHeight: number;
 
     onLoad() {
         super.onLoad();
@@ -37,6 +50,9 @@ export default class AskNumBox extends BaseUI {
         super.onUIInit();
         //绑定文本改变函数
         this.editBox.node.on('text-changed', this.textChange.bind(this));
+        //绑定初始数据
+        this._bgHeight = this.boxBgNode.height;
+        this._askNoticeLabelHeight = this.askNoticeLabel.node.height;
     }
 
     //结点active的时候会调用
@@ -89,23 +105,40 @@ export default class AskNumBox extends BaseUI {
      */
     updateNowNum() {
         this.editBox.string = '' + this._nowNum;
+        if (this._noticeLabelCb) {
+            this._noticeLabelCb(this.askNoticeLabel, this._nowNum);
+        }
     }
 
     textChange() {
         this._nowNum = parseInt(this.editBox.string);
+        if (this._noticeLabelCb) {
+            this._noticeLabelCb(this.askNoticeLabel, this._nowNum);
+        }
+    }
+
+    /**
+     * 改变尺寸
+     */
+    updateLayoutSize() {
+        this.boxBgNode.height = this._bgHeight + this.askNoticeLabel.node.height - this._askNoticeLabelHeight;
+        this.layoutNode.height = this.btnSureNode.height +
+            this.askNoticeLabel.node.height + this.layoutNode.getComponent(cc.Layout).spacingY;
     }
 
     /**
      * 显示数据
      */
     showMsg(askLabel: string, noticeLabel: string, maxNum: number, startNum: number = 0,
-        onceAddNum: number, sureCb: Function) {
+        onceAddNum: number, sureCb: Function, noticeLabelCb: Function) {
         this.askTitleLabel.string = askLabel;
         this.askNoticeLabel.string = noticeLabel;
         this._maxNum = maxNum;
         this._nowNum = startNum;
         this._onceAddNum = onceAddNum;
         this._sureCb = sureCb;
+        this._noticeLabelCb = noticeLabelCb;
+        this.updateLayoutSize();
         this.updateNowNum();
     }
 }

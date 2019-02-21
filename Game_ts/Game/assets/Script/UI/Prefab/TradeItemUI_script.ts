@@ -64,6 +64,15 @@ export default class TradeItemUI extends BaseUI {
         this.showItemList();
     }
 
+    /**
+     * 修改label
+     */
+    noticeLabelCb(label: cc.Label, nowNum: number) {
+        let noticeStr = MyGame.LanguageTool.getLanguageStr('trade_item_max_label', this._selectItemData.number);
+        label.string = noticeStr + '\n' +
+            MyGame.LanguageTool.getLanguageStr('trade_item_get_label', `${this._selectItemData.price * nowNum}`);
+    }
+
     onButtonClick(name: string, node: cc.Node, component: cc.Component) {
         switch (name) {
             case 'hide':
@@ -76,7 +85,7 @@ export default class TradeItemUI extends BaseUI {
                     //显示交易进度条
                     MyGame.UITool.showAskTimeNode(MyGame.LanguageTool.getLanguageStr('trade_item_label'),
                         MyGame.LanguageTool.getLanguageStr('trade_item_max_label', itemData.number), itemData.number,
-                        0, 1, this.tradeSureCb.bind(this));
+                        0, 1, this.tradeSureCb.bind(this), this.noticeLabelCb.bind(this));
                 }
                 break;
         }
