@@ -75,6 +75,7 @@
      <None Include="Assets\LearnProject\Render\Render_3\Shader\Render_3.shader" />
      <None Include="Assets\Shader\Dissolution.shader" />
      <None Include="Assets\LearnProject\Render\Render_4\Shader\Render_4.shader" />
+     <None Include="Assets\LearnProject\Render_new\Render_1_base_shader\Shader\Render_1_base_shader.shader" />
      <None Include="Assets\LearnProject\Base\Graph\Shader\Color.shader" />
      <None Include="Assets\LearnProject\Mesh\RoundedCube\Shader\RoundedCube.shader" />
      <None Include="Assets\Shader\GaussianBlur.shader" />
