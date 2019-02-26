@@ -4,6 +4,7 @@ import { MyGame } from "../../Tool/System/Game";
 import { City } from "../CityFactory";
 import { UserRole } from "../Person/UserRoleFactory";
 import WarehouseUI from "../../UI/Prefab/WarehouseUI_script";
+import PersonQuestListUI from "../../UI/Prefab/PersonQuestListUI_script";
 
 export class SelfHome extends Building {
     //自宅
@@ -34,6 +35,13 @@ export class SelfHome extends Building {
                 MyGame.GameSceneManager.addNode('Prefab/WarehouseUI/WarehouseUI', MyGame.GAME_SCENE_UI_NODE, 'WarehouseUI',
                     false, function (scriptComp: WarehouseUI) {
                         scriptComp.setWarehouseType(MyGame.WAREHOUSEUI_TYPE_WAREHOUSE);
+                    }, undefined, 100);
+                break;
+            case MyGame.BUILDING_FUNCTION_TYPE_COMMAND:
+                //调用显示执政界面
+                MyGame.GameSceneManager.addNode('Prefab/BuildingUI/PersonQuestListUI', MyGame.GAME_SCENE_UI_NODE, 'PersonQuestListUI',
+                    false, function (scriptComp: PersonQuestListUI) {
+                        scriptComp.showAllHirePersonList();
                     }, undefined, 100);
                 break;
         }

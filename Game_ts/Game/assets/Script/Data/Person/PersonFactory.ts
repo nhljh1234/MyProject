@@ -13,7 +13,7 @@ export interface MapPos {
     y: number;
 }
 
-export class Person extends BasePerson{
+export class Person extends BasePerson {
     //收买价格
     price: number;
 
@@ -96,7 +96,7 @@ export class Person extends BasePerson{
         //自宅
         this.home = new SelfHome(MyGame.SELF_HOUSE_ID, undefined, undefined);
     }
-    
+
     //时间变化函数
     timeUpdate(addMinutes: number) {
         if (this.inInBattle) {
@@ -107,9 +107,9 @@ export class Person extends BasePerson{
     }
     //日期变化函数
     dayUpdate() {
-        
+
     }
-    
+
     //获取存储的数据
     getPersonSaveData() {
         return this.getSaveData();

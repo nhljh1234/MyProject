@@ -31,6 +31,10 @@
         "8" : {
             "name" : "雇佣",
             "type" : "hire"
+        },    
+        "9" : {
+            "name" : "执政",
+            "type" : "command"
         }    
     },
 
@@ -74,6 +78,11 @@
             "main_id" : 8,
             "name" : "雇佣",
             "type" : "hire"
+        },    
+        {
+            "main_id" : 9,
+            "name" : "执政",
+            "type" : "command"
         }    
     ]
 }

@@ -130,6 +130,8 @@ export default class HireListUI extends BaseUI {
                     if (childNode.children[i]) {
                         personHireNode = childNode.children[i];
                         MyGame.GameSceneManager.getScriptComp(personHireNode).updatePersonHireNodeData(persons[i]);
+                        //绑定数据
+                        MyGame.UITool.saveNodeValue(personHireNode, 'personData', persons[i]);
                     } else {
                         personHireNode = MyGame.UITool.createPersonHireNode(persons[i]);
                         childNode.addChild(personHireNode);

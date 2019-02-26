@@ -29,4 +29,8 @@
 	<file oldName="user" newName="user">
 		<table oldName="玩家相关" newName="userParameter" use="client"/>
 	</file>
+	<file oldName="task" newName="task">
+		<table oldName="任务" newName="task" use="client"/>
+		<table oldName="任务条件" newName="taskCondition" use="client"/>
+	</file>
 </note>

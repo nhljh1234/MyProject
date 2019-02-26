@@ -7,6 +7,7 @@ export let resume: string = '开始';
 export let auto: string = '自动';
 export let not_auto: string = '手动';
 export let returnStr: string = '返回';
+export let selectStr: string = '选中';
 export let clear: string = '清除';
 export let change: string = '更换';
 export let era_name: string = '大盛';
