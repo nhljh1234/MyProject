@@ -31,6 +31,8 @@
             this.buttonFile = new System.Windows.Forms.Button();
             this.buttonOutput = new System.Windows.Forms.Button();
             this.textBox = new System.Windows.Forms.TextBox();
+            this.checkBoxShadow = new System.Windows.Forms.CheckBox();
+            this.checkBoxFog = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonFile
@@ -54,6 +56,7 @@
             this.buttonOutput.TabIndex = 1;
             this.buttonOutput.Text = "输出shader文件";
             this.buttonOutput.UseVisualStyleBackColor = true;
+            this.buttonOutput.Click += new System.EventHandler(this.buttonOutput_Click);
             // 
             // textBox
             // 
@@ -67,9 +70,35 @@
             this.textBox.TabIndex = 2;
             this.textBox.WordWrap = false;
             // 
+            // checkBoxShadow
+            // 
+            this.checkBoxShadow.AutoSize = true;
+            this.checkBoxShadow.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxShadow.Location = new System.Drawing.Point(12, 12);
+            this.checkBoxShadow.Name = "checkBoxShadow";
+            this.checkBoxShadow.Size = new System.Drawing.Size(69, 26);
+            this.checkBoxShadow.TabIndex = 3;
+            this.checkBoxShadow.Text = "阴影";
+            this.checkBoxShadow.UseVisualStyleBackColor = true;
+            this.checkBoxShadow.CheckedChanged += new System.EventHandler(this.checkBoxShadow_CheckedChanged);
+            // 
+            // checkBoxFog
+            // 
+            this.checkBoxFog.AutoSize = true;
+            this.checkBoxFog.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxFog.Location = new System.Drawing.Point(12, 44);
+            this.checkBoxFog.Name = "checkBoxFog";
+            this.checkBoxFog.Size = new System.Drawing.Size(69, 26);
+            this.checkBoxFog.TabIndex = 4;
+            this.checkBoxFog.Text = "雾效";
+            this.checkBoxFog.UseVisualStyleBackColor = true;
+            this.checkBoxFog.CheckedChanged += new System.EventHandler(this.checkBoxFog_CheckedChanged);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1188, 663);
+            this.Controls.Add(this.checkBoxFog);
+            this.Controls.Add(this.checkBoxShadow);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.buttonOutput);
             this.Controls.Add(this.buttonFile);
@@ -84,6 +113,8 @@
         private System.Windows.Forms.Button buttonFile;
         private System.Windows.Forms.Button buttonOutput;
         private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.CheckBox checkBoxShadow;
+        private System.Windows.Forms.CheckBox checkBoxFog;
     }
 }
 
