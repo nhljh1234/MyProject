@@ -274,8 +274,8 @@ namespace Spine.Unity {
 				}
 
 			} else {
-				// STEP 1. Determine a SmartMesh.Instruction. Split up instructions into submeshes. =============================================
-				MeshGenerator.GenerateSkeletonRendererInstruction(currentInstructions, skeleton, customSlotMaterials, separatorSlots, doMeshOverride, this.immutableTriangles);
+                // STEP 1. Determine a SmartMesh.Instruction. Split up instructions into submeshes. =============================================
+                MeshGenerator.GenerateSkeletonRendererInstruction(currentInstructions, skeleton, customSlotMaterials, separatorSlots, doMeshOverride, this.immutableTriangles);
 
 				// STEP 1.9. Post-process workingInstructions. ==================================================================================
 				#if SPINE_OPTIONAL_MATERIALOVERRIDE
