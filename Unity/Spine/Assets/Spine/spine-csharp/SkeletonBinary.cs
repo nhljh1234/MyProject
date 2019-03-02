@@ -96,7 +96,7 @@ namespace Spine {
 		#else
 			using (var input = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)) {
 		#endif
-				SkeletonData skeletonData = ReadSkeletonData(input);
+				SkeletonData skeletonData = ReadSkeletonData(input, null);
 				skeletonData.name = Path.GetFileNameWithoutExtension(path);
 				return skeletonData;
 			}
@@ -135,7 +135,7 @@ namespace Spine {
 			}
 		}
 
-		public SkeletonData ReadSkeletonData (Stream input) {
+		public SkeletonData ReadSkeletonData (Stream input, Atlas[] atlasArray = null) {
 			if (input == null) throw new ArgumentNullException("input");
 			float scale = Scale;
 
@@ -196,6 +196,10 @@ namespace Spine {
 				slotData.blendMode = (BlendMode)ReadVarint(input, true);
 				skeletonData.slots.Add(slotData);
 			}
+			if (atlasArray != null)
+            {
+                skeletonData.changeSlotSort(atlasArray);
+            }
 
 			// IK constraints.
 			for (int i = 0, n = ReadVarint(input, true); i < n; i++) {

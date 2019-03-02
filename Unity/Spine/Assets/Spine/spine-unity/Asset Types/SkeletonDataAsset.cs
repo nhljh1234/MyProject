@@ -32,6 +32,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using Spine;
+using System.Collections.Generic;
 
 namespace Spine.Unity {
 	public class SkeletonDataAsset : ScriptableObject {
@@ -148,9 +149,9 @@ namespace Spine.Unity {
 
 			try {
 				if (isBinary)
-					loadedSkeletonData = SkeletonDataAsset.ReadSkeletonData(skeletonJSON.bytes, attachmentLoader, skeletonDataScale);
+					loadedSkeletonData = SkeletonDataAsset.ReadSkeletonData(skeletonJSON.bytes, attachmentLoader, skeletonDataScale, atlasArray);
 				else
-					loadedSkeletonData = SkeletonDataAsset.ReadSkeletonData(skeletonJSON.text, attachmentLoader, skeletonDataScale);
+					loadedSkeletonData = SkeletonDataAsset.ReadSkeletonData(skeletonJSON.text, attachmentLoader, skeletonDataScale, atlasArray);
 
 			} catch (Exception ex) {
 				if (!quiet)
@@ -159,12 +160,12 @@ namespace Spine.Unity {
 
 			}
 
-			this.InitializeWithData(loadedSkeletonData);
+            this.InitializeWithData(loadedSkeletonData);
 
 			return skeletonData;
 		}
 
-		internal void InitializeWithData (SkeletonData sd) {
+        internal void InitializeWithData (SkeletonData sd) {
 			this.skeletonData = sd;
 			this.stateData = new AnimationStateData(skeletonData);
 			FillStateData();
@@ -182,20 +183,20 @@ namespace Spine.Unity {
 			return returnList.ToArray();
 		}
 
-		internal static SkeletonData ReadSkeletonData (byte[] bytes, AttachmentLoader attachmentLoader, float scale) {
+		internal static SkeletonData ReadSkeletonData (byte[] bytes, AttachmentLoader attachmentLoader, float scale, Atlas[] atlasArray) {
 			var input = new MemoryStream(bytes);
 			var binary = new SkeletonBinary(attachmentLoader) {
 				Scale = scale
 			};
-			return binary.ReadSkeletonData(input);
+			return binary.ReadSkeletonData(input, atlasArray);
 		}
 
-		internal static SkeletonData ReadSkeletonData (string text, AttachmentLoader attachmentLoader, float scale) {
+		internal static SkeletonData ReadSkeletonData (string text, AttachmentLoader attachmentLoader, float scale, Atlas[] atlasArray) {
 			var input = new StringReader(text);
 			var json = new SkeletonJson(attachmentLoader) {
 				Scale = scale
 			};
-			return json.ReadSkeletonData(input);
+			return json.ReadSkeletonData(input, atlasArray);
 		}
 
 		public void FillStateData () {

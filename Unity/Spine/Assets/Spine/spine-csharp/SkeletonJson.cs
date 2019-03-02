@@ -73,20 +73,20 @@ namespace Spine {
 			return this.ReadFile(path).Result;
 		}
 		#else
-		public SkeletonData ReadSkeletonData (string path) {
+		public SkeletonData ReadSkeletonData (string path, Atlas[] atlasArray) {
 		#if WINDOWS_PHONE
 			using (var reader = new StreamReader(Microsoft.Xna.Framework.TitleContainer.OpenStream(path))) {
 		#else
 			using (var reader = new StreamReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))) {
 		#endif
-				SkeletonData skeletonData = ReadSkeletonData(reader);
+				SkeletonData skeletonData = ReadSkeletonData(reader, atlasArray);
 				skeletonData.name = Path.GetFileNameWithoutExtension(path);
 				return skeletonData;
 			}
 		}
 		#endif
 
-		public SkeletonData ReadSkeletonData (TextReader reader) {
+		public SkeletonData ReadSkeletonData (TextReader reader, Atlas[] atlasArray = null) {
 			if (reader == null) throw new ArgumentNullException("reader", "reader cannot be null.");
 
 			float scale = this.Scale;
@@ -161,6 +161,10 @@ namespace Spine {
 					else
 						data.blendMode = BlendMode.Normal;
 					skeletonData.slots.Add(data);
+				}
+				if (atlasArray != null)
+				{
+					skeletonData.changeSlotSort(atlasArray);
 				}
 			}
 

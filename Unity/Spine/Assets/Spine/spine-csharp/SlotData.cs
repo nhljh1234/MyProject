@@ -33,6 +33,7 @@ using System;
 namespace Spine {
 	public class SlotData {
 		internal int index;
+		internal int indexNew;
 		internal string name;
 		internal BoneData boneData;
 		internal float r = 1, g = 1, b = 1, a = 1;
@@ -42,6 +43,7 @@ namespace Spine {
 		internal BlendMode blendMode;
 
 		public int Index { get { return index; } }
+		public int IndexNew { get { return indexNew; } set { indexNew = value; } }
 		public string Name { get { return name; } }
 		public BoneData BoneData { get { return boneData; } }
 		public float R { get { return r; } set { r = value; } }
@@ -63,6 +65,7 @@ namespace Spine {
 			if (name == null) throw new ArgumentNullException("name", "name cannot be null.");
 			if (boneData == null) throw new ArgumentNullException("boneData", "boneData cannot be null.");
 			this.index = index;
+			this.IndexNew = index;
 			this.name = name;
 			this.boneData = boneData;
 		}

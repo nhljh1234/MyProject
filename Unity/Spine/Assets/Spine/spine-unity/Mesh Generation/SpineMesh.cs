@@ -496,7 +496,7 @@ namespace Spine.Unity {
 			for (int slotIndex = instruction.startSlot; slotIndex < instruction.endSlot; slotIndex++) {
 				var slot = drawOrderItems[slotIndex];
 				var attachment = slot.attachment;
-				float z = zSpacing * slotIndex;
+				float z = 0.001f * slot.data.index;
 
 				var workingVerts = this.tempVerts;
 				float[] uvs;
@@ -755,7 +755,7 @@ namespace Spine.Unity {
 				for (int slotIndex = startSlot; slotIndex < endSlot; slotIndex++) {
 					var slot = skeletonDrawOrderItems[slotIndex];
 					var attachment = slot.attachment;
-					float z = slotIndex * settings.zSpacing;
+					float z = 0.05f * slot.data.index;
 
 					var regionAttachment = attachment as RegionAttachment;
 					if (regionAttachment != null) {
@@ -935,7 +935,8 @@ namespace Spine.Unity {
 		public void ScaleVertexData (float scale) {
 			var vbi = vertexBuffer.Items;
 			for (int i = 0, n = vertexBuffer.Count; i < n; i++) {
-				vbi[i] *= scale; // vbi[i].x *= scale; vbi[i].y *= scale;
+				vbi[i].x *= scale;
+				vbi[i].y *= scale;
 			}
 
 			meshBoundsMin *= scale;

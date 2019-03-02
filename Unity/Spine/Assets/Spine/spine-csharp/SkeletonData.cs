@@ -29,6 +29,7 @@
  *****************************************************************************/
 
 using System;
+using System.Collections.Generic;
 
 namespace Spine {
 	
@@ -214,6 +215,62 @@ namespace Spine {
 				if (pathConstraints.Items[i].name.Equals(pathConstraintName)) return i;
 			return -1;
 		}
+
+        public void changeSlotSort(Atlas[] atlasArray)
+        {
+			return;
+            ExposedList<SlotData> newSlots = new ExposedList<SlotData>(slots.Count);
+            Dictionary<string, ExposedList<SlotData>> dir = new Dictionary<string, ExposedList<SlotData>>();
+            Dictionary<string, string> materialNameDir = new Dictionary<string, string>();
+            for (int i = 0; i < atlasArray.Length; i++)
+            {
+                IEnumerator<AtlasRegion> enumerator = atlasArray[i].GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    AtlasRegion atlasRegion = (AtlasRegion)enumerator.Current;
+                    if (!materialNameDir.ContainsKey(atlasRegion.name))
+                    {
+                        //存了一个图片的名字
+                        materialNameDir.Add(atlasRegion.name, atlasRegion.page.name);
+                    }
+                }
+            }
+			int count = 0;
+            //这边修改
+            for (int i = 0; i < slots.Count; i++)
+            {
+                //按material名字排序
+                string attachmentName = slots.Items[i].attachmentName;
+                string materialName = null;
+                if (attachmentName != null && materialNameDir.ContainsKey(attachmentName))
+                {
+                    materialName = materialNameDir[attachmentName];
+                    if (!dir.ContainsKey(materialName))
+                    {
+                        dir.Add(materialName, new ExposedList<SlotData>());
+                    }
+                    dir[materialName].Add(slots.Items[i]);
+                }
+                else
+                {
+					slots.Items[i].IndexNew = count;
+					count++;
+                    newSlots.Add(slots.Items[i]);
+                }
+            }
+            //遍历取值
+            foreach (ExposedList<SlotData> value in dir.Values)
+            {
+                for (int i = 0; i < value.Count; i++)
+                {
+					value.Items[i].IndexNew = count;
+					count++;
+                    newSlots.Add(value.Items[i]);
+                }
+            }
+            //重新赋值
+            slots = newSlots;
+        }
 
 		// ---
 

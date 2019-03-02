@@ -92,7 +92,7 @@ namespace Spine {
 				Attachment = null;
 			else {
 				attachment = null;
-				Attachment = bone.skeleton.GetAttachment(data.index, data.attachmentName);
+				Attachment = bone.skeleton.GetAttachment(data.indexNew, data.attachmentName);
 			}
 		}
 
