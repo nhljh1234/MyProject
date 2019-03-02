@@ -748,11 +748,13 @@ namespace Spine {
 		internal int slotIndex;
 		internal float[] frames;
 		internal string[] attachmentNames;
+		internal string slotName;
 
 		public int SlotIndex { get { return slotIndex; } set { slotIndex = value; } }
 		public float[] Frames { get { return frames; } set { frames = value; } } // time, ...
 		public string[] AttachmentNames { get { return attachmentNames; } set { attachmentNames = value; } }
 		public int FrameCount { get { return frames.Length; } }
+		public string SlotName { get { return slotName; } set { slotName = value; } }
 
 		public int PropertyId {
 			get { return ((int)TimelineType.Attachment << 24) + slotIndex; }
@@ -771,7 +773,8 @@ namespace Spine {
 
 		public void Apply (Skeleton skeleton, float lastTime, float time, ExposedList<Event> firedEvents, float alpha, MixPose pose, MixDirection direction) {
 			string attachmentName;
-			Slot slot = skeleton.slots.Items[slotIndex];
+			//slotIndex = skeleton.FindSlot(slotName).data.indexNew;
+			Slot slot = skeleton.FindSlot(slotName);
 			if (direction == MixDirection.Out && pose == MixPose.Setup) {
 				attachmentName = slot.data.attachmentName;
 				slot.Attachment = attachmentName == null ? null : skeleton.GetAttachment(slotIndex, attachmentName);

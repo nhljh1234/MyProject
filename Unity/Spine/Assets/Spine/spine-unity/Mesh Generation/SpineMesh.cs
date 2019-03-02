@@ -31,6 +31,7 @@
 // Not for optimization. Do  not disable.
 #define SPINE_TRIANGLECHECK // Avoid calling SetTriangles at the cost of checking for mesh differences (vertex counts, memberwise attachment list compare) every frame.
 //#define SPINE_DEBUG
+#define TJ_SPINE_TOOL
 
 using UnityEngine;
 using System;
@@ -456,6 +457,11 @@ namespace Spine.Unity {
 			//submeshes.Items[0].Clear(false);
 		}
 
+		public float getNewZIndex(Slot slot)
+		{
+			return 0.001f * slot.data.index * (Camera.main.gameObject.transform.position.z < 0 ? -1 : 1);
+		}
+
 		public void AddSubmesh (SubmeshInstruction instruction, bool updateTriangles = true) {
 			var settings = this.settings;
 
@@ -496,7 +502,11 @@ namespace Spine.Unity {
 			for (int slotIndex = instruction.startSlot; slotIndex < instruction.endSlot; slotIndex++) {
 				var slot = drawOrderItems[slotIndex];
 				var attachment = slot.attachment;
-				float z = 0.001f * slot.data.index;
+				#if TJ_SPINE_TOOL
+				float z = getNewZIndex(slot);
+				#else
+				float z = zSpacing * slotIndex;
+				#endif
 
 				var workingVerts = this.tempVerts;
 				float[] uvs;
@@ -755,7 +765,11 @@ namespace Spine.Unity {
 				for (int slotIndex = startSlot; slotIndex < endSlot; slotIndex++) {
 					var slot = skeletonDrawOrderItems[slotIndex];
 					var attachment = slot.attachment;
-					float z = 0.05f * slot.data.index;
+					#if TJ_SPINE_TOOL
+					float z = getNewZIndex(slot);
+					#else
+					float z = slotIndex * settings.zSpacing;
+					#endif
 
 					var regionAttachment = attachment as RegionAttachment;
 					if (regionAttachment != null) {
@@ -1543,5 +1557,4 @@ namespace Spine.Unity {
 			#endif
 		}
 	}
-
 }

@@ -27,6 +27,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
+#define TJ_SPINE_TOOL
 
 #if (UNITY_5 || UNITY_5_3_OR_NEWER || UNITY_WSA || UNITY_WP8 || UNITY_WP8_1)
 #define IS_UNITY
@@ -198,7 +199,9 @@ namespace Spine {
 			}
 			if (atlasArray != null)
             {
+				#if TJ_SPINE_TOOL
                 skeletonData.changeSlotSort(atlasArray);
+				#endif
             }
 
 			// IK constraints.
@@ -546,6 +549,7 @@ namespace Spine {
 					case SLOT_ATTACHMENT: {
 							AttachmentTimeline timeline = new AttachmentTimeline(frameCount);
 							timeline.slotIndex = slotIndex;
+							timeline.slotName = skeletonData.slots.Items[slotIndex].name;
 							for (int frameIndex = 0; frameIndex < frameCount; frameIndex++)
 								timeline.SetFrame(frameIndex, ReadFloat(input), ReadString(input));
 							timelines.Add(timeline);

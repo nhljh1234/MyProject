@@ -218,7 +218,6 @@ namespace Spine {
 
         public void changeSlotSort(Atlas[] atlasArray)
         {
-			return;
             ExposedList<SlotData> newSlots = new ExposedList<SlotData>(slots.Count);
             Dictionary<string, ExposedList<SlotData>> dir = new Dictionary<string, ExposedList<SlotData>>();
             Dictionary<string, string> materialNameDir = new Dictionary<string, string>();

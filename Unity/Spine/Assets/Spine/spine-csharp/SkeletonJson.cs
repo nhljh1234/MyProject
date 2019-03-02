@@ -27,6 +27,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
+#define TJ_SPINE_TOOL
 
 #if (UNITY_5 || UNITY_5_3_OR_NEWER || UNITY_WSA || UNITY_WP8 || UNITY_WP8_1)
 #define IS_UNITY
@@ -164,7 +165,9 @@ namespace Spine {
 				}
 				if (atlasArray != null)
 				{
+					#if TJ_SPINE_TOOL
 					skeletonData.changeSlotSort(atlasArray);
+					#endif
 				}
 			}
 
@@ -486,7 +489,7 @@ namespace Spine {
 						if (timelineName == "attachment") {
 							var timeline = new AttachmentTimeline(values.Count);
 							timeline.slotIndex = slotIndex;
-
+							timeline.slotName = skeletonData.slots.Items[slotIndex].name;
 							int frameIndex = 0;
 							foreach (Dictionary<string, Object> valueMap in values) {
 								float time = (float)valueMap["time"];
@@ -498,7 +501,6 @@ namespace Spine {
 						} else if (timelineName == "color") {
 							var timeline = new ColorTimeline(values.Count);
 							timeline.slotIndex = slotIndex;
-
 							int frameIndex = 0;
 							foreach (Dictionary<string, Object> valueMap in values) {
 								float time = (float)valueMap["time"];
@@ -513,7 +515,6 @@ namespace Spine {
 						} else if (timelineName == "twoColor") {
 							var timeline = new TwoColorTimeline(values.Count);
 							timeline.slotIndex = slotIndex;
-
 							int frameIndex = 0;
 							foreach (Dictionary<string, Object> valueMap in values) {
 								float time = (float)valueMap["time"];

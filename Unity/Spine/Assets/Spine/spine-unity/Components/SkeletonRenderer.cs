@@ -27,6 +27,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
+#define TJ_SPINE_TOOL
 
 #define SPINE_OPTIONAL_RENDEROVERRIDE
 #define SPINE_OPTIONAL_MATERIALOVERRIDE
@@ -76,6 +77,7 @@ namespace Spine.Unity {
 		public bool disableRenderingOnOverride = true;
 		public delegate void InstructionDelegate (SkeletonRendererInstruction instruction);
 		event InstructionDelegate generateMeshOverride;
+		public bool changeSoltSortFlag = false;
 		public event InstructionDelegate GenerateMeshOverride {
 			add {
 				generateMeshOverride += value;
@@ -228,6 +230,56 @@ namespace Spine.Unity {
 				OnRebuild(this);
 		}
 
+		public void changeSlotSort()
+        {
+			//return;
+            ExposedList<Slot> newSlots = new ExposedList<Slot>(skeleton.slots.Count);
+            Dictionary<string, ExposedList<Slot>> dir = new Dictionary<string, ExposedList<Slot>>();
+            //这边修改
+            for (int i = 0; i < skeleton.slots.Count; i++)
+            {
+				var attachment = skeleton.slots.Items[i].attachment;
+				// Identify and prepare values.
+				object rendererObject = null;
+				var regionAttachment = attachment as RegionAttachment;
+				if (regionAttachment != null) {
+					rendererObject = regionAttachment.RendererObject;
+				} else {
+					var meshAttachment = attachment as MeshAttachment;
+					if (meshAttachment != null) {
+						rendererObject = meshAttachment.RendererObject;
+					}
+				}
+				if (rendererObject != null) 
+				{
+					#if !SPINE_TK2D
+					Material material;
+					material = (Material)((AtlasRegion)rendererObject).page.rendererObject;
+					#else
+					Material material = (rendererObject is Material) ? (Material)rendererObject : (Material)((AtlasRegion)rendererObject).page.rendererObject;
+					#endif
+					if (!dir.ContainsKey(material.name))
+					{
+						dir.Add(material.name, new ExposedList<Slot>());
+					}
+					dir[material.name].Add(skeleton.slots.Items[i]);
+				}
+				else
+				{
+					newSlots.Add(skeleton.slots.Items[i]);
+				}
+			}
+            foreach (ExposedList<Slot> value in dir.Values)
+            {
+                for (int i = 0; i < value.Count; i++)
+                {
+                    newSlots.Add(value.Items[i]);
+                }
+            }
+            skeleton.slots = newSlots;
+			skeleton.drawOrder = newSlots;
+        }
+
 		/// <summary>
 		/// Generates a new UnityEngine.Mesh from the internal Skeleton.</summary>
 		public virtual void LateUpdate () {
@@ -240,6 +292,14 @@ namespace Spine.Unity {
 			const bool doMeshOverride = false;
 			if (!meshRenderer.enabled) return;
 			#endif
+
+			if (changeSoltSortFlag)
+			{
+				#if TJ_SPINE_TOOL
+				changeSlotSort();
+				#endif
+			}
+
 			var currentInstructions = this.currentInstructions;
 			var workingSubmeshInstructions = currentInstructions.submeshInstructions;
 			var currentSmartMesh = rendererBuffers.GetNextMesh(); // Double-buffer for performance.
@@ -314,11 +374,17 @@ namespace Spine.Unity {
 			var currentMesh = currentSmartMesh.mesh;
 			meshGenerator.FillVertexData(currentMesh);
 			rendererBuffers.UpdateSharedMaterials(workingSubmeshInstructions);
+			int materialsCount = meshRenderer.sharedMaterials.Length;
 			if (updateTriangles) { // Check if the triangles should also be updated.
 				meshGenerator.FillTriangles(currentMesh);
 				meshRenderer.sharedMaterials = rendererBuffers.GetUpdatedSharedMaterialsArray();
 			} else if (rendererBuffers.MaterialsChangedInLastUpdate()) {
 				meshRenderer.sharedMaterials = rendererBuffers.GetUpdatedSharedMaterialsArray();
+			}
+			if (materialsCount != meshRenderer.sharedMaterials.Length)
+			{
+				//需要改变
+				changeSoltSortFlag = true;
 			}
 
 			meshGenerator.FillLateVertexData(currentMesh);
