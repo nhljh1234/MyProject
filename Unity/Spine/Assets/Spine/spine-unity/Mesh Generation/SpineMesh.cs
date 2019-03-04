@@ -458,7 +458,7 @@ namespace Spine.Unity {
 
 		public float getNewZIndex(Slot slot)
 		{
-			return 0.005f * slot.data.index * (Camera.main.gameObject.transform.position.z < 0 ? -1 : 1);
+			return 0.001f * slot.data.index * (Camera.main.gameObject.transform.position.z < 0 ? -1 : 1);
 		}
 
 		public void AddSubmesh (SubmeshInstruction instruction, bool updateTriangles = true) {
