@@ -250,7 +250,7 @@ namespace Spine.Unity {
 						rendererObject = meshAttachment.RendererObject;
 					}
 				}
-				if (rendererObject != null) 
+				if (rendererObject != null )
 				{
 					#if !SPINE_TK2D
 					Material material;

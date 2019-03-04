@@ -10,9 +10,9 @@ Shader "Spine/Skeleton" {
 		Fog { Mode Off }
 		Cull Off
 		//AlphaTest On
-        AlphaTest Greater 0.1
+        AlphaTest Greater 0.5
 		ZWrite On
-		//ZTest LEqual
+		ZTest LEqual
 		Blend One OneMinusSrcAlpha
 		Lighting Off
 

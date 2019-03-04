@@ -51,10 +51,9 @@ Shader "Shader Forge/liuguang_1" {
             // Tags {
             //     "LightMode"="ForwardBase"
             // }
-            //AlphaTest Greater 0.1
             Blend One One
             Cull Off
-            ZWrite On
+            ZWrite Off
             ZTest LEqual
             
             CGPROGRAM
@@ -72,7 +71,6 @@ Shader "Shader Forge/liuguang_1" {
             uniform sampler2D _node_2684; uniform float4 _node_2684_ST;
             uniform sampler2D _node_6361; uniform float4 _node_6361_ST;
             uniform sampler2D _node_8214; uniform float4 _node_8214_ST;
-            uniform sampler2D _MainShadowTex;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float2 texcoord0 : TEXCOORD0;
