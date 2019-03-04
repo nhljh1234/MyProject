@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 76506fa7fbeed084ab2dfb084648c628, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 1ced1bb9937058541be6f9fca1682b53, type: 2}
   initialSkinName: default
   initialFlipX: 0
   initialFlipY: 0
@@ -389,7 +389,7 @@ MonoBehaviour:
   logErrors: 0
   disableRenderingOnOverride: 1
   changeSoltSortFlag: 1
-  _animationName: flying
+  _animationName: atk
   loop: 1
   timeScale: 1
 --- !u!23 &1565954065
@@ -407,8 +407,17 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: d58543c96f991934ca874395eb40222c, type: 2}
-  - {fileID: 2100000, guid: 3277fd5561d95724e83c6ca4a1dd28a4, type: 2}
+  - {fileID: 2100000, guid: d0cd6b8d32b9c4348a867755f1211f49, type: 2}
+  - {fileID: 2100000, guid: 0f572f6f41ebd7b43a429b6c21d9f71f, type: 2}
+  - {fileID: 2100000, guid: d0cd6b8d32b9c4348a867755f1211f49, type: 2}
+  - {fileID: 2100000, guid: 6bdec83f6b96c8b4dacab3b65425f6b3, type: 2}
+  - {fileID: 2100000, guid: d0cd6b8d32b9c4348a867755f1211f49, type: 2}
+  - {fileID: 2100000, guid: 6bdec83f6b96c8b4dacab3b65425f6b3, type: 2}
+  - {fileID: 2100000, guid: d0cd6b8d32b9c4348a867755f1211f49, type: 2}
+  - {fileID: 2100000, guid: 0f572f6f41ebd7b43a429b6c21d9f71f, type: 2}
+  - {fileID: 2100000, guid: d0cd6b8d32b9c4348a867755f1211f49, type: 2}
+  - {fileID: 2100000, guid: 0f572f6f41ebd7b43a429b6c21d9f71f, type: 2}
+  - {fileID: 2100000, guid: d0cd6b8d32b9c4348a867755f1211f49, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -442,7 +451,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1565954063}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.58, y: 0, z: 1.02}
+  m_LocalPosition: {x: -0.58, y: -11.31, z: 1.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

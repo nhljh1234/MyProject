@@ -12,7 +12,8 @@ Shader "Spine/Skeleton" {
 		//AlphaTest On
         AlphaTest Greater 0.1
 		ZWrite On
-		Blend SrcAlpha OneMinusSrcAlpha
+		//ZTest LEqual
+		Blend One OneMinusSrcAlpha
 		Lighting Off
 
 		Pass {
