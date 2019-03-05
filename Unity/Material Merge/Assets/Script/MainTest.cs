@@ -12,7 +12,8 @@ public class MainTest : MonoBehaviour {
 			gameObjects[i - 1].SetActive(false);
 		}
 		GameObject gameObjectTotal = GameObject.Find("Plane");
-		MeshTool.MeshManager.GetInstance().CombineNormalMesh("1234", gameObjects.ToArray(), gameObjectTotal);
+		gameObjectTotal.SetActive(true);
+		//MeshTool.MeshManager.GetInstance().CombineNormalMesh("1234", gameObjects.ToArray(), gameObjectTotal);
 	}
 
 	// Update is called once per frame

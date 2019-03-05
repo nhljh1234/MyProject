@@ -70,7 +70,7 @@ namespace MeshTool {
             int maxWidth = 0;
             for (int i = 0; i < textures.Length; i++)
             {
-                maxWidth = maxWidth + Mathf.Max(textures[i].width, textures[i].height) + 10;
+                maxWidth = maxWidth + Mathf.Min(textures[i].width, textures[i].height) + 10;
             }
             maxWidth = maxWidth / 2;
             Texture2D texture = new Texture2D(maxWidth, maxWidth);

@@ -32,11 +32,17 @@ namespace MeshTool {
             }
             MeshData meshData = CombineNormalMesh (key, meshFilters.ToArray (), meshRenderers.ToArray ());
             if (meshData.mesh != null) {
-                MeshFilter meshFilter = gameObject.AddComponent<MeshFilter> ();
+                MeshFilter meshFilter = gameObject.GetComponent<MeshFilter> ();
+                if (meshFilter == null) {
+                    meshFilter = gameObject.AddComponent<MeshFilter> ();
+                }
                 meshFilter.sharedMesh = meshData.mesh;
             }
             if (meshData.material != null) {
-                MeshRenderer meshRenderer = gameObject.AddComponent<MeshRenderer> ();
+                MeshRenderer meshRenderer = gameObject.GetComponent<MeshRenderer> ();
+                if (meshRenderer == null) {
+                    meshRenderer = gameObject.AddComponent<MeshRenderer> ();
+                }
                 meshRenderer.sharedMaterial = meshData.material;
             }
         }
