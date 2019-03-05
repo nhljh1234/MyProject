@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace MeshTool {
     public class TextureManager {
+        private static int sizeMax = 12;
+        private static int sizeMin = 5;
         private static TextureManager _instance = null;
 
         private Dictionary<string, TextureData> textureDir = new Dictionary<string, TextureData> ();
+
+        private static int[] sizes = null;
 
         public struct TextureData {
             public Texture2D texture;
@@ -26,6 +31,11 @@ namespace MeshTool {
         public static TextureManager GetInstance () {
             if (_instance == null) {
                 _instance = new TextureManager ();
+                List<int> sizeList = new List<int> ();
+                for (int i = sizeMin; i <= sizeMax; i++) {
+                    sizeList.Add ((int)Math.Pow (2, i));
+                }
+                sizes = sizeList.ToArray ();
             }
 
             return _instance;
@@ -55,27 +65,45 @@ namespace MeshTool {
             }
             List<Texture2D> textures = new List<Texture2D> ();
             for (int i = 0; i < materials.Length; i++) {
-                textures.Add (materials[i].GetTexture ("_MainTex") as Texture2D);
+                Texture2D tx = materials[i].GetTexture("_MainTex") as Texture2D;
+                textures.Add (tx);
             }
             return CombineTexture2D (key, textures.ToArray ());
         }
 
         public TextureData CombineTexture2D (string key, Texture2D[] textures) {
             //清理数据
-            TextureListData textureListData = clearTextures (textures);
-            textures = textureListData.textures;
+            TextureData data = new TextureData ();
             if (textureDir.ContainsKey (key)) {
                 return textureDir[key];
             }
-            int maxWidth = 0;
-            for (int i = 0; i < textures.Length; i++)
+            TextureListData textureListData = clearTextures (textures);
+            textures = textureListData.textures;
+            Texture2D[] newTextures = new Texture2D[textureListData.textures.Length];
+            for (int i = 0; i < newTextures.Length; i++)
             {
-                maxWidth = maxWidth + Mathf.Min(textures[i].width, textures[i].height) + 10;
+                Texture2D tx2D = new Texture2D(textures[i].width, textures[i].height, TextureFormat.ARGB32, false);
+                tx2D.SetPixels(textures[i].GetPixels(0, 0, textures[i].width, textures[i].height));
+                tx2D.Apply();
+                newTextures[i] = tx2D;
             }
-            maxWidth = maxWidth / 2;
-            Texture2D texture = new Texture2D(maxWidth, maxWidth);
-            Rect[] rects = texture.PackTextures(textures, 10, maxWidth);
-            TextureData data = new TextureData ();
+            int acreage = 0;
+            int size = 1024;
+            bool doubleFlag = false;
+            for (int i = 0; i < newTextures.Length; i++) {
+                acreage = acreage + newTextures[i].width * newTextures[i].height;
+            }
+            for (int i = 0; i < sizes.Length; i++) {
+                if (acreage < sizes[i] * sizes[i]) {
+                    size = sizes[i];
+                    break;
+                }
+            }
+            if (acreage < (size * size / 2)) {
+                doubleFlag = true;
+            }
+            Texture2D texture = new Texture2D (size, doubleFlag ? (size /2) : size);
+            Rect[] rects = texture.PackTextures (newTextures, 0);
             data.texture = texture;
             data.rects = rects;
             data.indexs = textureListData.indexs;

@@ -325,13 +325,13 @@ namespace Spine.Unity {
 
 			// STEP 4. The UnityEngine.Mesh is ready. Set it as the MeshFilter's mesh. Store the instructions used for that mesh. ===========
 			meshFilter.sharedMesh = currentMesh;
-            //MeshTool.MeshManager.MeshData meshData = MeshTool.MeshManager.GetInstance().CombineNormalMesh("1234", 
-            //    new MeshFilter[1] { meshFilter }, new MeshRenderer[1] { meshRenderer });
-            //if (meshData.mesh && meshData.material)
+            MeshTool.MeshManager.MeshData meshData = MeshTool.MeshManager.GetInstance().CombineNormalMesh("1234", 
+                new MeshFilter[1] { meshFilter }, new MeshRenderer[1] { meshRenderer });
+            if (meshData.mesh && meshData.material)
             {
-                //meshFilter.sharedMesh = meshData.mesh;
-                //meshRenderer.sharedMaterial = meshData.material;
-				//meshRenderer.sharedMaterials = new Material[1] {meshData.material};
+                meshFilter.sharedMesh = meshData.mesh;
+                meshRenderer.sharedMaterial = meshData.material;
+				meshRenderer.sharedMaterials = new Material[1] {meshData.material};
             }
 			currentSmartMesh.instructionUsed.Set(currentInstructions);
 		}

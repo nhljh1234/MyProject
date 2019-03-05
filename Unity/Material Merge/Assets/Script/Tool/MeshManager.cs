@@ -44,7 +44,9 @@ namespace MeshTool {
                     meshRenderer = gameObject.AddComponent<MeshRenderer> ();
                 }
                 meshRenderer.sharedMaterial = meshData.material;
+                meshRenderer.sharedMaterials = new Material[1] { meshData.material };
             }
+            //gameObject.transform.localRotation = new Quaternion();
         }
 
         //合并网格
@@ -62,23 +64,29 @@ namespace MeshTool {
                 return meshData;
             }
             TextureManager.TextureData textureData = TextureManager.GetInstance ().CombineTexture2D (key, meshRenderers);
+            if (textureData.rects == null) {
+                return meshData;
+            }
             newMaterial.SetTexture ("_MainTex", textureData.texture);
             //合并网格
+            List<Vector2> uvs = new List<Vector2>();
             for (int i = 0; i < meshFilters.Length; i++) {
                 Rect rect = textureData.rects[textureData.indexs[i]];
                 Mesh meshCombine = meshFilters[i].sharedMesh;
-                Vector2[] uvs = new Vector2[meshCombine.uv.Length];
+                //Vector2[] uvs = new Vector2[meshCombine.uv.Length];
                 //把网格的uv根据贴图的rect刷一遍
-                for (int j = 0; j < uvs.Length; j++) {
-                    uvs[j].x = rect.x + meshCombine.uv[j].x * rect.width;
-                    uvs[j].y = rect.y + meshCombine.uv[j].y * rect.height;
+                for (int j = 0; j < meshCombine.uv.Length; j++) {
+                    uvs.Add(new Vector2(Mathf.Lerp(rect.xMin, rect.xMax, meshCombine.uv[j].x),
+                        Mathf.Lerp(rect.yMin, rect.yMax, meshCombine.uv[j].y)));
                 }
-                meshCombine.uv = uvs;
+                //meshCombine.uv = uvs;
                 combine[i].mesh = meshCombine;
                 combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
                 //meshFilters[i].gameObject.SetActive(false);
             }
             newMesh.CombineMeshes (combine, true, true);
+            newMesh.uv = uvs.ToArray();
+            newMesh.name = key;
             meshData.mesh = newMesh;
             meshData.material = newMaterial;
             return meshData;

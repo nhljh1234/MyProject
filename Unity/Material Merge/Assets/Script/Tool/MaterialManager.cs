@@ -75,7 +75,9 @@ namespace MeshTool {
                     return null;
                 }
             }
-            return new Material (shader);
+            Material material = new Material (shader);
+            material.CopyPropertiesFromMaterial (materials[0]);
+            return material;
         }
     }
 }
