@@ -7,11 +7,11 @@ public class ScrollView : MonoBehaviour
 {
 
     public GameObject scrollview;
+    private int buttonSize = 10;
 
     // Use this for initialization
     void Start()
     {
-        int buttonSize = 1000;
         /**
         //修改第一个
         TJ_UNITY_TOOL.GameObjectTool.findChild(button.transform, "Text").GetComponent<Text>().text = "0";
@@ -33,11 +33,19 @@ public class ScrollView : MonoBehaviour
             Transform transform = TJ_UNITY_TOOL.GameObjectTool.findChild(item, "Text");
             item.name = "" + index;
             transform.GetComponent<Text>().text = "" + index;
+            item.GetComponent<Button>().onClick.RemoveListener(onClick);
+            item.GetComponent<Button>().onClick.AddListener(onClick);
         });
         if (scrollviewTool != null)
         {
             scrollviewTool.startShow(buttonSize);
         }
+    }
+
+    public void onClick()
+    {
+        buttonSize++;
+        scrollview.GetComponent<UGUI_TOOL.ScrollViewTool>().refresh(buttonSize);
     }
 
     // Update is called once per frame

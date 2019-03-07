@@ -176,6 +176,10 @@ namespace UGUI_TOOL
             {
                 rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, newSize);
             }
+            //更改锚点属性
+            rectTransform.anchorMin = new Vector2(0 , 1);   
+            rectTransform.anchorMax = new Vector2(0 , 1);  
+            rectTransform.pivot = new Vector2(0, 1);
         }
 
         //初始化用于显示的节点数组
