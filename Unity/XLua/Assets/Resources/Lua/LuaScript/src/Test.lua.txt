@@ -3,16 +3,11 @@
 --- Created by Administrator.
 --- DateTime: 2019/3/3 15:31
 ---
-print("work");
+local module = require 'Module';
 
-a = 1;
+print(module.num);
 
-b = 2;
+module.func_2();
 
-c = 2;
+module.func_3();
 
-print(a + b + c);
-
----@type UnityEngine.GameObject
-local gameObject;
-d = gameObject.
