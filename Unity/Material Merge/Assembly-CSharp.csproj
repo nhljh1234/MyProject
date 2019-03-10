@@ -68,6 +68,7 @@
     <Compile Include="Assets\Script\Tool\MeshTool\MaterialManager.cs" />
     <Compile Include="Assets\Script\Tool\MeshTool\MeshManager.cs" />
     <Compile Include="Assets\Script\Tool\MeshTool\TextureManager.cs" />
+    <Compile Include="Assets\Script\Tool\UITool\SceneRatioTool.cs" />
     <Compile Include="Assets\Script\Tool\UITool\ScrollViewTool.cs" />
     <Compile Include="Assets\Script\Tool\UITool\UITool.cs" />
     <Reference Include="UnityEditor.StandardEvents">
