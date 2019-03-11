@@ -777,7 +777,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 93073786}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9982332
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1126,7 +1126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1813418523}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3e3a2976ca5e804280edb475d1b1fb9, type: 3}
+  m_Script: {fileID: 11500000, guid: 36dd2875b5f3df24eac558b0cafe2457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   scrollview: {fileID: 1813418524}

@@ -10,7 +10,7 @@ public class UGUI : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        TJ_UNITY_TOOL.UITool.setLocalPosition(rectTransform, 100, 100);
+        TJ_UNITY_TOOL.RectTransformTool.setLocalPosition(rectTransform, 100, 100);
     }
 
     // Update is called once per frame

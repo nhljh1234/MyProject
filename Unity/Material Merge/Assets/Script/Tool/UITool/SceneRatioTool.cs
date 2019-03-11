@@ -4,37 +4,45 @@ using System.Collections.Generic;
 
 namespace TJ_UNITY_TOOL
 {
-
-    public class SceneRatioTool : MonoBehaviour
+    public class SceneRatioTool
     {
+        //刘海高度
+        private const int SCENE_HEAD_NUM = 60;
+        private const int SCENE_BACK_NUM = 60;
 
-        void Awake()
+        public enum SCENE_MODE
         {
-            RectTransform rectTransform = GetComponent<RectTransform>();
-            if (!rectTransform)
+            landscape = 1, //横屏
+            portrait = 2, //竖屏
+        }
+
+        //获取是否是刘海屏幕
+        public static bool getIsIPhoneX()
+        {
+            if (Screen.width > Screen.height)
             {
-                return;
-            }
-            //重设锚点
-            rectTransform.anchorMin = new Vector2(0, 0);
-            rectTransform.anchorMax = new Vector2(1, 1);
-            Vector2 marginNum = TJ_UNITY_TOOL.UITool.getSceneMarginNum();
-            bool isIPhoneX = TJ_UNITY_TOOL.UITool.getIsIPhoneX();
-            if (!isIPhoneX)
-            {
-                marginNum = new Vector2(0, 0);
-            }
-            if (TJ_UNITY_TOOL.UITool.getSceneMode() == TJ_UNITY_TOOL.UITool.SCENE_MODE.landscape)
-            {
-                //水平的时候
-                rectTransform.offsetMin = new Vector2(marginNum.x, 0.0f);
-                rectTransform.offsetMax = new Vector2(-1 * marginNum.y, 0.0f);
+                return ((float)Screen.width / Screen.height) > 2.0f;
             }
             else
             {
-                rectTransform.offsetMin = new Vector2(0.0f, marginNum.x);
-                rectTransform.offsetMax = new Vector2(0.0f, -1 * marginNum.y);
+                return ((float)Screen.height / Screen.width) > 2.0f;
             }
+        }
+
+        //获取横屏还是竖屏
+        public static SCENE_MODE getSceneMode()
+        {
+            if (Screen.width > Screen.height)
+            {
+                return SCENE_MODE.landscape;
+            }
+            return SCENE_MODE.portrait;
+        }
+
+        //获取刘海距离
+        public static Vector2 getSceneMarginNum()
+        {
+            return new Vector2(SCENE_HEAD_NUM, SCENE_BACK_NUM);
         }
     }
 }

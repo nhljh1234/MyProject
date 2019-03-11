@@ -7,7 +7,7 @@ public class ScrollView : MonoBehaviour
 {
 
     public GameObject scrollview;
-    private int buttonSize = 10;
+    private int buttonSize = 1000;
 
     // Use this for initialization
     void Start()
@@ -27,7 +27,7 @@ public class ScrollView : MonoBehaviour
         RectTransform rectTransform = content.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, buttonSize * content.GetComponent<GridLayoutGroup>().cellSize.y);
         **/
-        TJ_UNITY_TOOL.ScrollViewTool scrollviewTool = scrollview.GetComponent<TJ_UNITY_TOOL.ScrollViewTool>();
+        TJ_UNITY_TOOL.ScrollViewComponent scrollviewTool = scrollview.GetComponent<TJ_UNITY_TOOL.ScrollViewComponent>();
         scrollviewTool.initData((item, index) =>
         {
             Transform transform = TJ_UNITY_TOOL.GameObjectTool.findChild(item, "Text");
@@ -45,7 +45,7 @@ public class ScrollView : MonoBehaviour
     public void onClick()
     {
         buttonSize++;
-        scrollview.GetComponent<TJ_UNITY_TOOL.ScrollViewTool>().refresh(buttonSize);
+        scrollview.GetComponent<TJ_UNITY_TOOL.ScrollViewComponent>().refresh(buttonSize);
     }
 
     // Update is called once per frame
