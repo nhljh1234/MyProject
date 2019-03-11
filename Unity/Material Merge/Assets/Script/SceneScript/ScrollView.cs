@@ -27,6 +27,7 @@ public class ScrollView : MonoBehaviour
         RectTransform rectTransform = content.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, buttonSize * content.GetComponent<GridLayoutGroup>().cellSize.y);
         **/
+        /**
         TJ_UNITY_TOOL.ScrollViewComponent scrollviewTool = scrollview.GetComponent<TJ_UNITY_TOOL.ScrollViewComponent>();
         scrollviewTool.initData((item, index) =>
         {
@@ -40,12 +41,13 @@ public class ScrollView : MonoBehaviour
         {
             scrollviewTool.startShow(buttonSize);
         }
+        **/
     }
 
     public void onClick()
     {
         buttonSize++;
-        scrollview.GetComponent<TJ_UNITY_TOOL.ScrollViewComponent>().refresh(buttonSize);
+        //scrollview.GetComponent<TJ_UNITY_TOOL.ScrollViewComponent>().refresh(buttonSize);
     }
 
     // Update is called once per frame
