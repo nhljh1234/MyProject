@@ -69,6 +69,11 @@ namespace TJ_UNITY_TOOL
             RectTransform parent = rectTransform.parent.GetComponent<RectTransform>();
             return getLeftBottomPosByTarget(rectTransform, parent);
         }
+        //重写GetWorldCorners，适配Scale With Screen Size
+        public static void GetWorldCorner()
+        {
+
+        }
         //获取左下角点的世界坐标
         //这边要做一下特殊处理，处理成以Panel为准，这个才是我们控件依托的地方
         public static Vector3 getWorldLeftBottomPos(RectTransform rectTransform)
