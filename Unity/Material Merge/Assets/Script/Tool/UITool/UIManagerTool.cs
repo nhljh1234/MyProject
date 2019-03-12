@@ -86,7 +86,7 @@ namespace TJ_UNITY_TOOL
             ui.transform.SetAsLastSibling();
         }
         //获取指定层级
-        private RectTransform getRectTransformByType(UI_PANEL_TYPE type)
+        public RectTransform getRectTransformByType(UI_PANEL_TYPE type)
         {
             switch (type)
             {
