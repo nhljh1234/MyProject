@@ -7,8 +7,12 @@ namespace TJ_UNITY_TOOL
     public class RectTransformTool
     {
         //获取所在的panel，就是UIManager里面那几个根节点，一定会带有SceneRatioComponent
-        public static RectTransform getPanel(RectTransform rectTransform)
+        public static RectTransform getPanel(RectTransform rectTransform = null)
         {
+            if (rectTransform == null)
+            {
+                return TJ_UNITY_TOOL.UIManagerTool.GetInstance().getPanelByType(TJ_UNITY_TOOL.UIManagerTool.UI_PANEL_TYPE.UI);
+            }
             Transform parentRectTransform = rectTransform;
             while (true)
             {
@@ -61,6 +65,22 @@ namespace TJ_UNITY_TOOL
                 pos = pos + getWorldLeftBottomPos(parent);
                 parent = parent.parent.GetComponent<RectTransform>();
             }
+        }
+        //更具设计坐标返回实际坐标
+        public static Vector2 getWorldPositionByDesign(float x, float y)
+        {
+            RectTransform panel = getPanel();
+            if (panel == null)
+            {
+                return new Vector2();
+            }
+            Vector2 size = getSize(panel);
+            return new Vector2(x / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_WIDTH * size.x,
+                y / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_HEIGHT * size.y);
+        }
+        public static Vector2 getWorldPositionByDesign(Vector2 pos)
+        {
+            return getWorldPositionByDesign(pos.x, pos.y);
         }
         //获取相对于一个控件的位置
         public static Vector2 getPositionByTarget(RectTransform rectTransform, RectTransform target)
