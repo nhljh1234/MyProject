@@ -498,10 +498,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 275822309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 839921732456c96458f0583cd6132606, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ae440eeb3c35c5428c16d82bfe72d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 1893035074}
+  aniTrans: {fileID: 1369622072}
 --- !u!1 &528348096
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +767,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 350, y: -275}
+  m_AnchoredPosition: {x: 500, y: -275}
   m_SizeDelta: {x: 400, y: 550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1217440801
@@ -781,7 +782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.62049395, b: 0, a: 0.392}
+  m_Color: {r: 1, g: 0.62049395, b: 0, a: 0.78431374}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

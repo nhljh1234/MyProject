@@ -7,8 +7,12 @@ namespace TJ_UNITY_TOOL
     public class RectTransformTool
     {
         //获取所在的panel，就是UIManager里面那几个根节点，一定会带有SceneRatioComponent
-        public static RectTransform getPanel(RectTransform rectTransform)
+        public static RectTransform getPanel(RectTransform rectTransform = null)
         {
+            if (rectTransform == null)
+            {
+                return TJ_UNITY_TOOL.UIManagerTool.GetInstance().getPanelByType(TJ_UNITY_TOOL.UIManagerTool.UI_PANEL_TYPE.UI);
+            }
             Transform parentRectTransform = rectTransform;
             while (true)
             {
@@ -26,125 +30,70 @@ namespace TJ_UNITY_TOOL
         /**
          * ************************************适配相关************************************
          */
-        //根据自适应修改坐标点，因为匹配高度或者宽度的时候会拉长另一个数值
-        public static Vector2 getPosByAdaptation(RectTransform rectTransform, Vector2 pos)
+
+
+        /**
+         * ************************************获取控件数据************************************
+         */
+        //获取一个节点的尺寸
+        public static Vector2 getSize(RectTransform rectTransform)
         {
-            return pos * getAdaptationRatioNum(rectTransform);
+            Vector2 vector = new Vector2();
+            vector.x = rectTransform.rect.width;
+            vector.y = rectTransform.rect.height;
+            return vector;
         }
-        //获取适配长宽的缩放比例
-        public static Vector2 getAdaptationRatioNum(RectTransform rectTransform)
+        //获取一个点的本地坐标
+        public static Vector2 getLocalPosition(RectTransform rectTransform)
         {
-            RectTransform panel = getPanel(rectTransform);
+            RectTransform parent = rectTransform.parent.GetComponent<RectTransform>();
+            Vector2 parentSize = getSize(parent);
+            Vector2 anchroPos = new Vector2(rectTransform.anchorMin.x * parentSize.x, rectTransform.anchorMin.y * parentSize.y);
+            Vector2 anchroLeftBottomPos = anchroPos + rectTransform.offsetMin;
+            return anchroLeftBottomPos + 0.5f * getSize(rectTransform);
+        }
+        public static Vector2 getWorldPosition(RectTransform rectTransform)
+        {
+            Vector2 pos = getLocalPosition(rectTransform);
+            RectTransform parent = rectTransform.parent.GetComponent<RectTransform>();
+            while (true)
+            {
+                if (parent == null || parent.GetComponent<TJ_UNITY_TOOL.SceneRatioComponent>() != null)
+                {
+                    return pos;
+                }
+                pos = pos + getWorldLeftBottomPos(parent);
+                parent = parent.parent.GetComponent<RectTransform>();
+            }
+        }
+        //更具设计坐标返回实际坐标
+        public static Vector2 getWorldPositionByDesign(float x, float y)
+        {
+            RectTransform panel = getPanel();
             if (panel == null)
             {
                 return new Vector2();
             }
             Vector2 size = getSize(panel);
-            if (size.x == TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_WIDTH)
-            {
-                return new Vector2(1, size.y / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_HEIGHT);
-            }
-            else
-            {
-                return new Vector2(size.x / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_WIDTH, 1);
-            }
+            return new Vector2(x / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_WIDTH * size.x,
+                y / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_HEIGHT * size.y);
         }
-        public static Vector2 getPosByAdaptation(RectTransform rectTransform, float x, float y)
+        public static Vector2 getWorldPositionByDesign(Vector2 pos)
         {
-            return getPosByAdaptation(rectTransform, new Vector2(x, y));
+            return getWorldPositionByDesign(pos.x, pos.y);
         }
-
-        /**
-         * ************************************获取控件数据************************************
-         */
-        //获取相对于某个控件的右下角的坐标
-        public static Vector3 getLeftBottomPosByTarget(RectTransform rectTransform, RectTransform targetRectTransform)
+        //获取相对于一个控件的位置
+        public static Vector2 getPositionByTarget(RectTransform rectTransform, RectTransform target)
         {
-            return getWorldLeftBottomPos(rectTransform) - getWorldLeftBottomPos(targetRectTransform);
+            return getWorldPosition(rectTransform) - getWorldPosition(target);
         }
-        //获取左下角点的本地坐标
-        //相对于父节点
-        public static Vector3 getLocalLeftBottomPos(RectTransform rectTransform)
+        //获取一个点左下角的世界坐标
+        public static Vector2 getWorldLeftBottomPos(RectTransform rectTransform)
         {
-            RectTransform parent = rectTransform.parent.GetComponent<RectTransform>();
-            return getLeftBottomPosByTarget(rectTransform, parent);
-        }
-        //重写GetWorldCorners，适配Scale With Screen Size
-        public static void GetWorldCorner()
-        {
-
-        }
-        //获取左下角点的世界坐标
-        //这边要做一下特殊处理，处理成以Panel为准，这个才是我们控件依托的地方
-        public static Vector3 getWorldLeftBottomPos(RectTransform rectTransform)
-        {
-            //自身的坐标
-            Vector3[] corners = new Vector3[4];
-            rectTransform.GetWorldCorners(corners);
-            //panel的坐标
-            Vector3[] cornerPanels = new Vector3[4];
-            RectTransform panel = getPanel(rectTransform);
-            panel.GetWorldCorners(cornerPanels);
-            return corners[0] - cornerPanels[0];
-        }
-        //获取一个节点相对于其他节点的位置
-        public static Vector3 getPositionByTarget(RectTransform rectTransform, RectTransform targetRectTransform)
-        {
-            Vector3 vector = new Vector3();
-            if (!rectTransform)
-            {
-                return vector;
-            }
+            Vector2 worldPos = getWorldPosition(rectTransform);
             Vector2 size = getSize(rectTransform);
-            Vector3 leftBottomPos = getLeftBottomPosByTarget(rectTransform, targetRectTransform);
-            vector.x = leftBottomPos.x + 0.5f * size.x;
-            vector.y = leftBottomPos.y + 0.5f * size.y;
-            vector.z = leftBottomPos.z;
-            return vector;
+            return new Vector2(worldPos.x - 0.5f * size.x, worldPos.y - 0.5f * size.y);
         }
-        //获取一个节点的本地坐标
-        public static Vector3 getLocalPosition(RectTransform rectTransform)
-        {
-            Vector3 vector = new Vector3();
-            if (!rectTransform)
-            {
-                return vector;
-            }
-            Vector2 size = getSize(rectTransform);
-            Vector3 leftBottomPos = getLocalLeftBottomPos(rectTransform);
-            vector.x = leftBottomPos.x + 0.5f * size.x;
-            vector.y = leftBottomPos.y + 0.5f * size.y;
-            vector.z = leftBottomPos.z;
-            return vector;
-        }
-        //获取一个节点的世界坐标
-        public static Vector3 getWorldPosition(RectTransform rectTransform)
-        {
-            Vector3 worldPosition = new Vector3();
-            if (!rectTransform)
-            {
-                return worldPosition;
-            }
-            Vector2 size = getSize(rectTransform);
-            Vector3 leftBottomPos = getWorldLeftBottomPos(rectTransform);
-            worldPosition.x = leftBottomPos.x + 0.5f * size.x;
-            worldPosition.y = leftBottomPos.y + 0.5f * size.y;
-            worldPosition.z = leftBottomPos.z;
-            return worldPosition;
-        }
-        //获取一个节点的尺寸
-        public static Vector2 getSize(RectTransform rectTransform)
-        {
-            Vector2 vector = new Vector2();
-            if (!rectTransform)
-            {
-                return vector;
-            }
-            vector.x = rectTransform.rect.width;
-            vector.y = rectTransform.rect.height;
-            return vector;
-        }
-
         /**
          * ************************************设置控件尺寸************************************
          */
@@ -170,77 +119,92 @@ namespace TJ_UNITY_TOOL
             setWidth(rectTransform, width);
             setHeight(rectTransform, height);
         }
-
         /**
          * ************************************设置本地坐标************************************
          */
         //设置本地坐标
-        public static void setLocalPositionX(RectTransform rectTransform, float x, bool transform = false, bool usePivot = false)
+        public static void setLocalPositionX(RectTransform rectTransform, float x)
         {
             Vector2 size = getSize(rectTransform);
-            x = transform ? getPosByAdaptation(rectTransform, x, 0).x : x;
-            float posX = x - size.x * (usePivot ? rectTransform.pivot.x : 0.5f);
+            float posX = x - size.x * 0.5f;
             rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, posX, size.x);
         }
         //设置本地坐标
-        public static void setLocalPositionY(RectTransform rectTransform, float y, bool transform = false, bool usePivot = false)
+        public static void setLocalPositionY(RectTransform rectTransform, float y)
         {
             Vector2 size = getSize(rectTransform);
-            y = transform ? getPosByAdaptation(rectTransform, 0, y).y : y;
-            float posY = y - size.y * (usePivot ? rectTransform.pivot.y : 0.5f);
+            float posY = y - size.y * 0.5f;
             rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, posY, size.y);
         }
         //设置本地坐标
-        public static void setLocalPosition(RectTransform rectTransform, Vector2 pos, bool transform = false, bool usePivot = false)
+        public static void setLocalPosition(RectTransform rectTransform, float x, float y)
         {
-            pos = transform ? getPosByAdaptation(rectTransform, pos) : pos;
-            setLocalPositionX(rectTransform, pos.x, false, usePivot);
-            setLocalPositionY(rectTransform, pos.y, false, usePivot);
+            setLocalPositionX(rectTransform, x);
+            setLocalPositionY(rectTransform, y);
         }
         //设置本地坐标
-        public static void setLocalPosition(RectTransform rectTransform, float x, float y, bool transform = false, bool usePivot = false)
+        public static void setLocalPosition(RectTransform rectTransform, Vector2 pos)
         {
-            Vector2 pos = transform ? getPosByAdaptation(rectTransform, x, y) : new Vector2(x, y);
-            setLocalPositionX(rectTransform, pos.x, false, usePivot);
-            setLocalPositionY(rectTransform, pos.y, false, usePivot);
+            setLocalPosition(rectTransform, pos.x, pos.y);
         }
-
+        //根据比例设置本地位置
+        public static void setLocalPositionByRatio(RectTransform rectTransform, float x, float y)
+        {
+            Vector2 size = getSize(rectTransform.parent.GetComponent<RectTransform>());
+            setLocalPosition(rectTransform, size.x * x, size.y * y);
+        }
+        //根据比例设置本地位置
+        public static void setLocalPositionByRatio(RectTransform rectTransform, Vector2 posRatio)
+        {
+            setLocalPositionByRatio(rectTransform, posRatio.x, posRatio.y);
+        }
         /**
          * ************************************设置全局坐标************************************
          */
         //设置全局坐标
-        public static void setWorldPositionX(RectTransform rectTransform, float x, bool transform = true, bool usePivot = false)
+        public static void setWorldPositionX(RectTransform rectTransform, float x)
         {
-            RectTransform parentRectTransform = rectTransform.parent.GetComponent<RectTransform>();
-            Vector3 parentLeftBottom = getWorldLeftBottomPos(parentRectTransform);
-            Vector2 size = getSize(rectTransform);
-            x = transform ? getPosByAdaptation(rectTransform, x, 0).x : x;
-            float posX = x - size.x * (usePivot ? rectTransform.pivot.x : 0.5f) - parentLeftBottom.x;
-            rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Left, posX, size.x);
+            RectTransform parent = rectTransform.parent.GetComponent<RectTransform>();
+            Vector2 parentWorldLeftBottomPos = getWorldLeftBottomPos(parent);
+            setLocalPositionX(rectTransform, x - parentWorldLeftBottomPos.x);
         }
         //设置全局坐标
-        public static void setWorldPositionY(RectTransform rectTransform, float y, bool transform = true, bool usePivot = false)
+        public static void setWorldPositionY(RectTransform rectTransform, float y)
         {
-            RectTransform parentRectTransform = rectTransform.parent.GetComponent<RectTransform>();
-            Vector3 parentLeftBottom = getWorldLeftBottomPos(parentRectTransform);
-            Vector2 size = getSize(rectTransform);
-            y = transform ? getPosByAdaptation(rectTransform, 0, y).y : y;
-            float posY = y - size.y * (usePivot ? rectTransform.pivot.y : 0.5f) - parentLeftBottom.y;
-            rectTransform.SetInsetAndSizeFromParentEdge(RectTransform.Edge.Bottom, posY, size.y);
+            RectTransform parent = rectTransform.parent.GetComponent<RectTransform>();
+            Vector2 parentWorldLeftBottomPos = getWorldLeftBottomPos(parent);
+            setLocalPositionY(rectTransform, y - parentWorldLeftBottomPos.y);
         }
         //设置全局坐标
-        public static void setWorldPosition(RectTransform rectTransform, Vector2 pos, bool transform = true, bool usePivot = false)
+        public static void setWorldPosition(RectTransform rectTransform, float x, float y)
         {
-            pos = transform ? getPosByAdaptation(rectTransform, pos) : pos;
-            setWorldPositionX(rectTransform, pos.x, false, usePivot);
-            setWorldPositionY(rectTransform, pos.y, false, usePivot);
+            setWorldPositionX(rectTransform, x);
+            setWorldPositionY(rectTransform, y);
         }
         //设置全局坐标
-        public static void setWorldPosition(RectTransform rectTransform, float x, float y, bool transform = true, bool usePivot = false)
+        public static void setWorldPosition(RectTransform rectTransform, Vector2 pos)
         {
-            Vector2 pos = transform ? getPosByAdaptation(rectTransform, x, y) : new Vector2(x, y);
-            setWorldPositionX(rectTransform, pos.x, false, usePivot);
-            setWorldPositionY(rectTransform, pos.y, false, usePivot);
+            setWorldPosition(rectTransform, pos.x, pos.y);
+        }
+        //根据比例设置全局坐标
+        public static void setWorldPositionByRatio(RectTransform rectTransform, float x, float y)
+        {
+            Vector2 size = getSize(getPanel(rectTransform));
+            setWorldPosition(rectTransform, size.x * x, size.y * y);
+        }
+        public static void setWorldPositionByRatio(RectTransform rectTransform, Vector2 posRatio)
+        {
+            setWorldPositionByRatio(rectTransform, posRatio.x, posRatio.y);
+        }
+        //根据设计分辨率来设置坐标
+        public static void setWorldPositionByDesign(RectTransform rectTransform, float x, float y)
+        {
+            setWorldPositionByRatio(rectTransform, x / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_WIDTH,
+                y / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_HEIGHT);
+        }
+        public static void setWorldPositionByDesign(RectTransform rectTransform, Vector2 pos)
+        {
+            setWorldPositionByDesign(rectTransform, pos.x, pos.y);
         }
     }
 }

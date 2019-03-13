@@ -53,7 +53,7 @@ namespace TJ_UNITY_TOOL
             {
                 hideAllUIInPanel(type);
             }
-            RectTransform panel = getRectTransformByType(type);
+            RectTransform panel = getPanelByType(type);
             RectTransform childUI = getChildUI(type, uiName);
             if (childUI != null && !moreFlag)
             {
@@ -86,7 +86,7 @@ namespace TJ_UNITY_TOOL
             ui.transform.SetAsLastSibling();
         }
         //获取指定层级
-        public RectTransform getRectTransformByType(UI_PANEL_TYPE type)
+        public RectTransform getPanelByType(UI_PANEL_TYPE type)
         {
             switch (type)
             {
@@ -106,7 +106,7 @@ namespace TJ_UNITY_TOOL
         }
         public RectTransform getChildUI(UI_PANEL_TYPE type, string uiName)
         {
-            RectTransform panel = getRectTransformByType(type);
+            RectTransform panel = getPanelByType(type);
             if (panel == null)
             {
                 return null;
@@ -121,7 +121,7 @@ namespace TJ_UNITY_TOOL
         //所有的界面全部隐藏
         public void hideAllUIInPanel(UI_PANEL_TYPE type)
         {
-            RectTransform panel = getRectTransformByType(type);
+            RectTransform panel = getPanelByType(type);
             for (int i = 0; i < panel.childCount; i++)
             {
                 panel.GetChild(i).gameObject.SetActive(false);
