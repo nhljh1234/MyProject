@@ -8,7 +8,7 @@ namespace TJ_UNITY_TOOL
     public class DoTweenTool
     {
         //隐藏整个界面
-        public static void FadeUI(RectTransform trans, float duration, float to, TweenCallback callback)
+        public static void FadeUI(RectTransform trans, float duration, float to, TweenCallback callback = null)
         {
             //保证callback只会执行一次
             int count = 0;
@@ -23,7 +23,7 @@ namespace TJ_UNITY_TOOL
                     (oneComp as Graphic).DOFade(to, duration).OnComplete(() =>
                     {
                         count--;
-                        if (count == 0)
+                        if (count == 0 && callback != null)
                         {
                             callback();
                         }

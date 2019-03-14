@@ -5,7 +5,7 @@ using UnityEngine;
 namespace TJ_UNITY_TOOL
 {
     //单例模式
-    public class UIManagerTool : MonoBehaviour
+    public class UIManagerTool
     {
         public enum UI_PANEL_TYPE
         {
@@ -16,11 +16,11 @@ namespace TJ_UNITY_TOOL
         private static UIManagerTool _uiManager = null;
         //分为三个层级
         //放置UI
-        private RectTransform UIPanel;
+        private RectTransform UIPanel = null;
         //放置提示界面
-        private RectTransform NoticePanel;
+        private RectTransform NoticePanel = null;
         //放置网络加载层
-        private RectTransform NetPanel;
+        private RectTransform NetPanel = null;
         public UIManagerTool()
         {
 
@@ -43,6 +43,7 @@ namespace TJ_UNITY_TOOL
          */
         public void addUIToPanel(string prefabPath, UI_PANEL_TYPE type, string uiName, bool moreFlag, bool hideAll)
         {
+            TJ_UNITY_TOOL.ScenePanelComponent comp;
             //加载界面
             Object prefab = Resources.Load(prefabPath, typeof(GameObject));
             if (prefab == null)
@@ -57,6 +58,14 @@ namespace TJ_UNITY_TOOL
             RectTransform childUI = getChildUI(type, uiName);
             if (childUI != null && !moreFlag)
             {
+                if (childUI.gameObject.activeSelf == false)
+                {
+                    comp = childUI.GetComponent<TJ_UNITY_TOOL.ScenePanelComponent>();
+                    if (comp)
+                    {
+                        comp.onShow();
+                    }
+                }
                 childUI.gameObject.SetActive(true);
                 //设定顺序
                 childUI.SetAsLastSibling();
@@ -84,6 +93,13 @@ namespace TJ_UNITY_TOOL
             childUI.offsetMax = offsetMaxSave;
             //设定顺序
             ui.transform.SetAsLastSibling();
+            //调用onCreate
+            comp = ui.GetComponent<TJ_UNITY_TOOL.ScenePanelComponent>();
+            if (comp)
+            {
+                comp.onCreate(childUI);
+                comp.onShow();
+            }
         }
         //获取指定层级
         public RectTransform getPanelByType(UI_PANEL_TYPE type)
@@ -107,16 +123,30 @@ namespace TJ_UNITY_TOOL
         public RectTransform getChildUI(UI_PANEL_TYPE type, string uiName)
         {
             RectTransform panel = getPanelByType(type);
-            if (panel == null)
+            for (int i = panel.childCount - 1; i >= 0; i--)
             {
-                return null;
+                Transform child = panel.GetChild(i);
+                if (child.name == uiName)
+                {
+                    return child.GetComponent<RectTransform>();
+                }
             }
-            Transform child = panel.Find(uiName);
-            if (child == null)
+            return null;
+        }
+        //获取所有名字的界面
+        public RectTransform[] getChildAllUI(UI_PANEL_TYPE type, string uiName)
+        {
+            RectTransform panel = getPanelByType(type);
+            List<RectTransform> trans = new List<RectTransform>();
+            for (int i = panel.childCount - 1; i >= 0; i--)
             {
-                return null;
+                Transform child = panel.GetChild(i);
+                if (child.name == uiName)
+                {
+                    trans.Add(child.GetComponent<RectTransform>());
+                }
             }
-            return child.GetComponent<RectTransform>();
+            return trans.ToArray();
         }
         //所有的界面全部隐藏
         public void hideAllUIInPanel(UI_PANEL_TYPE type)
@@ -133,6 +163,77 @@ namespace TJ_UNITY_TOOL
             UIPanel = uiPanel;
             NoticePanel = noticePanel;
             NetPanel = netPanel;
+        }
+        //判断是否可用，就是三个层级的Panel可用
+        public bool judgeUseFlag()
+        {
+            return UIPanel && NoticePanel && NetPanel;
+        }
+        //隐藏界面
+        //会判断是否隐藏全部的，否则只会隐藏最前面的一个
+        public void hideUI(UI_PANEL_TYPE type, string name, bool hideAll = false)
+        {
+            if (hideAll)
+            {
+                RectTransform[] trans = getChildAllUI(type, name);
+                for (int i = 0; i < trans.Length; i++)
+                {
+                    if (trans[i] != null)
+                    {
+                        hideOneUI(trans[i]);
+                    }
+                }
+            }
+            else
+            {
+                RectTransform childUI = getChildUI(type, name);
+                hideOneUI(childUI);
+            }
+        }
+        //隐藏界面
+        //会判断是否隐藏全部的，否则只会隐藏最前面的一个
+        public void showUI(UI_PANEL_TYPE type, string name, bool showAll = false)
+        {
+            if (showAll)
+            {
+                RectTransform[] trans = getChildAllUI(type, name);
+                for (int i = 0; i < trans.Length; i++)
+                {
+                    if (trans[i] != null)
+                    {
+                        showOneUI(trans[i]);
+                    }
+                }
+            }
+            else
+            {
+                RectTransform childUI = getChildUI(type, name);
+                showOneUI(childUI);
+            }
+        }
+        //显示一个界面
+        private void showOneUI(RectTransform ui)
+        {
+            TJ_UNITY_TOOL.ScenePanelComponent comp = ui.GetComponent<TJ_UNITY_TOOL.ScenePanelComponent>();
+            bool activeSave = ui.gameObject.activeSelf;
+            ui.gameObject.SetActive(true);
+            if (comp && !comp.inShowAni && !activeSave)
+            {
+                comp.onShow();
+            }
+        }
+        //隐藏一个界面
+        private void hideOneUI(RectTransform ui)
+        {
+            TJ_UNITY_TOOL.ScenePanelComponent comp = ui.GetComponent<TJ_UNITY_TOOL.ScenePanelComponent>();
+            if (comp && !comp.inShowAni && ui.gameObject.activeSelf)
+            {
+                comp.onHide();
+            }
+            else
+            {
+                ui.gameObject.SetActive(false);
+            }
         }
     }
 }

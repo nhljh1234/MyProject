@@ -7,7 +7,6 @@ namespace TJ_UNITY_TOOL
 
     public class SceneRatioComponent : MonoBehaviour
     {
-
         void Awake()
         {
             RectTransform rectTransform = GetComponent<RectTransform>();
