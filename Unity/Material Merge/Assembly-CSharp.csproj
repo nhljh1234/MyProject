@@ -70,12 +70,14 @@
      <Compile Include="Assets\Script\Tool\MeshTool\MaterialManager.cs" />
      <Compile Include="Assets\Script\Tool\MeshTool\MeshManager.cs" />
      <Compile Include="Assets\Script\Tool\MeshTool\TextureManager.cs" />
+     <Compile Include="Assets\Script\Tool\UITool\Component\ScenePanelComponent.cs" />
      <Compile Include="Assets\Script\Tool\UITool\Component\SceneRatioComponent.cs" />
      <Compile Include="Assets\Script\Tool\UITool\Component\ScrollViewComponent.cs" />
      <Compile Include="Assets\Script\Tool\UITool\DoTweenTool.cs" />
      <Compile Include="Assets\Script\Tool\UITool\RectTransformTool.cs" />
      <Compile Include="Assets\Script\Tool\UITool\SceneRatioTool.cs" />
      <Compile Include="Assets\Script\Tool\UITool\UIManagerTool.cs" />
+     <Compile Include="Assets\Script\UI\Panel_1.cs" />
      <None Include="Assets\DOTween\readme.txt" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/MyProject/Unity/Material Merge/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
