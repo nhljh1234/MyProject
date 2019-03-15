@@ -8,7 +8,7 @@ namespace TJ_UNITY_TOOL
 
         private static MaterialManager _instance = null;
 
-        public MaterialManager()
+        private MaterialManager()
         {
 
         }

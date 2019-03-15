@@ -26,7 +26,7 @@ namespace TJ_UNITY_TOOL
             public int[] indexs;
         }
 
-        public TextureManager()
+        private TextureManager()
         {
 
         }

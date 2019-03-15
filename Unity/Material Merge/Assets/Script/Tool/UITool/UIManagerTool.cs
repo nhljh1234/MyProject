@@ -21,7 +21,7 @@ namespace TJ_UNITY_TOOL
         private RectTransform NoticePanel = null;
         //放置网络加载层
         private RectTransform NetPanel = null;
-        public UIManagerTool()
+        private UIManagerTool()
         {
 
         }

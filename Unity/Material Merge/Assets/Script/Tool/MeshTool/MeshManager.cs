@@ -14,7 +14,7 @@ namespace TJ_UNITY_TOOL
             public Material material;
         }
 
-        public MeshManager()
+        private MeshManager()
         {
 
         }
