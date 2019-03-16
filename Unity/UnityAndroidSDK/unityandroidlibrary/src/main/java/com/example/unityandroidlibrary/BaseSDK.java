@@ -2,7 +2,6 @@ package com.example.unityandroidlibrary;
 
 import android.content.Context;
 import android.util.Log;
-
 import org.json.JSONObject;
 
 public class BaseSDK {
