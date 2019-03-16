@@ -16,16 +16,19 @@ public class BaseSDK {
         //返回
         JSONObject ret = new JSONObject();
         try {
-            final JSONObject obj = new JSONObject(data);
+            final JSONObject obj = JsonTool.getJsonObject(data);
+            if (obj == null) {
+                return null;
+            }
             Log.v("test_1", obj.toString());
             switch (action) {
                 case SDKAction.GET_NET_STATUS:
                     ret.put("status", SDKNetTool.getNetWorkStatus(context));
-                    returnStr = ret.toString();
+                    returnStr = JsonTool.getDictionaryJsonStr(ret);
                     break;
                 case SDKAction.GET_NET_STATUS_TEST:
                     ret.put("status", SDKNetTool.getNetWorkStatus(context));
-                    returnStr = ret.toString();
+                    returnStr = JsonTool.getDictionaryJsonStr(ret);
                     break;
                 case SDKAction.SDK_INIT:
                     break;
