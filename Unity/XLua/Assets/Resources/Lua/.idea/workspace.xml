@@ -2,14 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e9fbaa1-b56a-4c05-a7d1-b66a6eabda07" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../../IDEA_xlua_unity.doc" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../IDEA_xlua_unity.doc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../Material Merge/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../Material Merge/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/UnityEngine.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/UnityEngine.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LuaScript/src/Module.lua" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LuaScript/src/Module.lua.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LuaScript/src/Test.lua.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LuaScript/src/Test.lua.txt.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LuaScript/src/Main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/LuaScript/src/Main.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/Back_Project.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/Back_Project.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/CellNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/CellNode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/TableNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/TableNode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/Translate/TranslateFileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/Translate/TranslateFileData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/GlobalData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/GlobalData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Reader/CellNodeReader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Reader/FileNodeReader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Reader/RowNodeReader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Reader/TableNodeReader.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Writer/CellNodeWriter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Writer/FileNodeWriter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Writer/RowNodeWriter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Writer/TableNodeWriter.cs" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,28 +28,33 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LuaScript/src/Main.lua">
+        <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/LogModule.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="3" />
-            </state>
+            <state relative-caret-position="-505" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/EventModule.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-989" />
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/EventModule.lua">
+        <entry file="file://$PROJECT_DIR$/LuaScript/src/Main.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="814">
-              <caret line="37" column="7" lean-forward="true" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
+            <state relative-caret-position="132">
+              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/LogModule.lua">
+        <entry file="file://$PROJECT_DIR$/LuaScript/src/Data/test.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="14" column="18" lean-forward="true" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+            <state relative-caret-position="418">
+              <caret line="19" column="30" lean-forward="true" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -67,8 +80,9 @@
         <option value="$PROJECT_DIR$/LuaScript/src/Test.lua.txt" />
         <option value="$PROJECT_DIR$/LuaScript/src/Event.lua" />
         <option value="$PROJECT_DIR$/LuaScript/src/Module/LogModule.lua" />
-        <option value="$PROJECT_DIR$/LuaScript/src/Main.lua" />
         <option value="$PROJECT_DIR$/LuaScript/src/Module/EventModule.lua" />
+        <option value="$PROJECT_DIR$/LuaScript/src/Data/test.lua" />
+        <option value="$PROJECT_DIR$/LuaScript/src/Main.lua" />
       </list>
     </option>
   </component>
@@ -90,7 +104,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -114,17 +127,25 @@
               <item name="Lua" type="462c0819:PsiDirectoryNode" />
               <item name="LuaScript" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="Data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Lua" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Lua" type="462c0819:PsiDirectoryNode" />
+              <item name="LuaScript" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Module" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552553787644" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1552835466835" />
     <property name="jdk.selected.LUA_MODULE" value="Lua 5.1" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -195,9 +216,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1874" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1852" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26130098" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26395088" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -206,7 +228,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32952183" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32952183" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3991684" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -258,22 +280,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/LogModule.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="14" column="18" lean-forward="true" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        <state relative-caret-position="-505" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/EventModule.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-989" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LuaScript/src/Data/test.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="19" column="30" lean-forward="true" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LuaScript/src/Main.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/EventModule.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="37" column="7" lean-forward="true" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
+        <state relative-caret-position="132">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
         </state>
       </provider>
     </entry>

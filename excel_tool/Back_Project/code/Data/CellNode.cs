@@ -12,7 +12,7 @@ namespace Back_Project.code.Data
     class CellNode
     {
         //存储数据类型
-        private int _dataType;
+        private GlobalData.DATA_TYPE _dataType;
         //存储数据
         private double _num;
         private Boolean _boolData;
@@ -21,7 +21,7 @@ namespace Back_Project.code.Data
         private string _key;
 
         //新建一个CellNode
-        public CellNode(int dataType, string key, double num, Boolean boolData, string str)
+        public CellNode(GlobalData.DATA_TYPE dataType, string key, double num, Boolean boolData, string str)
         {
             _dataType = dataType;
             _key = key;
@@ -31,7 +31,7 @@ namespace Back_Project.code.Data
         }
 
         //获取数据类型
-        public int getType()
+        public GlobalData.DATA_TYPE getType()
         {
             return _dataType;
         }
@@ -58,6 +58,20 @@ namespace Back_Project.code.Data
         public string getKey()
         {
             return _key;
+        }
+
+        public Object getData()
+        {
+            switch (_dataType)
+            {
+                case GlobalData.DATA_TYPE.BOOLEAN:
+                    return _boolData;
+                case GlobalData.DATA_TYPE.DOUBLE:
+                    return _num;
+                case GlobalData.DATA_TYPE.STRING:
+                    return _str;
+            }
+            return null;
         }
     }
 }

@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Back_Project.code.Data
 {
-    class TranslateFileData
+    public class TranslateFileData
     {
         public class TranslateData
         {
             public string newFileName;
-            public string use;
+            //以这个作为key
+            public string key;
+            //输出的属性
+            public List<String> outputStrs = new List<string>();
         }
 
         private string _newFileName;
@@ -28,7 +29,7 @@ namespace Back_Project.code.Data
             return _newFileName;
         }
 
-        public void addTableName(string oldName, string newName, string use)
+        public void addTableName(string oldName, string newName, string key, string output)
         {
             //理论上的话是没有相同的oldName的
             if (_dic.ContainsKey(oldName))
@@ -37,25 +38,23 @@ namespace Back_Project.code.Data
             }
             TranslateData data = new TranslateData();
             data.newFileName = newName;
-            data.use = use;
+            data.key = key;
+            //处理一下output
+            output = output.Replace(" ", "");
+            String[] strs = output.Split(',');
+            data.outputStrs = strs.ToList();
+            //添加数据
             _dic.Add(oldName, data);
-            _use = use;
         }
 
         //不存在的话返回oldName
-        public TranslateData getNewName(string oldName)
+        public TranslateData getTranslateData(string oldName)
         {
             if (!_dic.ContainsKey(oldName))
             {
                 return null;
             }
             return _dic[oldName];
-        }
-
-        //获取use
-        public string getUse()
-        {
-            return _use;
         }
     }
 }

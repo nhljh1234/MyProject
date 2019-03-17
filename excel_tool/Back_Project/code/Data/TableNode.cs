@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 //存储多个Row节点
 namespace Back_Project.code.Data
@@ -14,29 +10,27 @@ namespace Back_Project.code.Data
         //存储key数据的row节点，不能存在空节点
         private RowNode _keyRowNode = null;
         private List<RowNode> _rowNodeList;
-        private string _use;
-
+        //根据_translate的key和output决定输出的数据
+        TranslateFileData.TranslateData _translateData;
         public TableNode(string sheetName, string fileName)
         {
             if (code.GlobalData.translateDic.ContainsKey(fileName))
             {
-                TranslateFileData.TranslateData data = 
-                    code.GlobalData.translateDic[fileName].getNewName(sheetName);
-                sheetName = data.newFileName;
-                _use = data.use;
+                _translateData = code.GlobalData.translateDic[fileName].getTranslateData(sheetName);
+                sheetName = _translateData.newFileName;
             }
             _sheetName = sheetName;
             _rowNodeList = new List<RowNode>();
         }
 
-        public string getUse()
-        {
-            return _use;
-        }
-
         public string getSheetName()
         {
             return _sheetName;
+        }
+
+        public TranslateFileData.TranslateData getTranslateData()
+        {
+            return _translateData;
         }
 
         public void setKeyRowNode(RowNode keyRowNode)

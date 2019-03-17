@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Back_Project.code;
+using System;
 using System.IO;
 using System.Xml;
 
@@ -23,13 +24,14 @@ namespace Back_Project
                 code.Data.TranslateFileData translateFileData = new code.Data.TranslateFileData(newName);
                 foreach (XmlElement tableNode in root.GetElementsByTagName("table"))
                 {
-                    string oldTableName, newTableName, use;
-                    oldTableName = tableNode.GetAttribute("oldName");
-                    newTableName = tableNode.GetAttribute("newName");
-                    use = tableNode.GetAttribute("use");
-                    translateFileData.addTableName(oldTableName, newTableName, use);
+                    string oldTableName, newTableName, key, output;
+                    oldTableName = tableNode.GetAttribute("name");
+                    newTableName = GlobalData.getFirstElement(tableNode, "newName").InnerText;
+                    key = GlobalData.getFirstElement(tableNode, "key").InnerText;
+                    output = GlobalData.getFirstElement(tableNode, "output").InnerText;
+                    translateFileData.addTableName(oldTableName, newTableName, key, output);
                 }
-                code.GlobalData.translateDic.Add(oldName, translateFileData);
+                GlobalData.translateDic.Add(oldName, translateFileData);
             }
         }
 
@@ -42,57 +44,97 @@ namespace Back_Project
             //输出配置
             DirectoryInfo workDirInfo = new DirectoryInfo(workDir);
             string outputFilePath = workDirInfo.FullName + @"\_output.xml";
-            Console.WriteLine(workDir);
-            //读取配置
-            //读取文件
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(outputFilePath);
-            XmlElement root = xmlDoc.DocumentElement;//取到根结点
-            //客户端数据文件夹
-            string excelDataDirPathClient = "";
-            //服务端数据库文件夹
-            string excelDataDirPathServer = "";
-            foreach (XmlElement fileNode in root.GetElementsByTagName("client"))
-            {
-                excelDataDirPathClient = fileNode.GetAttribute("path");
-            }
-            foreach (XmlElement fileNode in root.GetElementsByTagName("server"))
-            {
-                excelDataDirPathServer = fileNode.GetAttribute("path");
-            }
+            //读取输出配置
+            code.Data.Setting setting = code.Data.Setting.getInstance(outputFilePath);
+            //初始化
+            code.Data.Setting.SettingClass jsonSetting = setting.getSettingClassByType(GlobalData.OUTPUT_TYPE.JSON);
+            code.Data.Setting.SettingClass luaSetting = setting.getSettingClassByType(GlobalData.OUTPUT_TYPE.LUA);
+            jsonSetting.init();
+            luaSetting.init();
             DirectoryInfo workExcelDirInfo = new DirectoryInfo(workDirInfo.FullName);
-            if (Directory.Exists(excelDataDirPathClient))
-            {
-                Directory.Delete(excelDataDirPathClient, true);
-            }
-            if (Directory.Exists(excelDataDirPathServer))
-            {
-                Directory.Delete(excelDataDirPathServer, true);
-            }
-            Directory.CreateDirectory(excelDataDirPathClient);
-            Directory.CreateDirectory(excelDataDirPathServer);
             //开始执行每一个file
-            foreach (FileInfo xmlFile in workExcelDirInfo.GetFiles())
+            //拷贝一次
+            code.Data.GloablNode globalNode = new code.Data.GloablNode();
+            foreach (FileInfo file in workExcelDirInfo.GetFiles())
             {
-                if (xmlFile.Name.Equals("_translate.xml"))
+                if (file.Name.Equals("_translate.xml") || file.Name.Equals("_output.xml"))
                 {
                     continue;
                 }
-                if (xmlFile.Name.IndexOf(".xml") >= 0)
+                if (file.Name.IndexOf(".xml") >= 0)
                 {
-                    //拷贝一次
-                    string newName = @"\_copy_" + xmlFile.Name;
-                    string newFullName = workExcelDirInfo.FullName + @"\_copy_" + xmlFile.Name;
-                    xmlFile.CopyTo(workExcelDirInfo.FullName + @"\_copy_" + xmlFile.Name, true);
-                    string fileName = xmlFile.Name.Split('.')[0];
-                    code.Tool.Reader.FileNodeReader fileNodeReader = 
-                        new code.Tool.Reader.FileNodeReader(fileName, newFullName);
-                    code.Data.FileNode fileNode = fileNodeReader.getFileNode();
-                    new code.Tool.Writer.FileNodeWriter().xmlDataWrite(fileNode, 
-                        excelDataDirPathClient, excelDataDirPathServer);
+                    //判断有没有在装换列表中
+                    if (!GlobalData.translateDic.ContainsKey(file.Name.Split('.')[0]))
+                    {
+                        continue;
+                    }
+                    string newName = @"\_copy_" + file.Name;
+                    string newFullName = workExcelDirInfo.FullName + @"\_copy_" + file.Name;
+                    file.CopyTo(workExcelDirInfo.FullName + @"\_copy_" + file.Name, true);
+                    string fileName = file.Name.Split('.')[0];
+                    //判断是否输出JSON文件
+                    code.Tool.XmlReader.XmlFileNodeReader xmlFileNodeReader =
+                        new code.Tool.XmlReader.XmlFileNodeReader(fileName, newFullName);
+                    code.Data.FileNode fileNode = xmlFileNodeReader.getFileNode();
+                    globalNode.addFileNode(fileNode);
+                    if (jsonSetting.workFlag)
+                    {
+                        if (!jsonSetting.globalSetting)
+                        {
+                            new code.Tool.JsonWriter.JsonFileNodeWriter().xmlDataWrite(fileNode, jsonSetting.clientOutputPath);
+                        }
+                    }
+                    if (luaSetting.workFlag)
+                    {
+                        if (!luaSetting.globalSetting)
+                        {
+                            new code.Tool.LuaWrite.LuaFileNodeWriter().xmlDataWrite(fileNode, luaSetting.clientOutputPath);
+                        }
+                    }
                     //删除临时文件
                     File.Delete(newFullName);
                 }
+                if (file.Name.IndexOf(".xlsx") >= 0 || file.Name.IndexOf(".xls") >= 0)
+                {
+                    //判断有没有在装换列表中
+                    if (!GlobalData.translateDic.ContainsKey(file.Name.Split('.')[0]))
+                    {
+                        continue;
+                    }
+                    string newName = @"\_copy_" + file.Name;
+                    string newFullName = workExcelDirInfo.FullName + @"\_copy_" + file.Name;
+                    file.CopyTo(workExcelDirInfo.FullName + @"\_copy_" + file.Name, true);
+                    string fileName = file.Name.Split('.')[0];
+                    //判断是否输出JSON文件
+                    code.Tool.ExcelReader.ExcelFileNodeReader excelFileNodeReader =
+                        new code.Tool.ExcelReader.ExcelFileNodeReader(fileName, newFullName);
+                    code.Data.FileNode fileNode = excelFileNodeReader.getFileNode();
+                    globalNode.addFileNode(fileNode);
+                    if (jsonSetting.workFlag)
+                    {
+                        if (!jsonSetting.globalSetting)
+                        {
+                            new code.Tool.JsonWriter.JsonFileNodeWriter().xmlDataWrite(fileNode, jsonSetting.clientOutputPath);
+                        }
+                    }
+                    if (luaSetting.workFlag)
+                    {
+                        if (!luaSetting.globalSetting)
+                        {
+                            new code.Tool.LuaWrite.LuaFileNodeWriter().xmlDataWrite(fileNode, luaSetting.clientOutputPath);
+                        }
+                    }
+                    //删除临时文件
+                    File.Delete(newFullName);
+                }
+            }
+            if (jsonSetting.globalSetting && jsonSetting.workFlag)
+            {
+                new code.Tool.JsonWriter.JsonGlobalNodeWriter().xmlDataWrite(globalNode, jsonSetting.clientOutputPath);
+            }
+            if (luaSetting.globalSetting && luaSetting.workFlag)
+            {
+                new code.Tool.LuaWrite.LuaGlobalNodeWriter().xmlDataWrite(globalNode, luaSetting.clientOutputPath);
             }
             Console.WriteLine("结束！按回车结束！");
             Console.ReadLine();
