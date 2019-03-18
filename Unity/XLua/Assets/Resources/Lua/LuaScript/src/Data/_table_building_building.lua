@@ -47,5 +47,5 @@ return {
         useType = "self_house",
         functionList = "1,2,9",
         showFlag = 1
-    }    
+    }
 }

@@ -64,7 +64,7 @@ export class Action {
      * @param saveData
      */
     initActionBySave(actionId: number, saveData: actionSaveData) {
-        let jsonData = MyGame.JsonDataTool.getDataById('_table_action_action', actionId);
+        let jsonData = MyGame.JsonDataTool.getDataById('action', 'action', actionId);
         //初始化数据
         this.name = jsonData.name || '';
         this.pos = jsonData.pos || 0;
@@ -85,7 +85,7 @@ export class Action {
      * @param actionId 
      */
     initAction(actionId: number, actionTimeMinute: number) {
-        let jsonData = MyGame.JsonDataTool.getDataById('_table_action_action', actionId);
+        let jsonData = MyGame.JsonDataTool.getDataById('action', 'action', actionId);
         //初始化数据
         this.name = jsonData.name || '';
         this.pos = jsonData.pos || 0;
@@ -145,7 +145,7 @@ export class Action {
                     if (this.actionRunTimeMinute > this.actionTimeMinute) {
                         this._progressScriptComp.hide(false);
                     }
-                });
+                }.bind(this));
             }
         }
     }

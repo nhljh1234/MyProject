@@ -9,12 +9,12 @@ import { actionSaveData } from "../../Data/Action/ActionFactory";
  * @param {String} functionName
  */
 export function judgeHaveFunctionByName(itemId: number, functionName: string) {
-    let itemData = MyGame.JsonDataTool.getDataById('_table_item_sellGood', itemId);
-    if (itemData && itemData.function && itemData.function.length > 0) {
-        let funcIdArr = ('' + itemData.function).split(',');
+    let itemData = MyGame.JsonDataTool.getDataById('item', 'sellGood', itemId);
+    if (itemData && itemData.functionType && itemData.functionType.length > 0) {
+        let funcIdArr = ('' + itemData.functionType).split(',');
         let i: number;
         for (i = 0; i < funcIdArr.length; i++) {
-            let funcData = MyGame.JsonDataTool.getDataById('_table_item_itemFunction', funcIdArr[i]);
+            let funcData = MyGame.JsonDataTool.getDataById('item', 'itemFunction', funcIdArr[i]);
             if (funcData && funcData.type === functionName) {
                 return true;
             }
@@ -29,13 +29,13 @@ export function judgeHaveFunctionByName(itemId: number, functionName: string) {
  * @param {String} functionName
  */
 export function getItemFunctionNum(itemId: number, functionName: string): any {
-    let itemData = MyGame.JsonDataTool.getDataById('_table_item_sellGood', itemId);
-    if (itemData && itemData.function && itemData.function.length > 0) {
-        let funcIdArr = ('' + itemData.function).split(',');
+    let itemData = MyGame.JsonDataTool.getDataById('item', 'sellGood', itemId);
+    if (itemData && itemData.functionType && itemData.funcfunctionTypetion.length > 0) {
+        let funcIdArr = ('' + itemData.functionType).split(',');
         let funcNumArr = ('' + itemData.functionNum).split(',');
         let i: number;
         for (i = 0; i < funcIdArr.length; i++) {
-            let funcData = MyGame.JsonDataTool.getDataById('_table_item_itemFunction', funcIdArr[i]);
+            let funcData = MyGame.JsonDataTool.getDataById('item', 'itemFunction', funcIdArr[i]);
             if (funcData && funcData.type === functionName) {
                 return funcNumArr[i];
             }
@@ -50,12 +50,12 @@ export function getItemFunctionNum(itemId: number, functionName: string): any {
  */
 export function getItemFunctionNameArr(itemId: number): string[] {
     let returnArr: string[] = [];
-    let itemData = MyGame.JsonDataTool.getDataById('_table_item_sellGood', itemId);
-    if (itemData && itemData.function && itemData.function.length > 0) {
-        let funcIdArr = ('' + itemData.function).split(',');
+    let itemData = MyGame.JsonDataTool.getDataById('item', 'sellGood', itemId);
+    if (itemData && itemData.functionType && itemData.functionType.length > 0) {
+        let funcIdArr = ('' + itemData.functionType).split(',');
         let i: number;
         for (i = 0; i < funcIdArr.length; i++) {
-            let funcData = MyGame.JsonDataTool.getDataById('_table_item_itemFunction', funcIdArr[i]);
+            let funcData = MyGame.JsonDataTool.getDataById('item', 'itemFunction', funcIdArr[i]);
             if (funcData) {
                 returnArr.push(funcData.type);
             }

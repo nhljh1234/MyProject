@@ -22,7 +22,7 @@ declare interface _table_building_building {
 	name: string;
 	useType: string;
 	showFlag: number;
-	function: number;
+	functionList: number;
 	functionNum: number;
 }
 declare interface _table_building_buildingFunction {

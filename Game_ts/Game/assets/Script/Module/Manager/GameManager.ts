@@ -95,7 +95,7 @@ export function initComponent(component: cc.Component) {
 export function initGame(gameData: Game) {
     gameDataSave = gameData;
     //将配置中的名字都设置为不可随机的
-    MyGame.RandomNameTool.initAllNameArr(MyGame.JsonDataTool.getTableByName('_table_person_person').array);
+    MyGame.RandomNameTool.initAllNameArr(MyGame.JsonDataTool.getTableArrByName('person', 'person'));
 };
 
 /**

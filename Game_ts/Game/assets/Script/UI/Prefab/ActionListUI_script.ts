@@ -42,7 +42,7 @@ export default class ActionListUI extends BaseUI {
     showAllActionList(selectPersons: BasePerson[]) {
         //绑定数据
         this._selectPersons = selectPersons;
-        let allActions: any[] = MyGame.JsonDataTool.getTableByName('_table_action_action').array;
+        let allActions: any[] = MyGame.JsonDataTool.getTableArrByName('action', 'action');
         this._allCanEntrustActions = allActions.filter(function (oenData) {
             return !!oenData.canEntrust;
         });

@@ -20,8 +20,7 @@ export function judgeMapRandomEvent (personData: BasePerson) {
     if (Math.random() >= (MyGame.MAP_RANDOM_EVENT_RECORD / 100)) {
         return;
     }
-    let mapRandomEventData = MyGame.JsonDataTool.getTableByName('_table_event_mapRandomEvent');
-    let mapRandomEventArr = mapRandomEventData ? mapRandomEventData.array : [];
+    let mapRandomEventArr = MyGame.JsonDataTool.getTableArrByName('event', 'mapRandomEvent');
     let i, len;
     for (i = 0, len = mapRandomEventArr.length; i < len; i++) {
         let randomNum = mapRandomEventArr[i].randomNum / 100;

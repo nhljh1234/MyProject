@@ -120,22 +120,22 @@ class Game {
 
     init() {
         //大地图随机事件几率
-        this.MAP_RANDOM_EVENT_RECORD = JsonDataTool.getDataById('_table_Game_gameParameter', 1).num;
+        this.MAP_RANDOM_EVENT_RECORD = JsonDataTool.getDataById('Game', 'gameParameter', 1).num;
         //最大体力值
-        this.MAX_POWER = JsonDataTool.getDataById('_table_Game_gameParameter', 2).num;
+        this.MAX_POWER = JsonDataTool.getDataById('Game', 'gameParameter', 2).num;
         //背包最大数量
-        this.MAX_ITEM_NUM = JsonDataTool.getDataById('_table_Game_gameParameter', 3).num;
+        this.MAX_ITEM_NUM = JsonDataTool.getDataById('Game', 'gameParameter', 3).num;
         //体力最小值，低于这个体力会自动去吃药或者医馆
-        this.MIN_POWER_NUM = JsonDataTool.getDataById('_table_Game_gameParameter', 4).num;
+        this.MIN_POWER_NUM = JsonDataTool.getDataById('Game', 'gameParameter', 4).num;
         //自动战斗间隔
         //单位分钟
-        this.BATTLE_TIMER_TIME = JsonDataTool.getDataById('_table_Game_gameParameter', 5).num;
+        this.BATTLE_TIMER_TIME = JsonDataTool.getDataById('Game', 'gameParameter', 5).num;
         //快速游戏时间
-        this.QUICK_GAME_SPEED = MyGame.JsonDataTool.getDataById('_table_Game_gameParameter', 6).num;
+        this.QUICK_GAME_SPEED = MyGame.JsonDataTool.getDataById('Game', 'gameParameter', 6).num;
         //大地图每分钟移动速度
-        this.MAP_MOVE_SPEED_MINUTE = MyGame.JsonDataTool.getDataById('_table_Game_gameParameter', 7).num;
+        this.MAP_MOVE_SPEED_MINUTE = MyGame.JsonDataTool.getDataById('Game', 'gameParameter', 7).num;
         //大地图每分钟消耗的体力
-        this.MAP_MOVE_COST_POWER_MINUTE = MyGame.JsonDataTool.getDataById('_table_Game_gameParameter', 8).num;
+        this.MAP_MOVE_COST_POWER_MINUTE = MyGame.JsonDataTool.getDataById('Game', 'gameParameter', 8).num;
     }
 }
 
