@@ -3,95 +3,95 @@
 		<table name="人物">
 			<newName>person</newName>
 			<key>main_id</key>
-			<output>name, attack, def, command, intelligence, charm, politics, personSkillId, sex, price</output>
+			<output>name, attack, def, command, intelligence, charm, politics, personSkillId, sex, price, main_id</output>
 		</table>
 	</file>
 	<file oldName="item" newName="item">
 		<table name="商品">
 			<newName>sellGood</newName>
 			<key>main_id</key>
-			<output>name, price, function, functionNum, costNum</output>
+			<output>name, price, functionType, functionNum, costNum, main_id</output>
 		</table>
 		<table name="商品功能">
 			<newName>itemFunction</newName>
 			<key>main_id</key>
-			<output>name, type</output>
+			<output>name, type, main_id</output>
 		</table>
 	</file>
 	<file oldName="action" newName="action">
 		<table name="行动">
 			<newName>action</newName>
 			<key>main_id</key>
-			<output>name, type, pos, rewards, rewardNums, costPower, costMoney, property, propertyNum, showProgressFlag, noticeLabel, canEntrust</output>
+			<output>name, type, pos, rewards, rewardNums, costPower, costMoney, property, propertyNum, showProgressFlag, noticeLabel, canEntrust, main_id</output>
 		</table>
 	</file>
 	<file oldName="force" newName="force">
 		<table name="势力">
 			<newName>force</newName>
 			<key>main_id</key>
-			<output>name, city</output>
+			<output>name, city, main_id</output>
 		</table>
 	</file>
 	<file oldName="city" newName="city">
 		<table name="城市">
 			<newName>city</newName>
 			<key>main_id</key>
-			<output>name, building, npc, peopleNum, soldierNum, horseNum, commissariatNum, moneyNum, cityDef, cityPos, randomNpcNum</output>
+			<output>name, building, npc, peopleNum, soldierNum, horseNum, commissariatNum, moneyNum, cityDef, cityPos, randomNpcNum, main_id</output>
 		</table>		
 	</file>
 	<file oldName="building" newName="building">
 		<table name="建筑">
 			<newName>building</newName>
 			<key>main_id</key>
-			<output>name, useType, function, showFlag</output>
+			<output>name, useType, functionList, showFlag, main_id</output>
 		</table>
 		<table name="建筑功能">
 			<newName>buildingFunction</newName>
 			<key>main_id</key>
-			<output>name, type</output>
+			<output>name, type, main_id</output>
 		</table>
 	</file>
 	<file oldName="event" newName="event">
 		<table name="大地图随机事件">
 			<newName>mapRandomEvent</newName>
 			<key>main_id</key>
-			<output>name, randomNum, type, num</output>
+			<output>name, randomNum, type, num, main_id</output>
 		</table>
 	</file>
 	<file oldName="Game" newName="Game">
 		<table name="参数">
 			<newName>gameParameter</newName>
 			<key>main_id</key>
-			<output>name, num</output>
+			<output>name, num, main_id</output>
 		</table>
 		<table name="玩家随机数据">
 			<newName>userRandomData</newName>
 			<key>main_id</key>
-			<output>name, num</output>
+			<output>name, num, main_id</output>
 		</table>
 		<table name="测试">
 			<newName>test</newName>
 			<key>main_id</key>
-			<output>name, num</output>
+			<output>name, num, main_id</output>
 		</table>
 	</file>
 	<file oldName="user" newName="user">
 		<table name="玩家相关">
 			<newName>userParameter</newName>
 			<key>main_id</key>
-			<output>name, num</output>
+			<output>name, num, main_id</output>
 		</table>
 	</file>
 	<file oldName="task" newName="task">
 		<table name="任务">
 			<newName>task</newName>
 			<key>main_id</key>
-			<output>name</output>
+			<output>name, main_id</output>
 		</table>
 		<table name="任务条件">
 			<newName>taskCondition</newName>
 			<key>main_id</key>
-			<output>name</output>
+			<output>name, main_id</output>
 		</table>		
 	</file>
 </note>

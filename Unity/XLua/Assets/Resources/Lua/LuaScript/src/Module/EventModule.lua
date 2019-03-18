@@ -3,7 +3,7 @@
 --- Created by liaojh.
 --- DateTime: 2019/3/14 10:34
 ---
-module = {};
+local module = {};
 
 --- 缓存事件数据
 local eventSave = {};
@@ -13,7 +13,7 @@ local function judgeHaveListen (eventName, cb)
     if events == nil then
         return false;
     end
-    for k, v in pairs(events) do
+    for _, v in pairs(events) do
         if v == cb then
             return true;
         end
@@ -46,7 +46,7 @@ module.off = function (eventName, cb)
         return;
     end
     local eventsNew = {};
-    for k, v in pairs(events) do
+    for _, v in pairs(events) do
         if v ~= cb then
             eventsNew[#eventsNew] = cb;
         end
@@ -59,7 +59,7 @@ module.send = function (eventName, ...)
     if events == nil then
         return;
     end
-    for k, v in pairs(events) do
+    for _, v in pairs(events) do
         v(...);
     end
 end
