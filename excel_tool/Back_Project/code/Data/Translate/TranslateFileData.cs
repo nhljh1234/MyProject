@@ -8,6 +8,7 @@ namespace Back_Project.code.Data
     {
         public class TranslateData
         {
+            //sheet表格的新名字
             public string newFileName;
             //以这个作为key
             public string key;
