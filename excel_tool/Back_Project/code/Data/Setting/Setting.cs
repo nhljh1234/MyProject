@@ -45,11 +45,13 @@ namespace Back_Project.code.Data
             jsonSetting.clientOutputPath = GlobalData.getFirstElement(jsonNode, "client").InnerText;
             jsonSetting.globalSetting = GlobalData.getFirstElement(jsonNode, "global").InnerText == "true";
             jsonSetting.workFlag = GlobalData.getFirstElement(jsonNode, "work").InnerText == "true";
+            jsonSetting.init();
             //Lua输出配置
             XmlElement luaNode = GlobalData.getFirstElement(root, "lua");
             luaSetting.clientOutputPath = GlobalData.getFirstElement(luaNode, "client").InnerText;
             luaSetting.globalSetting = GlobalData.getFirstElement(luaNode, "global").InnerText == "true";
             luaSetting.workFlag = GlobalData.getFirstElement(jsonNode, "work").InnerText == "true";
+            luaSetting.init();
         }
 
         public static Setting getInstance(string translateFilePath = null)

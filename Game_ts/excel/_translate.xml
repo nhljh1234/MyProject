@@ -1,36 +1,92 @@
 <note>
 	<file oldName="person" newName="person">
-		<table oldName="人物" newName="person" use="client"/>
+		<table name="人物">
+			<newName>person</newName>
+			<key>main_id</key>
+			<output>name, attack, def, command, intelligence, charm, politics, personSkillId, sex, price</output>
+		</table>
 	</file>
 	<file oldName="item" newName="item">
-		<table oldName="商品" newName="sellGood" use="client"/>
-		<table oldName="商品功能" newName="itemFunction" use="client"/>
+		<table name="商品">
+			<newName>sellGood</newName>
+			<key>main_id</key>
+			<output>name, price, function, functionNum, costNum</output>
+		</table>
+		<table name="商品功能">
+			<newName>itemFunction</newName>
+			<key>main_id</key>
+			<output>name, type</output>
+		</table>
 	</file>
 	<file oldName="action" newName="action">
-		<table oldName="行动" newName="action" use="client"/>
+		<table name="行动">
+			<newName>action</newName>
+			<key>main_id</key>
+			<output>name, type, pos, rewards, rewardNums, costPower, costMoney, property, propertyNum, showProgressFlag, noticeLabel, canEntrust</output>
+		</table>
 	</file>
 	<file oldName="force" newName="force">
-		<table oldName="势力" newName="force" use="client"/>
+		<table name="势力">
+			<newName>force</newName>
+			<key>main_id</key>
+			<output>name, city</output>
+		</table>
 	</file>
 	<file oldName="city" newName="city">
-		<table oldName="城市" newName="city" use="client"/>
+		<table name="城市">
+			<newName>city</newName>
+			<key>main_id</key>
+			<output>name, building, npc, peopleNum, soldierNum, horseNum, commissariatNum, moneyNum, cityDef, cityPos, randomNpcNum</output>
+		</table>		
 	</file>
 	<file oldName="building" newName="building">
-		<table oldName="建筑" newName="building" use="client"/>
-		<table oldName="建筑功能" newName="buildingFunction" use="client"/>
+		<table name="建筑">
+			<newName>building</newName>
+			<key>main_id</key>
+			<output>name, useType, function, showFlag</output>
+		</table>
+		<table name="建筑功能">
+			<newName>buildingFunction</newName>
+			<key>main_id</key>
+			<output>name, type</output>
+		</table>
 	</file>
 	<file oldName="event" newName="event">
-		<table oldName="大地图随机事件" newName="mapRandomEvent" use="client"/>
+		<table name="大地图随机事件">
+			<newName>mapRandomEvent</newName>
+			<key>main_id</key>
+			<output>name, randomNum, type, num</output>
+		</table>
 	</file>
 	<file oldName="Game" newName="Game">
-		<table oldName="参数" newName="gameParameter" use="client"/>
-		<table oldName="玩家随机数据" newName="userRandomData" use="client"/>
+		<table name="参数">
+			<newName>gameParameter</newName>
+			<key>main_id</key>
+			<output>name, num</output>
+		</table>
+		<table name="玩家随机数据">
+			<newName>userRandomData</newName>
+			<key>main_id</key>
+			<output>name, num</output>
+		</table>
 	</file>
 	<file oldName="user" newName="user">
-		<table oldName="玩家相关" newName="userParameter" use="client"/>
+		<table name="玩家相关">
+			<newName>userParameter</newName>
+			<key>main_id</key>
+			<output>name, num</output>
+		</table>
 	</file>
 	<file oldName="task" newName="task">
-		<table oldName="任务" newName="task" use="client"/>
-		<table oldName="任务条件" newName="taskCondition" use="client"/>
+		<table name="任务">
+			<newName>task</newName>
+			<key>main_id</key>
+			<output>name</output>
+		</table>
+		<table name="任务条件">
+			<newName>taskCondition</newName>
+			<key>main_id</key>
+			<output>name</output>
+		</table>		
 	</file>
 </note>

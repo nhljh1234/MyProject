@@ -44,7 +44,7 @@ namespace Back_Project.code.Data
         //获取第index个key对应的字符串
         public string getKeyStrByIndex(int index)
         {
-            if (_keyRowNode == null || index >= _keyRowNode.getCellNodeList().Count)
+            if (_keyRowNode == null || index >= _keyRowNode.getCellNodeList().Count || _keyRowNode.getCellNodeList()[index] == null)
             {
                 return null;
             }
