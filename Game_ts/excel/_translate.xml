@@ -69,6 +69,11 @@
 			<key>main_id</key>
 			<output>name, num</output>
 		</table>
+		<table name="测试">
+			<newName>test</newName>
+			<key>main_id</key>
+			<output>name, num</output>
+		</table>
 	</file>
 	<file oldName="user" newName="user">
 		<table name="玩家相关">

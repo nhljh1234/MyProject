@@ -3,21 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2e9fbaa1-b56a-4c05-a7d1-b66a6eabda07" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LuaScript/src/Data/test.lua" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/LuaScript/src/Main.lua" beforeDir="false" afterPath="$PROJECT_DIR$/LuaScript/src/Main.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/Back_Project.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/Back_Project.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/CellNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/CellNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/TableNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/TableNode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/Translate/TranslateFileData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Data/Translate/TranslateFileData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/GlobalData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/GlobalData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Reader/CellNodeReader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Reader/FileNodeReader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Reader/RowNodeReader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Reader/TableNodeReader.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Writer/CellNodeWriter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Writer/FileNodeWriter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Writer/RowNodeWriter.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../../../excel_tool/Back_Project/code/Tool/Writer/TableNodeWriter.cs" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,34 +16,17 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/LogModule.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-505" />
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/EventModule.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-989" />
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LuaScript/src/Main.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/LuaScript/src/Data/test.lua">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="19" column="30" lean-forward="true" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -140,8 +110,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -216,10 +186,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1852" height="1096" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1874" height="1096" extended-state="7" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26395088" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26681367" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -264,43 +233,17 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/LuaScript/src/Test.lua.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LuaScript/src/Module.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="21" column="14" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/LuaScript/src/Test.lua.txt" />
+    <entry file="file://$PROJECT_DIR$/LuaScript/src/Module.lua" />
+    <entry file="file://$PROJECT_DIR$/LuaScript/src/Data/test.lua" />
     <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/LogModule.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-505" />
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/LuaScript/src/Module/EventModule.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-989" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LuaScript/src/Data/test.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="30" lean-forward="true" selection-start-line="19" selection-start-column="30" selection-end-line="19" selection-end-column="30" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/LuaScript/src/Main.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
