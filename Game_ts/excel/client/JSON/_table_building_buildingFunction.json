@@ -1,0 +1,38 @@
+{
+    "1": {
+        "name": "休息",
+        "type": "rest"
+    },    
+    "2": {
+        "name": "仓库",
+        "type": "warehouse"
+    },    
+    "3": {
+        "name": "钓鱼",
+        "type": "fish"
+    },    
+    "4": {
+        "name": "打猎",
+        "type": "hunt"
+    },    
+    "5": {
+        "name": "治疗",
+        "type": "treat"
+    },    
+    "6": {
+        "name": "旅行",
+        "type": "travel"
+    },    
+    "7": {
+        "name": "交易",
+        "type": "trade"
+    },    
+    "8": {
+        "name": "雇佣",
+        "type": "hire"
+    },    
+    "9": {
+        "name": "执政",
+        "type": "command"
+    }    
+}

@@ -15,18 +15,18 @@ export function getRandomUserRoleData(sex: number, name: string) {
     randomData.sex = sex || MyGame.SEX_MAN;
     randomData.name = name || MyGame.RandomNameTool.getRandomName(randomData.sex);
     //随机数据
-    randomData.attack = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 2).num +
-        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 2).num));
-    randomData.def = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 3).num +
-        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 3).num));
-    randomData.command = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 4).num +
-        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 4).num));
-    randomData.intelligence = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 5).num +
-        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 5).num));
-    randomData.charm = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 6).num +
-        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 6).num));
-    randomData.politics = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 7).num +
-        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 7).num));
+    randomData.attack = MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 2).num +
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 2).num));
+    randomData.def = MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 3).num +
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 3).num));
+    randomData.command = MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 4).num +
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 4).num));
+    randomData.intelligence = MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 5).num +
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 5).num));
+    randomData.charm = MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 6).num +
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 6).num));
+    randomData.politics = MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 7).num +
+        Math.ceil(Math.random() * (100 - MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 7).num));
     randomData.moveSpeed = 5;
     return randomData;
 }
@@ -93,7 +93,7 @@ export class UserRole extends BasePerson {
         //位置
         //初始都是在家的
         this.personPos = {
-            cityId: MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 1).num || 1,
+            cityId: MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 1).num || 1,
             buildingId: MyGame.SELF_HOUSE_ID
         };
         //家的位置，是一个城市id
@@ -110,7 +110,7 @@ export class UserRole extends BasePerson {
         this.warehouseItemObj = {};
         //货币数量
         //初始的时候给玩家一点
-        this.money = MyGame.JsonDataTool.getDataById('_table_Game_userRandomData', 9).num;
+        this.money = MyGame.JsonDataTool.getDataById('Game', 'userRandomData', 9).num;
         //体力
         this.power = MyGame.MAX_POWER;
         //是否在战斗中

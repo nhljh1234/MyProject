@@ -1,16 +1,7 @@
 {
-    "object" : {
-        "1" : {
-            "name" : "休息",
-            "type" : "rest"
-        }    
-    },
-
-    "array" : [
-        {
-            "main_id" : 1,
-            "name" : "休息",
-            "type" : "rest"
-        }    
-    ]
+    "1": {
+        "main_id": 1,
+        "name": "休息",
+        "type": "rest"
+    }    
 }

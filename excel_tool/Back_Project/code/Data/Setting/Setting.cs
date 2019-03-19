@@ -11,11 +11,13 @@ namespace Back_Project.code.Data
         private SettingClass jsonSetting = new SettingClass();
         public class SettingClass
         {
+            //客户端输出路径
             public string clientOutputPath = null;
             //是否输出成一个文件
             public bool globalSetting;
             //是否输出
             public bool workFlag;
+            //初始化，会重新生成输出文件夹
             public void init()
             {
                 if (!workFlag)
@@ -43,11 +45,13 @@ namespace Back_Project.code.Data
             jsonSetting.clientOutputPath = GlobalData.getFirstElement(jsonNode, "client").InnerText;
             jsonSetting.globalSetting = GlobalData.getFirstElement(jsonNode, "global").InnerText == "true";
             jsonSetting.workFlag = GlobalData.getFirstElement(jsonNode, "work").InnerText == "true";
+            jsonSetting.init();
             //Lua输出配置
             XmlElement luaNode = GlobalData.getFirstElement(root, "lua");
             luaSetting.clientOutputPath = GlobalData.getFirstElement(luaNode, "client").InnerText;
             luaSetting.globalSetting = GlobalData.getFirstElement(luaNode, "global").InnerText == "true";
             luaSetting.workFlag = GlobalData.getFirstElement(jsonNode, "work").InnerText == "true";
+            luaSetting.init();
         }
 
         public static Setting getInstance(string translateFilePath = null)

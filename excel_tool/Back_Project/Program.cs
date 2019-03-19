@@ -49,8 +49,6 @@ namespace Back_Project
             //初始化
             code.Data.Setting.SettingClass jsonSetting = setting.getSettingClassByType(GlobalData.OUTPUT_TYPE.JSON);
             code.Data.Setting.SettingClass luaSetting = setting.getSettingClassByType(GlobalData.OUTPUT_TYPE.LUA);
-            jsonSetting.init();
-            luaSetting.init();
             DirectoryInfo workExcelDirInfo = new DirectoryInfo(workDirInfo.FullName);
             //开始执行每一个file
             //拷贝一次

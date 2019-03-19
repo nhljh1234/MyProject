@@ -1,4 +1,12 @@
 <note>
-	<client path="E:\MyProject\Game_ts\Game\assets\resources\Excel_Data"></client>
-	<server path="E:\MyProject\Game_ts\serverData"></server>
+	<json>
+		<client>E:\MyProject\Game_ts\Game\assets\resources\Excel_Data</client>
+		<global>false</global>
+		<work>true</work>
+	</json>
+	<lua>
+		<client>E:\MyProject\Unity\XLua\Assets\Resources\Lua\LuaScript\src\Data</client>
+		<global>false</global>
+		<work>false</work>
+	</lua>
 </note>

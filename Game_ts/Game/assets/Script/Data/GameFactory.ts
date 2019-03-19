@@ -48,7 +48,7 @@ export class Game {
     }
 
     private initGame(month: number, day: number) {
-        this.allForceArr = MyGame.JsonDataTool.getTableByName('_table_force_force').array.map(function (oneForce) {
+        this.allForceArr = MyGame.JsonDataTool.getTableArrByName('force', 'force').map(function (oneForce) {
             return new Force(oneForce.main_id, undefined);
         });
         //所有的城市数据

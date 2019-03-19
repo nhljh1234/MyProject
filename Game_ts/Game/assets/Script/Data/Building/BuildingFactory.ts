@@ -54,7 +54,7 @@ export class Building {
 
     initBuilding(buildingId: number, city: City) {
         //配置数据
-        let jsonData: _table_building_building = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId);
+        let jsonData: _table_building_building = MyGame.JsonDataTool.getDataById('building', 'building', buildingId);
         this.buildingId = buildingId;
         this.personArr = [];
         this.buildingName = jsonData.name;
@@ -63,7 +63,7 @@ export class Building {
         this.showFlag = jsonData.showFlag === 1;
         this.functionArr = [];
         //初始化建筑功能函数
-        let functionArr: number[] = jsonData.function ? ('' + jsonData.function).split(',').map(function (idStr) {
+        let functionArr: number[] = jsonData.functionList ? ('' + jsonData.functionList).split(',').map(function (idStr) {
             return parseInt(idStr);
         }) : [];
         let functionNumArr: string[] = jsonData.functionNum ? ('' + jsonData.functionNum).split(',').map(function (numStr) {
@@ -71,7 +71,7 @@ export class Building {
         }) : [];
         this.functionArr = functionArr.map(function (typeId: number, index: number) {
             let buildingFunctionTypeData: _table_building_buildingFunction =
-                MyGame.JsonDataTool.getDataById('_table_building_buildingFunction', typeId);
+                MyGame.JsonDataTool.getDataById('building', 'buildingFunction', typeId);
             return {
                 functionNameStr: buildingFunctionTypeData.name,
                 functionType: buildingFunctionTypeData.type,
@@ -133,7 +133,7 @@ export class Building {
                 label: MyGame.LanguageTool.getLanguageStr('rest_recover_label'),
                 //休息好体力
                 func: function () {
-                    let actionData = MyGame.JsonDataTool.getDataById('_table_action_action', actionId);
+                    let actionData = MyGame.JsonDataTool.getDataById('action', 'action', actionId);
                     let restTime = MyGame.ActionModule.getRestMinTime(actionData, personData);
                     if (restTime <= 0) {
                         MyGame.LogTool.showLog(`rest error! restTime is error!`);

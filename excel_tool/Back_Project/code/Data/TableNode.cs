@@ -16,6 +16,7 @@ namespace Back_Project.code.Data
         {
             if (code.GlobalData.translateDic.ContainsKey(fileName))
             {
+                 //拿translate中配置的数据表格的新名字
                 _translateData = code.GlobalData.translateDic[fileName].getTranslateData(sheetName);
                 sheetName = _translateData.newFileName;
             }
@@ -33,6 +34,8 @@ namespace Back_Project.code.Data
             return _translateData;
         }
 
+        //设置key数值行
+        //一般是第二行
         public void setKeyRowNode(RowNode keyRowNode)
         {
             _keyRowNode = keyRowNode;
@@ -41,13 +44,14 @@ namespace Back_Project.code.Data
         //获取第index个key对应的字符串
         public string getKeyStrByIndex(int index)
         {
-            if (_keyRowNode == null || index >= _keyRowNode.getCellNodeList().Count)
+            if (_keyRowNode == null || index >= _keyRowNode.getCellNodeList().Count || _keyRowNode.getCellNodeList()[index] == null)
             {
                 return null;
             }
             return _keyRowNode.getCellNodeList()[index].getStr();
         }
 
+        //这个才是数据行
         public void addDataRowNode(RowNode dataRowNode)
         {
             _rowNodeList.Add(dataRowNode);

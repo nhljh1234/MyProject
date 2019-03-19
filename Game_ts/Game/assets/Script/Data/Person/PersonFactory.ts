@@ -28,7 +28,7 @@ export class Person extends BasePerson {
     }
 
     private initPerson(personId: number, randomData: any, cityId: number) {
-        let jsonData = randomData || MyGame.JsonDataTool.getDataById('_table_person_person', personId);
+        let jsonData = randomData || MyGame.JsonDataTool.getDataById('person', 'person', personId);
         this.name = jsonData.name;
         this.attack = jsonData.attack;
         this.def = jsonData.def;

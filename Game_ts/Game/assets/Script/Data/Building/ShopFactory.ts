@@ -30,7 +30,7 @@ export class BuildingShop extends Building {
             if (!this.itemObj.hasOwnProperty(key) || !this.itemObj[key]) {
                 continue;
             }
-            let itemData = MyGame.JsonDataTool.getDataById('_table_item_sellGood', key);
+            let itemData = MyGame.JsonDataTool.getDataById('item', 'sellGood', key);
             let costNum = itemData.costNum * this.city.peopleNum;
             this.itemObj[key] = this.itemObj[key] - costNum;
             this.itemObj[key] = this.itemObj[key] < 0 ? 0 : this.itemObj[key];
@@ -47,7 +47,7 @@ export class BuildingShop extends Building {
             if (!personData.itemObj.hasOwnProperty(key) || !personData.itemObj[key]) {
                 continue;
             }
-            let itemData = MyGame.JsonDataTool.getDataById('_table_item_sellGood', key);
+            let itemData = MyGame.JsonDataTool.getDataById('item', 'sellGood', key);
             let sellPrice = getSellPrice(this.city, itemData, this, parseInt(key));
             //增加金钱
             personData.changeMoneyNum(sellPrice * personData.itemObj[key]);

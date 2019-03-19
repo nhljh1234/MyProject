@@ -54,13 +54,13 @@ export class City {
         this.commissariatNum = saveData.commissariatNum;
         this.moneyNum = saveData.moneyNum;
         this.cityDefNum = saveData.cityDefNum;
-        let jsonData = MyGame.JsonDataTool.getDataById('_table_city_city', this.cityId);
+        let jsonData = MyGame.JsonDataTool.getDataById('city', 'city', this.cityId);
         this.cityName = jsonData.name;
         this.initBuildingData(this, jsonData);
     }
 
     private initCity(cityId: number) {
-        let jsonData = MyGame.JsonDataTool.getDataById('_table_city_city', cityId);
+        let jsonData = MyGame.JsonDataTool.getDataById('city', 'city', cityId);
         this.cityId = cityId;
         this.peopleNum = jsonData.peopleNum;
         this.soldierNum = jsonData.soldierNum;
@@ -88,7 +88,7 @@ export class City {
         }) : [];
         //建筑列表
         thisData.buildingArr = ('' + jsonData.building).split(',').map((buildingId) => {
-            let useType = MyGame.JsonDataTool.getDataById('_table_building_building', buildingId).useType;
+            let useType = MyGame.JsonDataTool.getDataById('building', 'building', buildingId).useType;
             switch (useType) {
                 case MyGame.BUILDING_TYPE_SHOP:
                     return new BuildingShop(parseInt(buildingId), undefined, this);

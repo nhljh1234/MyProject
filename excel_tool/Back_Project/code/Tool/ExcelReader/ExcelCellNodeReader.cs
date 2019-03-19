@@ -30,6 +30,7 @@ namespace Back_Project.code.Tool.ExcelReader
             double num = 0;
             Boolean boolData = false;
             string str = null;
+            //获取单元格的数据类型
             CellType cellType = _cell.CellType == CellType.Formula ? _cell.CachedFormulaResultType : _cell.CellType;
             if (cellType == CellType.Blank)
             {

@@ -39,6 +39,10 @@ namespace Back_Project.code.Tool.ExcelReader
                 {
                     //这边判断是不是key和output
                     string key = _tableNode.getKeyStrByIndex(i);
+                    if (key == null)
+                    {
+                        continue;
+                    }
                     excelCellNodeReader = new ExcelCellNodeReader(cell, _tableNode.getSheetName(), key);
                     Data.TranslateFileData.TranslateData translateData = _tableNode.getTranslateData();
                     if (translateData.key == key)

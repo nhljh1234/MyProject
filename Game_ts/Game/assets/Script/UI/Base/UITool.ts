@@ -103,7 +103,7 @@ export function showItemScrollView(lineShowItemNum: number, itemObj: { [itemId: 
         }
         dataArr[index].push({
             number: itemObj[key],
-            data: MyGame.JsonDataTool.getDataById('_table_item_sellGood', parseInt(key)),
+            data: MyGame.JsonDataTool.getDataById('item', 'sellGood', parseInt(key)),
             id: parseInt(key)
         });
     }

@@ -3,7 +3,7 @@
 --- Created by liaojh.
 --- DateTime: 2019/3/14 11:11
 ---
-module = {};
+local module = {};
 
 local SHOW_LOG = true;
 
@@ -23,12 +23,13 @@ local function showTable(table)
     for k, v in pairs(table) do
         module.showLog("key: " .. k);
         module.showLog(v);
+        print("");
     end
 end
 
-module.showLog = function (data)
+module.showLog = function(data)
     if not SHOW_LOG then
-        return;
+        return ;
     end
     local type = type(data);
     if type == "string" then

@@ -26,7 +26,7 @@ export function getRestMinTime(actionData: any, personData: BasePerson) {
  * @param personData 
  */
 export function getActionRunMaxTime(actionId: number, personData: BasePerson): number {
-    let actionData = MyGame.JsonDataTool.getDataById('_table_action_action', actionId);
+    let actionData = MyGame.JsonDataTool.getDataById('action', 'action', actionId);
     switch (actionData.type) {
         case ACTION_TYPE_WORK:
             return getWorkActionRunMaxTime(actionData, personData);

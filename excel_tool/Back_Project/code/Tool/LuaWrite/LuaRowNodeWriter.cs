@@ -18,7 +18,8 @@ namespace Back_Project.code.Tool.LuaWrite
                 return null;
             }
             string key = dataRowNode.getCellNodeList()[0].getData().ToString();
-            if (key == int.Parse(key).ToString())
+            int parseResult = 0;
+            if (int.TryParse(key, out parseResult) && key == int.Parse(key).ToString())
             {
                 returnStr = GlobalData.getLuaRowBlock() + "{";
             }
