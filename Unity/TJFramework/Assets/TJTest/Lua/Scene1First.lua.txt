@@ -1,0 +1,9 @@
+-- 此文件被 FirstAwakeLua.cs 调用, 会被优先执行
+
+require("init")
+
+return function()
+    -- 演示LBehaviourBind用法
+    local go = CS.UnityEngine.GameObject.Find("Canvas")
+    LBehaviourBind(go, require("Scene1"), CS.TJ.LBehaviour)
+end

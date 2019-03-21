@@ -1,0 +1,17 @@
+{
+    "list": [
+        "Assets/TJTest/Cube.prefab | assets/tjtest/cube.prefab.ab",
+        "Assets/TJTest/Cylinder.prefab | assets/tjtest/cylinder.prefab.ab",
+        "Assets/TJTest/lua/init.lua.txt | assets/tjtest/lua/lua.ab",
+        "Assets/TJTest/lua/Scene1.lua.txt | assets/tjtest/lua/lua.ab",
+        "Assets/TJTest/lua/Scene1First.lua.txt | assets/tjtest/lua/lua.ab",
+        "Assets/TJTest/lua/Scene2.lua.txt | assets/tjtest/lua/lua.ab",
+        "Assets/TJTest/Materials/ARobot.mat | assets/tjtest/materials/sha.ab",
+        "Assets/TJTest/Materials/bluep.mat | assets/tjtest/materials/sha.ab",
+        "Assets/TJTest/pe/Sphere.prefab | assets/tjtest/pe/sphere.prefab.ab",
+        "Assets/TJTest/Plane.prefab | assets/tjtest/plane.prefab.ab",
+        "Assets/TJTest/Scene/Launch.unity | assets/tjtest/scene/launch.unity.ab",
+        "Assets/TJTest/Scene/Scene1.unity | assets/tjtest/scene/scene1.unity.ab",
+        "Assets/TJTest/Scene/Scene2.unity | assets/tjtest/scene/scene2.unity.ab"
+    ]
+}

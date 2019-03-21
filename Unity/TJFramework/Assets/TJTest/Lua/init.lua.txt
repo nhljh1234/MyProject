@@ -1,0 +1,56 @@
+
+--[[
+给指定的gameObject添加LBehaviour, 并指定LBehaviour的对应的lua绑定对象为luaInst
+LBehaviour相当于Lua版本的MonoBehaviour, 具体说明查看LBehaviour的类说明
+luaInst是lua的table
+MonoBehaviour和luaInst通过LBehaviour桥接, 实现MonoBehaviour的消息可以发送到luaInst的同名函数
+消息回调的第一个参数为luaInst, 比如OnBind = function(self) end, 其中self就是luaInst
+通过选择不同的LBehaviour可以收到不同的消息.
+无法实现Awake消息
+增加OnBind的消息
+
+luaInst.comp会被设置为指定的LBehaviour
+
+参数说明:
+gameObject: CS.UnityEngine.GameObject
+luaInstOrOther: 普通talbe, 直接使用. 类, 使用new()或New()返回值. 函数, 使用func()返回值
+LBehaviour: 默认为CS.TJ.LBehaviour, 这个值必须是CS.TJ.LBehaviour或者其继承类
+--]]
+local function LBehaviourBind(gameObject, luaInstOrOther, LBehaviour)
+    local luaInst
+    if type(luaInstOrOther) == "table" then
+        local func = rawget(luaInstOrOther, "new") or rawget(luaInstOrOther, "New")
+        if func and type(func) == "function" then
+            luaInst = func()    --TODO: no test
+        else
+            luaInst = luaInstOrOther
+        end
+    elseif type(luaInstOrOther) == "function" then
+        luaInst = luaInstOrOther()
+    end
+    LBehaviour = LBehaviour or CS.TJ.LBehaviour;
+    local comp = gameObject:AddComponent(typeof(LBehaviour));
+    comp:Bind(luaInst);
+end
+
+
+-- 注册为全局函数
+_G["LBehaviourBind"] = LBehaviourBind
+
+
+-- 引擎Dispose前的回调
+CS.TJ.LuaManager.Instance:AddLuaFunction("EngineBeforeDispose",
+function ()
+    print("call lua funcEngineBeforeDispose")
+end)
+
+
+--[[
+确定以何种方式进行异步加载.
+LoadAssetAsync方法执行时, 使用同步的LoadBundle方法
+Unity, AssetBundle同一个包的加载无法先执行异步再执行同步, 而且AssetBundle又有各种依赖关系, 
+  所以在异步和同步加载同时需要时, 容易出现异常, 所以提供此配置选项.
+AssetBundle我们使用LZ4压缩方式, 此种方式初始加载速度很快
+--]]
+-- CS.TJ.BundleManager.Instance.IsLoadAssetAsyncButBundleSync = true;
+

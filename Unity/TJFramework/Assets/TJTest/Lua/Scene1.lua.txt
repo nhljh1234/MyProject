@@ -1,0 +1,69 @@
+
+local util = require("xlua.util")
+
+-- 演示函数的方式结合LBehaviour.
+return function ()
+    local inst = {
+        num = 0,
+
+        -- 第一个参数比如是self, 就是inst自身
+        OnBind = function(self)
+            -- 演示手动持有当前的场景包
+            local scenename = CS.UnityEngine.SceneManagement.SceneManager.GetActiveScene().path
+            local bname = CS.TJ.BundleManager.Instance:AssetBundleName(scenename)
+            local bundle = CS.TJ.BundleManager.Instance:LoadBundle(bname)
+            CS.TJ.BundleManager.Instance:SetBundleHold(bundle, true)
+
+            -- 演示按钮响应
+            self.btnAddOne = self.comp.transform:Find("btnAddOne")
+            local btnComp = self.btnAddOne:GetComponent(typeof(CS.UnityEngine.UI.Button))
+            btnComp.onClick:AddListener(function()
+                self:AddOne()
+            end)
+
+            -- 演示场景切换
+            self.btnChangeScene = self.comp.transform:Find("btnChangeScene")
+            local btnComp = self.btnChangeScene:GetComponent(typeof(CS.UnityEngine.UI.Button))
+            btnComp.onClick:AddListener(function()
+                -- 演示异步场景加载. 注意util.cs_generator函数
+                self.comp:StartCoroutine(util.cs_generator(function()
+                    print("co change scene")
+                    local scenename = "Assets/TJTest/Scene/Scene2.unity";
+                    local bname = CS.TJ.BundleManager.Instance:AssetBundleName(scenename)
+                    local req = CS.TJ.BundleManager.Instance:LoadBundleAsync(bname, true);
+                    coroutine.yield(req)
+                    local req1 = CS.UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scenename);
+                    -- coroutine.yield(req1)    -- 此指令的后续无法执行
+                end))
+            end)
+
+            -- 演示重置游戏
+            self.btnResetGame = self.comp.transform:Find("btnResetGame")
+            local btnComp = self.btnResetGame:GetComponent(typeof(CS.UnityEngine.UI.Button))
+            btnComp.onClick:AddListener(function()
+                print("reset game")
+                CS.EngineResetManager.Instance:Reset()
+            end)
+        end,
+
+        Start = function(self)
+            --演示异步加载资源, 且显示出来
+            self.comp:StartCoroutine(util.cs_generator(function()
+                local req = CS.TJ.BundleManager.Instance:LoadAssetAsync("assets/tjtest/cylinder.prefab")
+                coroutine.yield(req)
+                local asset = req.Asset
+                asset:Instantiate()
+            end))
+        end,
+
+        OnDestroy = function(self)
+        end,
+
+        AddOne = function(self)
+            self.num = self.num + 1
+            self.comp.transform:Find("Text"):GetComponent(typeof(CS.UnityEngine.UI.Text)).text = self.num
+        end,
+    }
+
+    return inst
+end

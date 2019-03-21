@@ -1,0 +1,40 @@
+
+-- 演示类的方式和LBehaviour结合. 注意消息回调没有Awake, 多了OnBind
+-- 这个类的实现粗糙了点
+local Scene2View = {}
+
+function Scene2View.new()
+    local inst = {}
+    setmetatable(inst, {__index = Scene2View})
+    return inst
+end
+
+-- LBehaviour被移除, 会被comp设置为nil
+function Scene2View:IsDestroyed()
+    return (self.comp == nil)
+end
+
+function Scene2View:OnBind()
+    print("OnBind, Scene2View")
+
+    --演示垃圾回收
+    collectgarbage("collect")
+    CS.System.GC.Collect();
+    CS.System.GC.WaitForPendingFinalizers()
+    --演示无用包回收
+    CS.TJ.BundleManager.Instance:UnloadUnusedBundles(false)
+
+    --演示同步场景加载
+    self.btnScene = self.comp.transform:Find("btnScene")
+    local btnComp = self.btnScene:GetComponent(typeof(CS.UnityEngine.UI.Button))
+    btnComp.onClick:AddListener(function()
+        print("change scene")
+        local scenename = "Assets/TJTest/Scene/Scene1.unity";
+        local bname = CS.TJ.BundleManager.Instance:AssetBundleName(scenename)
+        CS.TJ.BundleManager.Instance:LoadBundle(bname, true);
+        CS.UnityEngine.SceneManagement.SceneManager.LoadScene(scenename);
+    end)
+
+end
+
+return Scene2View
