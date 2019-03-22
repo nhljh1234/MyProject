@@ -14,7 +14,7 @@ Shader "Shader Forge/liuguang" {
     SubShader {
         Tags {
             "IgnoreProjector"="True"
-            "Queue"="Transparent"
+            "Queue"="AlphaTest"
             "RenderType"="Transparent"
             "PreviewType"="Plane"
         }

@@ -26,6 +26,9 @@ namespace ShaderForgeTool
 
             checkBoxFog.Checked = false;
             checkBoxFog.Enabled = false;
+
+            checkBoxQueue.Checked = false;
+            checkBoxQueue.Enabled = false;
         }
 
         private PassClass passClass = null;
@@ -46,28 +49,40 @@ namespace ShaderForgeTool
                 passClass = new PassClass(filePathSave);
                 checkBoxShadow.Enabled = true;
                 checkBoxFog.Enabled = true;
+                checkBoxQueue.Enabled = true;
                 textBox.Text = passClass.getResultCodeStr();
                 checkBoxShadow.Checked = passClass.judgeHaveShadowCaster();
                 checkBoxFog.Checked = passClass.judgeHaveFogEffect();
+                checkBoxQueue.Checked = passClass.judgeTransparentQueue();
             }
         }
 
         private void checkBoxShadow_CheckedChanged(object sender, EventArgs e)
         {
-            bool showShadow = checkBoxShadow.Checked;
+            bool showShadowFlag = checkBoxShadow.Checked;
             if (passClass != null)
             {
-                passClass.checkShadowChange(showShadow);
+                passClass.checkShadowChange(showShadowFlag);
             }
             textBox.Text = passClass.getResultCodeStr();
         }
 
         private void checkBoxFog_CheckedChanged(object sender, EventArgs e)
         {
-            bool showFog = checkBoxFog.Checked;
+            bool showFogFlag = checkBoxFog.Checked;
             if (passClass != null)
             {
-                passClass.checkFogEffectChange(showFog);
+                passClass.checkFogEffectChange(showFogFlag);
+            }
+            textBox.Text = passClass.getResultCodeStr();
+        }
+
+        private void checkBoxQueue_CheckedChanged(object sender, EventArgs e)
+        {
+            bool spineQueueFlag = checkBoxQueue.Checked;
+            if (passClass != null)
+            {
+                passClass.checkSpineQueueChange(spineQueueFlag);
             }
             textBox.Text = passClass.getResultCodeStr();
         }

@@ -13,6 +13,7 @@ namespace ShaderForgeTool.Data
 
         private ShadowTool shadowTool = new ShadowTool();
         private FogTool fogTool = new FogTool();
+        private TagsTool tagsTool = new TagsTool();
 
         //初始化类
         public PassClass(string filePath)
@@ -63,7 +64,6 @@ namespace ShaderForgeTool.Data
         {
             shaderCodeList = shadowTool.checkShadowChange(showShadow, shaderCodeList);
         }
-
         public bool judgeHaveShadowCaster()
         {
             return shadowTool.judgeHaveShadowCaster(shaderCodeList);
@@ -74,10 +74,19 @@ namespace ShaderForgeTool.Data
         {
             shaderCodeList = fogTool.checkFogChange(showFog, shaderCodeList);
         }
-
         public bool judgeHaveFogEffect()
         {
             return fogTool.judgeHaveFogEffect(shaderCodeList);
+        }
+
+        //渲染队列相关
+        public void checkSpineQueueChange(bool useSpineQueueFlag)
+        {
+            shaderCodeList = tagsTool.changeQueueToTransparent(useSpineQueueFlag, shaderCodeList);
+        }
+        public bool judgeTransparentQueue()
+        {
+            return tagsTool.getQueueIsTransparent(shaderCodeList);
         }
     }
 }

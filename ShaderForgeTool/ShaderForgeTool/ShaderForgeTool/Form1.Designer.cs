@@ -33,6 +33,7 @@
             this.textBox = new System.Windows.Forms.TextBox();
             this.checkBoxShadow = new System.Windows.Forms.CheckBox();
             this.checkBoxFog = new System.Windows.Forms.CheckBox();
+            this.checkBoxQueue = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonFile
@@ -94,9 +95,22 @@
             this.checkBoxFog.UseVisualStyleBackColor = true;
             this.checkBoxFog.CheckedChanged += new System.EventHandler(this.checkBoxFog_CheckedChanged);
             // 
+            // checkBoxQueue
+            // 
+            this.checkBoxQueue.AutoSize = true;
+            this.checkBoxQueue.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxQueue.Location = new System.Drawing.Point(12, 76);
+            this.checkBoxQueue.Name = "checkBoxQueue";
+            this.checkBoxQueue.Size = new System.Drawing.Size(159, 26);
+            this.checkBoxQueue.TabIndex = 5;
+            this.checkBoxQueue.Text = "spine渲染队列";
+            this.checkBoxQueue.UseVisualStyleBackColor = true;
+            this.checkBoxQueue.CheckedChanged += new System.EventHandler(this.checkBoxQueue_CheckedChanged);
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(1188, 663);
+            this.Controls.Add(this.checkBoxQueue);
             this.Controls.Add(this.checkBoxFog);
             this.Controls.Add(this.checkBoxShadow);
             this.Controls.Add(this.textBox);
@@ -115,6 +129,7 @@
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.CheckBox checkBoxShadow;
         private System.Windows.Forms.CheckBox checkBoxFog;
+        private System.Windows.Forms.CheckBox checkBoxQueue;
     }
 }
 

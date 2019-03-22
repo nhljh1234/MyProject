@@ -48,6 +48,7 @@
     <Compile Include="Data\FogTool.cs" />
     <Compile Include="Data\PassClass.cs" />
     <Compile Include="Data\ShadowTool.cs" />
+    <Compile Include="Data\TagsTool.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
