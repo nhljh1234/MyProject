@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1457702996
+CRC: 571748268
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6ad496808ecc04c7faa24fe31226071f
+    Hash: d62502906c0e9a888211a9bd57b5be14
   TypeTreeHash:
     serializedVersion: 2
     Hash: 5ad585dd02dfb5016c0dad519eab8f49
@@ -12,6 +12,7 @@ ClassTypes:
 - Class: 49
   Script: {instanceID: 0}
 Assets:
+- Assets/TJTest/Lua/Module/test.lua.txt
 - Assets/TJTest/Lua/init.lua.txt
 - Assets/TJTest/Lua/Scene2.lua.txt
 - Assets/TJTest/Lua/Scene1.lua.txt

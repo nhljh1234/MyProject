@@ -3,6 +3,7 @@
         "Assets/TJTest/Cube.prefab | assets/tjtest/cube.prefab.ab",
         "Assets/TJTest/Cylinder.prefab | assets/tjtest/cylinder.prefab.ab",
         "Assets/TJTest/lua/init.lua.txt | assets/tjtest/lua/lua.ab",
+        "Assets/TJTest/lua/Module/test.lua.txt | assets/tjtest/lua/lua.ab",
         "Assets/TJTest/lua/Scene1.lua.txt | assets/tjtest/lua/lua.ab",
         "Assets/TJTest/lua/Scene1First.lua.txt | assets/tjtest/lua/lua.ab",
         "Assets/TJTest/lua/Scene2.lua.txt | assets/tjtest/lua/lua.ab",

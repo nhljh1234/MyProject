@@ -1,5 +1,6 @@
 
 local util = require("xlua.util")
+local test = require("Module.test");
 
 -- 演示函数的方式结合LBehaviour.
 return function ()
@@ -54,6 +55,9 @@ return function ()
                 local asset = req.Asset
                 asset:Instantiate()
             end))
+
+            print("test test")
+            test.test()
         end,
 
         OnDestroy = function(self)
