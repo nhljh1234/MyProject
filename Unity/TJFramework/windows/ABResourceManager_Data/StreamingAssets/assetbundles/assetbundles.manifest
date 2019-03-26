@@ -1,0 +1,38 @@
+ManifestFileVersion: 0
+CRC: 4123887661
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: assets/tjtest/scene/launch.unity.ab
+      Dependencies: {}
+    Info_1:
+      Name: assets/tjtest/scene/scene1.unity.ab
+      Dependencies:
+        Dependency_0: assets/tjtest/cube.prefab.ab
+        Dependency_1: assets/tjtest/plane.prefab.ab
+        Dependency_2: assets/tjtest/pe/sphere.prefab.ab
+    Info_2:
+      Name: assets/tjtest/scene/scene2.unity.ab
+      Dependencies: {}
+    Info_3:
+      Name: assets/tjtest/cube.prefab.ab
+      Dependencies:
+        Dependency_0: assets/tjtest/materials/sha.ab
+    Info_4:
+      Name: assets/tjtest/cylinder.prefab.ab
+      Dependencies:
+        Dependency_0: assets/tjtest/materials/sha.ab
+    Info_5:
+      Name: assets/tjtest/plane.prefab.ab
+      Dependencies:
+        Dependency_0: assets/tjtest/materials/sha.ab
+    Info_6:
+      Name: assets/tjtest/pe/sphere.prefab.ab
+      Dependencies:
+        Dependency_0: assets/tjtest/materials/sha.ab
+    Info_7:
+      Name: assets/tjtest/lua/lua.ab
+      Dependencies: {}
+    Info_8:
+      Name: assets/tjtest/materials/sha.ab
+      Dependencies: {}
