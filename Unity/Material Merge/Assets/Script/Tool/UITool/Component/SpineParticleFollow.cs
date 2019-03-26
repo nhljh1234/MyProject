@@ -11,6 +11,7 @@ namespace TJ_UNITY_TOOL
         //跟随的结点
         public string boneName;
         public Transform particle;
+        public Vector2 offset = Vector2.zero;
         private SkeletonAnimation _skeletonAnimation;
 		private Bone _bone = null;
         void Start()
@@ -24,7 +25,8 @@ namespace TJ_UNITY_TOOL
         {
 			if (_bone != null && particle) 
 			{
-				particle.position = new Vector3(_bone.worldX + transform.position.x, _bone.worldY + transform.position.y, 0);
+				particle.position = new Vector3(_bone.worldX + transform.position.x + offset.x, 
+                _bone.worldY + transform.position.y + offset.y, 0);
 			}
         }
     }
