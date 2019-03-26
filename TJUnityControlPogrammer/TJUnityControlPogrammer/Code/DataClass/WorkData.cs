@@ -10,13 +10,15 @@ namespace TJUnityControlPogrammer.Code.DataClass
     {
         private string _windowDirPath = null;
         private string _outputPath = null;
-        private string _assetBundlePath = null;
+        private string _assetBundlePathTo = null;
+        private string _assetBundlePathFrom = null;
 
-        public WorkData(string windowDirPath, string outputPath, string assetBundlePath)
+        public WorkData(string windowDirPath, string outputPath, string assetBundlePathTo, string assetBundlePathFrom)
         {
             _windowDirPath = windowDirPath;
             _outputPath = outputPath;
-            _assetBundlePath = assetBundlePath;
+            _assetBundlePathTo = assetBundlePathTo;
+            _assetBundlePathFrom = assetBundlePathFrom;
         }
 
         public string getWindowDirPath()
@@ -29,9 +31,14 @@ namespace TJUnityControlPogrammer.Code.DataClass
             return _outputPath;
         }
 
-        public string getAssetBundlePath()
+        public string getAssetBundlePathTo()
         {
-            return _assetBundlePath;
+            return _assetBundlePathTo;
+        }
+
+        public string getAssetBundlePathFrom()
+        {
+            return _assetBundlePathFrom;
         }
     }
 }

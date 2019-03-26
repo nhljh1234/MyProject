@@ -43,31 +43,9 @@ namespace TJUnityControlPogrammer
                 return;
             }
             string copyFromPath, copyToPath;
-            copyFromPath = _workDate.getWindowDirPath() + "\\" + _workDate.getAssetBundlePath();
-            copyToPath = _workDate.getOutputPath() + "\\" + _workDate.getAssetBundlePath();
-            //判断文件夹是否存在
-            if (!Directory.Exists(copyFromPath))
-            {
-                showLog("源AssetBundle文件夹不存在");
-                return;
-            }
-            //判断文件夹是否被占用
-            if (judgeDirInWork())
-            {
-                //被占用了
-                showLog("目标文件夹被占用，请稍后");
-                return;
-            }
-            showLog("开始拷贝");
-            lockDir();
-            //拷贝文件
-            List<string> copyFilePathList = copyDir(copyFromPath, copyToPath);
-            for (int i = 0; i < copyFilePathList.Count; i++)
-            {
-                showLog(copyFilePathList[i]);
-            }
-            unlockDir();
-            showLog("结束拷贝");
+            copyFromPath = _workDate.getAssetBundlePathFrom();
+            copyToPath = _workDate.getAssetBundlePathTo();
+            copyAllFile(copyFromPath, copyToPath);
         }
 
         private void copy_all_Click(object sender, EventArgs e)
@@ -80,6 +58,11 @@ namespace TJUnityControlPogrammer
             string copyFromPath, copyToPath;
             copyFromPath = _workDate.getWindowDirPath();
             copyToPath = _workDate.getOutputPath();
+            copyAllFile(copyFromPath, copyToPath);
+        }
+
+        private void copyAllFile(string copyFromPath, string copyToPath)
+        {
             //判断文件夹是否存在
             if (!Directory.Exists(copyFromPath))
             {
@@ -165,13 +148,18 @@ namespace TJUnityControlPogrammer
             //先拷贝文件
             foreach (FileInfo file in dirFrom.GetFiles())
             {
+                //判断是不是.meta文件
+                if (file.Name.IndexOf(".meta") >= 0)
+                {
+                    continue;
+                }
                 //判断是不是快速拷贝
                 //快速拷贝看时间戳
                 string copyToFilePath = dirToPath + "\\" + file.Name;
                 if (quickCopy && File.Exists(copyToFilePath))
                 {
                     FileInfo fileTo = new FileInfo(copyToFilePath);
-                    if(fileTo.CreationTime == file.CreationTime)
+                    if(fileTo.LastWriteTime == file.LastWriteTime)
                     {
                         continue;
                     }
@@ -191,6 +179,12 @@ namespace TJUnityControlPogrammer
         private void unlock_Click(object sender, EventArgs e)
         {
             unlockDir();
+        }
+
+        private void clear_log_Click(object sender, EventArgs e)
+        {
+            _outputMsg = "";
+            text_box.Text = _outputMsg;
         }
     }
 }
