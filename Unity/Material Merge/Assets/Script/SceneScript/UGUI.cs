@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UGUI : MonoBehaviour
 {
@@ -10,7 +11,11 @@ public class UGUI : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        TJ_UNITY_TOOL.RectTransformTool.setLocalPosition(rectTransform, 100, 100);
+        //TJ_UNITY_TOOL.RectTransformTool.setLocalPosition(rectTransform, 100, 100);
+        rectTransform.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            print("sssssss");
+        });
     }
 
     // Update is called once per frame
