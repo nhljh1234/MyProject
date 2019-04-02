@@ -16,6 +16,7 @@ public class UGUI : MonoBehaviour
         {
             print("sssssss");
         });
+        rectTransform.localPosition = new Vector3(200f, 200f, 0);
     }
 
     // Update is called once per frame
