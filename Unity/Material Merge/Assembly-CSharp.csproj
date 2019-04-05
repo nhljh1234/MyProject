@@ -232,7 +232,6 @@
      <Compile Include="Assets\Spine\spine-unity\SpineAttributes.cs" />
      <None Include="Assets\Spine Examples\Spine\Eyes\eyes.atlas.txt" />
      <None Include="Assets\Spine\spine-unity\Shaders\Utility\HiddenPass.shader" />
-     <None Include="Assets\T\two\shenguan4.atlas.txt" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Spine-Skeleton-Fill.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\SpritePixelLighting.cginc" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteVertexLighting.cginc" />
