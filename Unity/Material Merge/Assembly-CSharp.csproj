@@ -230,6 +230,8 @@
      <Compile Include="Assets\Spine\spine-unity\SkeletonUtility\SkeletonUtilityBone.cs" />
      <Compile Include="Assets\Spine\spine-unity\SkeletonUtility\SkeletonUtilityConstraint.cs" />
      <Compile Include="Assets\Spine\spine-unity\SpineAttributes.cs" />
+     <Compile Include="Assets\TiledMap\PennyPixel\Scripts\PhysicsObject.cs" />
+     <Compile Include="Assets\TiledMap\PennyPixel\Scripts\PlayerPlatformerController.cs" />
      <None Include="Assets\Spine Examples\Spine\Eyes\eyes.atlas.txt" />
      <None Include="Assets\Spine\spine-unity\Shaders\Utility\HiddenPass.shader" />
      <None Include="Assets\Spine\spine-unity\Modules\Shaders\Spine-Skeleton-Fill.shader" />
