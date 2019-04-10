@@ -75,8 +75,8 @@ namespace TJ_UNITY_TOOL
                 return new Vector2();
             }
             Vector2 size = getSize(panel);
-            return new Vector2(x / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_WIDTH * size.x,
-                y / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_HEIGHT * size.y);
+            return new Vector2(x / TJ_UNITY_TOOL.SceneRatioTool.SCENE_DESIGN_WIDTH * size.x,
+                y / TJ_UNITY_TOOL.SceneRatioTool.SCENE_DESIGN_HEIGHT * size.y);
         }
         public static Vector2 getWorldPositionByDesign(Vector2 pos)
         {
@@ -199,8 +199,8 @@ namespace TJ_UNITY_TOOL
         //根据设计分辨率来设置坐标
         public static void setWorldPositionByDesign(RectTransform rectTransform, float x, float y)
         {
-            setWorldPositionByRatio(rectTransform, x / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_WIDTH,
-                y / TJ_UNITY_TOOL.SceneRatioTool.SCEEN_DESIGN_HEIGHT);
+            setWorldPositionByRatio(rectTransform, x / TJ_UNITY_TOOL.SceneRatioTool.SCENE_DESIGN_WIDTH,
+                y / TJ_UNITY_TOOL.SceneRatioTool.SCENE_DESIGN_HEIGHT);
         }
         public static void setWorldPositionByDesign(RectTransform rectTransform, Vector2 pos)
         {

@@ -11,8 +11,8 @@ namespace TJ_UNITY_TOOL
         private const int SCENE_BACK_NUM = 60;
 
         //设计分辨率
-        public static float SCEEN_DESIGN_WIDTH = 1334;
-        public static float SCEEN_DESIGN_HEIGHT = 750;
+        public static float SCENE_DESIGN_WIDTH = 1334;
+        public static float SCENE_DESIGN_HEIGHT = 750;
 
         public enum SCENE_MODE
         {
