@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using TJ_UNITY_TOOL;
 
 public class TiledMapAStart : MonoBehaviour
 {
@@ -8,11 +10,11 @@ public class TiledMapAStart : MonoBehaviour
     public int xMin, yMin, xMax, yMax;
     void Start()
     {
-        TJ_UNITY_TOOL.AStartTool aStartTool = new TJ_UNITY_TOOL.AStartTool(xMin, yMin, xMax, yMax);
-        aStartTool.Init();
-        aStartTool.AddWay(GetWayInfo(ground));
-        aStartTool.AddBlock(GetWayInfo(water), new TJ_UNITY_TOOL.AStartTool.WayInfo[] { GetWayInfo(stoneWater) });
-        aStartTool.AddBlock(GetWayInfo(stone), null);
+        string outputPathResult = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/output.json";
+        string jstr = File.ReadAllText(outputPathResult);
+        TileMapAStarBlockToJson.TileMapBlockJsonData tileMapBlockJsonData = 
+            JsonUtility.FromJson<TileMapAStarBlockToJson.TileMapBlockJsonData>(jstr);
+        AStartTool aStartTool = new AStartTool(xMin, yMin, xMax, yMax, tileMapBlockJsonData.GetWays());
         long nowTime = DateTime.Now.Ticks;
         Vector2Int[] ways = aStartTool.GetWays(new Vector2Int(-17, -18), new Vector2Int(-16, 16));
         //Vector2Int[] ways = aStartTool.GetWays(new Vector2Int(-17, -18), new Vector2Int(-17, -19));
@@ -30,24 +32,5 @@ public class TiledMapAStart : MonoBehaviour
             //TileBase tile = ground.GetTile(new Vector3Int(ways[i].x, ways[i].y, 0));
             ground.SetTile(new Vector3Int(ways[i].x, ways[i].y, 0), null);
         }
-    }
-
-    private TJ_UNITY_TOOL.AStartTool.WayInfo GetWayInfo(Tilemap tileMap)
-    {
-        TJ_UNITY_TOOL.AStartTool.WayInfo wayInfo = new TJ_UNITY_TOOL.AStartTool.WayInfo
-        {
-            startX = 0,
-            startY = 0
-        };
-        bool[,] wayInfos = new bool[xMax - xMin + 1, yMax - yMin + 1];
-        for (int i = xMin; i <= xMax; i++)
-        {
-            for (int j = yMin; j <= yMax; j++)
-            {
-                wayInfos[i - xMin, j - yMin] = tileMap.GetTile(new Vector3Int(i, j, 0)) != null;
-            }
-        }
-        wayInfo.wayInfos = wayInfos;
-        return wayInfo;
     }
 }

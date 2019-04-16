@@ -133,7 +133,9 @@
     <Compile Include="Assets\Script\SceneScript\UGUI.cs" />
     <Compile Include="Assets\Script\SceneScript\UGUI_Adaptation.cs" />
     <Compile Include="Assets\Script\SceneScript\UGUI_Manager.cs" />
-    <Compile Include="Assets\Script\Tool\AStartTool.cs" />
+    <Compile Include="Assets\Script\Tool\AStar\AStarBlockTool.cs" />
+    <Compile Include="Assets\Script\Tool\AStar\AStartTool.cs" />
+    <Compile Include="Assets\Script\Tool\AStar\TileMapAStarBlockToJson.cs" />
     <Compile Include="Assets\Script\Tool\GameObjectTool\GameObjectTool.cs" />
     <Compile Include="Assets\Script\Tool\MeshTool\MaterialManager.cs" />
     <Compile Include="Assets\Script\Tool\MeshTool\MeshManager.cs" />
