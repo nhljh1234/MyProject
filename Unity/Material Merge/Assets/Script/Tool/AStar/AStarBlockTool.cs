@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TJ_UNITY_TOOL
 {
+    //这个工具就是帮助输出一个完整的_ways二维数组
     public class AStarBlockTool
     {
 

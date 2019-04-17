@@ -6,15 +6,14 @@ using TJ_UNITY_TOOL;
 
 public class TiledMapAStart : MonoBehaviour
 {
-    public Tilemap ground, water, stone, stoneWater;
-    public int xMin, yMin, xMax, yMax;
+    public Tilemap ground;
     void Start()
     {
         string outputPathResult = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "/output.json";
-        string jstr = File.ReadAllText(outputPathResult);
-        TileMapAStarBlockToJson.TileMapBlockJsonData tileMapBlockJsonData = 
-            JsonUtility.FromJson<TileMapAStarBlockToJson.TileMapBlockJsonData>(jstr);
-        AStartTool aStartTool = new AStartTool(xMin, yMin, xMax, yMax, tileMapBlockJsonData.GetWays());
+        AStarBlockJsonTool aStarBlockJsonTool = new AStarBlockJsonTool();
+        AStarBlockJsonTool.TileMapBlockJsonData tileMapBlockJsonData = aStarBlockJsonTool.GetJsonData(outputPathResult);
+        AStartTool aStartTool = new AStartTool(tileMapBlockJsonData.xMin, tileMapBlockJsonData.yMin, 
+            tileMapBlockJsonData.xMax, tileMapBlockJsonData.yMax, tileMapBlockJsonData.ways);
         long nowTime = DateTime.Now.Ticks;
         Vector2Int[] ways = aStartTool.GetWays(new Vector2Int(-17, -18), new Vector2Int(-16, 16));
         //Vector2Int[] ways = aStartTool.GetWays(new Vector2Int(-17, -18), new Vector2Int(-17, -19));

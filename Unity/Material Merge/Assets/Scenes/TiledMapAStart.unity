@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 515116582}
   - component: {fileID: 515116581}
   - component: {fileID: 515116583}
+  - component: {fileID: 515116584}
   m_Layer: 9
   m_Name: Grid
   m_TagString: Untagged
@@ -395,15 +396,33 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515116578}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6638869754bb0c34a975df488737115b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ground: {fileID: 2016719581}
-  water: {fileID: 2055663334}
-  stone: {fileID: 1106909094}
-  stoneWater: {fileID: 918527448}
+--- !u!114 &515116584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515116578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4c4fe6003a27a4ab0c268dcf8e11e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ways:
+  - {fileID: 2016719581}
+  blocks:
+  - block: {fileID: 2055663334}
+    ways:
+    - {fileID: 918527448}
+  - block: {fileID: 1106909094}
+    ways: []
+  outputPath: output.json
   xMin: -19
   yMin: -20
   xMax: 20
