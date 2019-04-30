@@ -50,3 +50,6 @@ TagManager:
   - name: Tile
     uniqueID: 3960002269
     locked: 0
+  - name: CarGame
+    uniqueID: 4052913567
+    locked: 0
