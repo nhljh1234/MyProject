@@ -120,6 +120,7 @@
      <Compile Include="Assets\Script\SceneScript\MeshMerge.cs" />
      <Compile Include="Assets\Script\SceneScript\ScreenCut.cs" />
      <Compile Include="Assets\Script\SceneScript\ScrollView.cs" />
+     <Compile Include="Assets\Script\SceneScript\ShaderLearn.cs" />
      <Compile Include="Assets\Script\SceneScript\TiledMapAStart.cs" />
      <Compile Include="Assets\Script\SceneScript\TileMap.cs" />
      <Compile Include="Assets\Script\SceneScript\UGUI.cs" />
