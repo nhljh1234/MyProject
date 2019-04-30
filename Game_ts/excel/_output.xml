@@ -3,10 +3,12 @@
 		<client>E:\MyProject\Game_ts\Game\assets\resources\Excel_Data</client>
 		<global>false</global>
 		<work>true</work>
+		<useInUnity>true</useInUnity>
 	</json>
 	<lua>
 		<client>E:\MyProject\Unity\XLua\Assets\Resources\Lua\LuaScript\src\Data</client>
 		<global>false</global>
 		<work>false</work>
+		<useInUnity>true</useInUnity>
 	</lua>
 </note>
