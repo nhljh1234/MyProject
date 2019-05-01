@@ -6,7 +6,8 @@ public class CarGame : MonoBehaviour
 {
     public Transform myCar;
     private Rigidbody2D _rigidbody2D;
-    private Vector2 _speed = new Vector2(0, 0.1f);
+    private readonly float _speedForwad = 10;
+    private int status = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,44 +15,40 @@ public class CarGame : MonoBehaviour
         _rigidbody2D.gravityScale = 0;
     }
 
+    private Vector2 GetVelocity()
+    {
+        float angle = -1 * _rigidbody2D.rotation;
+        return new Vector2(_speedForwad * Mathf.Sin(angle *  Mathf.Deg2Rad), 
+            _speedForwad * Mathf.Cos(angle * Mathf.Deg2Rad));
+    }
+
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            _speed.x = _speed.x - 0.01f;
-            if (_speed.x <= -1 * _speed.y)
-            {
-                _speed.x = -1 * _speed.y;
-            }
+            status = 1;
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
-            _speed.x = _speed.x + 0.01f;
-            if (_speed.x >= _speed.y)
-            {
-                _speed.x = _speed.y;
-            }
+            status = 2;
         }
-        else
+
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
-            if (_speed.x > 0.01f)
-            {
-                _speed.x = _speed.x - 0.01f;
-            }
-            else if (_speed.x < -0.01f)
-            {
-                _speed.x = _speed.x + 0.01f;
-            }
-            else
-            {
-                _speed.x = 0;
-            }
+            status = 0;
+            _rigidbody2D.angularVelocity = 0;
         }
 
-        _rigidbody2D.MovePosition(new Vector2(myCar.position.x, myCar.position.y) + _speed);
-        _rigidbody2D.MoveRotation(Mathf.Atan(_speed.x / _speed.y) * Mathf.Rad2Deg);
+        if (status == 1)
+        {
+            _rigidbody2D.angularVelocity = 40;
+        }
+        else if (status == 2)
+        {
+            _rigidbody2D.angularVelocity = -40;
+        }
 
-        Debug.Log(_speed);
+        _rigidbody2D.velocity = GetVelocity();
     }
 }
