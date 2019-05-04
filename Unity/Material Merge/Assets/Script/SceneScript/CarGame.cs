@@ -12,7 +12,6 @@ public class CarGame : MonoBehaviour
     void Start()
     {
         _rigidbody2D = myCar.GetComponent<Rigidbody2D>();
-        _rigidbody2D.gravityScale = 0;
     }
 
     private Vector2 GetVelocity()
@@ -42,11 +41,11 @@ public class CarGame : MonoBehaviour
 
         if (status == 1)
         {
-            _rigidbody2D.angularVelocity = 40;
+            _rigidbody2D.angularVelocity = 400;
         }
         else if (status == 2)
         {
-            _rigidbody2D.angularVelocity = -40;
+            _rigidbody2D.angularVelocity = -400;
         }
 
         _rigidbody2D.velocity = GetVelocity();
