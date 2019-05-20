@@ -366,6 +366,7 @@
     <None Include="Assets\Spine Examples\Spine\Hero\hero-pro.atlas.txt" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\ShaderMaths.cginc" />
     <None Include="Assets\Spine\spine-unity\Modules\SkeletonRenderSeparator\SkeletonRenderSeparator.txt" />
+    <None Include="Assets\Shader\ShaderLearn\TestShader.shader" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\SpriteDepthNormalsTexture.shader" />
     <None Include="Assets\Spine\spine-unity\Shaders\Spine-SkeletonLit.shader" />
     <None Include="Assets\Spine\spine-unity\Modules\Shaders\Sprite\CGIncludes\SpriteSpecular.cginc" />
