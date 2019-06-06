@@ -18,7 +18,8 @@ namespace Back_Project
             XmlElement root = xmlDoc.DocumentElement;//取到根结点
             foreach (XmlElement fileNode in root.GetElementsByTagName("file"))
             {
-                string oldName, newName;
+                string oldName, newName, CSDirPath = "", CSClassName = "", CSType = "";
+                XmlElement CSDirPathElement, CSClassNameElement, CSTypeElement;
                 oldName = fileNode.GetAttribute("oldName");
                 newName = fileNode.GetAttribute("newName");
                 code.Data.TranslateFileData translateFileData = new code.Data.TranslateFileData(newName);
@@ -29,7 +30,17 @@ namespace Back_Project
                     newTableName = GlobalData.getFirstElement(tableNode, "newName").InnerText;
                     key = GlobalData.getFirstElement(tableNode, "key").InnerText;
                     output = GlobalData.getFirstElement(tableNode, "output").InnerText;
-                    translateFileData.addTableName(oldTableName, newTableName, key, output);
+                    CSDirPathElement = GlobalData.getFirstElement(tableNode, "CSDirPath");
+                    CSClassNameElement = GlobalData.getFirstElement(tableNode, "CSClassName");
+                    CSTypeElement = GlobalData.getFirstElement(tableNode, "CSOutputType");
+                    if (CSDirPathElement != null && CSClassNameElement != null && CSTypeElement != null)
+                    {
+                        CSDirPath = CSDirPathElement.InnerText;
+                        CSClassName = CSClassNameElement.InnerText;
+                        CSType = CSTypeElement.InnerText;
+                    }
+                    translateFileData.addTableName(oldTableName, newTableName, key, output, 
+                        CSType, CSDirPath, CSClassName);
                 }
                 GlobalData.translateDic.Add(oldName, translateFileData);
             }

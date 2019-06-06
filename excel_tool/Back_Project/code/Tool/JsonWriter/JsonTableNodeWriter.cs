@@ -4,7 +4,7 @@ namespace Back_Project.code.Tool.JsonWriter
 {
     class JsonTableNodeWriter
     {
-        public string getClientString(Data.TableNode tableNode)
+        public string GetClientString(Data.TableNode tableNode)
         {
             //读取输出配置
             code.Data.Setting setting = code.Data.Setting.getInstance();
@@ -12,12 +12,17 @@ namespace Back_Project.code.Tool.JsonWriter
             code.Data.Setting.SettingClass jsonSetting = setting.getSettingClassByType(GlobalData.OUTPUT_TYPE.JSON);
             if (jsonSetting.useInUnity)
             {
-                return getUnityJsonStr(tableNode);
+                if (jsonSetting.buildCS)
+                {
+                    //新建一个CS读取类
+                    new UnityCSWrite.UnityCSWrite().WriteCSJsonClass(tableNode.getTranslateData());
+                }
+                return GetUnityJsonStr(tableNode);
             }
-            return getNormalJsonStr(tableNode);
+            return GetNormalJsonStr(tableNode);
         }
 
-        private string getNormalJsonStr(Data.TableNode tableNode)
+        private string GetNormalJsonStr(Data.TableNode tableNode)
         {
             string returnStr;
             bool isGlobal = code.Data.Setting.getInstance().getSettingClassByType(GlobalData.OUTPUT_TYPE.JSON).globalSetting;
@@ -42,7 +47,7 @@ namespace Back_Project.code.Tool.JsonWriter
             return returnStr;
         }
 
-        private string getUnityJsonStr(Data.TableNode tableNode)
+        private string GetUnityJsonStr(Data.TableNode tableNode)
         {
             string returnStr;
             returnStr = "{\r\n";

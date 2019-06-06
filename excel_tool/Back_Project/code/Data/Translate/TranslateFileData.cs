@@ -14,10 +14,14 @@ namespace Back_Project.code.Data
             public string key;
             //输出的属性
             public List<String> outputStrs = new List<string>();
+            //如果是buildCS的话，需要生成CS文件的文件夹路径和类名
+            //C#输出的属性字符串 string这样的
+            public List<String> CSTypes = new List<string>();
+            public string CSDirPath;
+            public string CSClassName;
         }
 
         private string _newFileName;
-        private string _use;
         private Dictionary<string, TranslateData> _dic = new Dictionary<string, TranslateData>();
 
         public TranslateFileData(string newFileName)
@@ -30,7 +34,8 @@ namespace Back_Project.code.Data
             return _newFileName;
         }
 
-        public void addTableName(string oldName, string newName, string key, string output)
+        public void addTableName(string oldName, string newName, string key, string output, 
+            string type, string CSDirPath, string CSClassName)
         {
             //理论上的话是没有相同的oldName的
             if (_dic.ContainsKey(oldName))
@@ -44,6 +49,10 @@ namespace Back_Project.code.Data
             output = output.Replace(" ", "");
             String[] strs = output.Split(',');
             data.outputStrs = strs.ToList();
+            String[] types = type.Split(',');
+            data.CSTypes = strs.ToList();
+            data.CSDirPath = CSDirPath;
+            data.CSClassName = CSClassName;
             //添加数据
             _dic.Add(oldName, data);
         }

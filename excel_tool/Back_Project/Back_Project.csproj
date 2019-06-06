@@ -91,6 +91,7 @@
     <Compile Include="code\Tool\LuaWrite\LuaGlobalNodeWriter.cs" />
     <Compile Include="code\Tool\LuaWrite\LuaRowNodeWriter.cs" />
     <Compile Include="code\Tool\LuaWrite\LuaTableNodeWriter.cs" />
+    <Compile Include="code\Tool\UnityCSWrite\UnityCSWrite.cs" />
     <Compile Include="code\Tool\XmlReader\XmlCellNodeReader.cs" />
     <Compile Include="code\Tool\XmlReader\XmlFileNodeReader.cs" />
     <Compile Include="code\Tool\XmlReader\XmlRowNodeReader.cs" />
