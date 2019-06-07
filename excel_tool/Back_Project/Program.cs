@@ -39,7 +39,7 @@ namespace Back_Project
                         CSClassName = CSClassNameElement.InnerText;
                         CSType = CSTypeElement.InnerText;
                     }
-                    translateFileData.addTableName(oldTableName, newTableName, key, output, 
+                    translateFileData.AddTableName(oldTableName, newTableName, key, output, 
                         CSType, CSDirPath, CSClassName);
                 }
                 GlobalData.translateDic.Add(oldName, translateFileData);

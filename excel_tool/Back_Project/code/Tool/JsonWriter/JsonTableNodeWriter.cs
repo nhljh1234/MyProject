@@ -4,18 +4,18 @@ namespace Back_Project.code.Tool.JsonWriter
 {
     class JsonTableNodeWriter
     {
-        public string GetClientString(Data.TableNode tableNode)
+        public string GetClientString(Data.TableNode tableNode, string jsonFileName)
         {
             //读取输出配置
             code.Data.Setting setting = code.Data.Setting.getInstance();
             //初始化
             code.Data.Setting.SettingClass jsonSetting = setting.getSettingClassByType(GlobalData.OUTPUT_TYPE.JSON);
-            if (jsonSetting.useInUnity)
+            if (jsonSetting.useInUnity && jsonFileName != null)
             {
                 if (jsonSetting.buildCS)
                 {
                     //新建一个CS读取类
-                    new UnityCSWrite.UnityCSWrite().WriteCSJsonClass(tableNode.getTranslateData());
+                    new UnityCSWrite.UnityCSWrite().WriteCSJsonClass(tableNode.getTranslateData(), jsonFileName);
                 }
                 return GetUnityJsonStr(tableNode);
             }

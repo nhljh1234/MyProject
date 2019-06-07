@@ -29,12 +29,12 @@ namespace Back_Project.code.Data
             _newFileName = newFileName;
         }
 
-        public string getFileNewMame()
+        public string GetFileNewMame()
         {
             return _newFileName;
         }
 
-        public void addTableName(string oldName, string newName, string key, string output, 
+        public void AddTableName(string oldName, string newName, string key, string output, 
             string type, string CSDirPath, string CSClassName)
         {
             //理论上的话是没有相同的oldName的
@@ -48,9 +48,17 @@ namespace Back_Project.code.Data
             //处理一下output
             output = output.Replace(" ", "");
             String[] strs = output.Split(',');
+            for (int i = 0; i < strs.Length; i++)
+            {
+                strs[i] = strs[i].Replace(" ", "");
+            }
             data.outputStrs = strs.ToList();
             String[] types = type.Split(',');
-            data.CSTypes = strs.ToList();
+            for (int i = 0; i < types.Length; i++)
+            {
+                types[i] = types[i].Replace(" ", "");
+            }
+            data.CSTypes = types.ToList();
             data.CSDirPath = CSDirPath;
             data.CSClassName = CSClassName;
             //添加数据
@@ -58,7 +66,7 @@ namespace Back_Project.code.Data
         }
 
         //不存在的话返回oldName
-        public TranslateData getTranslateData(string oldName)
+        public TranslateData GetTranslateData(string oldName)
         {
             if (!_dic.ContainsKey(oldName))
             {

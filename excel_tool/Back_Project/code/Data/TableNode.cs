@@ -17,7 +17,7 @@ namespace Back_Project.code.Data
             if (code.GlobalData.translateDic.ContainsKey(fileName))
             {
                  //拿translate中配置的数据表格的新名字
-                _translateData = code.GlobalData.translateDic[fileName].getTranslateData(sheetName);
+                _translateData = code.GlobalData.translateDic[fileName].GetTranslateData(sheetName);
                 sheetName = _translateData.newFileName;
             }
             _sheetName = sheetName;
