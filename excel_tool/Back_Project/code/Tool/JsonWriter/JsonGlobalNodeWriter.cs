@@ -11,7 +11,7 @@ namespace Back_Project.code.Tool.JsonWriter
             {
                 string fileName = globalNode.getFileNodes()[i].getFileName();
                 returnStr = returnStr + GlobalData.getJsonGlobalBlock() + '"' + fileName + '"' + ": {\r\n";
-                returnStr = returnStr + new JsonFileNodeWriter().getString(globalNode.getFileNodes()[i]);
+                returnStr = returnStr + new JsonFileNodeWriter().GetString(globalNode.getFileNodes()[i]);
                 if (i == globalNode.getFileNodes().Count - 1)
                 {
                     returnStr = returnStr + GlobalData.getJsonGlobalBlock() + "}\r\n";

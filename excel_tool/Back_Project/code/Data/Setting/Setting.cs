@@ -19,6 +19,8 @@ namespace Back_Project.code.Data
             public bool workFlag;
             //是否用于Unity Unity的JSON格式需要特殊处理一下，暂时只对json有效果
             public bool useInUnity;
+            //是否生成C#读取json的代码，只在Json格式下有用
+            public bool buildCS;
             //初始化，会重新生成输出文件夹
             public void init()
             {
@@ -48,6 +50,7 @@ namespace Back_Project.code.Data
             jsonSetting.globalSetting = GlobalData.getFirstElement(jsonNode, "global").InnerText == "true";
             jsonSetting.workFlag = GlobalData.getFirstElement(jsonNode, "work").InnerText == "true";
             jsonSetting.useInUnity = GlobalData.getFirstElement(jsonNode, "useInUnity").InnerText == "true";
+            jsonSetting.buildCS = GlobalData.getFirstElement(jsonNode, "buildCS").InnerText == "true";
             jsonSetting.init();
             //Lua输出配置
             XmlElement luaNode = GlobalData.getFirstElement(root, "lua");
@@ -55,6 +58,7 @@ namespace Back_Project.code.Data
             luaSetting.globalSetting = GlobalData.getFirstElement(luaNode, "global").InnerText == "true";
             luaSetting.workFlag = GlobalData.getFirstElement(jsonNode, "work").InnerText == "true";
             luaSetting.useInUnity = GlobalData.getFirstElement(jsonNode, "useInUnity").InnerText == "true";
+            luaSetting.buildCS = GlobalData.getFirstElement(jsonNode, "buildCS").InnerText == "true";
             luaSetting.init();
         }
 

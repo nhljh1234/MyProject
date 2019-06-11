@@ -14,7 +14,7 @@ namespace Back_Project.code.Tool.JsonWriter
                 FileStream fs = new FileStream(xmlFileName, FileMode.OpenOrCreate);
                 StreamWriter sw = new StreamWriter(fs);
                 //开始写入
-                sw.Write(new JsonTableNodeWriter().getClientString(fileNode.getTableNodeList()[i]));
+                sw.Write(new JsonTableNodeWriter().GetClientString(fileNode.getTableNodeList()[i], @"_table_" + fileName + "_" + sheetName + ".json"));
                 //清空缓冲区
                 sw.Flush();
                 //关闭流
@@ -23,7 +23,7 @@ namespace Back_Project.code.Tool.JsonWriter
             }
         }
 
-        public string getString(Data.FileNode fileNode)
+        public string GetString(Data.FileNode fileNode)
         {
             string fileName = fileNode.getFileName();
             string returnStr = "";
@@ -31,7 +31,7 @@ namespace Back_Project.code.Tool.JsonWriter
             {
                 string sheetName = fileNode.getTableNodeList()[i].getSheetName();
                 returnStr = returnStr + GlobalData.getJsonFileBlock() + '"' + sheetName + '"' + ": ";
-                returnStr = returnStr + new JsonTableNodeWriter().getClientString(fileNode.getTableNodeList()[i]);
+                returnStr = returnStr + new JsonTableNodeWriter().GetClientString(fileNode.getTableNodeList()[i], null);
                 if (i != fileNode.getTableNodeList().Count - 1)
                 {
                     returnStr = returnStr + ",\r\n";

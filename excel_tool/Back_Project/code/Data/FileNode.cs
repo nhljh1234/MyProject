@@ -17,7 +17,7 @@ namespace Back_Project.code.Data
             if (code.GlobalData.translateDic.ContainsKey(fileName))
             {
                 //拿translate中配置的文件新名字
-                fileName = code.GlobalData.translateDic[fileName].getFileNewMame();
+                fileName = code.GlobalData.translateDic[fileName].GetFileNewMame();
             }
             _fileName = fileName;
             _tableNodeList = new List<TableNode>();
