@@ -4,8 +4,5 @@
     {
         string GetJsonString();
         string GetLuaString();
-
-        string GetChildJsonString();
-        string GetChildLuaString();
     }
 }

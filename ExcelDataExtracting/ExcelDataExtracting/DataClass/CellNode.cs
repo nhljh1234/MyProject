@@ -19,12 +19,12 @@ namespace DataClass
 
         public override string GetJsonString()
         {
-            return null;
+            return _cellDataStr;
         }
 
         public override string GetLuaString()
         {
-            return null;
+            return _cellDataStr;
         }
 
         private string _ReadCellNodeData(ICell cell)

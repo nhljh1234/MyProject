@@ -11,6 +11,7 @@ namespace DataClass
         public string name;
         public string new_name;
         public string key;
+        public bool isArray;
         public string[] output_key;
     }
 

@@ -5,26 +5,11 @@ namespace DataClass
 {
     abstract class ExcelDataNode: IExcelDataNode
     {
-        List<ExcelDataNode> _listExcelDataNode = new List<ExcelDataNode>();
+        protected List<ExcelDataNode> _listExcelDataNode = new List<ExcelDataNode>();
 
-        public string GetChildJsonString()
+        public List<ExcelDataNode> GetListExcelDataNode()
         {
-            string jsonStr = "";
-            for (int i = 0; i < _listExcelDataNode.Count; i++)
-            {
-                jsonStr = jsonStr + _listExcelDataNode[i].GetJsonString();
-            }
-            return jsonStr;
-        }
-
-        public string GetChildLuaString()
-        {
-            string luaStr = "";
-            for (int i = 0; i < _listExcelDataNode.Count; i++)
-            {
-                luaStr = luaStr + _listExcelDataNode[i].GetLuaString();
-            }
-            return luaStr;
+            return _listExcelDataNode;
         }
 
         public abstract string GetJsonString();
