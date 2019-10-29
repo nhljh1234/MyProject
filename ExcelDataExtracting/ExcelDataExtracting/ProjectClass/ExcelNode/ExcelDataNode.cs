@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Interface;
 
-namespace DataClass
+namespace ProjectClass
 {
     abstract class ExcelDataNode: IExcelDataNode
     {

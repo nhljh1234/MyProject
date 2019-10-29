@@ -1,4 +1,4 @@
-﻿namespace DataClass
+﻿namespace ProjectClass
 {
     class OutPutConfig
     {

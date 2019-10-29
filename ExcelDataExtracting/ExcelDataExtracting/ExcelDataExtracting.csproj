@@ -62,14 +62,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\GlobalConfig.cs" />
-    <Compile Include="DataClass\CellNode.cs" />
-    <Compile Include="DataClass\ExcelDataNode.cs" />
-    <Compile Include="DataClass\FileConfig.cs" />
-    <Compile Include="DataClass\FileNode.cs" />
+    <Compile Include="ProjectClass\ExcelNode\CellNode.cs" />
+    <Compile Include="ProjectClass\ExcelNode\ExcelDataNode.cs" />
+    <Compile Include="ProjectClass\Config\FileConfig.cs" />
+    <Compile Include="ProjectClass\ExcelNode\FileNode.cs" />
     <Compile Include="Interface\IExcelDataNode.cs" />
-    <Compile Include="DataClass\OutPutConfig.cs" />
-    <Compile Include="DataClass\RowNode.cs" />
-    <Compile Include="DataClass\SheetNode.cs" />
+    <Compile Include="ProjectClass\Config\OutPutConfig.cs" />
+    <Compile Include="ProjectClass\ExcelNode\RowNode.cs" />
+    <Compile Include="ProjectClass\ExcelNode\SheetNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tool\ExcelFileRead.cs" />

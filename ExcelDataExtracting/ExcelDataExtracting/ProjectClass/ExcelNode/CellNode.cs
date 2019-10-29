@@ -1,7 +1,7 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 
-namespace DataClass
+namespace ProjectClass
 {
     class CellNode : ExcelDataNode
     {
