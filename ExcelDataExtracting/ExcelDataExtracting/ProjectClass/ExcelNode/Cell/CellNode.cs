@@ -1,9 +1,11 @@
 ﻿using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using Interface;
+using Config;
 
 namespace ProjectClass
 {
-    class CellNode : ExcelDataNode
+    class CellNode : ExcelNode
     {
         private string _cellDataStr = null;
 
@@ -17,12 +19,23 @@ namespace ProjectClass
             return _cellDataStr == null;
         }
 
-        public override string GetJsonString()
+        public IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
         {
-            return _cellDataStr;
+            switch (type)
+            {
+                case GlobalConfig.OUTPUT_TYPE.LUA_ARRAY:
+                    return new CellDataToLuaArray(this);
+                case GlobalConfig.OUTPUT_TYPE.LUA_TABLE:
+                    return new CellDataToLuaTable(this);
+                case GlobalConfig.OUTPUT_TYPE.JSON_ARRAY:
+                    return new CellDataToJsonArray(this);
+                case GlobalConfig.OUTPUT_TYPE.JSON_OBJECT:
+                    return new CellDataToJsonObject(this);
+            }
+            return null;
         }
 
-        public override string GetLuaString()
+        public string GetCellDataStr()
         {
             return _cellDataStr;
         }
