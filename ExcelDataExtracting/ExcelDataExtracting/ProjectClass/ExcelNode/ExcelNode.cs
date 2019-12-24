@@ -8,7 +8,7 @@ namespace ProjectClass
     {
         protected List<ExcelNode> _listExcelNode = new List<ExcelNode>();
 
-        public abstract IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type);
+        public abstract IExcelNodeRead GetExcelNodeReadModule();
 
         public List<ExcelNode> GetListExcelNode()
         {

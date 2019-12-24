@@ -17,9 +17,9 @@ namespace ProjectClass
             _CreateChildRowNode(iSheet, outputType);
         }
 
-        public override IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
+        public override IExcelNodeRead GetExcelNodeReadModule()
         {
-            switch (type)
+            switch (_outputType)
             {
                 case GlobalConfig.OUTPUT_TYPE.LUA_ARRAY:
                     return new SheetDataToLuaArray(this);

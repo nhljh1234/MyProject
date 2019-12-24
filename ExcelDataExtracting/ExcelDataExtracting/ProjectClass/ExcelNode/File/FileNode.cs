@@ -15,10 +15,10 @@ namespace ProjectClass
         {
             _outputType = outputType;
             _fileName = fileName;
-            _CreateChildSheetNode(iWorkBook, fileName, _outputType);
+            _CreateChildSheetNode(iWorkBook, fileName, outputType);
         }
 
-        public override IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
+        public override IExcelNodeRead GetExcelNodeReadModule()
         {
             return null;
         }

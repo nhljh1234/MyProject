@@ -8,9 +8,11 @@ namespace ProjectClass
     class CellNode : ExcelNode
     {
         private string _cellDataStr = null;
+        private GlobalConfig.OUTPUT_TYPE _outputType;
 
-        public CellNode(ICell cell)
+        public CellNode(ICell cell, GlobalConfig.OUTPUT_TYPE type)
         {
+            _outputType = type;
             _cellDataStr = _ReadCellNodeData(cell);
         }
 
@@ -19,9 +21,9 @@ namespace ProjectClass
             return _cellDataStr == null;
         }
 
-        public IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
+        public override IExcelNodeRead GetExcelNodeReadModule()
         {
-            switch (type)
+            switch (_outputType)
             {
                 case GlobalConfig.OUTPUT_TYPE.LUA_ARRAY:
                     return new CellDataToLuaArray(this);

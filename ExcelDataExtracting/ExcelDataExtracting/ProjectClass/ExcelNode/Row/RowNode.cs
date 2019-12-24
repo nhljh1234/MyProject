@@ -14,7 +14,7 @@ namespace ProjectClass
         public RowNode(IRow iRow, GlobalConfig.OUTPUT_TYPE outputType)
         {
             _outputType = outputType;
-            _CreateChildCellNode(iRow);
+            _CreateChildCellNode(iRow, outputType);
         }
 
         public void SetKeyRowNode(RowNode keyRowNode)
@@ -22,9 +22,9 @@ namespace ProjectClass
             _keyRowNode = keyRowNode;
         }
 
-        public override IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
+        public override IExcelNodeRead GetExcelNodeReadModule()
         {
-            switch (type)
+            switch (_outputType)
             {
                 case GlobalConfig.OUTPUT_TYPE.LUA_ARRAY:
                     return new RowDataToLuaArray(this);
@@ -46,21 +46,21 @@ namespace ProjectClass
         public string GetKeyByIndex(int index)
         {
             ExcelNode cell = _keyRowNode.GetListExcelNode()[index];
-            return cell.GetExcelNodeReadModule(_outputType).GetString();
+            return cell.GetExcelNodeReadModule().GetString();
         }
 
         public string GetValueByIndex(int index)
         {
             ExcelNode cell = GetListExcelNode()[index];
-            return cell.GetExcelNodeReadModule(_outputType).GetString();
+            return cell.GetExcelNodeReadModule().GetString();
         }
 
-        private void _CreateChildCellNode(IRow iRow)
+        private void _CreateChildCellNode(IRow iRow, GlobalConfig.OUTPUT_TYPE outputType)
         {
             for (int i = iRow.FirstCellNum + 1; i <= iRow.LastCellNum; i++)
             {
                 ICell cell = iRow.GetCell(i);
-                _listExcelNode.Add(new CellNode(cell));
+                _listExcelNode.Add(new CellNode(cell, outputType));
             }
         }
     }
