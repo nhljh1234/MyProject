@@ -2,17 +2,39 @@ package com.test.fund;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private GetInfo getInfo;
+    public static final int UPDATE_LIST_VIEW = 1;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case UPDATE_LIST_VIEW:
+                    changeListView((ArrayList<StockInfo>)msg.obj);
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    private void changeListView(ArrayList<StockInfo> stockInfos) {
+        StockAdapter stockAdapter = new StockAdapter(MainActivity.this, R.layout.item, stockInfos);
+        ((ListView) findViewById(R.id.list_view)).setAdapter(stockAdapter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +43,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        getInfo = new GetInfo(this);
+        InfoSave infoSave = new InfoSave(this);
+        String stockInfosStr = infoSave.get(InfoSave.STOCK_INFO_KEY);
+        if (stockInfosStr != null) {
+            ArrayList<StockInfo> stockInfos = getInfo.GetStockInfosByStr(stockInfosStr);
+            Message message = new Message();
+            message.what = UPDATE_LIST_VIEW;
+            message.obj = stockInfos;
+            handler.sendMessage(message); // 将Message对象发送出去
+        }
     }
 
     @Override
@@ -46,7 +70,17 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    ArrayList<StockInfo> stockInfos = getInfo.GetStockInfos();
+                    Message message = new Message();
+                    message.what = UPDATE_LIST_VIEW;
+                    message.obj = stockInfos;
+                    handler.sendMessage(message); // 将Message对象发送出去
+                }
+            }).start();
             return true;
         }
 
