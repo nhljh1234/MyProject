@@ -7,26 +7,40 @@ import android.graphics.Path;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-class App {
-    public boolean useScroll = false;
-    public boolean canScroll = true;
-    public String packetName = "";
-    public String[] targetUINames = new String[]{};
-    public int[] actions = new int[]{};
+enum SCROLL_TYPE {
+    PATH,
+    ACTION
+}
 
+class App {
     private Thread thread = null;
+    private boolean canScroll = true;
+
+    private String packetName = "";
+    private String[] targetUINames = new String[]{};
+    private int[] actions = new int[]{};
+    private SCROLL_TYPE scrollType;
+
+    public App(String packetName, String[] targetUINames, int[] actions, SCROLL_TYPE scrollType) {
+        this.packetName = packetName;
+        this.targetUINames = targetUINames;
+        this.actions = actions;
+        this.scrollType = scrollType;
+    }
+
+    public String getPacketName() {
+        return packetName;
+    }
 
     public boolean equalApp(CharSequence name) {
         return name.equals(packetName);
     }
 
-    public boolean equalNowUI(CharSequence name) {
+    public boolean equalTargetUI(CharSequence name) {
         for (int i = 0; i < targetUINames.length; i++) {
             if (name.equals(targetUINames[i])) {
                 return true;
@@ -40,38 +54,41 @@ class App {
         return (random.nextInt(5) + 5) * 1000;
     }
 
-    public void scroll(AccessibilityService serviceIn) {
+    public void onAccessibilityEvent(AccessibilityService service, AccessibilityNodeInfo nodeInfoIn) {
+        Log.v("test xxx", packetName);
+        if (scrollType == SCROLL_TYPE.ACTION) {
+            createNewThread(nodeInfoIn);
+        } else if (scrollType == SCROLL_TYPE.PATH) {
+            pathScroll(service);
+        }
+    }
+
+    private void pathScroll(AccessibilityService service) {
         if (canScroll == false) {
             return;
         }
-        final AccessibilityService service = serviceIn;
-        thread = new Thread(new Runnable() {
+        Path path2 = new Path();
+        path2.moveTo(100, 1500);
+        path2.lineTo(100, 200);
+        final GestureDescription.StrokeDescription sd2 = new GestureDescription.StrokeDescription(path2, getDelay(), 1000);
+        service.dispatchGesture(new GestureDescription.Builder().addStroke(sd2).build(), new AccessibilityService.GestureResultCallback() {
             @Override
-            public void run() {
-                Path path2 = new Path();
-                path2.moveTo(100, 1500);
-                path2.lineTo(100, 200);
-                final GestureDescription.StrokeDescription sd2 = new GestureDescription.StrokeDescription(path2, getDelay(), 1000);
-                service.dispatchGesture(new GestureDescription.Builder().addStroke(sd2).build(), new AccessibilityService.GestureResultCallback() {
-                    @Override
-                    public void onCompleted(GestureDescription gestureDescription) {
-                        super.onCompleted(gestureDescription);
-                        canScroll = true;
-                    }
-
-                    @Override
-                    public void onCancelled(GestureDescription gestureDescription) {
-                        super.onCancelled(gestureDescription);
-                        canScroll = true;
-                    }
-                }, null);
+            public void onCompleted(GestureDescription gestureDescription) {
+                super.onCompleted(gestureDescription);
+                canScroll = true;
             }
-        });
+
+            @Override
+            public void onCancelled(GestureDescription gestureDescription) {
+                super.onCancelled(gestureDescription);
+                canScroll = true;
+            }
+        }, null);
         thread.start();
         canScroll = false;
     }
 
-    public void createNewThread(AccessibilityNodeInfo nodeInfoIn) {
+    private void createNewThread(AccessibilityNodeInfo nodeInfoIn) {
         if (thread != null) {
             return;
         }
@@ -83,7 +100,6 @@ class App {
                     while (true) {
                         Thread.sleep(getDelay());
                         for (int i = 0; i < actions.length; i++) {
-                            //nodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
                             nodeInfo.performAction(actions[i]);
                         }
                     }
@@ -100,57 +116,60 @@ public class AccessibilityServiceTest extends AccessibilityService {
     private ArrayList<App> apps = new ArrayList<>();
 
     private void init() {
-        if (apps.size() > 0) {
-            return;
-        }
-
         //抖音
-        App dou_yin = new App();
-        dou_yin.packetName = "com.ss.android.ugc.aweme.lite";
-        dou_yin.targetUINames = new String[]{"android.support.v4.view.ViewPager"};
-        dou_yin.actions = new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD};
+        App dou_yin = new App("com.ss.android.ugc.aweme.lite",
+                new String[]{"android.support.v4.view.ViewPager"},
+                new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD},
+                SCROLL_TYPE.ACTION
+        );
         apps.add(dou_yin);
 
         //快手
-        App kuai_shou = new App();
-        kuai_shou.packetName = "com.kuaishou.nebula";
-        kuai_shou.targetUINames = new String[]{"android.support.v4.view.ViewPager"};
-        kuai_shou.actions = new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD};
+        App kuai_shou = new App("com.kuaishou.nebula",
+                new String[]{"androidx.viewpager.widget.ViewPager"},
+                new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD},
+                SCROLL_TYPE.ACTION
+        );
         apps.add(kuai_shou);
 
-        //火山
-        App huo_shan = new App();
-        huo_shan.packetName = "com.ss.android.ugc.livelite";
-        huo_shan.targetUINames = new String[]{"android.support.v4.view.ViewPager"};
-        huo_shan.actions = new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD};
-        apps.add(huo_shan);
+        //抖音火山版
+        App dou_yin_huo_shan = new App("com.ss.android.ugc.live",
+                new String[]{"android.support.v4.view.ViewPager"},
+                new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD},
+                SCROLL_TYPE.ACTION
+        );
+        apps.add(dou_yin_huo_shan);
 
         //刷宝
-        App shua_bao = new App();
-        shua_bao.packetName = "com.jm.video";
-        shua_bao.targetUINames = new String[]{"android.support.v7.widget.RecyclerView"};
-        shua_bao.actions = new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD};
+        App shua_bao = new App("com.jm.video",
+                new String[]{"android.support.v7.widget.RecyclerView"},
+                new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD},
+                SCROLL_TYPE.ACTION
+        );
         apps.add(shua_bao);
 
         //微视
-        App wei_shi = new App();
-        wei_shi.packetName = "com.tencent.weishi";
-        wei_shi.targetUINames = new String[]{"android.support.v7.widget.RecyclerView"};
-        wei_shi.actions = new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD};
-        wei_shi.useScroll = true;
+        App wei_shi = new App("com.tencent.weishi",
+                new String[]{"android.support.v7.widget.RecyclerView"},
+                new int[]{AccessibilityNodeInfo.ACTION_SCROLL_FORWARD},
+                SCROLL_TYPE.PATH
+        );
         apps.add(wei_shi);
     }
 
     public void onServiceConnected() {
         super.onServiceConnected();
+
+        init();
+
         AccessibilityServiceInfo info = new AccessibilityServiceInfo();
         info.eventTypes = AccessibilityEvent.TYPES_ALL_MASK;
         info.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
         info.notificationTimeout = 100;
         info.flags = AccessibilityServiceInfo.FLAG_REPORT_VIEW_IDS;
-        setServiceInfo(info);
+        info.packageNames = getPacketNames();
 
-        init();
+        setServiceInfo(info);
     }
 
     @Override
@@ -163,12 +182,8 @@ public class AccessibilityServiceTest extends AccessibilityService {
             App app = apps.get(i);
             if (app.equalApp(event.getPackageName())) {
                 AccessibilityNodeInfo nodeInfo = event.getSource();
-                if (nodeInfo != null && app.equalNowUI(nodeInfo.getClassName())) {
-                    if (app.useScroll) {
-                        app.scroll(this);
-                    } else {
-                        app.createNewThread(nodeInfo);
-                    }
+                if (nodeInfo != null && app.equalTargetUI(nodeInfo.getClassName())) {
+                    app.onAccessibilityEvent(this, nodeInfo);
                 }
             }
         }
@@ -176,5 +191,13 @@ public class AccessibilityServiceTest extends AccessibilityService {
 
     public void onInterrupt() {
 
+    }
+
+    private String[] getPacketNames() {
+        String[] packetNames = new String[apps.size()];
+        for (int i = 0; i < apps.size(); i++) {
+            packetNames[i] = apps.get(i).getPacketName();
+        }
+        return packetNames;
     }
 }
