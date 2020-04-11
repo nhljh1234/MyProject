@@ -1,4 +1,5 @@
-﻿using Interface;
+﻿using Config;
+using Interface;
 using ProjectClass;
 
 namespace ProjectClass
@@ -12,7 +13,7 @@ namespace ProjectClass
             _cellNode = cellNode;
         }
 
-        public string GetString()
+        public string GetString(GlobalConfig.OUTPUT_TYPE type)
         {
             return _cellNode.GetCellDataStr();
         }

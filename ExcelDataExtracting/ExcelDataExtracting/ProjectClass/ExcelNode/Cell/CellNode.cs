@@ -19,7 +19,7 @@ namespace ProjectClass
             return _cellDataStr == null;
         }
 
-        public IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
+        public override IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
         {
             switch (type)
             {

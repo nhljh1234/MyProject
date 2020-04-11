@@ -1,5 +1,6 @@
 ﻿using Interface;
 using ProjectClass;
+using System.Collections.Generic;
 
 namespace ProjectClass
 {
@@ -14,7 +15,17 @@ namespace ProjectClass
 
         public string GetString()
         {
-            return null;
+            string jsonStr = "{\r\n";
+            //RowNode _keyRowNode = _sheetNode.GetKeyRowNode();
+            jsonStr = jsonStr + "    [\r\n";
+            List<ExcelNode> listExcelDataNode = _sheetNode.GetListExcelNode();
+            for (int i = 0; i < listExcelDataNode.Count; i++)
+            {
+                jsonStr = jsonStr + listExcelDataNode[i].GetExcelNodeReadModule();
+            }
+            jsonStr = "    ]\r\n";
+            jsonStr = jsonStr + "}";
+            return jsonStr;
         }
     }
 }

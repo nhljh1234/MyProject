@@ -12,7 +12,7 @@ namespace ExcelDataExtracting
             OutPutConfig outPutConfig = JsonFileRead.GetInstance().GetObject<OutPutConfig>(GlobalConfig.outputConfigPath);
             FileConfig fileConfig = JsonFileRead.GetInstance().GetObject<FileConfig>(GlobalConfig.fileConfigPath);
 
-            Console.WriteLine("sssssssssssssss");
+
         }
     }
 }

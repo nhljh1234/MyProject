@@ -8,12 +8,10 @@ namespace ProjectClass
 {
     class RowNode : ExcelNode
     {
-        GlobalConfig.OUTPUT_TYPE _outputType;
         RowNode _keyRowNode = null;
 
-        public RowNode(IRow iRow, GlobalConfig.OUTPUT_TYPE outputType)
+        public RowNode(IRow iRow)
         {
-            _outputType = outputType;
             _CreateChildCellNode(iRow);
         }
 
@@ -43,16 +41,16 @@ namespace ProjectClass
             return Math.Max(_keyRowNode.GetListExcelNode().Count, GetListExcelNode().Count);
         }
 
-        public string GetKeyByIndex(int index)
+        public string GetKeyByIndex(int index, GlobalConfig.OUTPUT_TYPE type)
         {
             ExcelNode cell = _keyRowNode.GetListExcelNode()[index];
-            return cell.GetExcelNodeReadModule(_outputType).GetString();
+            return cell.GetExcelNodeReadModule(type).GetString();
         }
 
-        public string GetValueByIndex(int index)
+        public string GetValueByIndex(int index, GlobalConfig.OUTPUT_TYPE type)
         {
             ExcelNode cell = GetListExcelNode()[index];
-            return cell.GetExcelNodeReadModule(_outputType).GetString();
+            return cell.GetExcelNodeReadModule(type).GetString();
         }
 
         private void _CreateChildCellNode(IRow iRow)

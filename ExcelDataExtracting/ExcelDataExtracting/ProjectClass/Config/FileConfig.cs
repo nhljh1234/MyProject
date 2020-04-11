@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectClass
 {
-    class SheetConfig
+    public class SheetConfig
     {
         public string name;
         public string new_name;
@@ -15,13 +15,13 @@ namespace ProjectClass
         public string[] output_key;
     }
 
-    class ExcelFileConfig
+    public class ExcelFileConfig
     {
         public string name;
         public SheetConfig[] sheets;
-    } 
+    }
 
-    class FileConfig
+    public class FileConfig
     {
         public ExcelFileConfig[] files;
     }

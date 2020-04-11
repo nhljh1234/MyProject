@@ -1,20 +1,23 @@
 ﻿using NPOI.SS.UserModel;
 using Config;
 using Interface;
+using System.IO;
 
 namespace ProjectClass
 {
     class SheetNode : ExcelNode
     {
         private RowNode _keyRowNode;
-        private GlobalConfig.OUTPUT_TYPE _outputType;
-        private string _fileName;
+        private ExcelFileConfig _excelFileConfig;
+        private FileInfo _excelFileInfo;
+        private string _sheetName;
 
-        public SheetNode(ISheet iSheet, string fileName, GlobalConfig.OUTPUT_TYPE outputType)
+        public SheetNode(ISheet iSheet, FileInfo excelFileInfo, ExcelFileConfig excelFileConfig)
         {
-            _outputType = outputType;
-            _fileName = fileName;
-            _CreateChildRowNode(iSheet, outputType);
+            _excelFileConfig = excelFileConfig;
+            _excelFileInfo = excelFileInfo;
+            _sheetName = iSheet.SheetName;
+            _CreateChildRowNode(iSheet);
         }
 
         public override IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
@@ -33,7 +36,32 @@ namespace ProjectClass
             return null;
         }
 
-        private void _CreateChildRowNode(ISheet iSheet, GlobalConfig.OUTPUT_TYPE outputType)
+        public RowNode GetKeyRowNode()
+        {
+            return _keyRowNode;
+        }
+
+        public string GetOutputFileFullPath(GlobalConfig.OUTPUT_TYPE type)
+        {
+            string fileName = _excelFileInfo.Name.Split('.')[1];
+            string outputFileFullPath = "";
+            string outputFileExtension = "";
+            switch (type)
+            {
+                case GlobalConfig.OUTPUT_TYPE.LUA_ARRAY:
+                case GlobalConfig.OUTPUT_TYPE.LUA_TABLE:
+                    outputFileExtension = ".lua";
+                    break;
+                case GlobalConfig.OUTPUT_TYPE.JSON_ARRAY:
+                case GlobalConfig.OUTPUT_TYPE.JSON_OBJECT:
+                    outputFileExtension = ".json";
+                    break;
+            }
+            outputFileFullPath = _excelFileInfo.DirectoryName + "/" + fileName + "." + outputFileExtension;
+            return outputFileFullPath;
+        }
+
+        private void _CreateChildRowNode(ISheet iSheet)
         {
             for (int i = iSheet.FirstRowNum + 1; i <= iSheet.LastRowNum; i++)
             {
@@ -41,11 +69,11 @@ namespace ProjectClass
                 bool isKeyRow = (i == (iSheet.FirstRowNum + 1));
                 if (isKeyRow)
                 {
-                    _keyRowNode = new RowNode(iRow, outputType);
+                    _keyRowNode = new RowNode(iRow);
                 }
                 else
                 {
-                    RowNode rowNode = new RowNode(iRow, outputType);
+                    RowNode rowNode = new RowNode(iRow);
                     rowNode.SetKeyRowNode(_keyRowNode);
                     _listExcelNode.Add(rowNode);
                 }

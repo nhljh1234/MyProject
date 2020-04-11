@@ -3,19 +3,21 @@ using Interface;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using System.IO;
+using Tool;
 
 namespace ProjectClass
 {
     class FileNode : ExcelNode
     {
-        private GlobalConfig.OUTPUT_TYPE _outputType;
         private string _fileName;
+        private ExcelFileConfig _excelFileConfig;
 
-        public FileNode(IWorkbook iWorkBook, string fileName, GlobalConfig.OUTPUT_TYPE outputType)
+        public FileNode(string excelFileFullPath, ExcelFileConfig excelFileConfig)
         {
-            _outputType = outputType;
-            _fileName = fileName;
-            _CreateChildSheetNode(iWorkBook, fileName, _outputType);
+            IWorkbook iWorkbook = ExcelFileRead.GetInstance().GetIWorkbookFromExcelFile(excelFileFullPath);
+            FileInfo excelFileInfo = new FileInfo(excelFileFullPath);
+            _CreateChildSheetNode(iWorkbook, excelFileInfo, excelFileConfig);
         }
 
         public override IExcelNodeRead GetExcelNodeReadModule(GlobalConfig.OUTPUT_TYPE type)
@@ -23,12 +25,17 @@ namespace ProjectClass
             return null;
         }
 
-        private void _CreateChildSheetNode(IWorkbook iWorkBook, string fileName, GlobalConfig.OUTPUT_TYPE outputType)
+        public void BuildSheetFile()
         {
-            for (int i = 0; i < iWorkBook.NumberOfSheets; i++)
+
+        }
+
+        private void _CreateChildSheetNode(IWorkbook iWorkbook, FileInfo excelFileInfo, ExcelFileConfig excelFileConfig)
+        {
+            for (int i = 0; i < iWorkbook.NumberOfSheets; i++)
             {
-                ISheet iSheet = iWorkBook.GetSheetAt(i);
-                _listExcelNode.Add(new SheetNode(iSheet, fileName, outputType));
+                ISheet iSheet = iWorkbook.GetSheetAt(i);
+                _listExcelNode.Add(new SheetNode(iSheet, excelFileInfo, excelFileConfig));
             }
         }
     }

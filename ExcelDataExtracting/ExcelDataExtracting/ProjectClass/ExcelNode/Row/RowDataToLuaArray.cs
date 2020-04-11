@@ -1,5 +1,6 @@
 ﻿using Interface;
 using ProjectClass;
+using System.Collections.Generic;
 
 namespace ProjectClass
 {
@@ -14,7 +15,15 @@ namespace ProjectClass
 
         public string GetString()
         {
-            return null;
+            string luaStr = "{\r\n";
+            List<ExcelNode> listExcelDataNode = _rowNode.GetListExcelNode();
+            for (int i = 0; i < listExcelDataNode.Count; i++)
+            {
+                luaStr = "    " + _rowNode.GetKeyByIndex(i) + " = " + _rowNode.GetValueByIndex(i);
+                luaStr = luaStr + ((i == _rowNode.GetMaxCellNum() - 1) ? "" : ",");
+                luaStr = luaStr + "\r\n";
+            }
+            return luaStr;
         }
     }
 }

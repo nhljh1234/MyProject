@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AccessibilityService</string>
+    <string name="simulate_key_description">测试</string>
+</resources>

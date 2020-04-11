@@ -1,7 +1,9 @@
-﻿namespace Interface
+﻿using Config;
+
+namespace Interface
 {
     interface IExcelNodeRead
     {
-        string GetString();
+        string GetString(GlobalConfig.OUTPUT_TYPE type);
     }
 }
