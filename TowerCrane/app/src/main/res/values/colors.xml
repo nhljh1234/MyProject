@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_setting_text">#0182FF</color>
+    <color name="color_bg">#E4E7EE</color>
+    <color name="color_number_waring">#FD1E00</color>
+    <color name="color_number">#0DAF76</color>
+    <color name="color_number_label">#3C3C3C</color>
+    <color name="color_status_un_select">#3C3C3C</color>
+    <color name="color_status_select">#FFFFFF</color>
+    <color name="color_label_blue">#0282FF</color>
+    <color name="color_label_red">#FF0000</color>
+    <color name="color_btn_bg">#829DF8</color>
+    <color name="color_btn_select">#587CF7</color>
+    <color name="color_video_layout_un_select">#829DF8</color>
+    <color name="color_video_layout_select">#587CF7</color>
+    <color name="color_video_text_select">#F6AD09</color>
+    <color name="color_video_text_un_select">#FFFFFF</color>
+</resources>

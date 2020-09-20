@@ -51,11 +51,10 @@ class App {
 
     public int getDelay() {
         Random random = new Random();
-        return (random.nextInt(5) + 5) * 1000;
+        return (random.nextInt(5) + 3) * 1000;
     }
 
     public void onAccessibilityEvent(AccessibilityService service, AccessibilityNodeInfo nodeInfoIn) {
-        Log.v("test xxx", packetName);
         if (scrollType == SCROLL_TYPE.ACTION) {
             createNewThread(nodeInfoIn);
         } else if (scrollType == SCROLL_TYPE.PATH) {
@@ -84,7 +83,6 @@ class App {
                 canScroll = true;
             }
         }, null);
-        thread.start();
         canScroll = false;
     }
 
