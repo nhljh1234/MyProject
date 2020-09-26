@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".Activity.MainActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
@@ -20,20 +20,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-        </activity>
-
-        <activity android:name=".CheckActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize">
-        </activity>
-
     </application>
 
     <!--基础功能所需权限-->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" tools:ignore="ProtectedPermissions" />
     <!--配网所需权限-->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -43,6 +35,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" tools:ignore="ProtectedPermissions" />
 
     <!--人脸识别-->

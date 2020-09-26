@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Activity.MainActivity"
     android:screenOrientation="landscape"
     android:configChanges="orientation|keyboardHidden|screenSize">
 
@@ -869,12 +869,12 @@
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
 
-                                    <UI.DrawView
+                                    <com.liaojh.towercrane.UI.DrawView
                                         android:id="@+id/DrawView_view"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_weight="1"
-                                        tools:ignore="MissingClass"></UI.DrawView>
+                                        tools:ignore="MissingClass"></com.liaojh.towercrane.UI.DrawView>
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
