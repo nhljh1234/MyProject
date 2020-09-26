@@ -12,9 +12,13 @@ import UI.UIUpDownRunInfo;
 import UI.UIVideoInfo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Application;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -23,6 +27,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.hikvision.netsdk.ExceptionCallBack;
 import com.hikvision.netsdk.HCNetSDK;
@@ -30,7 +35,7 @@ import com.hikvision.netsdk.HCNetSDK;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private UITopBar uiTopBar = new UITopBar();
     private UITowerCraneRunInfo uiTowerCraneRunInfo = new UITowerCraneRunInfo();
     private UIUpDownRunInfo uiUpDownRunInfo = new UIUpDownRunInfo();
@@ -41,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
     private TowerCraneRunData oldData;
 
     private int timerTimeTotal = 0;
+
+    private static final String[] NEEDED_PERMISSIONS = new String[]{
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    private static final int ACTION_REQUEST_PERMISSIONS = 0x001;
 
     @SuppressLint("HandlerLeak")
     final Handler handler = new Handler() {
@@ -101,6 +113,22 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void checkArcFaceActive() {
+        SharedPreferences sp = getSharedPreferences("Data", Activity.MODE_PRIVATE);
+        int haveActive = sp.getInt("HAVE_ACTIVE", 0);
+        if (haveActive != 1) {
+            Boolean success = AppGlobalData.arcFaceManager.active(this);
+            if (success) {
+                // 获取Editor对象
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt("HAVE_ACTIVE", 1);
+                editor.commit();
+            } else {
+                //Toast.makeText(this, "人脸识别注册失败，请联系开发者", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,11 +160,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
-        initSdk();
-
-        if (Build.VERSION.SDK_INT >= 23 && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        if (!checkPermissions(NEEDED_PERMISSIONS)) {
+            ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
+        } else {
+            //检测ArcFace是否激活
+            checkArcFaceActive();
         }
+
+        //初始化海康威视摄像头SDK
+        initSdk();
 
         //去掉头部
         getSupportActionBar().hide();
@@ -184,5 +216,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         super.onDestroy();
+    }
+
+    @Override
+    protected void afterRequestPermission(int requestCode, boolean isAllGranted) {
+        if (isAllGranted) {
+            //检测ArcFace是否激活
+            checkArcFaceActive();
+        }
     }
 }

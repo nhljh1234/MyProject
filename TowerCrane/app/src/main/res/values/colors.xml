@@ -15,4 +15,5 @@
     <color name="color_video_layout_select">#587CF7</color>
     <color name="color_video_text_select">#F6AD09</color>
     <color name="color_video_text_un_select">#FFFFFF</color>
+    <color name="color_black">#000000</color>
 </resources>

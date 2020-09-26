@@ -20,6 +20,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".RegisterActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
+
+        <activity android:name=".CheckActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+        </activity>
+
     </application>
 
     <!--基础功能所需权限-->
@@ -35,6 +43,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" tools:ignore="ProtectedPermissions" />
+
+    <!--人脸识别-->
+    <uses-permission android:name="android.permission.CAMERA" />
+
 </manifest>

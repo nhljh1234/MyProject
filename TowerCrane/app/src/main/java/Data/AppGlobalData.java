@@ -3,6 +3,7 @@ package Data;
 import java.util.ArrayList;
 import java.util.List;
 
+import Manager.ArcFaceManager;
 import Manager.CSVFileManager;
 
 public class AppGlobalData {
@@ -74,4 +75,10 @@ public class AppGlobalData {
     public static int Port = 8000;
 
     public static String LogTag = "test log";
+
+    public static String APP_ID = "7s8skgqES6JBy79xHW5bmcxrRBUVufFAyHAq71vBSwud";
+
+    public static String SDK_KEY = "3A3KeQMjKdB8MJBC7PNXpyGktpEHh9nwTJ5qNZdnwC2y";
+
+    public static ArcFaceManager arcFaceManager = new ArcFaceManager();
 }
