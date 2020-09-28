@@ -4,10 +4,12 @@ import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
 import com.liaojh.towercrane.Data.TowerCraneRunDataFactory;
 import com.liaojh.towercrane.Manager.CSVFileManager;
+import com.liaojh.towercrane.Manager.LocalStorage;
 import com.liaojh.towercrane.Tool.CSVFileTool;
 import com.liaojh.towercrane.Tool.Tool;
 import com.liaojh.towercrane.UI.InterfaceUI;
 import com.liaojh.towercrane.UI.UIAmplitudeRunInfo;
+import com.liaojh.towercrane.UI.UILogin;
 import com.liaojh.towercrane.UI.UITopBar;
 import com.liaojh.towercrane.UI.UITowerCraneRunInfo;
 import com.liaojh.towercrane.UI.UITurnAroundRunInfo;
@@ -18,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -26,23 +29,29 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.DocumentsContract;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
-import com.hikvision.netsdk.ExceptionCallBack;
-import com.hikvision.netsdk.HCNetSDK;
 import com.liaojh.towercrane.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends BaseActivity {
+    private UILogin uiLogin = new UILogin();
+
     private InterfaceUI[] uis = new InterfaceUI[] {
             new UITopBar(),
             new UITowerCraneRunInfo(),
             new UIUpDownRunInfo(),
             new UIAmplitudeRunInfo(),
             new UITurnAroundRunInfo(),
-            new UIVideoInfo()
+            new UIVideoInfo(),
+            uiLogin,
     };
 
     private TowerCraneRunData oldData;
@@ -98,26 +107,6 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    private boolean initSdk() {
-        // init net sdk
-        if (!HCNetSDK.getInstance().NET_DVR_Init()) {
-            Log.e(Constant.LogTag, "HCNetSDK init is failed!");
-            return false;
-        }
-        HCNetSDK.getInstance().NET_DVR_SetLogToFile(3, "/mnt/sdcard/sdklog/", true);
-
-        ExceptionCallBack oExceptionCbf = new ExceptionCallBack() {
-            public void fExceptionCallBack(int iType, int iUserID, int iHandle) {
-                System.out.println("recv exception, type:" + iType);
-            }
-        };
-        if (!HCNetSDK.getInstance().NET_DVR_SetExceptionCallBack(oExceptionCbf)) {
-            Log.e(Constant.LogTag, "NET_DVR_SetExceptionCallBack error");
-            return false;
-        }
-        return true;
-    }
-
     private void openDir() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
         startActivityForResult(intent, ACTIVE_OPEN_DOCUMENT_TREE);
@@ -127,6 +116,8 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        Constant.localStorage = new LocalStorage(getSharedPreferences("Data", Activity.MODE_PRIVATE));
 
         int DPI = Tool.getDPI(this);
         switch (DPI) {
@@ -158,11 +149,8 @@ public class MainActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
         }
 
-        //初始化海康威视摄像头SDK
-        initSdk();
-
         //开启文件夹权限
-        openDir();
+        //openDir();
 
         //去掉头部
         getSupportActionBar().hide();
@@ -176,6 +164,13 @@ public class MainActivity extends BaseActivity {
         timerTimeTotal = 0;
         //开启时间信息更新定时器
         timerUpdateTowerCraneRunInfo.schedule(timerTaskUpdateTowerCraneRunInfo, 0, Constant.TOWER_RUN_DATE_UPDATE_INTERVAL);
+
+        ((LinearLayout) activity.findViewById(R.id.layout_setting)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uiLogin.show();
+            }
+        });
     }
 
     @Override

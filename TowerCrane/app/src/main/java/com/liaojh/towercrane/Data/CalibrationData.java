@@ -2,7 +2,6 @@ package com.liaojh.towercrane.Data;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.SharedPreferences;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
 
@@ -30,9 +29,6 @@ public class CalibrationData {
     private Boolean low_error_work;//低预警值控制
     private Boolean high_error_work;//高预警值控制
 
-    private SharedPreferences sp;
-    private SharedPreferences.Editor spEditor;
-
     private float mathA; //函数 y = ax + b
     private float mathB; //函数 y = ax + b
 
@@ -52,18 +48,16 @@ public class CalibrationData {
         m_key_low_error_work = key_low_error_work;
         m_key_high_error_work = key_high_error_work;
 
-        sp = activity.getSharedPreferences("Data", Activity.MODE_PRIVATE);
-        spEditor = sp.edit();
-        demarcate_1 = sp.getFloat(m_key_demarcate_1, 5);
-        demarcate_2 = sp.getFloat(m_key_demarcate_2, 100);
-        measure_1 = sp.getFloat(m_key_measure_1, 0);
-        measure_2 = sp.getFloat(m_key_measure_2, 5);
-        low_warn = sp.getFloat(m_key_low_warn, 0);
-        low_error = sp.getFloat(m_key_low_error, 0);
-        high_warn = sp.getFloat(m_key_high_warn, 0);
-        high_error = sp.getFloat(m_key_high_error, 0);
-        low_error_work = sp.getBoolean(m_key_low_error_work, true);
-        high_error_work = sp.getBoolean(m_key_high_error_work, true);
+        demarcate_1 = Constant.localStorage.m_sp.getFloat(m_key_demarcate_1, 5);
+        demarcate_2 = Constant.localStorage.m_sp.getFloat(m_key_demarcate_2, 100);
+        measure_1 = Constant.localStorage.m_sp.getFloat(m_key_measure_1, 0);
+        measure_2 = Constant.localStorage.m_sp.getFloat(m_key_measure_2, 5);
+        low_warn = Constant.localStorage.m_sp.getFloat(m_key_low_warn, 0);
+        low_error = Constant.localStorage.m_sp.getFloat(m_key_low_error, 0);
+        high_warn = Constant.localStorage.m_sp.getFloat(m_key_high_warn, 0);
+        high_error = Constant.localStorage.m_sp.getFloat(m_key_high_error, 0);
+        low_error_work = Constant.localStorage.m_sp.getBoolean(m_key_low_error_work, true);
+        high_error_work = Constant.localStorage.m_sp.getBoolean(m_key_high_error_work, true);
 
         mathAB();
     }
@@ -75,43 +69,43 @@ public class CalibrationData {
     }
 
     public void SaveDemarcate_1(float value) {
-        spEditor.putFloat(m_key_demarcate_1, value);
+        Constant.localStorage.m_spe.putFloat(m_key_demarcate_1, value);
     }
 
     public void SaveDemarcate_2(float value) {
-        spEditor.putFloat(m_key_demarcate_2, value);
+        Constant.localStorage.m_spe.putFloat(m_key_demarcate_2, value);
     }
 
     public void SaveMeasure_1(float value) {
-        spEditor.putFloat(m_key_measure_1, value);
+        Constant.localStorage.m_spe.putFloat(m_key_measure_1, value);
     }
 
     public void SaveMeasure_2(float value) {
-        spEditor.putFloat(m_key_measure_2, value);
+        Constant.localStorage.m_spe.putFloat(m_key_measure_2, value);
     }
 
     public void SaveLowWarn(float value) {
-        spEditor.putFloat(m_key_low_warn, value);
+        Constant.localStorage.m_spe.putFloat(m_key_low_warn, value);
     }
 
     public void SaveLowError(float value) {
-        spEditor.putFloat(m_key_low_error, value);
+        Constant.localStorage.m_spe.putFloat(m_key_low_error, value);
     }
 
     public void SaveHighWarn(float value) {
-        spEditor.putFloat(m_key_high_warn, value);
+        Constant.localStorage.m_spe.putFloat(m_key_high_warn, value);
     }
 
     public void SaveHighError(float value) {
-        spEditor.putFloat(m_key_high_error, value);
+        Constant.localStorage.m_spe.putFloat(m_key_high_error, value);
     }
 
     public void SaveLowErrorWork(Boolean value) {
-        spEditor.putBoolean(m_key_low_error_work, value);
+        Constant.localStorage.m_spe.putBoolean(m_key_low_error_work, value);
     }
 
     public void SaveHighErrorWork(Boolean value) {
-        spEditor.putBoolean(m_key_high_error_work, value);
+        Constant.localStorage.m_spe.putBoolean(m_key_high_error_work, value);
     }
 
     public float getDemarcateNum(float measure) {

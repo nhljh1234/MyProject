@@ -1,67 +1,54 @@
 package com.liaojh.towercrane.Manager;
 
-import android.os.Handler;
-import android.os.Message;
-import android.os.SystemClock;
-
+import android.view.SurfaceView;
 import java.util.ArrayList;
-
-import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Data.VideoData;
 
+import org.videolan.libvlc.IVLCVout;
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.MediaPlayer;
+
 public class VideoManager {
-    ArrayList<VideoData> videoList = new ArrayList<>();
+    private ArrayList<VideoData> list = new ArrayList<>();
+    private VideoData fullScreenVideoData;
 
-    private Handler m_handler;
-
-    private int count = 0;
-
-    private synchronized void OnSearchFinish(VideoData videoData) {
-        if (videoData != null) {
-            videoList.add(videoData);
-        }
-        count++;
-        if (count == 256) {
-            Message message = new Message();
-            message.obj = Constant.Handler_Type.SearchFinish;
-            m_handler.sendMessage(message);
-        }
+    public VideoManager(BaseActivity activity, SurfaceView surfaceViewVideo, SurfaceView surfaceViewFullScreen) {
+        smallVideoInit(activity, surfaceViewVideo);
+        fullScreenVideoInit(activity, surfaceViewFullScreen);
     }
 
-    public VideoManager(Handler handler) {
-        m_handler = handler;
+    private void smallVideoInit(BaseActivity activity, SurfaceView surfaceViewVideo) {
+        ArrayList<String> options = new ArrayList<>();
+        options.add("-vvv");
+        LibVLC libVLC = new LibVLC(activity, options);
+        MediaPlayer mediaPlayer = new MediaPlayer(libVLC);
+        IVLCVout vlcVout = mediaPlayer.getVLCVout();
+        vlcVout.setVideoView(surfaceViewVideo);
+        vlcVout.attachViews();
+
+        list.add(new VideoData(mediaPlayer, libVLC, surfaceViewVideo, "rtsp://guest:guest_001@192.168.0.6:554/video1"));
+        list.add(new VideoData(mediaPlayer, libVLC, surfaceViewVideo, "rtsp://guest:guest_001@192.168.0.182:554/h264/ch1/main/av_stream"));
+        list.add(new VideoData(mediaPlayer, libVLC, surfaceViewVideo, "rtsp://guest:guest_001@192.168.0.189:554/h264/ch1/main/av_stream"));
+    }
+
+    private void fullScreenVideoInit(BaseActivity activity, SurfaceView surfaceViewFullScreen) {
+        ArrayList<String> options = new ArrayList<>();
+        options.add("-vvv");
+        LibVLC libVLC = new LibVLC(activity, options);
+        MediaPlayer mediaPlayer = new MediaPlayer(libVLC);
+        IVLCVout vlcVout = mediaPlayer.getVLCVout();
+        vlcVout.setVideoView(surfaceViewFullScreen);
+        vlcVout.attachViews();
+
+        fullScreenVideoData = new VideoData(mediaPlayer, libVLC, surfaceViewFullScreen, "");
+    }
+
+    public VideoData getFullScreenVideoData() {
+        return fullScreenVideoData;
     }
 
     public ArrayList<VideoData> getVideoList() {
-        return videoList;
-    }
-
-    public void startSearch(String ip) {
-        count = 0;
-        videoList = new ArrayList<>();
-
-        if (ip == null) {
-            Message message = new Message();
-            message.obj = Constant.Handler_Type.IPError;
-            m_handler.sendMessage(message);
-        } else {
-            String[] ips = ip.split("\\.");
-            String ipHead = ips[0] + "." + ips[1] + "." + ips[2];
-            for (int j = 0; j <= 255; j++) {
-                final String address = ipHead + "." + j;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        VideoData videoData = new VideoData(address);
-                        SystemClock.sleep(1000);
-                        if (videoData.canLogin()) {
-                            OnSearchFinish(videoData);
-                        } else {
-                            OnSearchFinish(null);
-                        }
-                    }
-                }).start();
-            }
-        }
+        return list;
     }
 }

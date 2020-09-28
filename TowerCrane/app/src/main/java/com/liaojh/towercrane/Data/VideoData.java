@@ -1,155 +1,85 @@
 package com.liaojh.towercrane.Data;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.Debug;
+import android.util.DebugUtils;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
 
-import com.hikvision.netsdk.HCNetSDK;
-import com.hikvision.netsdk.NET_DVR_DEVICEINFO_V30;
-import com.hikvision.netsdk.NET_DVR_PREVIEWINFO;
-import com.hikvision.netsdk.RealPlayCallBack;
+import com.liaojh.towercrane.Activity.BaseActivity;
+import com.liaojh.towercrane.Tool.Tool;
 
-import org.MediaPlayer.PlayM4.Player;
+import org.videolan.libvlc.IVLCVout;
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.Media;
+import org.videolan.libvlc.MediaPlayer;
+import org.videolan.libvlc.util.VLCVideoLayout;
+
+import java.util.ArrayList;
 
 public class VideoData {
-    public String m_address;
+    private LibVLC m_libVLC;
+    private MediaPlayer m_mediaPlayer;
+    private String m_uri;
+    private SurfaceView m_surfaceViewVideo;
 
-    private NET_DVR_DEVICEINFO_V30 m_oNetDvrDeviceInfoV30;
+    public VideoData(MediaPlayer mediaPlayer, LibVLC libVLC, SurfaceView surfaceViewVideo, String uri) {
+        m_mediaPlayer = mediaPlayer;
+        m_libVLC = libVLC;
+        m_uri = uri;
+        m_surfaceViewVideo = surfaceViewVideo;
 
-    private int m_iStartChan;
-
-    private int m_iChanNum;
-
-    private int m_iPort = -1;
-
-    private int m_iPlayID = -1;
-
-    public int loginId;
-
-    private Boolean canLogin;
-
-    private Boolean isPlaying = false;
-
-    private SurfaceView m_view;
-
-    public VideoData(String address) {
-        m_address = address;
-
-        m_oNetDvrDeviceInfoV30 = new NET_DVR_DEVICEINFO_V30();
-        loginId = HCNetSDK.getInstance().NET_DVR_Login_V30(m_address, Constant.Port, Constant.Name, Constant.Password, m_oNetDvrDeviceInfoV30);
-        canLogin = loginId >= 0;
-
-        if (m_oNetDvrDeviceInfoV30.byChanNum > 0) {
-            m_iStartChan = m_oNetDvrDeviceInfoV30.byStartChan;
-            m_iChanNum = m_oNetDvrDeviceInfoV30.byChanNum;
-        } else if (m_oNetDvrDeviceInfoV30.byIPChanNum > 0) {
-            m_iStartChan = m_oNetDvrDeviceInfoV30.byStartDChan;
-            m_iChanNum = m_oNetDvrDeviceInfoV30.byIPChanNum + m_oNetDvrDeviceInfoV30.byHighDChanNum * 256;
-        }
+        m_mediaPlayer.setEventListener(new MediaPlayer.EventListener() {
+            @Override
+            public void onEvent(MediaPlayer.Event event) {
+                if (event.type == MediaPlayer.Event.Playing) {
+                    updateSurfaceView();
+                }
+            }
+        });
     }
 
-    private void updateView(int iDataType, byte[] pDataBuffer, int iDataSize, int iStreamMode) {
-        if (HCNetSDK.NET_DVR_SYSHEAD == iDataType) {
-            if (m_iPort >= 0) {
-                return;
-            }
-            m_iPort = Player.getInstance().getPort();
-            if (iDataSize > 0) {
-                if (!Player.getInstance().setStreamOpenMode(m_iPort, iStreamMode)) {
-                    Log.e(Constant.LogTag, "setStreamOpenMode failed");
-                    return;
-                }
-                if (!Player.getInstance().openStream(m_iPort, pDataBuffer, iDataSize, 2 * 1024 * 1024)) {
-                    Log.e(Constant.LogTag, "openStream failed");
-                    return;
-                }
-                if (m_view.getHolder().getSurface() == null) {
-                    Log.e(Constant.LogTag, "getSurface failed");
-                }
-                if (!Player.getInstance().play(m_iPort, m_view.getHolder())) {
-                    Log.e(Constant.LogTag, "play failed");
-                    return;
-                }
-            }
-        } else {
-            if (!Player.getInstance().inputData(m_iPort, pDataBuffer, iDataSize)) {
-                Log.e(Constant.LogTag, "inputData failed");
-            }
-        }
+    private void updateSurfaceView() {
+        int width = m_surfaceViewVideo.getMeasuredWidth();
+        int height = m_surfaceViewVideo.getMeasuredHeight();
+
+        m_mediaPlayer.getVLCVout().setWindowSize(width, height);
+        m_mediaPlayer.setScale(0);
     }
 
-    public void show(SurfaceView view) {
+    public String getUri() {
+        return m_uri;
+    }
 
-        m_view = view;
-
-        if (isPlaying) {
+    public void play(String uri) {
+        uri = uri == null ? m_uri : uri;
+        if (uri == null) {
+            Log.e(Constant.LogTag, "uri is null");
             return;
         }
-
-        isPlaying = true;
-
-        RealPlayCallBack cbf = new RealPlayCallBack() {
-            public void fRealDataCallBack(int iRealHandle, int iDataType,
-                                          byte[] pDataBuffer, int iDataSize) {
-                updateView(iDataType, pDataBuffer, iDataSize, Player.STREAM_REALTIME);
-            }
-        };
-
-        NET_DVR_PREVIEWINFO previewInfo = new NET_DVR_PREVIEWINFO();
-        previewInfo.lChannel = m_iStartChan;
-        previewInfo.dwStreamType = 0; // substream
-        previewInfo.bBlocked = 1;
-
-        m_iPlayID = HCNetSDK.getInstance().NET_DVR_RealPlay_V40(loginId, previewInfo, cbf);
+        Media media = new Media(m_libVLC, Uri.parse(uri));
+        media.addOption(":no-audio");
+        media.addOption(":network-caching=10");
+        m_mediaPlayer.setMedia(media);
+        m_mediaPlayer.play();
+        media.release();
     }
 
     public void stop() {
-        if (!isPlaying) {
-            return;
+        if (m_mediaPlayer != null) {
+            m_mediaPlayer.stop();
+            //m_mediaPlayer.getVLCVout().detachViews();
         }
-
-//        if (!Player.getInstance().setVideoWindow(m_iPort, 0, null)) {
-//            Log.e(AppGlobalData.LogTag, "surfaceDestroyed Player setVideoWindow failed!");
-//        }
-
-        if (m_iPort == -1) {
-            return;
-        }
-
-        if (m_iPlayID == -1) {
-            return;
-        }
-
-        // release net SDK resource
-        //HCNetSDK.getInstance().NET_DVR_Cleanup();
-
-        if (!HCNetSDK.getInstance().NET_DVR_StopRealPlay(m_iPlayID)) {
-            Log.e(Constant.LogTag, "StopRealPlay is failed!Err:" + HCNetSDK.getInstance().NET_DVR_GetLastError());
-            return;
-        }
-        m_iPlayID = -1;
-
-        if (!Player.getInstance().stop(m_iPort)) {
-            Log.e(Constant.LogTag, "stop is failed!");
-            return;
-        }
-        if (!Player.getInstance().closeStream(m_iPort)) {
-            Log.e(Constant.LogTag, "closeStream is failed!");
-            return;
-        }
-        if (!Player.getInstance().freePort(m_iPort)) {
-            Log.e(Constant.LogTag, "freePort is failed!" + m_iPort);
-            return;
-        }
-        m_iPort = -1;
-
-        isPlaying = false;
     }
 
-    public Boolean canLogin() {
-        return canLogin;
-    }
-
-    public int getIPort() {
-        return m_iPort;
+    public void onDestroy() {
+        if (m_mediaPlayer != null) {
+            m_mediaPlayer.release();
+        }
+        if (m_libVLC != null) {
+            m_libVLC.release();
+        }
     }
 }

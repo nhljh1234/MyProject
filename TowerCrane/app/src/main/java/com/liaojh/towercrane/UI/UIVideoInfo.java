@@ -10,12 +10,12 @@ import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.R;
-
-import org.MediaPlayer.PlayM4.Player;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,9 @@ import com.liaojh.towercrane.Data.VideoData;
 import com.liaojh.towercrane.Manager.VideoManager;
 import com.liaojh.towercrane.Tool.Tool;
 
-public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
+import org.videolan.libvlc.util.VLCVideoLayout;
+
+public class UIVideoInfo implements InterfaceUI {
     private ArrayList<LinearLayout> layoutList = new ArrayList<>();
     private ArrayList<TextView> textViewList = new ArrayList<>();
 
@@ -36,30 +38,17 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
     private int selectIndex;
     private int selectPageIndex;
 
-    private Activity activity;
+    private BaseActivity activity;
 
     private LinearLayout layoutBtnLeft, layoutBtnRight, layoutVideo_1, layoutVideo_2, layoutVideo_3, layoutVideo_4;
 
     private TextView textVideoName_1, textVideoName_2, textVideoName_3, textVideoName_4, textTest;
 
-    private SurfaceView surfaceView;
+    private SurfaceView surfaceViewVideo, surfaceViewVideoFullScreen;
 
-    @SuppressLint("HandlerLeak")
-    final Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.obj == Constant.Handler_Type.SearchFinish) {
-                updateVideoList();
-                if (videoManager.getVideoList().size() == 0) {
-                    textTest.setText("没有摄像头");
-                }
-            } else if (msg.obj == Constant.Handler_Type.IPError) {
-                textTest.setText("网络错误");
-            }
-            super.handleMessage(msg);
-        }
-    };
+    private VideoManager videoManager;
 
-    private VideoManager videoManager = new VideoManager(handler);
+    private Button buttonBig;
 
     private void selectInfoUpdate(int index, int pageIndex) {
         if (pageIndex == selectPageIndex && index == selectIndex) {
@@ -88,6 +77,7 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
         }
 
         for (int i = 0; i < videoList.size(); i++) {
+            //停止
             videoList.get(i).stop();
         }
 
@@ -95,13 +85,14 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
         for (int i = 0; i < count; i++) {
             int videoIndex = i + (selectPageIndex - 1) * 4 + 1;
             VideoData videoData = videoList.get(videoIndex - 1);
-            videoDataSelect = videoData;
             textViewList.get(i).setText("视频" + (i + 1));
             if (videoIndex == selectIndex) {
                 layoutList.get(i).setBackgroundColor(activity.getResources().getColor(R.color.color_video_layout_select));
                 textViewList.get(i).setTextColor(activity.getResources().getColor(R.color.color_video_text_select));
                 //textTest.setText(videoData.videoName);
-                videoData.show(surfaceView);
+                videoDataSelect = videoData;
+                //播放
+                videoData.play(null);
             } else {
                 layoutList.get(i).setBackgroundColor(activity.getResources().getColor(R.color.color_video_layout_un_select));
                 textViewList.get(i).setTextColor(activity.getResources().getColor(R.color.color_video_text_un_select));
@@ -110,7 +101,7 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
     }
 
     @Override
-    public void onUICreate(Activity activityIn) {
+    public void onUICreate(BaseActivity activityIn) {
         activity = activityIn;
 
         layoutBtnLeft = (LinearLayout) activity.findViewById(R.id.layout_btn_left);
@@ -127,8 +118,10 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
 
         textTest = (TextView) activity.findViewById(R.id.text_test);
 
-        surfaceView = (SurfaceView) activity.findViewById(R.id.video_surfaceView);
-        surfaceView.getHolder().addCallback(this);
+        surfaceViewVideo = (SurfaceView) activity.findViewById(R.id.video_surfaceView);
+        surfaceViewVideoFullScreen = (SurfaceView) activity.findViewById(R.id.surface_view_full_screen);
+
+        buttonBig = (Button) activity.findViewById(R.id.button_big);
 
         layoutBtnLeft.setOnClickListener(this);
         layoutBtnRight.setOnClickListener(this);
@@ -136,6 +129,8 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
         layoutVideo_2.setOnClickListener(this);
         layoutVideo_3.setOnClickListener(this);
         layoutVideo_4.setOnClickListener(this);
+        buttonBig.setOnClickListener(this);
+        surfaceViewVideoFullScreen.setOnClickListener(this);
 
         layoutList = new ArrayList<>();
         layoutList.add(layoutVideo_1);
@@ -149,35 +144,7 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
         textViewList.add(textVideoName_3);
         textViewList.add(textVideoName_4);
 
-        videoManager.startSearch(Tool.getLocalIPAddress());
-    }
-
-    public void surfaceCreated(SurfaceHolder holder) {
-        surfaceView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
-        if (videoDataSelect == null || videoDataSelect.getIPort() == -1) {
-            return;
-        }
-        Surface surface = holder.getSurface();
-        if (surface.isValid()) {
-            if (!Player.getInstance().setVideoWindow(videoDataSelect.getIPort(), 0, holder)) {
-                Log.e(Constant.LogTag, "surfaceCreated Player setVideoWindow failed!");
-            }
-        }
-    }
-
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-    }
-
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        if (videoDataSelect == null || videoDataSelect.getIPort() == -1) {
-            return;
-        }
-        if (holder.getSurface().isValid()) {
-            if (!Player.getInstance().setVideoWindow(videoDataSelect.getIPort(), 0, null)) {
-                Log.e(Constant.LogTag, "surfaceDestroyed Player setVideoWindow failed!");
-            }
-        }
+        videoManager = new VideoManager(activityIn, surfaceViewVideo, surfaceViewVideoFullScreen);
     }
 
     @Override
@@ -189,7 +156,10 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
 
     @Override
     public void onUIDestroy() {
-
+        videoList = videoManager.getVideoList();
+        for (int i = 0; i < videoList.size(); i++) {
+            videoList.get(i).onDestroy();
+        }
     }
 
     @Override
@@ -224,6 +194,19 @@ public class UIVideoInfo implements InterfaceUI, SurfaceHolder.Callback {
                 break;
             case R.id.layout_video_4:
                 selectInfoUpdate((selectPageIndex - 1) * 4 + 4, selectPageIndex);
+                break;
+            case R.id.button_big:
+                surfaceViewVideoFullScreen.setVisibility(View.VISIBLE);
+                surfaceViewVideo.setVisibility(View.INVISIBLE);
+                videoDataSelect.onDestroy();
+                videoManager.getFullScreenVideoData().play(videoDataSelect.getUri());
+                break;
+            case R.id.surface_view_full_screen:
+                videoManager.getFullScreenVideoData().onDestroy();
+                surfaceViewVideoFullScreen.setVisibility(View.INVISIBLE);
+                surfaceViewVideo.setVisibility(View.VISIBLE);
+                videoManager = new VideoManager(activity, surfaceViewVideo, surfaceViewVideoFullScreen);
+                updateVideoList();
                 break;
         }
     }

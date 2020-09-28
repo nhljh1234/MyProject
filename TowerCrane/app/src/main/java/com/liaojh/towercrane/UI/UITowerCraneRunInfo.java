@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.R;
 
 import java.util.ArrayList;
@@ -210,7 +211,7 @@ public class UITowerCraneRunInfo implements InterfaceUI {
     }
 
     @Override
-    public void onUICreate(Activity activityIn) {
+    public void onUICreate(BaseActivity activityIn) {
         activity = activityIn;
 
         textNumber = (TextView) activity.findViewById(R.id.text_number);

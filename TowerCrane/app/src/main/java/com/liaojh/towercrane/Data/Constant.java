@@ -1,6 +1,7 @@
 package com.liaojh.towercrane.Data;
 
 import com.liaojh.towercrane.Manager.CSVFileManager;
+import com.liaojh.towercrane.Manager.LocalStorage;
 
 public class Constant {
     public enum InterfaceType {
@@ -64,11 +65,19 @@ public class Constant {
 //
 //    public static String Password = "Guest001";
 
-    public static String Name = "admin";
+    public static String Name = "guest";
 
-    public static String Password = "IZUBME";
+    public static String Password = "guest_001";
 
     public static int Port = 8000;
 
     public static String LogTag = "test log";
+
+    public static LocalStorage localStorage;
+
+    public static float videoRatio = 4.0f / 3;
+
+    public static String userName = "admin";
+
+    public static String password = "password";
 }

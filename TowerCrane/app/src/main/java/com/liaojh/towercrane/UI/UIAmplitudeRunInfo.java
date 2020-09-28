@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.R;
 
 import com.liaojh.towercrane.Data.TowerCraneAmplitudeData;
@@ -47,7 +48,7 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
     }
 
     @Override
-    public void onUICreate(Activity activityIn) {
+    public void onUICreate(BaseActivity activityIn) {
         activity = activityIn;
 
         imageStatus = (ImageView) activity.findViewById(R.id.image_amplitude_status);
