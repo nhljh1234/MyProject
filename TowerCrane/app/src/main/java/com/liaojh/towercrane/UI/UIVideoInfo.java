@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,6 +47,8 @@ public class UIVideoInfo implements InterfaceUI {
     private TextView textVideoName_1, textVideoName_2, textVideoName_3, textVideoName_4, textTest;
 
     private SurfaceView surfaceViewVideo, surfaceViewVideoFullScreen;
+
+    private FrameLayout frameLayoutFullVideo;
 
     private Button buttonBig;
 
@@ -119,6 +122,8 @@ public class UIVideoInfo implements InterfaceUI {
         surfaceViewVideo = m_activity.findViewById(R.id.video_surfaceView);
         surfaceViewVideoFullScreen = m_activity.findViewById(R.id.surface_view_full_screen);
 
+        frameLayoutFullVideo = m_activity.findViewById(R.id.frame_layout_full_video);
+
         buttonBig = m_activity.findViewById(R.id.button_big);
 
         layoutBtnLeft.setOnClickListener(this);
@@ -129,6 +134,7 @@ public class UIVideoInfo implements InterfaceUI {
         layoutVideo_4.setOnClickListener(this);
         buttonBig.setOnClickListener(this);
         surfaceViewVideoFullScreen.setOnClickListener(this);
+        frameLayoutFullVideo.setOnClickListener(this);
 
         layoutList = new ArrayList<>();
         layoutList.add(layoutVideo_1);
@@ -170,6 +176,7 @@ public class UIVideoInfo implements InterfaceUI {
     public void videoInfoUpdate() {
         if (videoDataSelect != null) {
             videoDataSelect.onDestroy();
+            videoDataSelect = null;
         }
         Constant.videoManager.smallVideoInit(m_activity, surfaceViewVideo);
         onUIStart();
@@ -203,14 +210,19 @@ public class UIVideoInfo implements InterfaceUI {
                 selectInfoUpdate((selectPageIndex - 1) * 4 + 4, selectPageIndex);
                 break;
             case R.id.button_big:
-                surfaceViewVideoFullScreen.setVisibility(View.VISIBLE);
-                surfaceViewVideo.setVisibility(View.INVISIBLE);
+                if (videoDataSelect == null) {
+                    break;
+                }
+                frameLayoutFullVideo.setVisibility(View.VISIBLE);
                 videoDataSelect.stop();
                 Constant.videoManager.getFullScreenVideoData().play(videoDataSelect.getUri());
                 break;
             case R.id.surface_view_full_screen:
-                surfaceViewVideoFullScreen.setVisibility(View.INVISIBLE);
-                surfaceViewVideo.setVisibility(View.VISIBLE);
+            case R.id.frame_layout_full_video:
+                if (videoDataSelect == null) {
+                    break;
+                }
+                frameLayoutFullVideo.setVisibility(View.INVISIBLE);
                 Constant.videoManager.getFullScreenVideoData().stop();
                 videoDataSelect.play(null);
                 //updateVideoList();

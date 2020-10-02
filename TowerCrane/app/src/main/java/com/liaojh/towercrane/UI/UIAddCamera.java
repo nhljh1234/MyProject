@@ -1,7 +1,9 @@
 package com.liaojh.towercrane.UI;
 
+import android.content.Context;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -19,8 +21,6 @@ public class UIAddCamera implements InterfaceDialog {
     EditText editCameraName, editCameraUserName, editCameraPassword, editCameraIpAddress, editCameraPort, editCameraRtspAddress;
 
     Button btnAddCamera, btnBack;
-
-    private SurfaceView surfaceViewVideo, surfaceViewVideoFullScreen;
 
     private Boolean isChange = false;
 
@@ -78,8 +78,7 @@ public class UIAddCamera implements InterfaceDialog {
         btnAddCamera.setOnClickListener(this);
         btnBack.setOnClickListener(this);
 
-        surfaceViewVideo = m_activity.findViewById(R.id.video_surfaceView);
-        surfaceViewVideoFullScreen = m_activity.findViewById(R.id.surface_view_full_screen);
+        layoutAddCamera.setOnClickListener(this);
     }
 
     @Override
@@ -119,6 +118,11 @@ public class UIAddCamera implements InterfaceDialog {
             case R.id.btn_camera_manager_back:
                 m_activity.uiCameraList.show();
                 hide();
+                break;
+            case R.id.layout_add_camera:
+                InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 break;
         }
     }

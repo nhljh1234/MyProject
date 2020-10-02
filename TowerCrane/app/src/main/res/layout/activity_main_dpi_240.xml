@@ -12,6 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -1324,7 +1330,8 @@
 
                             <FrameLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                                android:layout_height="match_parent"
+                                android:background="@color/color_black">
 
                                 <SurfaceView
                                     android:id="@+id/video_surfaceView"
@@ -3347,12 +3354,18 @@
 
         </LinearLayout>
 
-        <SurfaceView
-            android:id="@+id/surface_view_full_screen"
+        <FrameLayout
+            android:id="@+id/frame_layout_full_video"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:layout_gravity="center"/>
+            android:background="@color/color_black"
+            android:visibility="invisible">
+            <SurfaceView
+                android:id="@+id/surface_view_full_screen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/layout_login"
@@ -3360,6 +3373,8 @@
             android:layout_height="match_parent"
             android:background="@color/color_black"
             android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:visibility="invisible">
 
             <LinearLayout
@@ -3445,6 +3460,8 @@
             android:layout_height="match_parent"
             android:background="@color/color_black"
             android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:visibility="invisible">
 
             <LinearLayout
@@ -3880,6 +3897,310 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="88dp"
                         android:text="@string/high_calibration_back"
+                        android:textSize="21sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_add_camera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black"
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:text="@string/camera_manager"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="53sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="right"
+                                android:text="@string/camera_name"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_camera_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="right"
+                                android:text="@string/camera_user_name"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_camera_user_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="right"
+                                android:text="@string/camera_user_password"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_camera_user_password"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="right"
+                                android:text="@string/camera_user_ipAddress"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_camera_user_ipAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="right"
+                                android:text="@string/camera_user_port"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_camera_user_port"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="right"
+                                android:text="@string/camera_rtsp_address"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_camera_rtsp_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_add_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="88dp"
+                        android:text="@string/camera_add"
+                        android:textSize="21sp" />
+
+                    <Button
+                        android:id="@+id/btn_camera_manager_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="88dp"
+                        android:text="@string/camera_manager_back"
+                        android:textSize="21sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_camera_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black"
+            android:orientation="horizontal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:text="@string/camera_list"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="53sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ListView
+                        android:id="@+id/list_view_camera"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_camera_list_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="88dp"
+                        android:text="@string/camera_list_add"
+                        android:textSize="21sp" />
+
+                    <Button
+                        android:id="@+id/btn_camera_list_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="88dp"
+                        android:text="@string/camera_list_back"
                         android:textSize="21sp" />
                 </LinearLayout>
 

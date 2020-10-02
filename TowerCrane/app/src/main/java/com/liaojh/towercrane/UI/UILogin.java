@@ -1,7 +1,11 @@
 package com.liaojh.towercrane.UI;
 
+import android.app.Instrumentation;
+import android.content.Context;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -42,6 +46,7 @@ public class UILogin implements InterfaceDialog {
         btnBack = activityIn.findViewById(R.id.btn_login_back);
 
         layoutLogin = activityIn.findViewById(R.id.layout_login);
+        layoutLogin.setOnClickListener(this);
 
         btnSure.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -77,6 +82,11 @@ public class UILogin implements InterfaceDialog {
                 break;
             case R.id.btn_login_back:
                 hide();
+                break;
+            case R.id.layout_login:
+                InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 break;
         }
     }

@@ -1,7 +1,9 @@
 package com.liaojh.towercrane.UI;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -125,6 +127,7 @@ public class UISetCalibration implements InterfaceDialog {
         textTitle.setOnClickListener(this);
 
         layoutSetCalibration = activityIn.findViewById(R.id.layout_set_calibration);
+        layoutSetCalibration.setOnClickListener(this);
 
         m_activity = activityIn;
     }
@@ -152,10 +155,16 @@ public class UISetCalibration implements InterfaceDialog {
                 hide();
                 break;
             case R.id.btn_calibration_back:
+                m_activity.uiSetting.show();
                 hide();
                 break;
             case R.id.text_calibration_title:
                 
+                break;
+            case R.id.layout_set_calibration:
+                InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 break;
         }
     }

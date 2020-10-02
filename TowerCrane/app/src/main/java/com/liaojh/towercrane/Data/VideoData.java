@@ -3,15 +3,20 @@ package com.liaojh.towercrane.Data;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.net.Uri;
 import android.os.Debug;
 import android.util.DebugUtils;
 import android.util.Log;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
+import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.R;
 import com.liaojh.towercrane.Tool.Tool;
 
 import org.videolan.libvlc.IVLCVout;
@@ -27,10 +32,10 @@ public class VideoData {
     private MediaPlayer m_mediaPlayer;
     private String m_uri;
     private SurfaceView m_surfaceViewVideo;
-
+    private MainActivity m_activity;
     public Constant.VideoSaveData m_videoSaveData;
 
-    public VideoData(MediaPlayer mediaPlayer, LibVLC libVLC, SurfaceView surfaceViewVideo, Constant.VideoSaveData videoSaveData) {
+    public VideoData(MainActivity activity, MediaPlayer mediaPlayer, LibVLC libVLC, SurfaceView surfaceViewVideo, Constant.VideoSaveData videoSaveData) {
         if (videoSaveData != null) {
             m_videoSaveData = videoSaveData;
             m_uri = Tool.getRtspAddress(videoSaveData);
@@ -38,12 +43,22 @@ public class VideoData {
         m_mediaPlayer = mediaPlayer;
         m_libVLC = libVLC;
         m_surfaceViewVideo = surfaceViewVideo;
-
+        m_activity = activity;
         m_mediaPlayer.setEventListener(new MediaPlayer.EventListener() {
             @Override
             public void onEvent(MediaPlayer.Event event) {
-                if (event.type == MediaPlayer.Event.Playing) {
-                    updateSurfaceView();
+                switch (event.type) {
+                    case MediaPlayer.Event.Buffering:
+                        Canvas canvas = new Canvas();
+                        canvas.drawColor(Color.BLACK);
+                        m_surfaceViewVideo.draw(canvas);
+                        break;
+                    case MediaPlayer.Event.Playing:
+                        updateSurfaceView();
+                        break;
+                    case MediaPlayer.Event.EncounteredError:
+                        m_activity.showToast(m_uri + "连接失败");
+                        break;
                 }
             }
         });
@@ -67,6 +82,7 @@ public class VideoData {
             Log.e(Constant.LogTag, "uri is null");
             return;
         }
+        m_surfaceViewVideo.setVisibility(View.VISIBLE);
         IVLCVout vlcVout = m_mediaPlayer.getVLCVout();
         if (!vlcVout.areViewsAttached()) {
             vlcVout.setVideoView(m_surfaceViewVideo);
@@ -82,18 +98,9 @@ public class VideoData {
 
     public void stop() {
         if (m_mediaPlayer != null) {
-            m_mediaPlayer.stop();
-
-//            IVLCVout vlcVout = m_mediaPlayer.getVLCVout();
-//            vlcVout.detachViews();
-
-//            Canvas canvas = m_surfaceViewVideo.getHolder().lockCanvas(null);
-//            if (canvas != null) {
-//                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-//                m_surfaceViewVideo.draw(canvas);
-//            }
-            //m_mediaPlayer.getVLCVout().detachViews();
+            m_mediaPlayer.pause();
         }
+        m_surfaceViewVideo.setVisibility(View.INVISIBLE);
     }
 
     public void onDestroy() {
@@ -105,5 +112,6 @@ public class VideoData {
         }
         m_mediaPlayer = null;
         m_libVLC = null;
+        m_surfaceViewVideo.setVisibility(View.INVISIBLE);
     }
 }

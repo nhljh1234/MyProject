@@ -126,7 +126,7 @@ public class VideoManager {
         list = new ArrayList<>();
         ArrayList<Constant.VideoSaveData> videoList = getVideoSaveDataList();
         for (int i = 0; i < videoList.size(); i++) {
-            list.add(new VideoData(mediaPlayer, libVLC, surfaceViewVideo, videoList.get(i)));
+            list.add(new VideoData(activity, mediaPlayer, libVLC, surfaceViewVideo, videoList.get(i)));
         }
 
 //        list.add(new VideoData(mediaPlayer, libVLC, surfaceViewVideo, "rtsp://guest:guest_001@192.168.0.6:554/video1"));
@@ -142,7 +142,7 @@ public class VideoManager {
 
         m_activity = activity;
 
-        fullScreenVideoData = new VideoData(mediaPlayer, libVLC, surfaceViewFullScreen, null);
+        fullScreenVideoData = new VideoData(activity, mediaPlayer, libVLC, surfaceViewFullScreen, null);
     }
 
     public VideoData getFullScreenVideoData() {
