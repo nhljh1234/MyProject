@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
+import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.R;
 
 import com.liaojh.towercrane.Data.TowerCraneAmplitudeData;
@@ -48,31 +49,31 @@ public class UITurnAroundRunInfo implements InterfaceUI {
     }
 
     @Override
-    public void onUICreate(BaseActivity activityIn) {
+    public void onUICreate(MainActivity activityIn) {
         activity = activityIn;
 
-        imageStatus = (ImageView) activity.findViewById(R.id.image_turn_around_status);
-        imageGeneratrix = (ImageView) activity.findViewById(R.id.image_turn_around_generatrix);
-        imageOutputVoltage = (ImageView) activity.findViewById(R.id.image_turn_around_output_voltage);
-        imageOutputElectricity = (ImageView) activity.findViewById(R.id.image_turn_around_output_electricity);
-        imageRunFrequency = (ImageView) activity.findViewById(R.id.image_turn_around_run_frequency);
-        imageTurnSpeed = (ImageView) activity.findViewById(R.id.image_turn_around_turn_speed);
-        imageTemperature = (ImageView) activity.findViewById(R.id.image_turn_around_temperature);
+        imageStatus = activity.findViewById(R.id.image_turn_around_status);
+        imageGeneratrix = activity.findViewById(R.id.image_turn_around_generatrix);
+        imageOutputVoltage = activity.findViewById(R.id.image_turn_around_output_voltage);
+        imageOutputElectricity = activity.findViewById(R.id.image_turn_around_output_electricity);
+        imageRunFrequency = activity.findViewById(R.id.image_turn_around_run_frequency);
+        imageTurnSpeed = activity.findViewById(R.id.image_turn_around_turn_speed);
+        imageTemperature = activity.findViewById(R.id.image_turn_around_temperature);
 
-        textStatus = (TextView) activity.findViewById(R.id.text_turn_around_status);
-        textGeneratrix = (TextView) activity.findViewById(R.id.text_turn_around_generatrix);
-        textOutputVoltage = (TextView) activity.findViewById(R.id.text_turn_around_output_voltage);
-        textOutputElectricity = (TextView) activity.findViewById(R.id.text_turn_around_output_electricity);
-        textRunFrequency = (TextView) activity.findViewById(R.id.text_turn_around_run_frequency);
-        textTurnSpeed = (TextView) activity.findViewById(R.id.text_turn_around_turn_speed);
-        textTemperature = (TextView) activity.findViewById(R.id.text_turn_around_temperature);
+        textStatus = activity.findViewById(R.id.text_turn_around_status);
+        textGeneratrix = activity.findViewById(R.id.text_turn_around_generatrix);
+        textOutputVoltage = activity.findViewById(R.id.text_turn_around_output_voltage);
+        textOutputElectricity = activity.findViewById(R.id.text_turn_around_output_electricity);
+        textRunFrequency = activity.findViewById(R.id.text_turn_around_run_frequency);
+        textTurnSpeed = activity.findViewById(R.id.text_turn_around_turn_speed);
+        textTemperature = activity.findViewById(R.id.text_turn_around_temperature);
 
-        textLeftDestination = (TextView) activity.findViewById(R.id.text_turn_around_left_destination);
-        textRightDestination = (TextView) activity.findViewById(R.id.text_turn_around_right_destination);
-        textBrakeUnit = (TextView) activity.findViewById(R.id.text_turn_around_brake_unit);
-        textRunSlowDown = (TextView) activity.findViewById(R.id.text_turn_around_run_slow_down);
+        textLeftDestination = activity.findViewById(R.id.text_turn_around_left_destination);
+        textRightDestination = activity.findViewById(R.id.text_turn_around_right_destination);
+        textBrakeUnit = activity.findViewById(R.id.text_turn_around_brake_unit);
+        textRunSlowDown = activity.findViewById(R.id.text_turn_around_run_slow_down);
 
-        textUpDownCommunicationStatus = (TextView) activity.findViewById(R.id.text_turn_around_waring);
+        textUpDownCommunicationStatus = activity.findViewById(R.id.text_turn_around_waring);
     }
 
     @Override

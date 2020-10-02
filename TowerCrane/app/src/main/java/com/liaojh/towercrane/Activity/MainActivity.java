@@ -8,8 +8,12 @@ import com.liaojh.towercrane.Manager.LocalStorage;
 import com.liaojh.towercrane.Tool.CSVFileTool;
 import com.liaojh.towercrane.Tool.Tool;
 import com.liaojh.towercrane.UI.InterfaceUI;
+import com.liaojh.towercrane.UI.UIAddCamera;
 import com.liaojh.towercrane.UI.UIAmplitudeRunInfo;
+import com.liaojh.towercrane.UI.UICameraList;
 import com.liaojh.towercrane.UI.UILogin;
+import com.liaojh.towercrane.UI.UISetCalibration;
+import com.liaojh.towercrane.UI.UISetting;
 import com.liaojh.towercrane.UI.UITopBar;
 import com.liaojh.towercrane.UI.UITowerCraneRunInfo;
 import com.liaojh.towercrane.UI.UITurnAroundRunInfo;
@@ -42,7 +46,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends BaseActivity {
-    private UILogin uiLogin = new UILogin();
+    public UILogin uiLogin = new UILogin();
+    public UISetting uiSetting = new UISetting();
+    public UISetCalibration uiSetCalibration = new UISetCalibration();
+    public UIAddCamera uiAddCamera = new UIAddCamera();
+    public UIVideoInfo uiVideoInfo = new UIVideoInfo();
+    public UICameraList uiCameraList = new UICameraList();
 
     private InterfaceUI[] uis = new InterfaceUI[] {
             new UITopBar(),
@@ -50,8 +59,12 @@ public class MainActivity extends BaseActivity {
             new UIUpDownRunInfo(),
             new UIAmplitudeRunInfo(),
             new UITurnAroundRunInfo(),
-            new UIVideoInfo(),
+            uiVideoInfo,
             uiLogin,
+            uiSetting,
+            uiSetCalibration,
+            uiAddCamera,
+            uiCameraList,
     };
 
     private TowerCraneRunData oldData;
@@ -117,7 +130,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        Constant.localStorage = new LocalStorage(getSharedPreferences("Data", Activity.MODE_PRIVATE));
+        Constant.localStorage = new LocalStorage(this);
+        Constant.settingData.init();
 
         int DPI = Tool.getDPI(this);
         switch (DPI) {

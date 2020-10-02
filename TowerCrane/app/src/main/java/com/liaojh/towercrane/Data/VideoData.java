@@ -1,6 +1,9 @@
 package com.liaojh.towercrane.Data;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Debug;
 import android.util.DebugUtils;
@@ -25,10 +28,15 @@ public class VideoData {
     private String m_uri;
     private SurfaceView m_surfaceViewVideo;
 
-    public VideoData(MediaPlayer mediaPlayer, LibVLC libVLC, SurfaceView surfaceViewVideo, String uri) {
+    public Constant.VideoSaveData m_videoSaveData;
+
+    public VideoData(MediaPlayer mediaPlayer, LibVLC libVLC, SurfaceView surfaceViewVideo, Constant.VideoSaveData videoSaveData) {
+        if (videoSaveData != null) {
+            m_videoSaveData = videoSaveData;
+            m_uri = Tool.getRtspAddress(videoSaveData);
+        }
         m_mediaPlayer = mediaPlayer;
         m_libVLC = libVLC;
-        m_uri = uri;
         m_surfaceViewVideo = surfaceViewVideo;
 
         m_mediaPlayer.setEventListener(new MediaPlayer.EventListener() {
@@ -59,6 +67,11 @@ public class VideoData {
             Log.e(Constant.LogTag, "uri is null");
             return;
         }
+        IVLCVout vlcVout = m_mediaPlayer.getVLCVout();
+        if (!vlcVout.areViewsAttached()) {
+            vlcVout.setVideoView(m_surfaceViewVideo);
+            vlcVout.attachViews();
+        }
         Media media = new Media(m_libVLC, Uri.parse(uri));
         media.addOption(":no-audio");
         media.addOption(":network-caching=10");
@@ -70,6 +83,15 @@ public class VideoData {
     public void stop() {
         if (m_mediaPlayer != null) {
             m_mediaPlayer.stop();
+
+//            IVLCVout vlcVout = m_mediaPlayer.getVLCVout();
+//            vlcVout.detachViews();
+
+//            Canvas canvas = m_surfaceViewVideo.getHolder().lockCanvas(null);
+//            if (canvas != null) {
+//                canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+//                m_surfaceViewVideo.draw(canvas);
+//            }
             //m_mediaPlayer.getVLCVout().detachViews();
         }
     }
@@ -81,5 +103,7 @@ public class VideoData {
         if (m_libVLC != null) {
             m_libVLC.release();
         }
+        m_mediaPlayer = null;
+        m_libVLC = null;
     }
 }

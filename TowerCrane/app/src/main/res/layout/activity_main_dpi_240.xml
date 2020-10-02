@@ -79,7 +79,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:id="@+id/layout_notice"
+                        android:id="@+id/layout_btn_notice"
                         android:layout_width="44dp"
                         android:layout_height="match_parent"
                         android:layout_marginRight="9dp"
@@ -107,7 +107,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_output_control"
+                        android:id="@+id/layout_btn_output_control"
                         android:layout_width="61dp"
                         android:layout_height="match_parent"
                         android:layout_marginRight="9dp"
@@ -135,7 +135,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_setting"
+                        android:id="@+id/layout_btn_setting"
                         android:layout_width="44dp"
                         android:layout_height="match_parent"
                         android:gravity="right"
@@ -306,11 +306,11 @@
                                                     android:orientation="vertical">
 
                                                     <TextView
-                                                        android:id="@+id/text_label_torque"
+                                                        android:id="@+id/torque"
                                                         android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         android:gravity="center_horizontal"
-                                                        android:text="@string/text_label_torque"
+                                                        android:text="@string/torque"
                                                         android:textSize="12sp" />
                                                 </LinearLayout>
                                             </LinearLayout>
@@ -346,11 +346,11 @@
                                                     android:orientation="vertical">
 
                                                     <TextView
-                                                        android:id="@+id/text_label_weight"
+                                                        android:id="@+id/weight"
                                                         android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         android:gravity="center_horizontal"
-                                                        android:text="@string/text_label_weight"
+                                                        android:text="@string/weight"
                                                         android:textSize="12sp" />
                                                 </LinearLayout>
                                             </LinearLayout>
@@ -395,11 +395,11 @@
                                                     android:orientation="vertical">
 
                                                     <TextView
-                                                        android:id="@+id/text_label_wire_rope"
+                                                        android:id="@+id/wire_rope"
                                                         android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         android:gravity="center_horizontal"
-                                                        android:text="@string/text_label_wire_rope"
+                                                        android:text="@string/wire_rope"
                                                         android:textSize="12sp" />
                                                 </LinearLayout>
                                             </LinearLayout>
@@ -435,11 +435,11 @@
                                                     android:orientation="vertical">
 
                                                     <TextView
-                                                        android:id="@+id/text_label_load"
+                                                        android:id="@+id/load"
                                                         android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         android:gravity="center_horizontal"
-                                                        android:text="@string/text_label_load"
+                                                        android:text="@string/load"
                                                         android:textSize="12sp" />
                                                 </LinearLayout>
                                             </LinearLayout>
@@ -484,11 +484,11 @@
                                                     android:orientation="vertical">
 
                                                     <TextView
-                                                        android:id="@+id/text_label_wind_power"
+                                                        android:id="@+id/wind_power"
                                                         android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         android:gravity="center_horizontal"
-                                                        android:text="@string/text_label_wind_power"
+                                                        android:text="@string/wind_power"
                                                         android:textSize="12sp" />
                                                 </LinearLayout>
                                             </LinearLayout>
@@ -524,11 +524,11 @@
                                                     android:orientation="vertical">
 
                                                     <TextView
-                                                        android:id="@+id/text_label_amplitude"
+                                                        android:id="@+id/amplitude"
                                                         android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         android:gravity="center_horizontal"
-                                                        android:text="@string/text_label_amplitude"
+                                                        android:text="@string/amplitude"
                                                         android:textSize="12sp" />
                                                 </LinearLayout>
                                             </LinearLayout>
@@ -573,11 +573,11 @@
                                                     android:orientation="vertical">
 
                                                     <TextView
-                                                        android:id="@+id/text_label_height"
+                                                        android:id="@+id/height"
                                                         android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         android:gravity="center_horizontal"
-                                                        android:text="@string/text_label_height"
+                                                        android:text="@string/height"
                                                         android:textSize="12sp" />
                                                 </LinearLayout>
                                             </LinearLayout>
@@ -613,11 +613,11 @@
                                                     android:orientation="vertical">
 
                                                     <TextView
-                                                        android:id="@+id/text_label_turn_around"
+                                                        android:id="@+id/turn_around"
                                                         android:layout_width="match_parent"
                                                         android:layout_height="wrap_content"
                                                         android:gravity="center_horizontal"
-                                                        android:text="@string/text_label_turn_around"
+                                                        android:text="@string/turn_around"
                                                         android:textSize="12sp" />
                                                 </LinearLayout>
                                             </LinearLayout>
@@ -642,12 +642,12 @@
                                     android:orientation="horizontal">
 
                                     <TextView
-                                        android:id="@+id/text_label_cord_harm_number"
+                                        android:id="@+id/cord_harm_number"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginBottom="2dp"
                                         android:fontFamily="sans-serif-black"
-                                        android:text="@string/text_label_cord_harm_number"
+                                        android:text="@string/cord_harm_number"
                                         android:textColor="@color/color_number_label"
                                         android:textSize="12sp" />
 
@@ -661,12 +661,12 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/text_label_cord_pos"
+                                        android:id="@+id/cord_pos"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginBottom="2dp"
                                         android:fontFamily="sans-serif-black"
-                                        android:text="@string/text_label_cord_pos"
+                                        android:text="@string/cord_pos"
                                         android:textColor="@color/color_number_label"
                                         android:textSize="12sp" />
 
@@ -680,12 +680,12 @@
                                         android:textSize="18sp" />
 
                                     <TextView
-                                        android:id="@+id/text_label_cord_harm_pos"
+                                        android:id="@+id/cord_harm_pos"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginBottom="2dp"
                                         android:fontFamily="sans-serif-black"
-                                        android:text="@string/text_label_cord_harm_pos"
+                                        android:text="@string/cord_harm_pos"
                                         android:textColor="@color/color_number_label"
                                         android:textSize="12sp" />
 
@@ -781,7 +781,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginBottom="2dp"
                                                 android:fontFamily="sans-serif-black"
-                                                android:text="@string/text_label_now_pos_max_weight"
+                                                android:text="@string/now_pos_max_weight"
                                                 android:textColor="@color/color_number_label"
                                                 android:textSize="11sp" />
 
@@ -808,7 +808,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:fontFamily="sans-serif-black"
-                                                android:text="@string/text_label_big_arm_length"
+                                                android:text="@string/big_arm_length"
                                                 android:textColor="@color/color_number_label"
                                                 android:textSize="9sp" />
 
@@ -834,7 +834,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:fontFamily="sans-serif-black"
-                                                android:text="@string/text_label_max_height"
+                                                android:text="@string/max_height"
                                                 android:textColor="@color/color_number_label"
                                                 android:textSize="9sp" />
 
@@ -861,7 +861,7 @@
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:fontFamily="sans-serif-black"
-                                                android:text="@string/text_label_back_arm_length"
+                                                android:text="@string/back_arm_length"
                                                 android:textColor="@color/color_number_label"
                                                 android:textSize="9sp" />
 
@@ -1346,8 +1346,8 @@
                                     android:layout_width="105dp"
                                     android:layout_height="70dp"
                                     android:layout_gravity="bottom|right"
-                                    android:text="@string/text_label_big"
-                                    tools:text="@string/text_label_big" />
+                                    android:text="@string/big"
+                                    tools:text="@string/big" />
                             </FrameLayout>
 
                         </LinearLayout>
@@ -1410,7 +1410,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
                                         android:fontFamily="sans-serif"
-                                        android:text="@string/text_label_up_down"
+                                        android:text="@string/up_down"
                                         android:textColor="#000000"
                                         android:textSize="12sp" />
 
@@ -1430,7 +1430,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginRight="18dp"
                                         android:fontFamily="sans-serif"
-                                        android:text="@string/text_label_up_down_waring"
+                                        android:text="@string/up_down_waring"
                                         android:textColor="@color/color_number_waring"
                                         android:textSize="12sp" />
                                 </LinearLayout>
@@ -1472,11 +1472,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_up_down_status"
+                                                android:id="@+id/up_down_status"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_up_down_status"
+                                                android:text="@string/up_down_status"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -1505,11 +1505,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_up_down_brake_check"
+                                                android:id="@+id/up_down_brake_check"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_up_down_brake_check"
+                                                android:text="@string/up_down_brake_check"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -1546,11 +1546,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_up_down_generatrix"
+                                                android:id="@+id/up_down_generatrix"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_up_down_generatrix"
+                                                android:text="@string/up_down_generatrix"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -1579,11 +1579,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_up_down_output_voltage"
+                                                android:id="@+id/up_down_output_voltage"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_up_down_output_voltage"
+                                                android:text="@string/up_down_output_voltage"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -1630,11 +1630,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_up_down_output_electricity"
+                                                android:id="@+id/up_down_output_electricity"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_up_down_output_electricity"
+                                                android:text="@string/up_down_output_electricity"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -1663,11 +1663,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_up_down_run_frequency"
+                                                android:id="@+id/up_down_run_frequency"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_up_down_run_frequency"
+                                                android:text="@string/up_down_run_frequency"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -1704,11 +1704,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_up_down_turn_speed"
+                                                android:id="@+id/up_down_turn_speed"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_up_down_turn_speed"
+                                                android:text="@string/up_down_turn_speed"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -1737,11 +1737,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_up_down_temperature"
+                                                android:id="@+id/up_down_temperature"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_up_down_temperature"
+                                                android:text="@string/up_down_temperature"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -1784,7 +1784,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_up_slow_down"
+                                        android:text="@string/up_down_up_slow_down"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -1809,7 +1809,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_down_destination"
+                                        android:text="@string/up_down_down_destination"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -1834,7 +1834,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_load_50"
+                                        android:text="@string/up_down_load_50"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -1859,7 +1859,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_brake"
+                                        android:text="@string/up_down_brake"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -1884,7 +1884,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_limit_switch"
+                                        android:text="@string/up_down_limit_switch"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -1916,7 +1916,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_down_slow_down"
+                                        android:text="@string/up_down_down_slow_down"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -1941,7 +1941,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_load_100"
+                                        android:text="@string/up_down_load_100"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -1966,7 +1966,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_load_25"
+                                        android:text="@string/up_down_load_25"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -1991,7 +1991,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_run_slow_down"
+                                        android:text="@string/up_down_run_slow_down"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2031,7 +2031,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_up_destination"
+                                        android:text="@string/up_down_up_destination"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2056,7 +2056,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_load_90"
+                                        android:text="@string/up_down_load_90"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2081,7 +2081,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_brake_unit"
+                                        android:text="@string/up_down_brake_unit"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2106,7 +2106,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_up_down_brake_open"
+                                        android:text="@string/up_down_brake_open"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2178,7 +2178,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
                                         android:fontFamily="sans-serif"
-                                        android:text="@string/text_label_amplitude_info"
+                                        android:text="@string/amplitude_info"
                                         android:textColor="#000000"
                                         android:textSize="12sp" />
 
@@ -2198,7 +2198,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginRight="18dp"
                                         android:fontFamily="sans-serif"
-                                        android:text="@string/text_label_amplitude_waring"
+                                        android:text="@string/amplitude_waring"
                                         android:textColor="@color/color_number_waring"
                                         android:textSize="12sp" />
                                 </LinearLayout>
@@ -2239,11 +2239,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_amplitude_status"
+                                                android:id="@+id/amplitude_status"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_amplitude_status"
+                                                android:text="@string/amplitude_status"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2273,11 +2273,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_amplitude_generatrix"
+                                                android:id="@+id/amplitude_generatrix"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_amplitude_generatrix"
+                                                android:text="@string/amplitude_generatrix"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2306,11 +2306,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_amplitude_output_voltage"
+                                                android:id="@+id/amplitude_output_voltage"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_amplitude_output_voltage"
+                                                android:text="@string/amplitude_output_voltage"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2358,11 +2358,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_amplitude_output_electricity"
+                                                android:id="@+id/amplitude_output_electricity"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_amplitude_output_electricity"
+                                                android:text="@string/amplitude_output_electricity"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2391,11 +2391,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_amplitude_run_frequency"
+                                                android:id="@+id/amplitude_run_frequency"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_amplitude_run_frequency"
+                                                android:text="@string/amplitude_run_frequency"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2432,11 +2432,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_amplitude_turn_speed"
+                                                android:id="@+id/amplitude_turn_speed"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_amplitude_turn_speed"
+                                                android:text="@string/amplitude_turn_speed"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2465,11 +2465,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_amplitude_temperature"
+                                                android:id="@+id/amplitude_temperature"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_amplitude_temperature"
+                                                android:text="@string/amplitude_temperature"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2518,7 +2518,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_front_slow_down"
+                                        android:text="@string/amplitude_front_slow_down"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2543,7 +2543,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_back_destination"
+                                        android:text="@string/amplitude_back_destination"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2568,7 +2568,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_torque_80"
+                                        android:text="@string/amplitude_torque_80"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2614,7 +2614,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_back_slow_down"
+                                        android:text="@string/amplitude_back_slow_down"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2639,7 +2639,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_torque_100"
+                                        android:text="@string/amplitude_torque_100"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2664,7 +2664,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_brake_unit"
+                                        android:text="@string/amplitude_brake_unit"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2710,7 +2710,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_front_destination"
+                                        android:text="@string/amplitude_front_destination"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2735,7 +2735,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_torque_90"
+                                        android:text="@string/amplitude_torque_90"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2760,7 +2760,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_amplitude_run_slow_down"
+                                        android:text="@string/amplitude_run_slow_down"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -2831,7 +2831,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
                                         android:fontFamily="sans-serif"
-                                        android:text="@string/text_label_turn_around_info"
+                                        android:text="@string/turn_around_info"
                                         android:textColor="#000000"
                                         android:textSize="12sp" />
 
@@ -2851,7 +2851,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginRight="18dp"
                                         android:fontFamily="sans-serif"
-                                        android:text="@string/text_label_turn_around_waring"
+                                        android:text="@string/turn_around_waring"
                                         android:textColor="@color/color_number_waring"
                                         android:textSize="12sp" />
                                 </LinearLayout>
@@ -2892,11 +2892,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_turn_around_status"
+                                                android:id="@+id/turn_around_status"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_turn_around_status"
+                                                android:text="@string/turn_around_status"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2926,11 +2926,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_turn_around_generatrix"
+                                                android:id="@+id/turn_around_generatrix"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_turn_around_generatrix"
+                                                android:text="@string/turn_around_generatrix"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -2959,11 +2959,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_turn_around_output_voltage"
+                                                android:id="@+id/turn_around_output_voltage"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_turn_around_output_voltage"
+                                                android:text="@string/turn_around_output_voltage"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -3011,11 +3011,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_turn_around_output_electricity"
+                                                android:id="@+id/turn_around_output_electricity"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_turn_around_output_electricity"
+                                                android:text="@string/turn_around_output_electricity"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -3044,11 +3044,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_turn_around_run_frequency"
+                                                android:id="@+id/turn_around_run_frequency"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_turn_around_run_frequency"
+                                                android:text="@string/turn_around_run_frequency"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -3085,11 +3085,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
-                                                android:id="@+id/text_label_turn_around_turn_speed"
+                                                android:id="@+id/turn_around_turn_speed"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_turn_around_turn_speed"
+                                                android:text="@string/turn_around_turn_speed"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -3118,11 +3118,11 @@
                                                 app:srcCompat="@drawable/yibiaopan_red" />
 
                                             <TextView
-                                                android:id="@+id/text_label_turn_around_temperature"
+                                                android:id="@+id/turn_around_temperature"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/text_label_turn_around_temperature"
+                                                android:text="@string/turn_around_temperature"
                                                 android:textSize="9sp" />
 
                                             <TextView
@@ -3171,7 +3171,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_turn_around_left_destination"
+                                        android:text="@string/turn_around_left_destination"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -3196,7 +3196,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_turn_around_run_slow_down"
+                                        android:text="@string/turn_around_run_slow_down"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -3248,7 +3248,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_turn_around_right_destination"
+                                        android:text="@string/turn_around_right_destination"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -3306,7 +3306,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="center_vertical"
                                         android:layout_marginLeft="11dp"
-                                        android:text="@string/text_label_turn_around_brake_unit"
+                                        android:text="@string/turn_around_brake_unit"
                                         android:textColor="@android:color/background_dark"
                                         android:textSize="9sp" />
 
@@ -3353,6 +3353,539 @@
             android:layout_height="match_parent"
             android:visibility="invisible"
             android:layout_gravity="center"/>
+
+        <LinearLayout
+            android:id="@+id/layout_login"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="700dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="175dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_name"
+                    android:textColor="@color/color_label_blue"
+                    android:textSize="35sp" />
+
+                <EditText
+                    android:id="@+id/edit_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/color_label_blue" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="700dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="53dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/password"
+                    android:textColor="@color/color_label_blue"
+                    android:textSize="35sp" />
+
+                <EditText
+                    android:id="@+id/edit_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/color_label_blue" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="700dp"
+                android:layout_height="88dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="53dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_login_sure"
+                    android:layout_width="175dp"
+                    android:layout_height="70dp"
+                    android:alpha="1"
+                    android:text="@string/login_sure" />
+
+                <Button
+                    android:id="@+id/btn_login_back"
+                    android:layout_width="175dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="35dp"
+                    android:alpha="1"
+                    android:text="@string/login_back" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_setting"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="35dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_change_weight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_weight" />
+
+                <Button
+                    android:id="@+id/btn_change_wind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_wind" />
+
+                <Button
+                    android:id="@+id/btn_change_amplitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_amplitude" />
+
+                <Button
+                    android:id="@+id/btn_change_turn_around"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_turn_around" />
+
+                <Button
+                    android:id="@+id/btn_change_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/change_height" />
+
+                <Button
+                    android:id="@+id/btn_change_camera"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/set_camera" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="18dp"
+                android:layout_weight="1"
+                android:orientation="vertical"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="35dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_setting_back"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_back" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_set_calibration"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_calibration_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="53sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/measure_1"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_measure_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/measure_2"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_measure_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/low_warn"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_low_warn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/low_error_control"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <Switch
+                                    android:id="@+id/switch_low_error_control"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="18dp"
+                                    android:gravity="left" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/high_error_control"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <Switch
+                                    android:id="@+id/switch_high_error_control"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="18dp"
+                                    android:gravity="left" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/demarcate_1"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_demarcate_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/demarcate_2"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_demarcate_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/low_error"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_low_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/high_warn"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_high_warn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:text="@string/high_error"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_high_error"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="18dp"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:inputType="numberDecimal"
+                                android:textColor="@color/color_label_blue"
+                                android:textSize="35sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_calibration_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="88dp"
+                        android:text="@string/high_calibration_sure"
+                        android:textSize="21sp" />
+
+                    <Button
+                        android:id="@+id/btn_calibration_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="88dp"
+                        android:text="@string/high_calibration_back"
+                        android:textSize="21sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </FrameLayout>
 

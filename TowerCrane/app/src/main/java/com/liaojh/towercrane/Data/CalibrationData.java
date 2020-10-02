@@ -2,6 +2,7 @@ package com.liaojh.towercrane.Data;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.util.Log;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
 
@@ -13,8 +14,8 @@ public class CalibrationData {
     private String m_key_measure_2;//当值2 表示测量值 - y
     private String m_key_low_warn;//低预警值
     private String m_key_low_error;//低报警值
-    private String m_key_high_warn;//高预警值
-    private String m_key_high_error;//高报警值
+    private String m_key_high_warn;//高预警差值
+    private String m_key_high_error;//高报警差值
     private String m_key_low_error_work;//低预警值控制
     private String m_key_high_error_work;//高预警值控制
 
@@ -24,10 +25,12 @@ public class CalibrationData {
     private float measure_2;//当值2 表示测量值 - x
     private float low_warn;//低预警值
     private float low_error;//低报警值
-    private float high_warn;//高预警值
-    private float high_error;//高报警值
+    private float high_warn;//高预警差值
+    private float high_error;//高报警差值
     private Boolean low_error_work;//低预警值控制
     private Boolean high_error_work;//高预警值控制
+
+    private Constant.CALIBRATION_TYPE m_type;
 
     private float mathA; //函数 y = ax + b
     private float mathB; //函数 y = ax + b
@@ -35,8 +38,7 @@ public class CalibrationData {
     @SuppressLint("CommitPrefEdits")
     public CalibrationData(String key_demarcate_1, String key_demarcate_2, String key_measure_1, String key_measure_2,
                            String key_low_warn, String key_low_error, String key_high_warn, String key_high_error,
-                           String key_low_error_work, String key_high_error_work,
-                           BaseActivity activity) {
+                           String key_low_error_work, String key_high_error_work, Constant.CALIBRATION_TYPE type) {
         m_key_demarcate_1 = key_demarcate_1;
         m_key_demarcate_2 = key_demarcate_2;
         m_key_measure_1 = key_measure_1;
@@ -48,6 +50,14 @@ public class CalibrationData {
         m_key_low_error_work = key_low_error_work;
         m_key_high_error_work = key_high_error_work;
 
+        updateValue();
+
+        m_type = type;
+
+        mathAB();
+    }
+
+    public void updateValue() {
         demarcate_1 = Constant.localStorage.m_sp.getFloat(m_key_demarcate_1, 5);
         demarcate_2 = Constant.localStorage.m_sp.getFloat(m_key_demarcate_2, 100);
         measure_1 = Constant.localStorage.m_sp.getFloat(m_key_measure_1, 0);
@@ -58,8 +68,6 @@ public class CalibrationData {
         high_error = Constant.localStorage.m_sp.getFloat(m_key_high_error, 0);
         low_error_work = Constant.localStorage.m_sp.getBoolean(m_key_low_error_work, true);
         high_error_work = Constant.localStorage.m_sp.getBoolean(m_key_high_error_work, true);
-
-        mathAB();
     }
 
     //计算a和b的值
@@ -68,44 +76,58 @@ public class CalibrationData {
         mathB = demarcate_1 - measure_1 * mathA;
     }
 
-    public void SaveDemarcate_1(float value) {
+    public Constant.CALIBRATION_TYPE getType() {
+        return m_type;
+    }
+
+    public Boolean saveDemarcate_1(float value) {
         Constant.localStorage.m_spe.putFloat(m_key_demarcate_1, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveDemarcate_2(float value) {
+    public Boolean saveDemarcate_2(float value) {
         Constant.localStorage.m_spe.putFloat(m_key_demarcate_2, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveMeasure_1(float value) {
+    public Boolean saveMeasure_1(float value) {
         Constant.localStorage.m_spe.putFloat(m_key_measure_1, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveMeasure_2(float value) {
+    public Boolean saveMeasure_2(float value) {
         Constant.localStorage.m_spe.putFloat(m_key_measure_2, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveLowWarn(float value) {
+    public Boolean saveLowWarn(float value) {
         Constant.localStorage.m_spe.putFloat(m_key_low_warn, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveLowError(float value) {
+    public Boolean saveLowError(float value) {
         Constant.localStorage.m_spe.putFloat(m_key_low_error, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveHighWarn(float value) {
+    public Boolean saveHighWarn(float value) {
         Constant.localStorage.m_spe.putFloat(m_key_high_warn, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveHighError(float value) {
+    public Boolean saveHighError(float value) {
         Constant.localStorage.m_spe.putFloat(m_key_high_error, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveLowErrorWork(Boolean value) {
+    public Boolean saveLowErrorWork(Boolean value) {
         Constant.localStorage.m_spe.putBoolean(m_key_low_error_work, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
-    public void SaveHighErrorWork(Boolean value) {
+    public Boolean saveHighErrorWork(Boolean value) {
         Constant.localStorage.m_spe.putBoolean(m_key_high_error_work, value);
+        return Constant.localStorage.m_spe.commit();
     }
 
     public float getDemarcateNum(float measure) {
@@ -144,11 +166,11 @@ public class CalibrationData {
         return String.format("%.1f", high_error);
     }
 
-    public String getLowErrorWorkStr() {
-        return low_error_work ? "NC" : "OFF";
+    public Boolean getLowErrorWork() {
+        return low_error_work;
     }
 
-    public String getHighErrorWorkStr() {
-        return high_error_work ? "NC" : "OFF";
+    public Boolean getHighErrorWork() {
+        return high_error_work;
     }
 }

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
+import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.R;
 
 import com.liaojh.towercrane.Data.TowerCraneLiftData;
@@ -47,42 +48,42 @@ public class UIUpDownRunInfo implements InterfaceUI {
     }
 
     @Override
-    public void onUICreate(BaseActivity activityIn) {
+    public void onUICreate(MainActivity activityIn) {
         activity = activityIn;
 
-        imageStatus = (ImageView) activity.findViewById(R.id.image_up_down_status);
-        imageBrakeCheck = (ImageView) activity.findViewById(R.id.image_up_down_brake_check);
-        imageGeneratrix = (ImageView) activity.findViewById(R.id.image_up_down_generatrix);
-        imageOutputVoltage = (ImageView) activity.findViewById(R.id.image_up_down_output_voltage);
-        imageOutputElectricity = (ImageView) activity.findViewById(R.id.image_up_down_output_electricity);
-        imageRunFrequency = (ImageView) activity.findViewById(R.id.image_up_down_run_frequency);
-        imageTurnSpeed = (ImageView) activity.findViewById(R.id.image_up_down_turn_speed);
-        imageTemperature = (ImageView) activity.findViewById(R.id.image_up_down_temperature);
+        imageStatus = activity.findViewById(R.id.image_up_down_status);
+        imageBrakeCheck = activity.findViewById(R.id.image_up_down_brake_check);
+        imageGeneratrix = activity.findViewById(R.id.image_up_down_generatrix);
+        imageOutputVoltage = activity.findViewById(R.id.image_up_down_output_voltage);
+        imageOutputElectricity = activity.findViewById(R.id.image_up_down_output_electricity);
+        imageRunFrequency = activity.findViewById(R.id.image_up_down_run_frequency);
+        imageTurnSpeed = activity.findViewById(R.id.image_up_down_turn_speed);
+        imageTemperature = activity.findViewById(R.id.image_up_down_temperature);
 
-        textStatus = (TextView) activity.findViewById(R.id.text_up_down_status);
-        textBrakeCheck = (TextView) activity.findViewById(R.id.text_up_down_brake_check);
-        textGeneratrix = (TextView) activity.findViewById(R.id.text_up_down_generatrix);
-        textOutputVoltage = (TextView) activity.findViewById(R.id.text_up_down_output_voltage);
-        textOutputElectricity = (TextView) activity.findViewById(R.id.text_up_down_output_electricity);
-        textRunFrequency = (TextView) activity.findViewById(R.id.text_up_down_run_frequency);
-        textTurnSpeed = (TextView) activity.findViewById(R.id.text_up_down_turn_speed);
-        textTemperature = (TextView) activity.findViewById(R.id.text_up_down_temperature);
+        textStatus = activity.findViewById(R.id.text_up_down_status);
+        textBrakeCheck = activity.findViewById(R.id.text_up_down_brake_check);
+        textGeneratrix = activity.findViewById(R.id.text_up_down_generatrix);
+        textOutputVoltage = activity.findViewById(R.id.text_up_down_output_voltage);
+        textOutputElectricity = activity.findViewById(R.id.text_up_down_output_electricity);
+        textRunFrequency = activity.findViewById(R.id.text_up_down_run_frequency);
+        textTurnSpeed = activity.findViewById(R.id.text_up_down_turn_speed);
+        textTemperature = activity.findViewById(R.id.text_up_down_temperature);
 
-        textUpSlowDown = (TextView) activity.findViewById(R.id.text_up_down_up_slow_down);
-        textDownSlowDown = (TextView) activity.findViewById(R.id.text_up_down_down_slow_down);
-        textUpDestination = (TextView) activity.findViewById(R.id.text_up_down_up_destination);
-        textDownDestination = (TextView) activity.findViewById(R.id.text_up_down_down_destination);
-        textLoad100 = (TextView) activity.findViewById(R.id.text_up_down_load_100);
-        textLoad90 = (TextView) activity.findViewById(R.id.text_up_down_load_90);
-        textLoad50 = (TextView) activity.findViewById(R.id.text_up_down_load_50);
-        textLoad25 = (TextView) activity.findViewById(R.id.text_up_down_load_25);
-        textBrakeUnit = (TextView) activity.findViewById(R.id.text_up_down_brake_unit);
-        textBrake = (TextView) activity.findViewById(R.id.text_up_down_brake);
-        textRunSlowDown = (TextView) activity.findViewById(R.id.text_up_down_run_slow_down);
-        textBrakeOpen = (TextView) activity.findViewById(R.id.text_up_down_brake_open);
-        textLimitSwitch = (TextView) activity.findViewById(R.id.text_up_down_limit_switch);
+        textUpSlowDown = activity.findViewById(R.id.text_up_down_up_slow_down);
+        textDownSlowDown = activity.findViewById(R.id.text_up_down_down_slow_down);
+        textUpDestination = activity.findViewById(R.id.text_up_down_up_destination);
+        textDownDestination = activity.findViewById(R.id.text_up_down_down_destination);
+        textLoad100 = activity.findViewById(R.id.text_up_down_load_100);
+        textLoad90 = activity.findViewById(R.id.text_up_down_load_90);
+        textLoad50 = activity.findViewById(R.id.text_up_down_load_50);
+        textLoad25 = activity.findViewById(R.id.text_up_down_load_25);
+        textBrakeUnit = activity.findViewById(R.id.text_up_down_brake_unit);
+        textBrake = activity.findViewById(R.id.text_up_down_brake);
+        textRunSlowDown = activity.findViewById(R.id.text_up_down_run_slow_down);
+        textBrakeOpen = activity.findViewById(R.id.text_up_down_brake_open);
+        textLimitSwitch = activity.findViewById(R.id.text_up_down_limit_switch);
 
-        textUpDownCommunicationStatus = (TextView) activity.findViewById(R.id.text_up_down_waring);
+        textUpDownCommunicationStatus = activity.findViewById(R.id.text_up_down_waring);
     }
 
     @Override

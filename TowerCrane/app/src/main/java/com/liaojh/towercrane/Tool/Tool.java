@@ -10,6 +10,8 @@ import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.util.DisplayMetrics;
 
+import com.liaojh.towercrane.Data.Constant;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
@@ -134,5 +136,9 @@ public class Tool {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日");
         return dateFormat.format(date);
+    }
+
+    public static String getRtspAddress(Constant.VideoSaveData videoSaveData) {
+        return "rtsp://" + videoSaveData.userName + ":" + videoSaveData.userPassword + "@" + videoSaveData.ipAddress + ":" + videoSaveData.port + videoSaveData.rtspAddress;
     }
 }

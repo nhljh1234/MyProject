@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
+import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.R;
 
 import java.util.Timer;
@@ -23,10 +24,10 @@ import com.liaojh.towercrane.Data.TowerCraneRunData;
 import com.liaojh.towercrane.Tool.Tool;
 
 public class UITopBar implements InterfaceUI {
-    private Activity activity;
+    private MainActivity m_activity;
 
     TextView textTimeInfo, textSignalStatus;
-    LinearLayout layoutSetting, layoutOutputControl, layoutNotice;
+    LinearLayout layoutBtnSetting, layoutBtnOutputControl, layoutBtnNotice;
     ImageView imageSignal;
 
     @SuppressLint("HandlerLeak")
@@ -40,11 +41,11 @@ public class UITopBar implements InterfaceUI {
                 //更新网络
                 Boolean haveSignal = judgeHaveSignal();
                 if (haveSignal) {
-                    imageSignal.setImageDrawable(activity.getDrawable(R.drawable.network));
-                    textSignalStatus.setText(activity.getString(R.string.text_signal_normal));
+                    imageSignal.setImageDrawable(m_activity.getDrawable(R.drawable.network));
+                    textSignalStatus.setText(m_activity.getString(R.string.text_signal_normal));
                 } else {
-                    imageSignal.setImageDrawable(activity.getDrawable(R.drawable.network_unavailable));
-                    textSignalStatus.setText(activity.getString(R.string.text_signal_error));
+                    imageSignal.setImageDrawable(m_activity.getDrawable(R.drawable.network_unavailable));
+                    textSignalStatus.setText(m_activity.getString(R.string.text_signal_error));
                 }
             }
             super.handleMessage(msg);
@@ -63,7 +64,7 @@ public class UITopBar implements InterfaceUI {
     };
 
     private Boolean judgeHaveSignal() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) m_activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isAvailable()) {
             return true;
@@ -78,21 +79,21 @@ public class UITopBar implements InterfaceUI {
     }
 
     @Override
-    public void onUICreate(BaseActivity activityIn) {
-        activity = activityIn;
+    public void onUICreate(MainActivity activity) {
+        m_activity = activity;
 
-        textTimeInfo = (TextView) activity.findViewById(R.id.text_time);
-        textSignalStatus = (TextView) activity.findViewById(R.id.text_signal_status);
+        textTimeInfo = m_activity.findViewById(R.id.text_time);
+        textSignalStatus = m_activity.findViewById(R.id.text_signal_status);
 
-        layoutSetting = (LinearLayout) activity.findViewById(R.id.layout_setting);
-        layoutOutputControl = (LinearLayout) activity.findViewById(R.id.layout_output_control);
-        layoutNotice = (LinearLayout) activity.findViewById(R.id.layout_notice);
+        layoutBtnSetting = m_activity.findViewById(R.id.layout_btn_setting);
+        layoutBtnOutputControl = m_activity.findViewById(R.id.layout_btn_output_control);
+        layoutBtnNotice = m_activity.findViewById(R.id.layout_btn_notice);
 
-        imageSignal = (ImageView) activity.findViewById(R.id.img_signal);
+        imageSignal = m_activity.findViewById(R.id.img_signal);
 
-        layoutSetting.setOnClickListener(this);
-        layoutOutputControl.setOnClickListener(this);
-        layoutNotice.setOnClickListener(this);
+        layoutBtnSetting.setOnClickListener(this);
+        layoutBtnOutputControl.setOnClickListener(this);
+        layoutBtnNotice.setOnClickListener(this);
         //开启时间信息更新定时器
         timerUpdateTimeAndSignal.schedule(timerTaskUpdateTimeAndSignal, 0, Constant.SIGNAL_DATA_UPDATE_INTERVAL);
     }
@@ -112,13 +113,13 @@ public class UITopBar implements InterfaceUI {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.layout_setting:
+            case R.id.layout_btn_setting:
+                m_activity.uiLogin.show();
+                break;
+            case R.id.layout_btn_output_control:
 
                 break;
-            case R.id.layout_output_control:
-
-                break;
-            case R.id.layout_notice:
+            case R.id.layout_btn_notice:
 
                 break;
         }

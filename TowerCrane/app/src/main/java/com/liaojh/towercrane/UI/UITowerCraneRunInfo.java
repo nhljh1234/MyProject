@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
+import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.R;
 
 import java.util.ArrayList;
@@ -211,96 +212,96 @@ public class UITowerCraneRunInfo implements InterfaceUI {
     }
 
     @Override
-    public void onUICreate(BaseActivity activityIn) {
+    public void onUICreate(MainActivity activityIn) {
         activity = activityIn;
 
-        textNumber = (TextView) activity.findViewById(R.id.text_number);
-        textSpecifications = (TextView) activity.findViewById(R.id.text_specifications);
-        textMonitorNumber = (TextView) activity.findViewById(R.id.text_monitorNumber);
-        textMagnification = (TextView) activity.findViewById(R.id.text_magnification);
+        textNumber = activity.findViewById(R.id.text_number);
+        textSpecifications = activity.findViewById(R.id.text_specifications);
+        textMonitorNumber = activity.findViewById(R.id.text_monitorNumber);
+        textMagnification = activity.findViewById(R.id.text_magnification);
 
-        textWireRope = (TextView) activity.findViewById(R.id.text_wire_rope);
-        textLoad = (TextView) activity.findViewById(R.id.text_load);
-        textHeight = (TextView) activity.findViewById(R.id.text_height);
-        textTurnAround = (TextView) activity.findViewById(R.id.text_turn_around);
-        textTorque = (TextView) activity.findViewById(R.id.text_torque);
-        textWeight = (TextView) activity.findViewById(R.id.text_weight);
-        textWindPower = (TextView) activity.findViewById(R.id.text_wind_power);
-        textAmplitude = (TextView) activity.findViewById(R.id.text_amplitude);
+        textWireRope = activity.findViewById(R.id.text_wire_rope);
+        textLoad = activity.findViewById(R.id.text_load);
+        textHeight = activity.findViewById(R.id.text_height);
+        textTurnAround = activity.findViewById(R.id.text_turn_around);
+        textTorque = activity.findViewById(R.id.text_torque);
+        textWeight = activity.findViewById(R.id.text_weight);
+        textWindPower = activity.findViewById(R.id.text_wind_power);
+        textAmplitude = activity.findViewById(R.id.text_amplitude);
 
-        textLabelWireRope = (TextView) activity.findViewById(R.id.text_label_wire_rope);
-        textLabelLoad = (TextView) activity.findViewById(R.id.text_label_load);
-        textLabelHeight = (TextView) activity.findViewById(R.id.text_label_height);
-        textLabelTurnAround = (TextView) activity.findViewById(R.id.text_label_turn_around);
-        textLabelTorque = (TextView) activity.findViewById(R.id.text_label_torque);
-        textLabelWeight = (TextView) activity.findViewById(R.id.text_label_weight);
-        textLabelWindPower = (TextView) activity.findViewById(R.id.text_label_wind_power);
-        textLabelAmplitude = (TextView) activity.findViewById(R.id.text_label_amplitude);
+        textLabelWireRope = activity.findViewById(R.id.wire_rope);
+        textLabelLoad = activity.findViewById(R.id.load);
+        textLabelHeight = activity.findViewById(R.id.height);
+        textLabelTurnAround = activity.findViewById(R.id.turn_around);
+        textLabelTorque = activity.findViewById(R.id.torque);
+        textLabelWeight = activity.findViewById(R.id.weight);
+        textLabelWindPower = activity.findViewById(R.id.wind_power);
+        textLabelAmplitude = activity.findViewById(R.id.amplitude);
 
-        layoutWireRope = (LinearLayout) activity.findViewById(R.id.layout_wire_rope);
-        layoutLoad = (LinearLayout) activity.findViewById(R.id.layout_load);
-        layoutHeight = (LinearLayout) activity.findViewById(R.id.layout_height);
-        layoutTurnAround = (LinearLayout) activity.findViewById(R.id.layout_turn_around);
-        layoutTorque = (LinearLayout) activity.findViewById(R.id.layout_torque);
-        layoutWeight = (LinearLayout) activity.findViewById(R.id.layout_weight);
-        layoutWindPower = (LinearLayout) activity.findViewById(R.id.layout_wind_power);
-        layoutAmplitude = (LinearLayout) activity.findViewById(R.id.layout_amplitude);
+        layoutWireRope = activity.findViewById(R.id.layout_wire_rope);
+        layoutLoad = activity.findViewById(R.id.layout_load);
+        layoutHeight = activity.findViewById(R.id.layout_height);
+        layoutTurnAround = activity.findViewById(R.id.layout_turn_around);
+        layoutTorque = activity.findViewById(R.id.layout_torque);
+        layoutWeight = activity.findViewById(R.id.layout_weight);
+        layoutWindPower = activity.findViewById(R.id.layout_wind_power);
+        layoutAmplitude = activity.findViewById(R.id.layout_amplitude);
 
-        layoutUp = (LinearLayout) activity.findViewById(R.id.layout_up);
-        layoutDown = (LinearLayout) activity.findViewById(R.id.layout_down);
-        layoutLeft = (LinearLayout) activity.findViewById(R.id.layout_left);
-        layoutRight = (LinearLayout) activity.findViewById(R.id.layout_right);
-        layoutFront = (LinearLayout) activity.findViewById(R.id.layout_front);
-        layoutBack = (LinearLayout) activity.findViewById(R.id.layout_back);
+        layoutUp = activity.findViewById(R.id.layout_up);
+        layoutDown = activity.findViewById(R.id.layout_down);
+        layoutLeft = activity.findViewById(R.id.layout_left);
+        layoutRight = activity.findViewById(R.id.layout_right);
+        layoutFront = activity.findViewById(R.id.layout_front);
+        layoutBack = activity.findViewById(R.id.layout_back);
 
-        imageUp = (ImageView) activity.findViewById(R.id.img_up);
-        imageDown = (ImageView) activity.findViewById(R.id.img_down);
-        imageLeft = (ImageView) activity.findViewById(R.id.img_left);
-        imageRight = (ImageView) activity.findViewById(R.id.img_right);
-        imageFront = (ImageView) activity.findViewById(R.id.img_front);
-        imageBack = (ImageView) activity.findViewById(R.id.img_back);
+        imageUp = activity.findViewById(R.id.img_up);
+        imageDown = activity.findViewById(R.id.img_down);
+        imageLeft = activity.findViewById(R.id.img_left);
+        imageRight = activity.findViewById(R.id.img_right);
+        imageFront = activity.findViewById(R.id.img_front);
+        imageBack = activity.findViewById(R.id.img_back);
 
-        textUp = (TextView) activity.findViewById(R.id.text_up);
-        textDown = (TextView) activity.findViewById(R.id.text_down);
-        textLeft = (TextView) activity.findViewById(R.id.text_left);
-        textRight = (TextView) activity.findViewById(R.id.text_right);
-        textFront = (TextView) activity.findViewById(R.id.text_front);
-        textBack = (TextView) activity.findViewById(R.id.text_back);
+        textUp = activity.findViewById(R.id.text_up);
+        textDown = activity.findViewById(R.id.text_down);
+        textLeft = activity.findViewById(R.id.text_left);
+        textRight = activity.findViewById(R.id.text_right);
+        textFront = activity.findViewById(R.id.text_front);
+        textBack = activity.findViewById(R.id.text_back);
 
-        textLabelCordHarmNumber = (TextView) activity.findViewById(R.id.text_label_cord_harm_number);
-        textCordHarmNumber = (TextView) activity.findViewById(R.id.text_cord_harm_number);
-        textLabelCordPos = (TextView) activity.findViewById(R.id.text_label_cord_pos);
-        textCordPos = (TextView) activity.findViewById(R.id.text_cord_pos);
-        textLabelCordHarmPos = (TextView) activity.findViewById(R.id.text_label_cord_harm_pos);
-        textCordHarmPos = (TextView) activity.findViewById(R.id.text_cord_harm_pos);
+        textLabelCordHarmNumber = activity.findViewById(R.id.cord_harm_number);
+        textCordHarmNumber = activity.findViewById(R.id.text_cord_harm_number);
+        textLabelCordPos = activity.findViewById(R.id.cord_pos);
+        textCordPos = activity.findViewById(R.id.text_cord_pos);
+        textLabelCordHarmPos = activity.findViewById(R.id.cord_harm_pos);
+        textCordHarmPos = activity.findViewById(R.id.text_cord_harm_pos);
 
-        textBackArmLength = (TextView) activity.findViewById(R.id.text_back_arm_length);
-        textBigArmLength = (TextView) activity.findViewById(R.id.text_big_arm_length);
-        textMaxHeight = (TextView) activity.findViewById(R.id.text_max_height);
-        textNowPosHeight = (TextView) activity.findViewById(R.id.text_now_pos_max_weight);
+        textBackArmLength = activity.findViewById(R.id.text_back_arm_length);
+        textBigArmLength = activity.findViewById(R.id.text_big_arm_length);
+        textMaxHeight = activity.findViewById(R.id.text_max_height);
+        textNowPosHeight = activity.findViewById(R.id.text_now_pos_max_weight);
 
-        drawView = (DrawView) activity.findViewById(R.id.DrawView_view);
+        drawView = activity.findViewById(R.id.DrawView_view);
 
-        frameLayoutThing = (FrameLayout) activity.findViewById(R.id.frame_layout_thing);
+        frameLayoutThing = activity.findViewById(R.id.frame_layout_thing);
 
-        imageThing = (ImageView) activity.findViewById(R.id.image_thing);
+        imageThing = activity.findViewById(R.id.image_thing);
 
-        imageWaring = (ImageView) activity.findViewById(R.id.image_waring);
+        imageWaring = activity.findViewById(R.id.image_waring);
 
-        layoutWaring_1 = (LinearLayout) activity.findViewById(R.id.layout_waring_1);
-        layoutWaring_2 = (LinearLayout) activity.findViewById(R.id.layout_waring_2);
-        layoutWaring_3 = (LinearLayout) activity.findViewById(R.id.layout_waring_3);
+        layoutWaring_1 = activity.findViewById(R.id.layout_waring_1);
+        layoutWaring_2 = activity.findViewById(R.id.layout_waring_2);
+        layoutWaring_3 = activity.findViewById(R.id.layout_waring_3);
 
-        textWaring_1 = (TextView) activity.findViewById(R.id.text_waring_1);
-        textWaring_2 = (TextView) activity.findViewById(R.id.text_waring_2);
-        textWaring_3 = (TextView) activity.findViewById(R.id.text_waring_3);
+        textWaring_1 = activity.findViewById(R.id.text_waring_1);
+        textWaring_2 = activity.findViewById(R.id.text_waring_2);
+        textWaring_3 = activity.findViewById(R.id.text_waring_3);
 
-        frameLayoutTower = (FrameLayout) activity.findViewById(R.id.frame_layout_tower);
-        frameLayoutTowerImage = (FrameLayout) activity.findViewById(R.id.frame_layout_tower_image);
+        frameLayoutTower = activity.findViewById(R.id.frame_layout_tower);
+        frameLayoutTowerImage = activity.findViewById(R.id.frame_layout_tower_image);
 
-        layoutBackArm = (LinearLayout) activity.findViewById(R.id.layout_back_arm);
-        layoutBigArm = (LinearLayout) activity.findViewById(R.id.layout_big_arm);
-        layoutMaxHeight = (LinearLayout) activity.findViewById(R.id.layout_max_height);
+        layoutBackArm = activity.findViewById(R.id.layout_back_arm);
+        layoutBigArm = activity.findViewById(R.id.layout_big_arm);
+        layoutMaxHeight = activity.findViewById(R.id.layout_max_height);
     }
 
     @Override

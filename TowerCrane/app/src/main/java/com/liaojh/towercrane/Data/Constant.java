@@ -2,6 +2,9 @@ package com.liaojh.towercrane.Data;
 
 import com.liaojh.towercrane.Manager.CSVFileManager;
 import com.liaojh.towercrane.Manager.LocalStorage;
+import com.liaojh.towercrane.Manager.VideoManager;
+
+import java.sql.Struct;
 
 public class Constant {
     public enum InterfaceType {
@@ -46,6 +49,14 @@ public class Constant {
         Loop, //循环数据
     }
 
+    public enum CALIBRATION_TYPE {
+        Weight,
+        Wind,
+        Amplitude,
+        TurnAround,
+        Height,
+    }
+
     //csv数据写入间隔
     public static int CSV_DATA_WRITE_INTERVAL = 1000 * 10;
 
@@ -61,23 +72,29 @@ public class Constant {
 
     public static CSVFileManager csvFileManager = new CSVFileManager();
 
-//    public static String Name = "guest";
-//
-//    public static String Password = "Guest001";
-
-    public static String Name = "guest";
-
-    public static String Password = "guest_001";
-
-    public static int Port = 8000;
 
     public static String LogTag = "test log";
 
     public static LocalStorage localStorage;
 
-    public static float videoRatio = 4.0f / 3;
+    public static String userName = "";
 
-    public static String userName = "admin";
+    public static String password = "";
 
-    public static String password = "password";
+    public static Boolean USE_LOGIN = true;
+
+    public static SettingData settingData = new SettingData();
+
+    public static VideoManager videoManager = new VideoManager();
+
+    public static class VideoSaveData {
+        public String name;
+        public String userName;
+        public String userPassword;
+        public String ipAddress;
+        public String port;
+        public String rtspAddress;
+    }
+
+    public static String VideoSaveKey = "VideoSaveKey";
 }
