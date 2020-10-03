@@ -120,7 +120,7 @@ public class UITopBar implements InterfaceUI {
 
                 break;
             case R.id.layout_btn_notice:
-
+                m_activity.uiFaceCheck.show();
                 break;
         }
     }

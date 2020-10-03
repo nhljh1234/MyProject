@@ -11,6 +11,7 @@ import com.liaojh.towercrane.UI.InterfaceUI;
 import com.liaojh.towercrane.UI.UIAddCamera;
 import com.liaojh.towercrane.UI.UIAmplitudeRunInfo;
 import com.liaojh.towercrane.UI.UICameraList;
+import com.liaojh.towercrane.UI.UIFaceCheck;
 import com.liaojh.towercrane.UI.UILogin;
 import com.liaojh.towercrane.UI.UISetCalibration;
 import com.liaojh.towercrane.UI.UISetting;
@@ -52,6 +53,7 @@ public class MainActivity extends BaseActivity {
     public UIAddCamera uiAddCamera = new UIAddCamera();
     public UIVideoInfo uiVideoInfo = new UIVideoInfo();
     public UICameraList uiCameraList = new UICameraList();
+    public UIFaceCheck uiFaceCheck = new UIFaceCheck();
 
     private InterfaceUI[] uis = new InterfaceUI[] {
             new UITopBar(),
@@ -65,6 +67,7 @@ public class MainActivity extends BaseActivity {
             uiSetCalibration,
             uiAddCamera,
             uiCameraList,
+            uiFaceCheck,
     };
 
     private TowerCraneRunData oldData;

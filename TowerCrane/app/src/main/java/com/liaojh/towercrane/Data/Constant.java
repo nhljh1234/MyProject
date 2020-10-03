@@ -16,6 +16,7 @@ public class Constant {
         UpdateTowerCraneInfo,
         SearchFinish,
         IPError,
+        CheckFace,
     }
 
     public enum Status_Up_Or_Down {
@@ -65,6 +66,9 @@ public class Constant {
 
     //网络数据获取间隔
     public static int SIGNAL_DATA_UPDATE_INTERVAL = 1000;
+
+    //人脸识别间隔
+    public static int FACE_CHECK_INTERVAL = 1000;
 
     public static InterfaceType interfaceType = InterfaceType.Normal;
 

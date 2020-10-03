@@ -4200,6 +4200,39 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_face_check"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextureView
+                        android:id="@+id/texture_view_face_check"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="invisible"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

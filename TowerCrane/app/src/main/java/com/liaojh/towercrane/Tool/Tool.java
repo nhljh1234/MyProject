@@ -3,6 +3,7 @@ package com.liaojh.towercrane.Tool;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
@@ -140,5 +141,9 @@ public class Tool {
 
     public static String getRtspAddress(Constant.VideoSaveData videoSaveData) {
         return "rtsp://" + videoSaveData.userName + ":" + videoSaveData.userPassword + "@" + videoSaveData.ipAddress + ":" + videoSaveData.port + videoSaveData.rtspAddress;
+    }
+
+    public static boolean isPad(Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 }
