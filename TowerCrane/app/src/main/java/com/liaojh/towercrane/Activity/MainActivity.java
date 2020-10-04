@@ -1,11 +1,10 @@
 package com.liaojh.towercrane.Activity;
 
 import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.SerialPort.SerialUtil;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
 import com.liaojh.towercrane.Data.TowerCraneRunDataFactory;
-import com.liaojh.towercrane.Manager.CSVFileManager;
 import com.liaojh.towercrane.Manager.LocalStorage;
-import com.liaojh.towercrane.Tool.CSVFileTool;
 import com.liaojh.towercrane.Tool.Tool;
 import com.liaojh.towercrane.UI.InterfaceUI;
 import com.liaojh.towercrane.UI.UIAddCamera;
@@ -20,26 +19,21 @@ import com.liaojh.towercrane.UI.UITowerCraneRunInfo;
 import com.liaojh.towercrane.UI.UITurnAroundRunInfo;
 import com.liaojh.towercrane.UI.UIUpDownRunInfo;
 import com.liaojh.towercrane.UI.UIVideoInfo;
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
-import android.widget.VideoView;
 
 import com.liaojh.towercrane.R;
 
@@ -83,15 +77,15 @@ public class MainActivity extends BaseActivity {
 
     private static final int ACTION_REQUEST_PERMISSIONS = 1;
 
-    private static final int ACTIVE_OPEN_DOCUMENT_TREE = 2;
-
     private final BaseActivity activity = this;
+
+    private TowerCraneRunDataFactory towerCraneRunDataFactory = new TowerCraneRunDataFactory();
 
     @SuppressLint("HandlerLeak")
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.obj == Constant.Handler_Type.UpdateTowerCraneInfo) {
-                TowerCraneRunData towerCraneRunData = TowerCraneRunDataFactory.getRunData();
+                TowerCraneRunData towerCraneRunData = towerCraneRunDataFactory.getRunData();
                 if (oldData != null) {
                     towerCraneRunData.setOldData(oldData);
                 }
@@ -100,7 +94,7 @@ public class MainActivity extends BaseActivity {
                 Constant.csvFileManager.addData(towerCraneRunData);
                 if (timerTimeTotal >= Constant.CSV_DATA_WRITE_INTERVAL) {
                     timerTimeTotal = 0;
-                    Constant.csvFileManager.saveData(activity);
+                    Constant.csvFileManager.saveData();
                 }
 
                 oldData = towerCraneRunData;
@@ -123,16 +117,12 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    private void openDir() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        startActivityForResult(intent, ACTIVE_OPEN_DOCUMENT_TREE);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        Constant.usbManager.init(this);
         Constant.localStorage = new LocalStorage(this);
         Constant.settingData.init();
 
@@ -166,9 +156,6 @@ public class MainActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
         }
 
-        //开启文件夹权限
-        //openDir();
-
         //去掉头部
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -194,14 +181,14 @@ public class MainActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
 
-        if (!Tool.checkSDCardExist(this)) {
-            showToast("不存在外置SD卡");
-        }
-
         for (int i = 0; i < uis.length; i++) {
             uis[i].onUIStart();
         }
+
+        //SerialUtil.getInstance().Connect("ttyS1");
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -225,24 +212,7 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == ACTIVE_OPEN_DOCUMENT_TREE) {
-                Uri uri = data.getData();
-                if (uri != null) {
-                    String[] strs = uri.getPath().split("/");
-                    String uriSdName = strs[strs.length - 1];
-                    strs = Tool.getStoragePath(this).split("/");
-                    String sdName = strs[strs.length - 1];
-                    Log.e(Constant.LogTag, uriSdName);
-                    Log.e(Constant.LogTag, sdName);
-                    if (uriSdName.indexOf(sdName) >= 0) {
-                        Constant.csvFileManager.setUri(uri);
-                    } else {
-                        openDir();
-                    }
-                } else {
-                    openDir();
-                }
-            }
+
         }
     }
 }

@@ -2,6 +2,7 @@ package com.liaojh.towercrane.Data;
 
 import com.liaojh.towercrane.Manager.CSVFileManager;
 import com.liaojh.towercrane.Manager.LocalStorage;
+import com.liaojh.towercrane.Manager.USBManager;
 import com.liaojh.towercrane.Manager.VideoManager;
 
 import java.sql.Struct;
@@ -76,6 +77,7 @@ public class Constant {
 
     public static CSVFileManager csvFileManager = new CSVFileManager();
 
+    public static USBManager usbManager = new USBManager();
 
     public static String LogTag = "test log";
 
@@ -100,5 +102,7 @@ public class Constant {
         public String rtspAddress;
     }
 
-    public static String VideoSaveKey = "VideoSaveKey";
+    public static String videoSaveKey = "VideoSaveKey";
+
+    public static String csvDataDirName = "csv_data";
 }

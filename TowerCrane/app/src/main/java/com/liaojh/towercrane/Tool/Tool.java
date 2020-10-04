@@ -11,10 +11,12 @@ import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
 import android.util.DisplayMetrics;
 
+import com.github.mjdev.libaums.fs.UsbFile;
 import com.liaojh.towercrane.Data.Constant;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
@@ -145,5 +147,42 @@ public class Tool {
 
     public static boolean isPad(Context context) {
         return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    /**
+     * Checks if the device is rooted.
+     *
+     * @return <code>true</code> if the device is rooted, <code>false</code> otherwise.
+     */
+    public static boolean isRooted() {
+        // get from build info
+        String buildTags = android.os.Build.TAGS;
+        if (buildTags != null && buildTags.contains("test-keys")) {
+            return true;
+        }
+        // check if /system/app/Superuser.apk is present
+        try {
+            File file = new File("/system/app/Superuser.apk");
+            if (file.exists()) {
+                return true;
+            }
+        } catch (Exception exception) {
+            // ignore
+            exception.printStackTrace();
+        }
+        String[] commands = {
+                "/system/xbin/which su",
+                "/system/bin/which su",
+                "which su"
+        };
+        for (String command : commands) {
+            try {
+                Runtime.getRuntime().exec(command);
+                return true;
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+        }
+        return false;
     }
 }
