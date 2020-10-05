@@ -71,27 +71,13 @@ public class Constant {
     //人脸识别间隔
     public static int FACE_CHECK_INTERVAL = 1000;
 
-    public static InterfaceType interfaceType = InterfaceType.Normal;
-
-    public static TowerCraneData towerCraneData = new TowerCraneData();
-
-    public static CSVFileManager csvFileManager = new CSVFileManager();
-
-    public static USBManager usbManager = new USBManager();
-
     public static String LogTag = "test log";
-
-    public static LocalStorage localStorage;
 
     public static String userName = "";
 
     public static String password = "";
 
     public static Boolean USE_LOGIN = true;
-
-    public static SettingData settingData = new SettingData();
-
-    public static VideoManager videoManager = new VideoManager();
 
     public static class VideoSaveData {
         public String name;

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.Manager.NetManager;
 import com.liaojh.towercrane.R;
 
 import java.util.Timer;
@@ -117,7 +118,7 @@ public class UITopBar implements InterfaceUI {
                 m_activity.uiLogin.show();
                 break;
             case R.id.layout_btn_output_control:
-
+                NetManager.getInstance().login();
                 break;
             case R.id.layout_btn_notice:
                 m_activity.uiFaceCheck.show();

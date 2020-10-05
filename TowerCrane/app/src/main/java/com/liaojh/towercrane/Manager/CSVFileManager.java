@@ -1,16 +1,32 @@
 package com.liaojh.towercrane.Manager;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import com.liaojh.towercrane.Data.CSVFile;
 import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.Data.SettingData;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
+import com.liaojh.towercrane.SerialPort.SerialUtil;
 import com.liaojh.towercrane.Tool.Tool;
 
 public class CSVFileManager {
     private ArrayList<TowerCraneRunData> list = new ArrayList<>();
+    private static CSVFileManager instance;
 
-    public CSVFileManager() {
+    private CSVFileManager() {
 
+    }
+
+    public static CSVFileManager getInstance() {
+        if (instance == null) {
+            synchronized (SerialUtil.class) {
+                if (instance == null) {
+                    instance = new CSVFileManager();
+                }
+            }
+        }
+        return instance;
     }
 
     public void addData(TowerCraneRunData data) {
@@ -18,14 +34,18 @@ public class CSVFileManager {
     }
 
     public void saveData() {
-        if (Constant.usbManager.getUsbRootFolder() == null) {
+        if (USBManager.getInstance().getUsbRootFolder() == null) {
+            Log.e(Constant.LogTag, "usbManager getUsbRootFolder is null");
             return;
         }
-        saveBaseData();
-        list.clear();
+        Boolean success = saveBaseData();
+        if (success) {
+            list.clear();
+
+        }
     }
 
-    public void saveBaseData() {
+    public Boolean saveBaseData() {
         int size = list.size();
         String fileName = Tool.getDayTimeString();
         String baseFileName = "";
@@ -42,6 +62,6 @@ public class CSVFileManager {
             }
             baseDataList.add(str);
         }
-        new CSVFile(baseFileName, Constant.CSV_FILE_TYPE.Base).write(baseDataList);
+        return new CSVFile(baseFileName, Constant.CSV_FILE_TYPE.Base).write(baseDataList);
     }
 }

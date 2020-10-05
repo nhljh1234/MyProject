@@ -33,7 +33,7 @@ public class CSVFile {
     public CSVFile(String fileName, Constant.CSV_FILE_TYPE csvFileType) {
         m_csvFileType = csvFileType;
 
-        UsbFile usbFile = Constant.usbManager.getUsbRootFolder();
+        UsbFile usbFile = USBManager.getInstance().getUsbRootFolder();
         if (usbFile == null) {
             return;
         }
@@ -41,10 +41,10 @@ public class CSVFile {
         csvFile = GetCSVFile(usbFile, fileName);
     }
 
-    public void write(ArrayList<Object> dataList) {
+    public Boolean write(ArrayList<Object> dataList) {
         if (dataList.size() == 0 || csvFile == null) {
             Log.e(Constant.LogTag, "write csvFile is null");
-            return;
+            return false;
         }
         try {
             StringBuilder str = new StringBuilder();
@@ -55,9 +55,11 @@ public class CSVFile {
             csvFile.write(csvFile.getLength(), ByteBuffer.wrap(str.toString().getBytes()));
             csvFile.flush();
             csvFile.close();
+            return true;
         } catch (IOException e) {
             Log.e(Constant.LogTag, "writeMsg csv文件写入失败 " + e.getMessage());
         }
+        return false;
     }
 
     //新建文件的话加一个头数据

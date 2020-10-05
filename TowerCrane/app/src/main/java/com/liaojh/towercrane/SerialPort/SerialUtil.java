@@ -13,6 +13,10 @@ public class SerialUtil {
     private SerialPortManager mSerialPortManager = new SerialPortManager();
     private static SerialUtil instance = null;
 
+    private SerialUtil() {
+
+    }
+
     // 此处使用单例模式
     public static SerialUtil getInstance() {
         if (instance == null) {

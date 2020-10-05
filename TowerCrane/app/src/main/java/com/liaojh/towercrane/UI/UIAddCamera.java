@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
+import com.liaojh.towercrane.Manager.VideoManager;
 import com.liaojh.towercrane.R;
 
 public class UIAddCamera implements InterfaceDialog {
@@ -108,9 +109,9 @@ public class UIAddCamera implements InterfaceDialog {
                 videoSaveData.port = editCameraPort.getText().toString();
                 videoSaveData.rtspAddress = editCameraRtspAddress.getText().toString();
                 if (isChange && videoSaveDataChange != null) {
-                    Constant.videoManager.changeCamera(videoSaveData, videoSaveDataChange.ipAddress);
+                    VideoManager.getInstance().changeCamera(videoSaveData, videoSaveDataChange.ipAddress);
                 } else {
-                    Constant.videoManager.addCamera(videoSaveData);
+                    VideoManager.getInstance().addCamera(videoSaveData);
                 }
                 m_activity.uiCameraList.show();
                 hide();

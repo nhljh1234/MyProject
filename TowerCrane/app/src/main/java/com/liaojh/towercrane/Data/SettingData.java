@@ -1,8 +1,10 @@
 package com.liaojh.towercrane.Data;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
+import com.liaojh.towercrane.SerialPort.SerialUtil;
 
 public class SettingData {
+    private static SettingData instance;
     private String m_base_key_demarcate_1 = "KEY_DEMARCATE_1_";//标定值1 表示实际值 - x
     private String m_base_key_demarcate_2 = "KEY_DEMARCATE_2_";//标定值2 表示实际值 - x
     private String m_base_key_measure_1 = "KEY_MEASURE_1_";//当值1 表示测量值 - y
@@ -20,22 +22,56 @@ public class SettingData {
     private String key_turnAround = "TURN_AROUND"; //回转
     private String key_height = "HEIGHT"; //高度
 
-    public CalibrationData weight;
-    public CalibrationData wind;
-    public CalibrationData amplitude;
-    public CalibrationData turnAround;
-    public CalibrationData height;
+    private CalibrationData weight;
+    private CalibrationData wind;
+    private CalibrationData amplitude;
+    private CalibrationData turnAround;
+    private CalibrationData height;
 
-    public SettingData() {
-
+    public static SettingData getInstance() {
+        if (instance == null) {
+            synchronized (SerialUtil.class) {
+                if (instance == null) {
+                    instance = new SettingData();
+                }
+            }
+        }
+        return instance;
     }
 
-    public void init() {
-        weight = buildData(key_weight, Constant.CALIBRATION_TYPE.Weight);
-        wind = buildData(key_wind, Constant.CALIBRATION_TYPE.Wind);
-        amplitude = buildData(key_amplitude, Constant.CALIBRATION_TYPE.Amplitude);
-        turnAround = buildData(key_turnAround, Constant.CALIBRATION_TYPE.TurnAround);
-        height = buildData(key_height, Constant.CALIBRATION_TYPE.Height);
+    public CalibrationData getWeight() {
+        if (weight == null) {
+            weight = buildData(key_weight, Constant.CALIBRATION_TYPE.Weight);
+        }
+        return weight;
+    }
+
+    public CalibrationData getWind() {
+        if (wind == null) {
+            wind = buildData(key_wind, Constant.CALIBRATION_TYPE.Wind);
+        }
+        return wind;
+    }
+
+    public CalibrationData getAmplitude() {
+        if (amplitude == null) {
+            amplitude = buildData(key_amplitude, Constant.CALIBRATION_TYPE.Amplitude);
+        }
+        return amplitude;
+    }
+
+    public CalibrationData getTurnAround() {
+        if (turnAround == null) {
+            turnAround = buildData(key_turnAround, Constant.CALIBRATION_TYPE.TurnAround);
+        }
+        return turnAround;
+    }
+
+    public CalibrationData getHeight() {
+        if (height == null) {
+            height = buildData(key_height, Constant.CALIBRATION_TYPE.Height);
+        }
+        return height;
     }
 
     private CalibrationData buildData(String key, Constant.CALIBRATION_TYPE type) {

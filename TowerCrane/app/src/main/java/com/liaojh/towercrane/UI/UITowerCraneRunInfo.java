@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.Data.TowerCraneData;
 import com.liaojh.towercrane.R;
 
 import java.util.ArrayList;
@@ -306,10 +307,10 @@ public class UITowerCraneRunInfo implements InterfaceUI {
 
     @Override
     public void onUIStart() {
-        textNumber.setText(Constant.towerCraneData.getNumberStr());
-        textSpecifications.setText(Constant.towerCraneData.getSpecificationsStr());
-        textMonitorNumber.setText(Constant.towerCraneData.getMonitorNumber());
-        textMagnification.setText(Constant.towerCraneData.getMagnificationStr());
+        textNumber.setText(TowerCraneData.getInstance().getNumberStr());
+        textSpecifications.setText(TowerCraneData.getInstance().getSpecificationsStr());
+        textMonitorNumber.setText(TowerCraneData.getInstance().getMonitorNumber());
+        textMagnification.setText(TowerCraneData.getInstance().getMagnificationStr());
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.VideoData;
+import com.liaojh.towercrane.Manager.VideoManager;
 import com.liaojh.towercrane.R;
 import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
@@ -83,7 +84,7 @@ public class UICameraList implements InterfaceDialog {
     }
 
     public void updateList() {
-        MyAdapter adapter = new MyAdapter(Constant.videoManager.getVideoSaveDataList());
+        MyAdapter adapter = new MyAdapter(VideoManager.getInstance().getVideoSaveDataList());
         listCamera.setAdapter(adapter);
     }
 
@@ -134,7 +135,7 @@ public class UICameraList implements InterfaceDialog {
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Constant.videoManager.deleteCamera(videoSaveData.ipAddress);
+                    VideoManager.getInstance().deleteCamera(videoSaveData.ipAddress);
                     updateList();
                 }
             });

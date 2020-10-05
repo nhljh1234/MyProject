@@ -28,12 +28,15 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
 public class Tool {
+    private static final char[] HEX_CHAR = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
     public static String getStoragePath(Context mContext) {
 
         StorageManager mStorageManager = (StorageManager) mContext.getSystemService(Context.STORAGE_SERVICE);
@@ -83,16 +86,16 @@ public class Tool {
 
     public static int getDPIRatioNum(Activity activity, int value) {
         int DPI = getDPI(activity);
-        return (int)Math.floor(value * 420 / DPI + 0.5);
+        return (int) Math.floor(value * 420 / DPI + 0.5);
     }
 
     public static String getLocalIPAddress() {
         try {
-            for(Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();){
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
                 NetworkInterface intF = en.nextElement();
-                for(Enumeration<InetAddress> enumIpAddress = intF.getInetAddresses(); enumIpAddress.hasMoreElements();){
+                for (Enumeration<InetAddress> enumIpAddress = intF.getInetAddresses(); enumIpAddress.hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddress.nextElement();
-                    if(!inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address)){
+                    if (!inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address)) {
                         return inetAddress.getHostAddress().toString();
                     }
                 }
@@ -145,44 +148,42 @@ public class Tool {
         return "rtsp://" + videoSaveData.userName + ":" + videoSaveData.userPassword + "@" + videoSaveData.ipAddress + ":" + videoSaveData.port + videoSaveData.rtspAddress;
     }
 
-    public static boolean isPad(Context context) {
-        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    public static String bytesToString(byte[] bytes) {
+        char[] buf = new char[bytes.length * 2];
+        int index = 0;
+        for (byte b : bytes) {
+            buf[index++] = HEX_CHAR[b >>> 4 & 0xf];
+            buf[index++] = HEX_CHAR[b & 0xf];
+        }
+
+        return new String(buf);
     }
 
-    /**
-     * Checks if the device is rooted.
-     *
-     * @return <code>true</code> if the device is rooted, <code>false</code> otherwise.
-     */
-    public static boolean isRooted() {
-        // get from build info
-        String buildTags = android.os.Build.TAGS;
-        if (buildTags != null && buildTags.contains("test-keys")) {
-            return true;
+    //16进制字符串转string
+    public static byte[] stringToBytes(String str) {
+        if (str == null || str.trim().equals("")) {
+            return new byte[0];
         }
-        // check if /system/app/Superuser.apk is present
-        try {
-            File file = new File("/system/app/Superuser.apk");
-            if (file.exists()) {
-                return true;
-            }
-        } catch (Exception exception) {
-            // ignore
-            exception.printStackTrace();
+        byte[] bytes = new byte[str.length() / 2];
+        for (int i = 0; i < str.length() / 2; i++) {
+            String subStr = str.substring(i * 2, i * 2 + 2);
+            bytes[i] = (byte) Integer.parseInt(subStr, 16);
         }
-        String[] commands = {
-                "/system/xbin/which su",
-                "/system/bin/which su",
-                "which su"
-        };
-        for (String command : commands) {
-            try {
-                Runtime.getRuntime().exec(command);
-                return true;
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
+        return bytes;
+    }
+
+
+    public static byte[] concatAll(byte[] first, byte[]... rest) {
+        int totalLength = first.length;
+        for (byte[] array : rest) {
+            totalLength += array.length;
         }
-        return false;
+        byte[] result = Arrays.copyOf(first, totalLength);
+        int offset = first.length;
+        for (byte[] array : rest) {
+            System.arraycopy(array, 0, result, offset, array.length);
+            offset += array.length;
+        }
+        return result;
     }
 }

@@ -1,6 +1,10 @@
 package com.liaojh.towercrane.Activity;
 
 import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.Data.SettingData;
+import com.liaojh.towercrane.Manager.CSVFileManager;
+import com.liaojh.towercrane.Manager.NetManager;
+import com.liaojh.towercrane.Manager.USBManager;
 import com.liaojh.towercrane.SerialPort.SerialUtil;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
 import com.liaojh.towercrane.Data.TowerCraneRunDataFactory;
@@ -91,10 +95,10 @@ public class MainActivity extends BaseActivity {
                 }
 
                 timerTimeTotal = timerTimeTotal + Constant.TOWER_RUN_DATE_UPDATE_INTERVAL;
-                Constant.csvFileManager.addData(towerCraneRunData);
+                CSVFileManager.getInstance().addData(towerCraneRunData);
                 if (timerTimeTotal >= Constant.CSV_DATA_WRITE_INTERVAL) {
                     timerTimeTotal = 0;
-                    Constant.csvFileManager.saveData();
+                    CSVFileManager.getInstance().saveData();
                 }
 
                 oldData = towerCraneRunData;
@@ -122,9 +126,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        Constant.usbManager.init(this);
-        Constant.localStorage = new LocalStorage(this);
-        Constant.settingData.init();
+        USBManager.getInstance().init(this);
+        LocalStorage.getInstance().init(this);
+        NetManager.getInstance().connect();
 
         int DPI = Tool.getDPI(this);
         switch (DPI) {

@@ -9,7 +9,9 @@ import java.util.List;
 import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.Data.SettingData;
 import com.liaojh.towercrane.Data.VideoData;
+import com.liaojh.towercrane.SerialPort.SerialUtil;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,15 +20,31 @@ import org.videolan.libvlc.LibVLC;
 import org.videolan.libvlc.MediaPlayer;
 
 public class VideoManager {
+    private static VideoManager instance;
     private ArrayList<VideoData> list = new ArrayList<>();
     private VideoData fullScreenVideoData;
     private MainActivity m_activity;
+
+    private VideoManager() {
+
+    }
+
+    public static VideoManager getInstance() {
+        if (instance == null) {
+            synchronized (SerialUtil.class) {
+                if (instance == null) {
+                    instance = new VideoManager();
+                }
+            }
+        }
+        return instance;
+    }
 
     public ArrayList<Constant.VideoSaveData> getVideoSaveDataList() {
         ArrayList<Constant.VideoSaveData> list = new ArrayList<>();
 
         try {
-            String saveData = Constant.localStorage.m_sp.getString(Constant.videoSaveKey, "");
+            String saveData = LocalStorage.getInstance().getSp().getString(Constant.videoSaveKey, "");
             if (saveData.length() == 0) {
                 return list;
             }
@@ -104,8 +122,8 @@ public class VideoManager {
                 videoObject.put("rtspAddress", videoList.get(i).rtspAddress);
                 jsonArray.put(videoObject);
             }
-            Constant.localStorage.m_spe.putString(Constant.videoSaveKey, jsonArray.toString());
-            Boolean result = Constant.localStorage.m_spe.commit();
+            LocalStorage.getInstance().getSpe().putString(Constant.videoSaveKey, jsonArray.toString());
+            Boolean result = LocalStorage.getInstance().getSpe().commit();
             if (!result) {
                 m_activity.showToast("保存摄像头数据失败");
             }

@@ -62,7 +62,7 @@ public class UIVideoInfo implements InterfaceUI {
     }
 
     private void updateVideoList() {
-        videoList = Constant.videoManager.getVideoList();
+        videoList = VideoManager.getInstance().getVideoList();
 
         int count = Math.min(videoList.size() - (selectPageIndex - 1) * 4, 4);
         layoutVideo_2.setVisibility(count > 1 ? View.VISIBLE : View.GONE);
@@ -148,8 +148,8 @@ public class UIVideoInfo implements InterfaceUI {
         textViewList.add(textVideoName_3);
         textViewList.add(textVideoName_4);
 
-        Constant.videoManager.smallVideoInit(m_activity, surfaceViewVideo);
-        Constant.videoManager.fullScreenVideoInit(m_activity, surfaceViewVideoFullScreen);
+        VideoManager.getInstance().smallVideoInit(m_activity, surfaceViewVideo);
+        VideoManager.getInstance().fullScreenVideoInit(m_activity, surfaceViewVideoFullScreen);
     }
 
     @Override
@@ -161,7 +161,7 @@ public class UIVideoInfo implements InterfaceUI {
 
     @Override
     public void onUIDestroy() {
-        videoList = Constant.videoManager.getVideoList();
+        videoList = VideoManager.getInstance().getVideoList();
         for (int i = 0; i < videoList.size(); i++) {
             videoList.get(i).onDestroy();
         }
@@ -178,7 +178,7 @@ public class UIVideoInfo implements InterfaceUI {
             videoDataSelect.onDestroy();
             videoDataSelect = null;
         }
-        Constant.videoManager.smallVideoInit(m_activity, surfaceViewVideo);
+        VideoManager.getInstance().smallVideoInit(m_activity, surfaceViewVideo);
         onUIStart();
     }
 
@@ -215,7 +215,7 @@ public class UIVideoInfo implements InterfaceUI {
                 }
                 frameLayoutFullVideo.setVisibility(View.VISIBLE);
                 videoDataSelect.stop();
-                Constant.videoManager.getFullScreenVideoData().play(videoDataSelect.getUri());
+                VideoManager.getInstance().getFullScreenVideoData().play(videoDataSelect.getUri());
                 break;
             case R.id.surface_view_full_screen:
             case R.id.frame_layout_full_video:
@@ -223,7 +223,7 @@ public class UIVideoInfo implements InterfaceUI {
                     break;
                 }
                 frameLayoutFullVideo.setVisibility(View.INVISIBLE);
-                Constant.videoManager.getFullScreenVideoData().stop();
+                VideoManager.getInstance().getFullScreenVideoData().stop();
                 videoDataSelect.play(null);
                 //updateVideoList();
                 break;

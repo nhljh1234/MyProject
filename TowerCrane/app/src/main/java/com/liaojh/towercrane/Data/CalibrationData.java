@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
+import com.liaojh.towercrane.Manager.LocalStorage;
 
 //定标数据
 public class CalibrationData {
@@ -58,16 +59,16 @@ public class CalibrationData {
     }
 
     public void updateValue() {
-        demarcate_1 = Constant.localStorage.m_sp.getFloat(m_key_demarcate_1, 5);
-        demarcate_2 = Constant.localStorage.m_sp.getFloat(m_key_demarcate_2, 100);
-        measure_1 = Constant.localStorage.m_sp.getFloat(m_key_measure_1, 0);
-        measure_2 = Constant.localStorage.m_sp.getFloat(m_key_measure_2, 5);
-        low_warn = Constant.localStorage.m_sp.getFloat(m_key_low_warn, 0);
-        low_error = Constant.localStorage.m_sp.getFloat(m_key_low_error, 0);
-        high_warn = Constant.localStorage.m_sp.getFloat(m_key_high_warn, 0);
-        high_error = Constant.localStorage.m_sp.getFloat(m_key_high_error, 0);
-        low_error_work = Constant.localStorage.m_sp.getBoolean(m_key_low_error_work, true);
-        high_error_work = Constant.localStorage.m_sp.getBoolean(m_key_high_error_work, true);
+        demarcate_1 = LocalStorage.getInstance().getSp().getFloat(m_key_demarcate_1, 5);
+        demarcate_2 = LocalStorage.getInstance().getSp().getFloat(m_key_demarcate_2, 100);
+        measure_1 = LocalStorage.getInstance().getSp().getFloat(m_key_measure_1, 0);
+        measure_2 = LocalStorage.getInstance().getSp().getFloat(m_key_measure_2, 5);
+        low_warn = LocalStorage.getInstance().getSp().getFloat(m_key_low_warn, 0);
+        low_error = LocalStorage.getInstance().getSp().getFloat(m_key_low_error, 0);
+        high_warn = LocalStorage.getInstance().getSp().getFloat(m_key_high_warn, 0);
+        high_error = LocalStorage.getInstance().getSp().getFloat(m_key_high_error, 0);
+        low_error_work = LocalStorage.getInstance().getSp().getBoolean(m_key_low_error_work, true);
+        high_error_work = LocalStorage.getInstance().getSp().getBoolean(m_key_high_error_work, true);
     }
 
     //计算a和b的值
@@ -81,53 +82,53 @@ public class CalibrationData {
     }
 
     public Boolean saveDemarcate_1(float value) {
-        Constant.localStorage.m_spe.putFloat(m_key_demarcate_1, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putFloat(m_key_demarcate_1, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveDemarcate_2(float value) {
-        Constant.localStorage.m_spe.putFloat(m_key_demarcate_2, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putFloat(m_key_demarcate_2, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveMeasure_1(float value) {
-        Constant.localStorage.m_spe.putFloat(m_key_measure_1, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putFloat(m_key_measure_1, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveMeasure_2(float value) {
-        Constant.localStorage.m_spe.putFloat(m_key_measure_2, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putFloat(m_key_measure_2, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveLowWarn(float value) {
-        Constant.localStorage.m_spe.putFloat(m_key_low_warn, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putFloat(m_key_low_warn, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveLowError(float value) {
-        Constant.localStorage.m_spe.putFloat(m_key_low_error, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putFloat(m_key_low_error, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveHighWarn(float value) {
-        Constant.localStorage.m_spe.putFloat(m_key_high_warn, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putFloat(m_key_high_warn, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveHighError(float value) {
-        Constant.localStorage.m_spe.putFloat(m_key_high_error, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putFloat(m_key_high_error, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveLowErrorWork(Boolean value) {
-        Constant.localStorage.m_spe.putBoolean(m_key_low_error_work, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putBoolean(m_key_low_error_work, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public Boolean saveHighErrorWork(Boolean value) {
-        Constant.localStorage.m_spe.putBoolean(m_key_high_error_work, value);
-        return Constant.localStorage.m_spe.commit();
+        LocalStorage.getInstance().getSpe().putBoolean(m_key_high_error_work, value);
+        return LocalStorage.getInstance().getSpe().commit();
     }
 
     public float getDemarcateNum(float measure) {

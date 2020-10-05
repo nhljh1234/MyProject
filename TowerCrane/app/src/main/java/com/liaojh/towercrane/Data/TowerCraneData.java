@@ -1,7 +1,26 @@
 package com.liaojh.towercrane.Data;
 
+import com.liaojh.towercrane.SerialPort.SerialUtil;
+
 //塔吊自身数据
 public class TowerCraneData {
+    private static TowerCraneData instance;
+
+    private TowerCraneData () {
+
+    }
+
+    public static TowerCraneData getInstance() {
+        if (instance == null) {
+            synchronized (SerialUtil.class) {
+                if (instance == null) {
+                    instance = new TowerCraneData();
+                }
+            }
+        }
+        return instance;
+    }
+
     //编号
     public String number = "0001";
     //规格

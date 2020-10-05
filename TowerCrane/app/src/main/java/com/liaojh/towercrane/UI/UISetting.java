@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.Data.SettingData;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
 import com.liaojh.towercrane.R;
 
@@ -65,27 +66,27 @@ public class UISetting implements InterfaceDialog {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_change_weight:
-                m_activity.uiSetCalibration.setCalibrationData(Constant.settingData.weight);
+                m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getWeight());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
             case R.id.btn_change_wind:
-                m_activity.uiSetCalibration.setCalibrationData(Constant.settingData.wind);
+                m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getWind());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
             case R.id.btn_change_amplitude:
-                m_activity.uiSetCalibration.setCalibrationData(Constant.settingData.amplitude);
+                m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getAmplitude());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
             case R.id.btn_change_turn_around:
-                m_activity.uiSetCalibration.setCalibrationData(Constant.settingData.turnAround);
+                m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getTurnAround());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
             case R.id.btn_change_height:
-                m_activity.uiSetCalibration.setCalibrationData(Constant.settingData.height);
+                m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getHeight());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;

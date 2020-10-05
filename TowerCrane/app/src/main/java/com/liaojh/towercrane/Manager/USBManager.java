@@ -13,6 +13,8 @@ import com.github.mjdev.libaums.UsbMassStorageDevice;
 import com.github.mjdev.libaums.fs.FileSystem;
 import com.github.mjdev.libaums.fs.UsbFile;
 import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.Data.SettingData;
+import com.liaojh.towercrane.SerialPort.SerialUtil;
 
 public class USBManager {
     private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
@@ -20,6 +22,22 @@ public class USBManager {
     private UsbFile rootFolder;
     //当前处接U盘列表
     private UsbMassStorageDevice[] storageDevices;
+    private static USBManager instance;
+
+    private USBManager() {
+
+    }
+
+    public static USBManager getInstance() {
+        if (instance == null) {
+            synchronized (SerialUtil.class) {
+                if (instance == null) {
+                    instance = new USBManager();
+                }
+            }
+        }
+        return instance;
+    }
 
     private BroadcastReceiver usbBroadcastReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -69,7 +87,7 @@ public class USBManager {
         redUDiskDevsList(activity);
     }
 
-    public UsbFile getUsbRootFolder () {
+    public UsbFile getUsbRootFolder() {
         return rootFolder;
     }
 
