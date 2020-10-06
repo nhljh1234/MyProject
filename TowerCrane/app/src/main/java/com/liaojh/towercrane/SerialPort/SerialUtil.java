@@ -59,30 +59,28 @@ public class SerialUtil {
 
     /**
      * 链接串口
-     * @return
-     */
-    public boolean Connect() {
-        return Connect("ttyS0");
-    }
-
-    /**
-     * 链接串口
      * @param PortName 设备节点名称
      * @return
      */
-    public boolean Connect(String PortName) {
-        return mSerialPortManager.openSerialPort(new File("dev/" + PortName), 115200);
+    public void connect(final String PortName) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mSerialPortManager.openSerialPort(new File("dev/" + PortName), 115200);
+            }
+        }).start();
     }
 
     /**
      * 写入数据
      * @param val
      */
-    public void write(String val) {
-        mSerialPortManager.sendBytes(val.getBytes());
-    }
-
-    public void write(byte[] val) {
-        mSerialPortManager.sendBytes(val);
+    public void write(final String val) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mSerialPortManager.sendBytes(val.getBytes());
+            }
+        });
     }
 }

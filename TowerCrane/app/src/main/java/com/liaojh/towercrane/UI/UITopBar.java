@@ -65,13 +65,7 @@ public class UITopBar implements InterfaceUI {
     };
 
     private Boolean judgeHaveSignal() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) m_activity.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isAvailable()) {
-            return true;
-        } else {
-            return false;
-        }
+        return NetManager.getInstance().judgeHaveSignal();
     }
 
     @Override

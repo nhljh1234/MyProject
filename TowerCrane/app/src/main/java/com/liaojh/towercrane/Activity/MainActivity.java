@@ -189,7 +189,7 @@ public class MainActivity extends BaseActivity {
             uis[i].onUIStart();
         }
 
-        //SerialUtil.getInstance().Connect("ttyS1");
+        SerialUtil.getInstance().connect("ttyS1");
     }
 
 

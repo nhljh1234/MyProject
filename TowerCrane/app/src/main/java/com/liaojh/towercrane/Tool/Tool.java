@@ -26,6 +26,7 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,42 +149,72 @@ public class Tool {
         return "rtsp://" + videoSaveData.userName + ":" + videoSaveData.userPassword + "@" + videoSaveData.ipAddress + ":" + videoSaveData.port + videoSaveData.rtspAddress;
     }
 
-    public static String bytesToString(byte[] bytes) {
-        char[] buf = new char[bytes.length * 2];
-        int index = 0;
-        for (byte b : bytes) {
-            buf[index++] = HEX_CHAR[b >>> 4 & 0xf];
-            buf[index++] = HEX_CHAR[b & 0xf];
+    //string转byte[]
+    public static byte[] hexStrToBytes(String hex) {
+        ByteBuffer bf = ByteBuffer.allocate(hex.length() / 2);
+        for (int i = 0; i < hex.length(); i++) {
+            String hexStr = hex.charAt(i) + "";
+            i++;
+            hexStr += hex.charAt(i);
+            byte b = (byte) Integer.parseInt(hexStr, 16);
+            bf.put(b);
         }
-
-        return new String(buf);
+        return bf.array();
     }
 
-    //16进制字符串转string
-    public static byte[] stringToBytes(String str) {
-        if (str == null || str.trim().equals("")) {
-            return new byte[0];
+    //bytes转string
+    public static String bytesToHexStr(byte[] bytes) {
+        String strHex = "";
+        StringBuilder sb = new StringBuilder("");
+        for (int n = 0; n < bytes.length; n++) {
+            strHex = Integer.toHexString(bytes[n] & 0xFF);
+            sb.append((strHex.length() == 1) ? "0" + strHex : strHex); // 每个字节由两个字符表示，位数不够，高位补0
         }
-        byte[] bytes = new byte[str.length() / 2];
-        for (int i = 0; i < str.length() / 2; i++) {
-            String subStr = str.substring(i * 2, i * 2 + 2);
-            bytes[i] = (byte) Integer.parseInt(subStr, 16);
+        return sb.toString().trim().toUpperCase();
+    }
+
+    //byte转string
+    public static String byteToHexStr(byte oneByte) {
+        return bytesToHexStr(new byte[]{oneByte});
+    }
+
+    //不满resultLength长度的string补足0
+    public static String getHexString(String str, int resultLength) {
+        int length = str.length();
+        for (int i = length; i < resultLength; i++) {
+            str = "0" + str;
+        }
+        return str;
+    }
+
+    //hex检验
+    public static String getChecksum(String data) {
+        if (data == null || data.equals("")) {
+            return "";
+        }
+        int total = 0;
+        int len = data.length();
+        int num = 0;
+        while (num < len) {
+            String s = data.substring(num, num + 2);
+            total += Integer.parseInt(s, 16);
+            num = num + 2;
+        }
+        /**
+         * 用256求余最大是255，即16进制的FF
+         */
+        int mod = total % 65536;
+        String hex = Integer.toHexString(mod);
+        // 如果不够校验位的长度，补0，这里用的是四位校验
+        hex = getHexString(hex, 4);
+        return hex;
+    }
+
+    public static byte[] byteListToArray(ArrayList<Byte> list) {
+        byte[] bytes = new byte[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            bytes[i] = list.get(i);
         }
         return bytes;
-    }
-
-
-    public static byte[] concatAll(byte[] first, byte[]... rest) {
-        int totalLength = first.length;
-        for (byte[] array : rest) {
-            totalLength += array.length;
-        }
-        byte[] result = Arrays.copyOf(first, totalLength);
-        int offset = first.length;
-        for (byte[] array : rest) {
-            System.arraycopy(array, 0, result, offset, array.length);
-            offset += array.length;
-        }
-        return result;
     }
 }
