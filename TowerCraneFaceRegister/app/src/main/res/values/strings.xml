@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">人脸注册</string>
+    <string name="register">注册</string>
+    <string name="select_image">选择图片</string>
+</resources>
