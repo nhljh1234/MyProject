@@ -4221,11 +4221,15 @@
 
                     <TextureView
                         android:id="@+id/texture_view_face_check"
-                        android:layout_width="match_parent"
+                        android:layout_width="300dp"
                         android:layout_height="match_parent"
-                        android:visibility="invisible"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" />
+                        android:layout_gravity="center" />
+
+                    <com.arcsoft.arcfacedemo.widget.FaceRectView
+                        android:id="@+id/single_camera_face_rect_view"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center" />
 
                 </FrameLayout>
 

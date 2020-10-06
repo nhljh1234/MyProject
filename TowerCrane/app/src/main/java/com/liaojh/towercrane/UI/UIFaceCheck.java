@@ -1,330 +1,162 @@
 package com.liaojh.towercrane.UI;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.ImageFormat;
-import android.graphics.Matrix;
-import android.graphics.RectF;
-import android.graphics.SurfaceTexture;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCaptureSession;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CaptureRequest;
-import android.hardware.camera2.params.InputConfiguration;
-import android.hardware.camera2.params.StreamConfigurationMap;
-import android.media.Image;
-import android.media.ImageReader;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Message;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Point;
+import android.hardware.Camera;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Size;
-import android.util.SparseIntArray;
-import android.view.Gravity;
-import android.view.Surface;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.TextureView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 
-import com.liaojh.towercrane.Data.Constant;
-import com.liaojh.towercrane.R;
+import com.arcsoft.arcfacedemo.faceserver.CompareResult;
+import com.arcsoft.arcfacedemo.faceserver.FaceServer;
+import com.arcsoft.arcfacedemo.model.DrawInfo;
+import com.arcsoft.arcfacedemo.model.FacePreviewInfo;
+import com.arcsoft.arcfacedemo.util.ConfigUtil;
+import com.arcsoft.arcfacedemo.util.DrawHelper;
+import com.arcsoft.arcfacedemo.util.camera.CameraHelper;
+import com.arcsoft.arcfacedemo.util.camera.CameraListener;
+import com.arcsoft.arcfacedemo.util.face.FaceHelper;
+import com.arcsoft.arcfacedemo.util.face.FaceListener;
+import com.arcsoft.arcfacedemo.util.face.RecognizeColor;
+import com.arcsoft.arcfacedemo.util.face.RequestFeatureStatus;
+import com.arcsoft.arcfacedemo.widget.FaceRectView;
+import com.arcsoft.face.AgeInfo;
+import com.arcsoft.face.ErrorInfo;
+import com.arcsoft.face.FaceEngine;
+import com.arcsoft.face.FaceFeature;
+import com.arcsoft.face.GenderInfo;
+import com.arcsoft.face.LivenessInfo;
+import com.arcsoft.face.enums.DetectFaceOrientPriority;
+import com.arcsoft.face.enums.DetectMode;
 import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
-import com.liaojh.towercrane.Tool.Tool;
+import com.liaojh.towercrane.Manager.ArcFaceManager;
+import com.liaojh.towercrane.R;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
-import androidx.core.app.ActivityCompat;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
-import static android.os.Looper.getMainLooper;
-
-public class UIFaceCheck implements InterfaceDialog {
+public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLayoutListener {
     private LinearLayout layoutCheckFace;
-
-    private TextureView textureView;
 
     private MainActivity m_activity;
 
-    private CameraDevice mCameraDevice;
-    private CameraManager mCameraManager;//摄像头管理器
-    private Handler childHandler, mainHandler;
-    private String mCameraID;//摄像头Id 0 为后  1 为前
-    private CameraCaptureSession m_cameraCaptureSession;
-    private Size m_previewSize;
-
-    private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
-
-    ///为了使照片竖直显示
-    static {
-        ORIENTATIONS.append(Surface.ROTATION_0, 90);
-        ORIENTATIONS.append(Surface.ROTATION_90, 0);
-        ORIENTATIONS.append(Surface.ROTATION_180, 270);
-        ORIENTATIONS.append(Surface.ROTATION_270, 180);
-    }
-
-
-    @SuppressLint("HandlerLeak")
-    final Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.obj == Constant.Handler_Type.CheckFace) {
-                takePicture();
-            }
-            super.handleMessage(msg);
-        }
-    };
-
-    //更新主界面时间
-    private Timer timerCheckFace = new Timer();
-    private TimerTask timerTaskCheckFace = new TimerTask() {
-        @Override
-        public void run() {
-            if (mCameraDevice == null) {
-                return;
-            }
-            Message message = new Message();
-            message.obj = Constant.Handler_Type.CheckFace;
-            handler.sendMessage(message);
-        }
-    };
-
+    private static final int MAX_DETECT_NUM = 1;
     /**
-     * 摄像头创建监听
+     * 失败重试间隔时间（ms）
      */
-    private CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
-        @Override
-        public void onOpened(CameraDevice camera) {//打开摄像头
-            mCameraDevice = camera;
-            //开启预览
-            startPreview();
-        }
-
-        @Override
-        public void onDisconnected(CameraDevice camera) {//关闭摄像头
-            if (mCameraDevice != null) {
-                mCameraDevice.close();
-                mCameraDevice = null;
-            }
-        }
-
-        @Override
-        public void onError(CameraDevice camera, int error) {//发生错误
-            m_activity.showToast("摄像头开启失败");
-        }
-    };
-
+    private static final long FAIL_RETRY_INTERVAL = 1000;
     /**
-     * 拍照
+     * 出错重试最大次数
      */
-    private void takePicture() {
-        if (mCameraDevice == null) {
-            return;
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(m_previewSize.getWidth(), m_previewSize.getHeight(), Bitmap.Config.RGB_565);
-        textureView.getBitmap(bitmap);
-
-    }
-
-    private Size getOptimalSize(Size[] sizeMap, int width, int height) {
-        List<Size> sizeList = new ArrayList<>();
-        for (Size option : sizeMap) {
-            if (width > height) {
-                if (option.getWidth() > width && option.getHeight() > height) {
-                    sizeList.add(option);
-                }
-            } else {
-                if (option.getWidth() > height && option.getHeight() > width) {
-                    sizeList.add(option);
-                }
-            }
-        }
-        if (sizeList.size() > 0) {
-            return Collections.min(sizeList, new Comparator<Size>() {
-                @Override
-                public int compare(Size lhs, Size rhs) {
-                    return Long.signum(lhs.getWidth() * lhs.getHeight() - rhs.getWidth() * rhs.getHeight());
-                }
-            });
-        }
-        return sizeMap[0];
-    }
-
+    private static final int MAX_RETRY_TIME = 5;
+    private CameraHelper cameraHelper;
+    private DrawHelper drawHelper;
+    private Camera.Size previewSize;
     /**
-     * 开始预览
+     * 优先打开的摄像头，本界面主要用于单目RGB摄像头设备，因此默认打开前置
      */
-    private void startPreview() {
-        try {
-            SurfaceTexture mSurfaceTexture = textureView.getSurfaceTexture();
-            mSurfaceTexture.setDefaultBufferSize(m_previewSize.getWidth(), m_previewSize.getHeight());
-            Surface previewSurface = new Surface(mSurfaceTexture);
-            // 创建预览需要的CaptureRequest.Builder
-            final CaptureRequest.Builder previewRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
-            // 将surface作为CaptureRequest.Builder的目标
-            previewRequestBuilder.addTarget(previewSurface);
-            // 创建CameraCaptureSession，该对象负责管理处理预览请求和拍照请求
-            mCameraDevice.createCaptureSession(Arrays.asList(previewSurface), new CameraCaptureSession.StateCallback() // ③
-            {
-                @Override
-                public void onConfigured(CameraCaptureSession cameraCaptureSession) {
-                    if (mCameraDevice == null) {
-                        return;
-                    }
-                    try {
-                        // 自动对焦
-                        previewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
-                        // 显示预览
-                        CaptureRequest previewRequest = previewRequestBuilder.build();
-                        m_cameraCaptureSession = cameraCaptureSession;
-                        m_cameraCaptureSession.setRepeatingRequest(previewRequest, null, childHandler);
-                    } catch (CameraAccessException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onConfigureFailed(CameraCaptureSession cameraCaptureSession) {
-                    m_activity.showToast("摄像头配置失败");
-                }
-            }, childHandler);
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void initCamera() {
-        HandlerThread handlerThread = new HandlerThread("Camera");
-        handlerThread.start();
-        childHandler = new Handler(handlerThread.getLooper());
-        mainHandler = new Handler(getMainLooper());
-        mCameraID = "" + CameraCharacteristics.LENS_FACING_FRONT;//后摄像头
-        //获取摄像头管理
-        mCameraManager = (CameraManager) m_activity.getSystemService(Context.CAMERA_SERVICE);
-        try {
-            //遍历所有摄像头
-            for (String cameraId : mCameraManager.getCameraIdList()) {
-                if (ActivityCompat.checkSelfPermission(m_activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    CameraCharacteristics characteristics = mCameraManager.getCameraCharacteristics(cameraId);
-                    Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                    //此处默认打开后置摄像头
-                    if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT)
-                        continue;
-                    //获取StreamConfigurationMap，它是管理摄像头支持的所有输出格式和尺寸
-                    StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
-                    assert map != null;
-                    //根据TextureView的尺寸设置预览尺寸
-                    m_previewSize = getOptimalSize(map.getOutputSizes(SurfaceTexture.class), textureView.getWidth(), textureView.getHeight());
-
-                    //configureTransform();
-
-                    //修改textureView尺寸
-//                    LinearLayout.LayoutParams lpNew = new LinearLayout.LayoutParams(textureView.getWidth(), (int) (textureView.getWidth() * (((float) m_previewSize.getHeight()) / m_previewSize.getWidth())));
-//                    lpNew.gravity = Gravity.CENTER;
-//                    textureView.setLayoutParams(lpNew);
-
-                    mCameraID = cameraId;
-                    //根据屏幕的显示方向调整预览方向
-                    //configureTransform(textureView.getHeight(), textureView.getWidth());
-                    mCameraManager.openCamera(mCameraID, stateCallback, mainHandler);
-                    break;
-                }
-            }
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
-    }
+    private Integer rgbCameraID = Camera.CameraInfo.CAMERA_FACING_FRONT;
+    /**
+     * VIDEO模式人脸检测引擎，用于预览帧人脸追踪
+     */
+    private FaceEngine ftEngine;
+    /**
+     * 用于特征提取的引擎
+     */
+    private FaceEngine frEngine;
+    /**
+     * IMAGE模式活体检测引擎，用于预览帧人脸活体检测
+     */
+    private FaceEngine flEngine;
+    private int ftInitCode = -1;
+    private int frInitCode = -1;
+    private int flInitCode = -1;
+    private FaceHelper faceHelper;
+    /**
+     * 用于记录人脸识别相关状态
+     */
+    private ConcurrentHashMap<Integer, Integer> requestFeatureStatusMap = new ConcurrentHashMap<>();
+    /**
+     * 用于记录人脸特征提取出错重试次数
+     */
+    private ConcurrentHashMap<Integer, Integer> extractErrorRetryMap = new ConcurrentHashMap<>();
+    private CompositeDisposable delayFaceTaskCompositeDisposable = new CompositeDisposable();
+    /**
+     * 相机预览显示的控件，可为SurfaceView或TextureView
+     */
+    private View previewView;
+    /**
+     * 绘制人脸框的控件
+     */
+    private FaceRectView faceRectView;
+    /**
+     * 识别阈值
+     */
+    private static final float SIMILAR_THRESHOLD = 0.8F;
 
     @Override
     public void show() {
         layoutCheckFace.setVisibility(View.VISIBLE);
-        textureView.setVisibility(View.VISIBLE);
-        if (mCameraManager != null) {
-            startPreview();
-        }
+        cameraHelper.start();
     }
 
     @Override
     public void hide() {
         layoutCheckFace.setVisibility(View.INVISIBLE);
-        textureView.setVisibility(View.INVISIBLE);
-
-        if (m_cameraCaptureSession != null) {
-            try {
-                m_cameraCaptureSession.stopRepeating();
-                m_cameraCaptureSession = null;
-            } catch (CameraAccessException e) {
-
-            }
-        }
+        cameraHelper.stop();
     }
 
     @Override
     public void onUICreate(MainActivity activity) {
         m_activity = activity;
 
+        faceRectView = m_activity.findViewById(R.id.single_camera_face_rect_view);
+
         layoutCheckFace = m_activity.findViewById(R.id.layout_face_check);
         layoutCheckFace.setOnClickListener(this);
 
-        textureView = m_activity.findViewById(R.id.texture_view_face_check);
-        textureView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
-            @Override
-            public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-                if (m_activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                    initCamera();
-                } else {
-                    m_activity.showToast("找不到摄像头");
-                }
-            }
+        ArcFaceManager.getInstance().active(activity);
 
-            @Override
-            public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-
-            }
-
-            @Override
-            public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-                return false;
-            }
-
-            @Override
-            public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-
-            }
-        });
-
-        //开启时间信息更新定时器
-        timerCheckFace.schedule(timerTaskCheckFace, 0, Constant.FACE_CHECK_INTERVAL);
+        previewView = activity.findViewById(R.id.texture_view_face_check);
+        //在布局结束后才做初始化操作
+        previewView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     @Override
     public void onUIStart() {
-        if (mCameraManager != null) {
-            startPreview();
-        }
+
     }
 
     @Override
     public void onUIDestroy() {
-        if (timerCheckFace != null) {// 停止timer
-            timerCheckFace.cancel();
-        }
+
     }
 
     @Override
@@ -339,5 +171,326 @@ public class UIFaceCheck implements InterfaceDialog {
                 hide();
                 break;
         }
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        previewView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        initEngine();
+        initCamera();
+    }
+
+    /**
+     * 初始化引擎
+     */
+    private void initEngine() {
+        ftEngine = new FaceEngine();
+        ftInitCode = ftEngine.init(m_activity, DetectMode.ASF_DETECT_MODE_VIDEO, DetectFaceOrientPriority.ASF_OP_ALL_OUT,
+                16, MAX_DETECT_NUM, FaceEngine.ASF_FACE_DETECT);
+
+        frEngine = new FaceEngine();
+        frInitCode = frEngine.init(m_activity, DetectMode.ASF_DETECT_MODE_IMAGE, DetectFaceOrientPriority.ASF_OP_0_ONLY,
+                16, MAX_DETECT_NUM, FaceEngine.ASF_FACE_RECOGNITION);
+
+        flEngine = new FaceEngine();
+        flInitCode = flEngine.init(m_activity, DetectMode.ASF_DETECT_MODE_IMAGE, DetectFaceOrientPriority.ASF_OP_0_ONLY,
+                16, MAX_DETECT_NUM, FaceEngine.ASF_LIVENESS);
+
+        Log.i(Constant.LogTag, "initEngine:  init: " + ftInitCode);
+
+        if (ftInitCode != ErrorInfo.MOK) {
+            String error = m_activity.getString(R.string.specific_engine_init_failed, "ftEngine", ftInitCode);
+            Log.i(Constant.LogTag, "initEngine: " + error);
+            m_activity.showToast(error);
+        }
+        if (frInitCode != ErrorInfo.MOK) {
+            String error = m_activity.getString(R.string.specific_engine_init_failed, "frEngine", frInitCode);
+            Log.i(Constant.LogTag, "initEngine: " + error);
+            m_activity.showToast(error);
+        }
+        if (flInitCode != ErrorInfo.MOK) {
+            String error = m_activity.getString(R.string.specific_engine_init_failed, "flEngine", flInitCode);
+            Log.i(Constant.LogTag, "initEngine: " + error);
+            m_activity.showToast(error);
+        }
+    }
+
+    private void searchFace(final FaceFeature frFace, final Integer requestId) {
+        final Activity activity = m_activity;
+        Observable
+                .create(new ObservableOnSubscribe<CompareResult>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<CompareResult> emitter) {
+                        CompareResult compareResult = FaceServer.getInstance().getTopOfFaceLib(frFace);
+                        emitter.onNext(compareResult);
+                    }
+                })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CompareResult>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(CompareResult compareResult) {
+                        if (compareResult == null || compareResult.getUserName() == null) {
+                            return;
+                        }
+
+                        if (compareResult.getSimilar() > SIMILAR_THRESHOLD) {
+                            requestFeatureStatusMap.put(requestId, RequestFeatureStatus.SUCCEED);
+                            faceHelper.setName(requestId, activity.getString(R.string.recognize_success_notice, compareResult.getUserName()));
+                            cameraHelper.stop();
+                            new AlertDialog.Builder(activity)
+                                    .setTitle(R.string.batch_process_notification)
+                                    .setMessage(compareResult.getUserName() + activity.getString(R.string.check_success))
+                                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            hide();
+                                        }
+                                    }).setNegativeButton(R.string.cancel, null).create().show();
+                        } else {
+                            faceHelper.setName(requestId, activity.getString(R.string.recognize_failed_notice, "无注册数据"));
+                            retryRecognizeDelayed(requestId);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        faceHelper.setName(requestId, activity.getString(R.string.recognize_failed_notice, "无注册数据"));
+                        retryRecognizeDelayed(requestId);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void initCamera() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        m_activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        final FaceListener faceListener = new FaceListener() {
+            @Override
+            public void onFail(Exception e) {
+                Log.e(Constant.LogTag, "faceListener onFail: " + e.getMessage());
+            }
+
+            //请求FR的回调
+            @Override
+            public void onFaceFeatureInfoGet(@Nullable final FaceFeature faceFeature, final Integer requestId, final Integer errorCode) {
+                //FR成功
+                if (faceFeature != null) {
+                    searchFace(faceFeature, requestId);
+                } else {
+                    //特征提取失败
+                    if (increaseAndGetValue(extractErrorRetryMap, requestId) > MAX_RETRY_TIME) {
+                        extractErrorRetryMap.put(requestId, 0);
+
+                        String msg;
+                        // 传入的FaceInfo在指定的图像上无法解析人脸，此处使用的是RGB人脸数据，一般是人脸模糊
+                        if (errorCode != null && errorCode == ErrorInfo.MERR_FSDK_FACEFEATURE_LOW_CONFIDENCE_LEVEL) {
+                            msg = m_activity.getString(R.string.low_confidence_level);
+                        } else {
+                            msg = "ExtractCode:" + errorCode;
+                        }
+                        faceHelper.setName(requestId, m_activity.getString(R.string.recognize_failed_notice, msg));
+                        // 在尝试最大次数后，特征提取仍然失败，则认为识别未通过
+                        requestFeatureStatusMap.put(requestId, RequestFeatureStatus.FAILED);
+                        cameraHelper.stop();
+                        new AlertDialog.Builder(m_activity)
+                                .setTitle(R.string.batch_process_notification)
+                                .setMessage(m_activity.getString(R.string.check_fail))
+                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        hide();
+                                    }
+                                }).setNegativeButton(R.string.cancel, null).create().show();
+                    } else {
+                        requestFeatureStatusMap.put(requestId, RequestFeatureStatus.TO_RETRY);
+                    }
+                }
+            }
+
+            @Override
+            public void onFaceLivenessInfoGet(@Nullable LivenessInfo livenessInfo, final Integer requestId, Integer errorCode) {
+
+            }
+        };
+
+
+        CameraListener cameraListener = new CameraListener() {
+            @Override
+            public void onCameraOpened(Camera camera, int cameraId, int displayOrientation, boolean isMirror) {
+                Camera.Size lastPreviewSize = previewSize;
+                previewSize = camera.getParameters().getPreviewSize();
+                drawHelper = new DrawHelper(previewSize.width, previewSize.height, previewView.getWidth(), previewView.getHeight(), displayOrientation
+                        , cameraId, isMirror, false, false);
+                Log.i(Constant.LogTag, "onCameraOpened: " + drawHelper.toString());
+                // 切换相机的时候可能会导致预览尺寸发生变化
+                if (faceHelper == null ||
+                        lastPreviewSize == null ||
+                        lastPreviewSize.width != previewSize.width || lastPreviewSize.height != previewSize.height) {
+                    Integer trackedFaceCount = null;
+                    // 记录切换时的人脸序号
+                    if (faceHelper != null) {
+                        trackedFaceCount = faceHelper.getTrackedFaceCount();
+                        faceHelper.release();
+                    }
+                    faceHelper = new FaceHelper.Builder()
+                            .ftEngine(ftEngine)
+                            .frEngine(frEngine)
+                            .flEngine(flEngine)
+                            .frQueueSize(MAX_DETECT_NUM)
+                            .flQueueSize(MAX_DETECT_NUM)
+                            .previewSize(previewSize)
+                            .faceListener(faceListener)
+                            .trackedFaceCount(trackedFaceCount == null ? ConfigUtil.getTrackedFaceCount(m_activity.getApplicationContext()) : trackedFaceCount)
+                            .build();
+                }
+            }
+
+
+            @Override
+            public void onPreview(final byte[] nv21, Camera camera) {
+                if (faceRectView != null) {
+                    faceRectView.clearFaceInfo();
+                }
+                List<FacePreviewInfo> facePreviewInfoList = faceHelper.onPreviewFrame(nv21);
+                if (facePreviewInfoList != null && faceRectView != null && drawHelper != null) {
+                    drawPreviewInfo(facePreviewInfoList);
+                }
+
+                if (facePreviewInfoList != null && facePreviewInfoList.size() > 0 && previewSize != null) {
+                    for (int i = 0; i < facePreviewInfoList.size(); i++) {
+                        Integer status = requestFeatureStatusMap.get(facePreviewInfoList.get(i).getTrackId());
+                        /**
+                         * 对于每个人脸，若状态为空或者为失败，则请求特征提取（可根据需要添加其他判断以限制特征提取次数），
+                         * 特征提取回传的人脸特征结果在{@link FaceListener#onFaceFeatureInfoGet(FaceFeature, Integer, Integer)}中回传
+                         */
+                        if (status == null
+                                || status == RequestFeatureStatus.TO_RETRY) {
+                            requestFeatureStatusMap.put(facePreviewInfoList.get(i).getTrackId(), RequestFeatureStatus.SEARCHING);
+                            faceHelper.requestFaceFeature(nv21, facePreviewInfoList.get(i).getFaceInfo(), previewSize.width, previewSize.height, FaceEngine.CP_PAF_NV21, facePreviewInfoList.get(i).getTrackId());
+//                            Log.i(TAG, "onPreview: fr start = " + System.currentTimeMillis() + " trackId = " + facePreviewInfoList.get(i).getTrackedFaceCount());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCameraClosed() {
+                Log.i(Constant.LogTag, "onCameraClosed: ");
+            }
+
+            @Override
+            public void onCameraError(Exception e) {
+                Log.i(Constant.LogTag, "onCameraError: " + e.getMessage());
+            }
+
+            @Override
+            public void onCameraConfigurationChanged(int cameraID, int displayOrientation) {
+                if (drawHelper != null) {
+                    drawHelper.setCameraDisplayOrientation(displayOrientation);
+                }
+                Log.i(Constant.LogTag, "onCameraConfigurationChanged: " + cameraID + "  " + displayOrientation);
+            }
+        };
+
+        cameraHelper = new CameraHelper.Builder()
+                .previewViewSize(new Point(previewView.getMeasuredWidth(), previewView.getMeasuredHeight()))
+                .rotation(m_activity.getWindowManager().getDefaultDisplay().getRotation())
+                .specificCameraId(rgbCameraID != null ? rgbCameraID : Camera.CameraInfo.CAMERA_FACING_FRONT)
+                .isMirror(false)
+                .previewOn(previewView)
+                .cameraListener(cameraListener)
+                .build();
+        cameraHelper.init();
+    }
+
+    private void drawPreviewInfo(List<FacePreviewInfo> facePreviewInfoList) {
+        List<DrawInfo> drawInfoList = new ArrayList<>();
+        for (int i = 0; i < facePreviewInfoList.size(); i++) {
+            String name = faceHelper.getName(facePreviewInfoList.get(i).getTrackId());
+            Integer recognizeStatus = requestFeatureStatusMap.get(facePreviewInfoList.get(i).getTrackId());
+
+            // 根据识别结果和活体结果设置颜色
+            int color = RecognizeColor.COLOR_UNKNOWN;
+            if (recognizeStatus != null) {
+                if (recognizeStatus == RequestFeatureStatus.FAILED) {
+                    color = RecognizeColor.COLOR_FAILED;
+                }
+                if (recognizeStatus == RequestFeatureStatus.SUCCEED) {
+                    color = RecognizeColor.COLOR_SUCCESS;
+                }
+            }
+
+            drawInfoList.add(new DrawInfo(drawHelper.adjustRect(facePreviewInfoList.get(i).getFaceInfo().getRect()),
+                    GenderInfo.UNKNOWN, AgeInfo.UNKNOWN_AGE, LivenessInfo.UNKNOWN, color,
+                    name == null ? String.valueOf(facePreviewInfoList.get(i).getTrackId()) : name));
+        }
+        drawHelper.draw(faceRectView, drawInfoList);
+    }
+
+    /**
+     * 将map中key对应的value增1回传
+     *
+     * @param countMap map
+     * @param key      key
+     * @return 增1后的value
+     */
+    public int increaseAndGetValue(Map<Integer, Integer> countMap, int key) {
+        if (countMap == null) {
+            return 0;
+        }
+        Integer value = countMap.get(key);
+        if (value == null) {
+            value = 0;
+        }
+        countMap.put(key, ++value);
+        return value;
+    }
+
+    /**
+     * 延迟 FAIL_RETRY_INTERVAL 重新进行人脸识别
+     *
+     * @param requestId 人脸ID
+     */
+    private void retryRecognizeDelayed(final Integer requestId) {
+        requestFeatureStatusMap.put(requestId, RequestFeatureStatus.FAILED);
+        Observable.timer(FAIL_RETRY_INTERVAL, TimeUnit.MILLISECONDS)
+                .subscribe(new io.reactivex.Observer<Long>() {
+                    Disposable disposable;
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                        delayFaceTaskCompositeDisposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // 将该人脸特征提取状态置为FAILED，帧回调处理时会重新进行活体检测
+                        faceHelper.setName(requestId, Integer.toString(requestId));
+                        requestFeatureStatusMap.put(requestId, RequestFeatureStatus.TO_RETRY);
+                        delayFaceTaskCompositeDisposable.remove(disposable);
+                    }
+                });
     }
 }

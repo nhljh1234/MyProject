@@ -91,4 +91,8 @@ public class Constant {
     public static String videoSaveKey = "VideoSaveKey";
 
     public static String csvDataDirName = "csv_data";
+
+    public static String APP_ID = "7s8skgqES6JBy79xHW5bmcxrRBUVufFAyHAq71vBSwud";
+
+    public static String SDK_KEY = "3A3KeQMjKdB8MJBC7PNXpyGktpEHh9nwTJ5qNZdnwC2y";
 }

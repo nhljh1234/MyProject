@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity {
     private int timerTimeTotal = 0;
 
     private static final String[] NEEDED_PERMISSIONS = new String[]{
+            Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
@@ -179,6 +180,11 @@ public class MainActivity extends BaseActivity {
                 uiLogin.show();
             }
         });
+
+        //人脸识别
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //保持亮屏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override

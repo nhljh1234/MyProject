@@ -56,14 +56,14 @@ public class NetManager {
     }
 
     public Boolean judgeHaveSignal() {
-        if (mSocket == null || mSocket.isConnected() || mSocket.isClosed()) {
+        if (mSocket == null || !mSocket.isConnected() || mSocket.isClosed()) {
             return false;
         }
         return true;
     }
 
     public void connect() {
-        if (mSocket != null && !mSocket.isConnected() && !mSocket.isClosed()) {
+        if (mSocket != null && !mSocket.isConnected() && mSocket.isClosed()) {
             return;
         }
         new Thread(new Runnable() {
@@ -80,7 +80,7 @@ public class NetManager {
                             //检测帧数据
                             if (Tool.bytesToHexStr(bytes).equals("FB") && checkFrameData(list)) {
                                 //帧数据效验成功，处理数据
-                                Log.e(Constant.LogTag, "receive msg : " + Tool.bytesToHexStr(Tool.byteListToArray(list)));
+                                //Log.e(Constant.LogTag, "receive msg : " + Tool.bytesToHexStr(Tool.byteListToArray(list)));
                                 list.clear();
                             }
                         }
@@ -89,10 +89,15 @@ public class NetManager {
                         connect();
                     }
                 } catch (IOException e) {
-                    if (mSocket.isClosed()) {
+                    if (mSocket == null || mSocket.isClosed()) {
                         //断开了，重新连接
-                        mSocket = null;
-                        connect();
+                        try {
+                            Thread.sleep(10000);
+                            mSocket = null;
+                            connect();
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
                     }
                     Log.e(Constant.LogTag, "Socket error : " + e.getMessage());
                 }
@@ -197,8 +202,6 @@ public class NetManager {
 
         //帧尾
         String back = "BBFB".toUpperCase();
-
-        Log.e(Constant.LogTag, "sendMsg : " + head + length + number + facility + msgId + content + checkSum + back);
 
         return Tool.hexStrToBytes(head + length + number + facility + msgId + content + checkSum + back);
     }
