@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">人脸注册</string>
     <string name="register">注册</string>
-    <string name="select_image">选择图片</string>
+    <string name="select_image">开始识别</string>
+    <string name="specific_engine_init_failed">%s 初始化失败，错误码为:%d</string>
+    <string name="recognize_success_notice">识别成功</string>
 </resources>
