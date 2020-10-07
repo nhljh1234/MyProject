@@ -6,6 +6,7 @@ import com.liaojh.towercrane.Manager.ArcFaceManager;
 import com.liaojh.towercrane.Manager.CSVFileManager;
 import com.liaojh.towercrane.Manager.NetManager;
 import com.liaojh.towercrane.Manager.USBManager;
+import com.liaojh.towercrane.Manager.UpdateManager;
 import com.liaojh.towercrane.SerialPort.SerialUtil;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
 import com.liaojh.towercrane.Data.TowerCraneRunDataFactory;
@@ -134,6 +135,7 @@ public class MainActivity extends BaseActivity {
         USBManager.getInstance().init(this);
         LocalStorage.getInstance().init(this);
         NetManager.getInstance().connect();
+        UpdateManager.getInstance().init(this);
 
         int DPI = Tool.getDPI(this);
         switch (DPI) {

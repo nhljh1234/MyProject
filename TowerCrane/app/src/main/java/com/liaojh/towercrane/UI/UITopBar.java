@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.Manager.NetManager;
+import com.liaojh.towercrane.Manager.UpdateManager;
 import com.liaojh.towercrane.R;
 
 import java.util.Timer;
@@ -112,7 +113,7 @@ public class UITopBar implements InterfaceUI {
                 m_activity.uiLogin.show();
                 break;
             case R.id.layout_btn_output_control:
-                NetManager.getInstance().login();
+                UpdateManager.getInstance().onReceiveNewVersion(2, "https://729c93f0b85ca2e0830a29dfc831d189.dlied1.cdntips.net/dlied1.qq.com/qqweb/QQ_1/android_apk/Androidqq_8.4.8.4810_537065343.apk?mkey=5f7d47171b9a3f96&f=0f9e&cip=27.154.25.99&proto=https&access_type=$header_ApolloNet");
                 break;
             case R.id.layout_btn_notice:
                 m_activity.uiFaceCheck.show();

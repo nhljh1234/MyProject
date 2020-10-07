@@ -1,0 +1,7 @@
+<resources>
+    <paths>
+        <external-path
+            name="download"
+            path="" />
+    </paths>
+</resources>

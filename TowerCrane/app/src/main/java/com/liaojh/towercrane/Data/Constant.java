@@ -73,14 +73,11 @@ public class Constant {
     //网络数据获取间隔
     public static int SIGNAL_DATA_UPDATE_INTERVAL = 1000;
 
-    //人脸识别间隔
-    public static int FACE_CHECK_INTERVAL = 1000;
-
     public static String LogTag = "test log";
 
-    public static String password = "11";
+    public static String Password = "11";
 
-    public static String superPassword = "3840509";
+    public static String SuperPassword = "3840509";
 
     public static class VideoSaveData {
         public String name;
@@ -91,11 +88,14 @@ public class Constant {
         public String rtspAddress;
     }
 
-    public static String videoSaveKey = "VideoSaveKey";
+    public static String VideoSaveKey = "VideoSaveKey";
 
-    public static String csvDataDirName = "csv_data";
+    public static String CsvDataDirName = "csv_data";
 
     public static String APP_ID = "7s8skgqES6JBy79xHW5bmcxrRBUVufFAyHAq71vBSwud";
 
     public static String SDK_KEY = "3A3KeQMjKdB8MJBC7PNXpyGktpEHh9nwTJ5qNZdnwC2y";
+
+    //版本号
+    public static int Version = 1;
 }

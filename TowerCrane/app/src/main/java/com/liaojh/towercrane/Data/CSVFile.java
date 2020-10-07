@@ -65,9 +65,9 @@ public class CSVFile {
     //新建文件的话加一个头数据
     private UsbFile GetCSVFile(UsbFile usbFile, String fileName) {
         try {
-            UsbFile csvDir = usbFile.search(Constant.csvDataDirName);
+            UsbFile csvDir = usbFile.search(Constant.CsvDataDirName);
             if (csvDir == null) {
-                csvDir = usbFile.createDirectory(Constant.csvDataDirName);
+                csvDir = usbFile.createDirectory(Constant.CsvDataDirName);
             }
             UsbFile csvFile = csvDir.search(fileName);
             if (csvFile == null) {

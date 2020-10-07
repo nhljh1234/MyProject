@@ -44,7 +44,7 @@ public class VideoManager {
         ArrayList<Constant.VideoSaveData> list = new ArrayList<>();
 
         try {
-            String saveData = LocalStorage.getInstance().getSp().getString(Constant.videoSaveKey, "");
+            String saveData = LocalStorage.getInstance().getSp().getString(Constant.VideoSaveKey, "");
             if (saveData.length() == 0) {
                 return list;
             }
@@ -122,7 +122,7 @@ public class VideoManager {
                 videoObject.put("rtspAddress", videoList.get(i).rtspAddress);
                 jsonArray.put(videoObject);
             }
-            LocalStorage.getInstance().getSpe().putString(Constant.videoSaveKey, jsonArray.toString());
+            LocalStorage.getInstance().getSpe().putString(Constant.VideoSaveKey, jsonArray.toString());
             Boolean result = LocalStorage.getInstance().getSpe().commit();
             if (!result) {
                 m_activity.showToast("保存摄像头数据失败");
