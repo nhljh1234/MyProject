@@ -19,18 +19,15 @@ import com.liaojh.towercrane.Data.TowerCraneRunData;
 
 public class UILogin implements InterfaceDialog {
 
-    private EditText editUserName, editPassword;
+    private EditText editPassword;
     private Button btnSure, btnBack;
     private LinearLayout layoutLogin;
 
     private MainActivity m_activity;
 
     public void show() {
-        if (Constant.USE_LOGIN) {
-            layoutLogin.setVisibility(View.VISIBLE);
-        } else {
-            m_activity.uiSetting.show();
-        }
+        layoutLogin.setVisibility(View.VISIBLE);
+        editPassword.setText("");
     }
 
     public void hide() {
@@ -39,7 +36,6 @@ public class UILogin implements InterfaceDialog {
 
     @Override
     public void onUICreate(MainActivity activityIn) {
-        editUserName = activityIn.findViewById(R.id.edit_user_name);
         editPassword = activityIn.findViewById(R.id.edit_password);
 
         btnSure = activityIn.findViewById(R.id.btn_login_sure);
@@ -73,9 +69,12 @@ public class UILogin implements InterfaceDialog {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_login_sure:
-                if (editUserName.getText().toString().equals(Constant.userName) && editPassword.getText().toString().equals(Constant.password)) {
+                if (editPassword.getText().toString().equals(Constant.password)) {
                     hide();
-                    m_activity.uiSetting.show();
+                    m_activity.uiSetting.showSetting(Constant.SETTING_TYPE.Normal);
+                } else if (editPassword.getText().toString().equals(Constant.superPassword)) {
+                    hide();
+                    m_activity.uiSetting.showSetting(Constant.SETTING_TYPE.Super);
                 } else {
                     m_activity.showToast(m_activity.getResources().getString(R.string.login_error));
                 }

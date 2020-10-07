@@ -91,7 +91,7 @@
     <string name="password">密码：</string>
     <string name="login_sure">登录</string>
     <string name="login_back">返回</string>
-    <string name="login_error">账号或密码错误</string>
+    <string name="login_error">密码错误</string>
     <string name="change_weight">修改载重定标</string>
     <string name="change_wind">修改风力定标</string>
     <string name="change_amplitude">修改幅度定标</string>
@@ -99,6 +99,8 @@
     <string name="change_height">修改高度定标</string>
     <string name="setting_back">返回</string>
     <string name="set_camera">设置摄像头</string>
+    <string name="setting_clear_face">清除人脸数据</string>
+    <string name="setting_register_face">注册人脸数据</string>
     <string name="measure_1">当值1:</string>
     <string name="measure_2">当值2:</string>
     <string name="demarcate_1">标值1:</string>
@@ -126,6 +128,7 @@
     <string name="camera_list_back">返回</string>
     <string name="camera_item_change">修改</string>
     <string name="camera_item_delete">删除</string>
+    <string name="face_register_success">注册成功</string>
 
     <!--配置、功能选择界面-->
     <string name="page_preview">人脸属性检测（视频）</string>

@@ -59,6 +59,11 @@ public class Constant {
         Height,
     }
 
+    public enum SETTING_TYPE {
+        Normal,
+        Super,
+    }
+
     //csv数据写入间隔
     public static int CSV_DATA_WRITE_INTERVAL = 1000 * 10;
 
@@ -73,11 +78,9 @@ public class Constant {
 
     public static String LogTag = "test log";
 
-    public static String userName = "";
+    public static String password = "11";
 
-    public static String password = "";
-
-    public static Boolean USE_LOGIN = true;
+    public static String superPassword = "3840509";
 
     public static class VideoSaveData {
         public String name;

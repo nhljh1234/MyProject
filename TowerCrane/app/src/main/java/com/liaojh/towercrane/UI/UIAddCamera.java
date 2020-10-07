@@ -60,7 +60,7 @@ public class UIAddCamera implements InterfaceDialog {
 
     @Override
     public void hide() {
-        layoutAddCamera.setVisibility(View.INVISIBLE);
+        layoutAddCamera.setVisibility(View.GONE);
     }
 
     @Override

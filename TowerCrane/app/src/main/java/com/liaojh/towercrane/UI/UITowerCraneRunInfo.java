@@ -141,7 +141,7 @@ public class UITowerCraneRunInfo implements InterfaceUI {
                 textBack, layoutBack, imageBack, R.drawable.houxing_sel, R.drawable.houxing);
 
         Boolean cordIsHarm = towerCraneRunData.judgeCordIsHarm();
-        int viewStatus = cordIsHarm ? View.VISIBLE : View.GONE;
+        int viewStatus = cordIsHarm ? View.VISIBLE : View.INVISIBLE;
         textLabelCordHarmNumber.setVisibility(viewStatus);
         textCordHarmNumber.setVisibility(viewStatus);
         textLabelCordHarmPos.setVisibility(viewStatus);

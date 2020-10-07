@@ -36,7 +36,7 @@ public class UICameraList implements InterfaceDialog {
 
     @Override
     public void hide() {
-        layoutCameraList.setVisibility(View.INVISIBLE);
+        layoutCameraList.setVisibility(View.GONE);
     }
 
     @Override

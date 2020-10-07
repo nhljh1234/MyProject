@@ -1,49 +1,19 @@
-package com.liaojh.towercranefaceregister.Activity;
+package com.liaojh.towercrane.UI;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-
-import android.Manifest;
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.ContentUris;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Camera;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
-import com.arcsoft.arcfacedemo.faceserver.CompareResult;
+import com.arcsoft.arcfacedemo.faceserver.FaceServer;
 import com.arcsoft.arcfacedemo.model.DrawInfo;
 import com.arcsoft.arcfacedemo.model.FacePreviewInfo;
 import com.arcsoft.arcfacedemo.util.ConfigUtil;
@@ -66,135 +36,115 @@ import com.arcsoft.face.enums.DetectMode;
 import com.arcsoft.imageutil.ArcSoftImageFormat;
 import com.arcsoft.imageutil.ArcSoftImageUtil;
 import com.arcsoft.imageutil.ArcSoftImageUtilError;
-import com.liaojh.towercranefaceregister.FaceServer.FaceServer;
-import com.liaojh.towercranefaceregister.R;
+import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.R;
+import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.Data.TowerCraneRunData;
+import com.liaojh.towercrane.Manager.ArcFaceManager;
 
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
-    private EditText editTowerId, editUserId;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+
+public class UIFaceRegister implements InterfaceDialog, ViewTreeObserver.OnGlobalLayoutListener {
+    private LinearLayout layoutFaceRegister;
+    private FaceRectView faceRectView;
     private Button btnRegister;
+    private EditText editUserName;
+    private TextureView previewView;
 
-    private String LogTag = "my_log";
-
-    private static final String[] NEEDED_PERMISSIONS = new String[]{
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,
-    };
+    private MainActivity m_activity;
 
     private static final int ACTION_REQUEST_PERMISSIONS = 1;
-
     private static final int MAX_DETECT_NUM = 1;
-
     private CameraHelper cameraHelper;
     private DrawHelper drawHelper;
     private Camera.Size previewSize;
-    /**
-     * 优先打开的摄像头，本界面主要用于单目RGB摄像头设备，因此默认打开前置
-     */
     private Integer rgbCameraID = Camera.CameraInfo.CAMERA_FACING_FRONT;
-    /**
-     * VIDEO模式人脸检测引擎，用于预览帧人脸追踪
-     */
     private FaceEngine ftEngine;
-    /**
-     * 用于特征提取的引擎
-     */
     private FaceEngine frEngine;
-    /**
-     * IMAGE模式活体检测引擎，用于预览帧人脸活体检测
-     */
     private FaceEngine flEngine;
     private int ftInitCode = -1;
     private int frInitCode = -1;
     private int flInitCode = -1;
     private FaceHelper faceHelper;
-    /**
-     * 相机预览显示的控件，可为SurfaceView或TextureView
-     */
-    private TextureView previewView;
-    private FaceRectView faceRectView;
-
     private Boolean canRegister = false;
     private Bitmap bitmapRegister = null;
+    private ExecutorService executorService;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        int activeCode = FaceEngine.activeOnline(this, "7s8skgqES6JBy79xHW5bmcxrRBUVufFAyHAq71vBSwud", "3A3KeQMjKdB8MJBC7PNXpyGktpEHh9nwTJ5qNZdnwC2y");
-        if (activeCode == ErrorInfo.MOK || activeCode == ErrorInfo.MERR_ASF_ALREADY_ACTIVATED) {
-            //本地人脸库初始化
-            FaceServer.getInstance().init(this);
-        } else {
-            Toast.makeText(this, "SDK激活失败", Toast.LENGTH_SHORT).show();
-        }
-
-        //去掉头部
-        getSupportActionBar().hide();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        initView();
+    public void show() {
+        layoutFaceRegister.setVisibility(View.VISIBLE);
+        executorService = Executors.newSingleThreadExecutor();
+        canRegister = false;
+        bitmapRegister = null;
+        editUserName.setText("");
+        cameraHelper.start();
     }
 
-    private void initView() {
-        previewView = findViewById(R.id.texture_view_show);
+    @Override
+    public void hide() {
+        layoutFaceRegister.setVisibility(View.GONE);
+        if (executorService != null && !executorService.isShutdown()) {
+            executorService.shutdownNow();
+        }
+        canRegister = false;
+        bitmapRegister = null;
+        m_activity.uiSetting.show();
+        cameraHelper.stop();
+    }
+
+    @Override
+    public void onUICreate(MainActivity activity) {
+        m_activity = activity;
+
+        layoutFaceRegister = activity.findViewById(R.id.layout_face_register);
+
+        faceRectView = activity.findViewById(R.id.single_camera_face_rect_view_register);
+
+        previewView = activity.findViewById(R.id.texture_view_face_register);
         //在布局结束后才做初始化操作
         previewView.getViewTreeObserver().addOnGlobalLayoutListener(this);
 
-        faceRectView = findViewById(R.id.single_camera_face_rect_view);
+        editUserName = activity.findViewById(R.id.edit_face_register_user_name);
 
-        editTowerId = findViewById(R.id.edit_tower_id);
-        editUserId = findViewById(R.id.edit_user_name);
-        btnRegister = findViewById(R.id.btn_register);
-
+        btnRegister = activity.findViewById(R.id.btn_face_register);
         btnRegister.setOnClickListener(this);
+    }
+
+    @Override
+    public void onUIStart() {
+
+    }
+
+    @Override
+    public void onUIDestroy() {
+
+    }
+
+    @Override
+    public void onTowerCraneRunDateUpdate(TowerCraneRunData towerCraneRunData) {
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_register:
-                if (canRegister && bitmapRegister!= null && editTowerId.getText().toString().length() > 0 && editUserId.getText().toString().length() > 0) {
-                    register();
-                }
+            case R.id.btn_face_register:
+                register();
                 break;
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void register() {
-        //bitmap转jpg
-        Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    void afterRequestPermission(int requestCode, boolean isAllGranted) {
-        initEngine();
-        initCamera();
-    }
-
-    @Override
     public void onGlobalLayout() {
         previewView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        if (!checkPermissions(NEEDED_PERMISSIONS)) {
-            ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
-        } else {
-            initEngine();
-            initCamera();
-        }
+        initEngine();
+        initCamera();
     }
 
     /**
@@ -202,73 +152,38 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
      */
     private void initEngine() {
         ftEngine = new FaceEngine();
-        ftInitCode = ftEngine.init(this, DetectMode.ASF_DETECT_MODE_VIDEO, DetectFaceOrientPriority.ASF_OP_ALL_OUT,
+        ftInitCode = ftEngine.init(m_activity, DetectMode.ASF_DETECT_MODE_VIDEO, DetectFaceOrientPriority.ASF_OP_ALL_OUT,
                 16, MAX_DETECT_NUM, FaceEngine.ASF_FACE_DETECT);
 
         frEngine = new FaceEngine();
-        frInitCode = frEngine.init(this, DetectMode.ASF_DETECT_MODE_IMAGE, DetectFaceOrientPriority.ASF_OP_0_ONLY,
+        frInitCode = frEngine.init(m_activity, DetectMode.ASF_DETECT_MODE_IMAGE, DetectFaceOrientPriority.ASF_OP_0_ONLY,
                 16, MAX_DETECT_NUM, FaceEngine.ASF_FACE_RECOGNITION);
 
         flEngine = new FaceEngine();
-        flInitCode = flEngine.init(this, DetectMode.ASF_DETECT_MODE_IMAGE, DetectFaceOrientPriority.ASF_OP_0_ONLY,
+        flInitCode = flEngine.init(m_activity, DetectMode.ASF_DETECT_MODE_IMAGE, DetectFaceOrientPriority.ASF_OP_0_ONLY,
                 16, MAX_DETECT_NUM, FaceEngine.ASF_LIVENESS);
 
-        Log.i(LogTag, "initEngine:  init: " + ftInitCode);
+        Log.i(Constant.LogTag, "initEngine:  init: " + ftInitCode);
 
         if (ftInitCode != ErrorInfo.MOK) {
-            String error = this.getString(R.string.specific_engine_init_failed, "ftEngine", ftInitCode);
-            Log.i(LogTag, "initEngine: " + error);
+            String error = m_activity.getString(R.string.specific_engine_init_failed, "ftEngine", ftInitCode);
+            Log.i(Constant.LogTag, "initEngine: " + error);
+            m_activity.showToast(error);
         }
         if (frInitCode != ErrorInfo.MOK) {
-            String error = getString(R.string.specific_engine_init_failed, "frEngine", frInitCode);
-            Log.i(LogTag, "initEngine: " + error);
+            String error = m_activity.getString(R.string.specific_engine_init_failed, "frEngine", frInitCode);
+            Log.i(Constant.LogTag, "initEngine: " + error);
+            m_activity.showToast(error);
         }
         if (flInitCode != ErrorInfo.MOK) {
-            String error = getString(R.string.specific_engine_init_failed, "flEngine", flInitCode);
-            Log.i(LogTag, "initEngine: " + error);
+            String error = m_activity.getString(R.string.specific_engine_init_failed, "flEngine", flInitCode);
+            Log.i(Constant.LogTag, "initEngine: " + error);
+            m_activity.showToast(error);
         }
-    }
-
-    private void searchFace(final FaceFeature frFace, final Integer requestId) {
-        final Activity activity = this;
-        Observable
-                .create(new ObservableOnSubscribe<CompareResult>() {
-                    @Override
-                    public void subscribe(ObservableEmitter<CompareResult> emitter) {
-                        CompareResult compareResult = com.arcsoft.arcfacedemo.faceserver.FaceServer.getInstance().getTopOfFaceLib(frFace);
-                        emitter.onNext(compareResult);
-                    }
-                })
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CompareResult>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(CompareResult compareResult) {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
     /**
-     * 裁剪
-     *
-     * @param bitmap 原图
-     * @return 裁剪后的图像
+     * 裁剪图片
      */
     private Bitmap cropBitmap(Bitmap bitmap) {
         int w = bitmap.getWidth(); // 得到图片的宽，高
@@ -278,13 +193,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void initCamera() {
         DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        final MainActivity activity = this;
+        m_activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        final MainActivity activity = m_activity;
 
         final FaceListener faceListener = new FaceListener() {
             @Override
             public void onFail(Exception e) {
-                Log.e(LogTag, "faceListener onFail: " + e.getMessage());
+                Log.e(Constant.LogTag, "faceListener onFail: " + e.getMessage());
             }
 
             //请求FR的回调
@@ -300,7 +215,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                         canRegister = false;
                         return;
                     }
-                    if (FaceServer.getInstance().judgeRegisterBgr24(activity, bgr24, cropBitmap.getWidth(), cropBitmap.getHeight(), "test")) {
+                    if (FaceServer.getInstance().judgeRegisterBgr24(activity, bgr24, cropBitmap.getWidth(), cropBitmap.getHeight(), editUserName.getText().toString())) {
                         canRegister = true;
                         bitmapRegister = cropBitmap;
                     } else {
@@ -323,7 +238,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 previewSize = camera.getParameters().getPreviewSize();
                 drawHelper = new DrawHelper(previewSize.width, previewSize.height, previewView.getWidth(), previewView.getHeight(), displayOrientation
                         , cameraId, isMirror, false, false);
-                Log.i(LogTag, "onCameraOpened: " + drawHelper.toString());
+                Log.i(Constant.LogTag, "onCameraOpened: " + drawHelper.toString());
                 // 切换相机的时候可能会导致预览尺寸发生变化
                 if (faceHelper == null ||
                         lastPreviewSize == null ||
@@ -342,7 +257,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                             .flQueueSize(MAX_DETECT_NUM)
                             .previewSize(previewSize)
                             .faceListener(faceListener)
-                            .trackedFaceCount(trackedFaceCount == null ? ConfigUtil.getTrackedFaceCount(getApplicationContext()) : trackedFaceCount)
+                            .trackedFaceCount(trackedFaceCount == null ? ConfigUtil.getTrackedFaceCount(m_activity.getApplicationContext()) : trackedFaceCount)
                             .build();
                 }
             }
@@ -366,12 +281,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
             @Override
             public void onCameraClosed() {
-                Log.i(LogTag, "onCameraClosed: ");
+                Log.i(Constant.LogTag, "onCameraClosed: ");
             }
 
             @Override
             public void onCameraError(Exception e) {
-                Log.i(LogTag, "onCameraError: " + e.getMessage());
+                Log.i(Constant.LogTag, "onCameraError: " + e.getMessage());
             }
 
             @Override
@@ -379,31 +294,65 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 if (drawHelper != null) {
                     drawHelper.setCameraDisplayOrientation(displayOrientation);
                 }
-                Log.i(LogTag, "onCameraConfigurationChanged: " + cameraID + "  " + displayOrientation);
+                Log.i(Constant.LogTag, "onCameraConfigurationChanged: " + cameraID + "  " + displayOrientation);
             }
         };
 
         cameraHelper = new CameraHelper.Builder()
                 .previewViewSize(new Point(previewView.getMeasuredWidth(), previewView.getMeasuredHeight()))
-                .rotation(getWindowManager().getDefaultDisplay().getRotation())
+                .rotation(m_activity.getWindowManager().getDefaultDisplay().getRotation())
                 .specificCameraId(rgbCameraID != null ? rgbCameraID : Camera.CameraInfo.CAMERA_FACING_FRONT)
                 .isMirror(false)
                 .previewOn(previewView)
                 .cameraListener(cameraListener)
                 .build();
         cameraHelper.init();
-        cameraHelper.start();
     }
 
     private void drawPreviewInfo(List<FacePreviewInfo> facePreviewInfoList) {
         List<DrawInfo> drawInfoList = new ArrayList<>();
         for (int i = 0; i < facePreviewInfoList.size(); i++) {
             int color = canRegister ? RecognizeColor.COLOR_SUCCESS : RecognizeColor.COLOR_FAILED;
-            String str = canRegister ? "已识别":"未识别";
+            String str = canRegister ? "已识别" : "未识别";
 
             drawInfoList.add(new DrawInfo(drawHelper.adjustRect(facePreviewInfoList.get(i).getFaceInfo().getRect()),
                     GenderInfo.UNKNOWN, AgeInfo.UNKNOWN_AGE, LivenessInfo.UNKNOWN, color, str));
         }
         drawHelper.draw(faceRectView, drawInfoList);
+    }
+
+    private void register() {
+        if (bitmapRegister == null || canRegister == false || editUserName.getText().toString().length() == 0) {
+            return;
+        }
+        final Bitmap bitmap = bitmapRegister;
+        final MainActivity activity = m_activity;
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                byte[] bgr24 = ArcSoftImageUtil.createImageData(bitmap.getWidth(), bitmap.getHeight(), ArcSoftImageFormat.BGR24);
+                int transformCode = ArcSoftImageUtil.bitmapToImageData(bitmap, bgr24, ArcSoftImageFormat.BGR24);
+                if (transformCode != ArcSoftImageUtilError.CODE_SUCCESS) {
+                    return;
+                }
+                boolean success = FaceServer.getInstance().registerBgr24(activity, bgr24, bitmap.getWidth(), bitmap.getHeight(), editUserName.getText().toString());
+                if (success) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(activity)
+                                    .setTitle(R.string.batch_process_notification)
+                                    .setMessage(R.string.face_register_success)
+                                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            hide();
+                                        }
+                                    }).setNegativeButton(R.string.cancel, null).create().show();
+                        }
+                    });
+                }
+            }
+        });
     }
 }

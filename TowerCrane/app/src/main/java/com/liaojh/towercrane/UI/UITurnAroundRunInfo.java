@@ -114,7 +114,7 @@ public class UITurnAroundRunInfo implements InterfaceUI {
         if (towerCraneTurnAroundData.judgeCommunicationIsWaring()) {
             textUpDownCommunicationStatus.setVisibility(View.VISIBLE);
         } else {
-            textUpDownCommunicationStatus.setVisibility(View.GONE);
+            textUpDownCommunicationStatus.setVisibility(View.INVISIBLE);
         }
     }
 

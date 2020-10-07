@@ -50,7 +50,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/edit_user_id"
+                android:id="@+id/edit_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"

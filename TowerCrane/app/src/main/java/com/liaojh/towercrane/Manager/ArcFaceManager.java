@@ -66,8 +66,8 @@ public class ArcFaceManager {
         if (activeCode == ErrorInfo.MOK || activeCode == ErrorInfo.MERR_ASF_ALREADY_ACTIVATED) {
             //本地人脸库初始化
             FaceServer.getInstance().init(activity);
-            dirInit();
-            startRegisterFace();
+            //dirInit();
+            //startRegisterFace();
             return true;
         }
         return false;

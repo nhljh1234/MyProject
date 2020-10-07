@@ -135,7 +135,7 @@ public class UIUpDownRunInfo implements InterfaceUI {
         if (towerCraneLiftData.judgeCommunicationIsWaring()) {
             textUpDownCommunicationStatus.setVisibility(View.VISIBLE);
         } else {
-            textUpDownCommunicationStatus.setVisibility(View.GONE);
+            textUpDownCommunicationStatus.setVisibility(View.INVISIBLE);
         }
     }
 

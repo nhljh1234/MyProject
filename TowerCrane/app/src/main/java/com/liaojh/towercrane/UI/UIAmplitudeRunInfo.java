@@ -124,7 +124,7 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
         if (towerCraneAmplitudeData.judgeCommunicationIsWaring()) {
             textUpDownCommunicationStatus.setVisibility(View.VISIBLE);
         } else {
-            textUpDownCommunicationStatus.setVisibility(View.GONE);
+            textUpDownCommunicationStatus.setVisibility(View.INVISIBLE);
         }
     }
 

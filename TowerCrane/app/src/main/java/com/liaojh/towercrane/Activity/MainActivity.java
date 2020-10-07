@@ -2,6 +2,7 @@ package com.liaojh.towercrane.Activity;
 
 import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.SettingData;
+import com.liaojh.towercrane.Manager.ArcFaceManager;
 import com.liaojh.towercrane.Manager.CSVFileManager;
 import com.liaojh.towercrane.Manager.NetManager;
 import com.liaojh.towercrane.Manager.USBManager;
@@ -15,6 +16,7 @@ import com.liaojh.towercrane.UI.UIAddCamera;
 import com.liaojh.towercrane.UI.UIAmplitudeRunInfo;
 import com.liaojh.towercrane.UI.UICameraList;
 import com.liaojh.towercrane.UI.UIFaceCheck;
+import com.liaojh.towercrane.UI.UIFaceRegister;
 import com.liaojh.towercrane.UI.UILogin;
 import com.liaojh.towercrane.UI.UISetCalibration;
 import com.liaojh.towercrane.UI.UISetting;
@@ -52,6 +54,7 @@ public class MainActivity extends BaseActivity {
     public UIVideoInfo uiVideoInfo = new UIVideoInfo();
     public UICameraList uiCameraList = new UICameraList();
     public UIFaceCheck uiFaceCheck = new UIFaceCheck();
+    public UIFaceRegister uiFaceRegister = new UIFaceRegister();
 
     private InterfaceUI[] uis = new InterfaceUI[] {
             new UITopBar(),
@@ -66,6 +69,7 @@ public class MainActivity extends BaseActivity {
             uiAddCamera,
             uiCameraList,
             uiFaceCheck,
+            uiFaceRegister,
     };
 
     private TowerCraneRunData oldData;
@@ -185,6 +189,9 @@ public class MainActivity extends BaseActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //保持亮屏
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        //初始化
+        ArcFaceManager.getInstance().active(this);
     }
 
     @Override

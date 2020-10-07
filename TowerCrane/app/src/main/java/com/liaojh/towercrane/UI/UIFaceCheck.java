@@ -125,12 +125,18 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     public void show() {
         layoutCheckFace.setVisibility(View.VISIBLE);
         cameraHelper.start();
+        requestFeatureStatusMap = new ConcurrentHashMap<>();
+        extractErrorRetryMap = new ConcurrentHashMap<>();
+        delayFaceTaskCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
     public void hide() {
-        layoutCheckFace.setVisibility(View.INVISIBLE);
+        layoutCheckFace.setVisibility(View.GONE);
         cameraHelper.stop();
+        requestFeatureStatusMap = new ConcurrentHashMap<>();
+        extractErrorRetryMap = new ConcurrentHashMap<>();
+        delayFaceTaskCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
@@ -141,8 +147,6 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
 
         layoutCheckFace = m_activity.findViewById(R.id.layout_face_check);
         layoutCheckFace.setOnClickListener(this);
-
-        ArcFaceManager.getInstance().active(activity);
 
         previewView = activity.findViewById(R.id.texture_view_face_check);
         //在布局结束后才做初始化操作
@@ -245,7 +249,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                             cameraHelper.stop();
                             new AlertDialog.Builder(activity)
                                     .setTitle(R.string.batch_process_notification)
-                                    .setMessage(compareResult.getUserName() + activity.getString(R.string.check_success))
+                                    .setMessage(compareResult.getUserName() + activity.getResources().getString(R.string.check_success))
                                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

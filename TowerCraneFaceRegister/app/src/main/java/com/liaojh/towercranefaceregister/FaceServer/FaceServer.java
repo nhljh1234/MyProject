@@ -67,6 +67,43 @@ public class FaceServer {
     }
 
     /**
+     * 判断用于注册照片人脸是否合法
+     */
+    public boolean judgeRegisterBgr24(Context context, byte[] bgr24, int width, int height, String name) {
+        synchronized (this) {
+            if (faceEngine == null || context == null || bgr24 == null || width % 4 != 0 || bgr24.length != width * height * 3) {
+                Log.e(TAG, "registerBgr24:  invalid params");
+                return false;
+            }
+            //人脸检测
+            List<FaceInfo> faceInfoList = new ArrayList<>();
+            int code = faceEngine.detectFaces(bgr24, width, height, FaceEngine.CP_PAF_BGR24, faceInfoList);
+            if (code == ErrorInfo.MOK && faceInfoList.size() > 0) {
+                FaceFeature faceFeature = new FaceFeature();
+                //特征提取
+                code = faceEngine.extractFaceFeature(bgr24, width, height, FaceEngine.CP_PAF_BGR24, faceInfoList.get(0), faceFeature);
+                //保存注册结果（注册图、特征数据）
+                if (code == ErrorInfo.MOK) {
+                    //为了美观，扩大rect截取注册图
+                    Rect cropRect = getBestRect(width, height, faceInfoList.get(0).getRect());
+                    if (cropRect == null) {
+                        Log.e(TAG, "registerBgr24: cropRect is null");
+                        return false;
+                    }
+                    return true;
+                } else {
+                    Log.e(TAG, "registerBgr24: extract face feature failed, code is " + code);
+                    return false;
+                }
+            } else {
+                Log.e(TAG, "registerBgr24: no face detected, code is " + code);
+                return false;
+            }
+        }
+
+    }
+
+    /**
      * 用于注册照片人脸
      *
      * @param context 上下文对象
