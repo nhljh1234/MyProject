@@ -3379,31 +3379,6 @@
                 android:layout_width="700dp"
                 android:layout_height="88dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="175dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_name"
-                    android:textColor="@color/color_label_blue"
-                    android:textSize="35sp" />
-
-                <EditText
-                    android:id="@+id/edit_user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/color_label_blue" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="700dp"
-                android:layout_height="88dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="53dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -3468,37 +3443,37 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btn_change_weight"
+                    android:id="@+id/btn_setting_change_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_weight" />
 
                 <Button
-                    android:id="@+id/btn_change_wind"
+                    android:id="@+id/btn_setting_change_wind"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_wind" />
 
                 <Button
-                    android:id="@+id/btn_change_amplitude"
+                    android:id="@+id/btn_setting_change_amplitude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_amplitude" />
 
                 <Button
-                    android:id="@+id/btn_change_turn_around"
+                    android:id="@+id/btn_setting_change_turn_around"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_turn_around" />
 
                 <Button
-                    android:id="@+id/btn_change_height"
+                    android:id="@+id/btn_setting_change_height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/change_height" />
 
                 <Button
-                    android:id="@+id/btn_change_camera"
+                    android:id="@+id/btn_setting_change_camera"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/set_camera" />
@@ -3510,7 +3485,20 @@
                 android:layout_marginLeft="18dp"
                 android:layout_marginRight="18dp"
                 android:layout_weight="1"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_setting_clear_face"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_clear_face" />
+
+                <Button
+                    android:id="@+id/btn_setting_face_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_register_face" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -4232,6 +4220,73 @@
                         android:layout_gravity="center" />
 
                 </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_face_register"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_black"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="525dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextureView
+                        android:id="@+id/texture_view_face_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center" />
+
+                    <com.arcsoft.arcfacedemo.widget.FaceRectView
+                        android:id="@+id/single_camera_face_rect_view_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/edit_face_register_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textColor="@color/color_label_blue"
+                        android:ems="10"
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_face_register"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/register" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

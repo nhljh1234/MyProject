@@ -2,6 +2,7 @@ package com.liaojh.towercrane.UI;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -15,6 +16,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 
@@ -170,6 +172,9 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
 
     @Override
     public void onClick(View view) {
+        InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         switch (view.getId()) {
             case R.id.layout_face_check:
                 hide();

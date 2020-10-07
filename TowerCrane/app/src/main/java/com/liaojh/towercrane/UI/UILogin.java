@@ -67,6 +67,9 @@ public class UILogin implements InterfaceDialog {
 
     @Override
     public void onClick(View view) {
+        InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         switch (view.getId()) {
             case R.id.btn_login_sure:
                 if (editPassword.getText().toString().equals(Constant.Password)) {
@@ -81,11 +84,6 @@ public class UILogin implements InterfaceDialog {
                 break;
             case R.id.btn_login_back:
                 hide();
-                break;
-            case R.id.layout_login:
-                InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 break;
         }
     }

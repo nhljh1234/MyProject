@@ -1,7 +1,9 @@
 package com.liaojh.towercrane.UI;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -85,33 +87,36 @@ public class UISetting implements InterfaceDialog {
 
     @Override
     public void onClick(View view) {
+        InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         switch (view.getId()) {
-            case R.id.btn_change_weight:
+            case R.id.btn_setting_change_weight:
                 m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getWeight());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
-            case R.id.btn_change_wind:
+            case R.id.btn_setting_change_wind:
                 m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getWind());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
-            case R.id.btn_change_amplitude:
+            case R.id.btn_setting_change_amplitude:
                 m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getAmplitude());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
-            case R.id.btn_change_turn_around:
+            case R.id.btn_setting_change_turn_around:
                 m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getTurnAround());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
-            case R.id.btn_change_height:
+            case R.id.btn_setting_change_height:
                 m_activity.uiSetCalibration.setCalibrationData(SettingData.getInstance().getHeight());
                 m_activity.uiSetCalibration.show();
                 hide();
                 break;
-            case R.id.btn_change_camera:
+            case R.id.btn_setting_change_camera:
                 m_activity.uiCameraList.show();
                 hide();
                 break;
@@ -119,7 +124,6 @@ public class UISetting implements InterfaceDialog {
                 int faceNum = FaceServer.getInstance().getFaceNumber(m_activity);
                 if (faceNum == 0) {
                     m_activity.showToast(m_activity.getString(R.string.batch_process_no_face_need_to_delete));
-                    hide();
                 } else {
                     AlertDialog dialog = new AlertDialog.Builder(m_activity)
                             .setTitle(R.string.batch_process_notification)

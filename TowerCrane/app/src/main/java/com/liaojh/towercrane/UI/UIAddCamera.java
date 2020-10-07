@@ -99,6 +99,9 @@ public class UIAddCamera implements InterfaceDialog {
 
     @Override
     public void onClick(View view) {
+        InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         switch (view.getId()) {
             case R.id.btn_add_camera:
                 Constant.VideoSaveData videoSaveData = new Constant.VideoSaveData();
@@ -119,11 +122,6 @@ public class UIAddCamera implements InterfaceDialog {
             case R.id.btn_camera_manager_back:
                 m_activity.uiCameraList.show();
                 hide();
-                break;
-            case R.id.layout_add_camera:
-                InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 break;
         }
     }

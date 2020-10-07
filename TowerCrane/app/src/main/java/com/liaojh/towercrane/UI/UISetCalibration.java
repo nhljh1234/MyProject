@@ -149,6 +149,9 @@ public class UISetCalibration implements InterfaceDialog {
 
     @Override
     public void onClick(View view) {
+        InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         switch (view.getId()) {
             case R.id.btn_calibration_change:
                 save();
@@ -160,11 +163,6 @@ public class UISetCalibration implements InterfaceDialog {
                 break;
             case R.id.text_calibration_title:
                 
-                break;
-            case R.id.layout_set_calibration:
-                InputMethodManager inputManger = (InputMethodManager) m_activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 break;
         }
     }
