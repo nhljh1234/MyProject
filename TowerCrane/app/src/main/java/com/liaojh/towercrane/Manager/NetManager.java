@@ -31,17 +31,8 @@ public class NetManager {
     private Socket mSocket;
     private int frameCountNumber = 0;
 
-    //心跳包
-    private Timer timerHeart = new Timer();
-    private TimerTask timerTaskHeart = new TimerTask() {
-        @Override
-        public void run() {
-            sendHeart();
-        }
-    };
-
     private NetManager() {
-        timerHeart.schedule(timerTaskHeart, 0, Constant.SIGNAL_DATA_UPDATE_INTERVAL);
+
     }
 
     public static NetManager getInstance() {
@@ -139,6 +130,8 @@ public class NetManager {
                     }
                 }
             }).start();
+        } else {
+            connect();
         }
     }
 

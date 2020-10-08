@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.Data.SettingData;
 import com.liaojh.towercrane.Data.TowerCraneData;
 import com.liaojh.towercrane.R;
 
@@ -21,8 +22,6 @@ import com.liaojh.towercrane.Tool.Tool;
 
 public class UITowerCraneRunInfo implements InterfaceUI {
     private TowerCraneRunData oldData;
-
-    private Activity activity;
 
     private TextView textNumber, textSpecifications, textMonitorNumber, textMagnification;
 
@@ -58,10 +57,12 @@ public class UITowerCraneRunInfo implements InterfaceUI {
 
     private LinearLayout layoutBackArm, layoutBigArm, layoutMaxHeight;
 
+    private MainActivity m_activity;
+
     //转换数值为dp
     private int getDpNum(int number) {
-        int dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, number, activity.getResources().getDisplayMetrics());
-        return Tool.getDPIRatioNum(activity, dp);
+        int dp = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, number, m_activity.getResources().getDisplayMetrics());
+        return Tool.getDPIRatioNum(m_activity, dp);
     }
 
     //动态设置货位位置
@@ -85,25 +86,25 @@ public class UITowerCraneRunInfo implements InterfaceUI {
 
     private void updateLayoutWaringInfo(Boolean isWaring, TextView textNumber, LinearLayout layout, TextView textLabel) {
         if (isWaring) {
-            layout.setBackground(activity.getDrawable(R.drawable.frame_red));
-            textNumber.setTextColor(activity.getResources().getColor(R.color.color_number_waring));
-            textLabel.setTextColor(activity.getResources().getColor(R.color.color_number_waring));
+            layout.setBackground(m_activity.getDrawable(R.drawable.frame_red));
+            textNumber.setTextColor(m_activity.getResources().getColor(R.color.color_number_waring));
+            textLabel.setTextColor(m_activity.getResources().getColor(R.color.color_number_waring));
         } else {
-            layout.setBackground(activity.getDrawable(R.drawable.frame_gray));
-            textNumber.setTextColor(activity.getResources().getColor(R.color.color_number));
-            textLabel.setTextColor(activity.getResources().getColor(R.color.color_number_label));
+            layout.setBackground(m_activity.getDrawable(R.drawable.frame_gray));
+            textNumber.setTextColor(m_activity.getResources().getColor(R.color.color_number));
+            textLabel.setTextColor(m_activity.getResources().getColor(R.color.color_number_label));
         }
     }
 
     private void updateLayoutStatusInfo(Boolean isSelect, TextView text, LinearLayout layout, ImageView image, int selectImgId, int unSelectImgId) {
         if (isSelect) {
-            image.setImageDrawable(activity.getDrawable(selectImgId));
-            layout.setBackground(activity.getDrawable(R.drawable.frame_full_green));
-            text.setTextColor(activity.getResources().getColor(R.color.color_status_select));
+            image.setImageDrawable(m_activity.getDrawable(selectImgId));
+            layout.setBackground(m_activity.getDrawable(R.drawable.frame_full_green));
+            text.setTextColor(m_activity.getResources().getColor(R.color.color_status_select));
         } else {
-            image.setImageDrawable(activity.getDrawable(unSelectImgId));
-            layout.setBackground(activity.getDrawable(R.drawable.frame_gray));
-            text.setTextColor(activity.getResources().getColor(R.color.color_status_un_select));
+            image.setImageDrawable(m_activity.getDrawable(unSelectImgId));
+            layout.setBackground(m_activity.getDrawable(R.drawable.frame_gray));
+            text.setTextColor(m_activity.getResources().getColor(R.color.color_status_un_select));
         }
     }
 
@@ -153,9 +154,6 @@ public class UITowerCraneRunInfo implements InterfaceUI {
         }
         textCordPos.setText(towerCraneRunData.getCordPosStr());
 
-        textBackArmLength.setText(towerCraneRunData.getBackArmLength());
-        textBigArmLength.setText(towerCraneRunData.getBigArmLength());
-        textMaxHeight.setText(towerCraneRunData.getMaxHeight());
         textNowPosHeight.setText(towerCraneRunData.getNowPosMaxWeight());
 
         drawView.setRunData(towerCraneRunData);
@@ -164,9 +162,9 @@ public class UITowerCraneRunInfo implements InterfaceUI {
 
         ArrayList<String> waringStrList = towerCraneRunData.getWaringStrList();
         if (waringStrList.size() == 0) {
-            imageWaring.setImageDrawable(activity.getDrawable(R.drawable.baojing));
+            imageWaring.setImageDrawable(m_activity.getDrawable(R.drawable.baojing));
         } else {
-            imageWaring.setImageDrawable(activity.getDrawable(R.drawable.baojing_sel));
+            imageWaring.setImageDrawable(m_activity.getDrawable(R.drawable.baojing_sel));
         }
         layoutWaring_1.setVisibility(View.INVISIBLE);
         layoutWaring_2.setVisibility(View.INVISIBLE);
@@ -191,7 +189,7 @@ public class UITowerCraneRunInfo implements InterfaceUI {
         int disHeight = towerHeight - towerImageHeight;
 
         if (disHeight < 0) {
-            disHeight = Tool.getDPIRatioNum(activity, 10);
+            disHeight = Tool.getDPIRatioNum(m_activity, 10);
             frameLayoutTowerImage.setScaleX((float) (towerHeight - disHeight) / towerImageHeight);
             frameLayoutTowerImage.setScaleY((float) (towerHeight - disHeight) / towerImageHeight);
             LinearLayout.LayoutParams lpTowerImage = new LinearLayout.LayoutParams(getDpNum(180), getDpNum(160));
@@ -213,8 +211,8 @@ public class UITowerCraneRunInfo implements InterfaceUI {
     }
 
     @Override
-    public void onUICreate(MainActivity activityIn) {
-        activity = activityIn;
+    public void onUICreate(MainActivity activity) {
+        m_activity = activity;
 
         textNumber = activity.findViewById(R.id.text_number);
         textSpecifications = activity.findViewById(R.id.text_specifications);
@@ -305,12 +303,19 @@ public class UITowerCraneRunInfo implements InterfaceUI {
         layoutMaxHeight = activity.findViewById(R.id.layout_max_height);
     }
 
+    public void updateTowerData () {
+        textNumber.setText(m_activity.getString(R.string.main_tower_number) + SettingData.getInstance().getTowerCraneData().getTowerNumberStr());
+        textSpecifications.setText(m_activity.getString(R.string.main_specifications) + SettingData.getInstance().getTowerCraneData().getSpecificationsStr());
+        textMonitorNumber.setText(m_activity.getString(R.string.main_monitor_number) + SettingData.getInstance().getTowerCraneData().getMonitorNumberStr());
+        textMagnification.setText(m_activity.getString(R.string.main_magnification) + SettingData.getInstance().getTowerCraneData().getMagnificationStr());
+        textBackArmLength.setText(SettingData.getInstance().getTowerCraneData().getBackArmLengthStr());
+        textBigArmLength.setText(SettingData.getInstance().getTowerCraneData().getBigArmLengthStr());
+        textMaxHeight.setText(SettingData.getInstance().getTowerCraneData().getTowerHeightStr());
+    }
+
     @Override
     public void onUIStart() {
-        textNumber.setText(TowerCraneData.getInstance().getNumberStr());
-        textSpecifications.setText(TowerCraneData.getInstance().getSpecificationsStr());
-        textMonitorNumber.setText(TowerCraneData.getInstance().getMonitorNumber());
-        textMagnification.setText(TowerCraneData.getInstance().getMagnificationStr());
+        updateTowerData();
     }
 
     @Override

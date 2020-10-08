@@ -20,6 +20,7 @@ import com.liaojh.towercrane.UI.UIFaceCheck;
 import com.liaojh.towercrane.UI.UIFaceRegister;
 import com.liaojh.towercrane.UI.UILogin;
 import com.liaojh.towercrane.UI.UISetCalibration;
+import com.liaojh.towercrane.UI.UISetTowerData;
 import com.liaojh.towercrane.UI.UISetting;
 import com.liaojh.towercrane.UI.UITopBar;
 import com.liaojh.towercrane.UI.UITowerCraneRunInfo;
@@ -27,10 +28,12 @@ import com.liaojh.towercrane.UI.UITurnAroundRunInfo;
 import com.liaojh.towercrane.UI.UIUpDownRunInfo;
 import com.liaojh.towercrane.UI.UIVideoInfo;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
@@ -44,10 +47,13 @@ import android.widget.LinearLayout;
 
 import com.liaojh.towercrane.R;
 
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends BaseActivity {
+    public UITopBar uiTopBar = new UITopBar();
+    public UITowerCraneRunInfo uiTowerCraneRunInfo = new UITowerCraneRunInfo();
     public UILogin uiLogin = new UILogin();
     public UISetting uiSetting = new UISetting();
     public UISetCalibration uiSetCalibration = new UISetCalibration();
@@ -56,10 +62,11 @@ public class MainActivity extends BaseActivity {
     public UICameraList uiCameraList = new UICameraList();
     public UIFaceCheck uiFaceCheck = new UIFaceCheck();
     public UIFaceRegister uiFaceRegister = new UIFaceRegister();
+    public UISetTowerData uiSetTowerData = new UISetTowerData();
 
-    private InterfaceUI[] uis = new InterfaceUI[] {
-            new UITopBar(),
-            new UITowerCraneRunInfo(),
+    private InterfaceUI[] uis = new InterfaceUI[]{
+            uiTopBar,
+            uiTowerCraneRunInfo,
             new UIUpDownRunInfo(),
             new UIAmplitudeRunInfo(),
             new UITurnAroundRunInfo(),
@@ -71,11 +78,28 @@ public class MainActivity extends BaseActivity {
             uiCameraList,
             uiFaceCheck,
             uiFaceRegister,
+            uiSetTowerData,
     };
+
+    final private MainActivity activity = this;
 
     private TowerCraneRunData oldData;
 
-    private int timerTimeTotal = 0;
+    //csv文件读写计时
+    private int timerTimeCsvData = 0;
+    //塔吊数据读取计时
+    private int timerTimeReadData = 0;
+    //网络连接数据更新计时
+    private int timerTimeSignalUpdate = 0;
+    //人脸识别计时
+    private int timerTimeFaceCheck = 0;
+    //数据上传计时
+    private int timerTimeUpload = 0;
+    //心跳包
+    private int timerTimeHeart = 0;
+
+    //取所有定时器里面最小的时间
+    private int intervalTime = 1;
 
     private static final String[] NEEDED_PERMISSIONS = new String[]{
             Manifest.permission.READ_PHONE_STATE,
@@ -87,43 +111,85 @@ public class MainActivity extends BaseActivity {
 
     private static final int ACTION_REQUEST_PERMISSIONS = 1;
 
-    private final BaseActivity activity = this;
-
     private TowerCraneRunDataFactory towerCraneRunDataFactory = new TowerCraneRunDataFactory();
 
-    @SuppressLint("HandlerLeak")
-    final Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (Integer.parseInt(msg.obj.toString()) == Constant.HANDLER_TYPE_UPDATE_TOWER_INFO) {
-                TowerCraneRunData towerCraneRunData = towerCraneRunDataFactory.getRunData();
+    //更新主界面时间
+    private Timer timer = new Timer();
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            //csv文件处理
+            timerTimeCsvData = timerTimeCsvData + intervalTime;
+            if (timerTimeCsvData >= SettingData.getInstance().getTowerCraneData().csvSaveInterval) {
+                timerTimeCsvData = 0;
+                Log.e(Constant.LogTag, "timerTimeCsvData");
+                CSVFileManager.getInstance().saveData();
+            }
+
+            //获取串口数据
+            timerTimeReadData = timerTimeReadData + intervalTime;
+            if (timerTimeReadData >= SettingData.getInstance().getTowerCraneData().readDataInterval) {
+                timerTimeReadData = 0;
+                Log.e(Constant.LogTag, "timerTimeReadData");
+                final TowerCraneRunData towerCraneRunData = towerCraneRunDataFactory.getRunData();
                 if (oldData != null) {
                     towerCraneRunData.setOldData(oldData);
                 }
-
-                timerTimeTotal = timerTimeTotal + Constant.TOWER_RUN_DATE_UPDATE_INTERVAL;
                 CSVFileManager.getInstance().addData(towerCraneRunData);
-                if (timerTimeTotal >= Constant.CSV_DATA_WRITE_INTERVAL) {
-                    timerTimeTotal = 0;
-                    CSVFileManager.getInstance().saveData();
-                }
-
                 oldData = towerCraneRunData;
-                for (int i = 0; i < uis.length; i++) {
-                    uis[i].onTowerCraneRunDateUpdate(towerCraneRunData);
-                }
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int i = 0; i < uis.length; i++) {
+                            uis[i].onTowerCraneRunDateUpdate(towerCraneRunData);
+                        }
+                    }
+                });
             }
-            super.handleMessage(msg);
-        }
-    };
 
-    //更新主界面时间
-    private Timer timerUpdateTowerCraneRunInfo = new Timer();
-    private TimerTask timerTaskUpdateTowerCraneRunInfo = new TimerTask() {
-        @Override
-        public void run() {
-            Message message = new Message();
-            message.obj = Constant.HANDLER_TYPE_UPDATE_TOWER_INFO;
-            handler.sendMessage(message);
+            //更新信号
+            timerTimeSignalUpdate = timerTimeSignalUpdate + intervalTime;
+            if (timerTimeSignalUpdate >= Constant.SIGNAL_DATA_UPDATE_INTERVAL) {
+                timerTimeSignalUpdate = 0;
+                Log.e(Constant.LogTag, "timerTimeSignalUpdate");
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        uiTopBar.updateInfo();
+                    }
+                });
+            }
+
+            //人脸识别
+            timerTimeFaceCheck = timerTimeFaceCheck + intervalTime;
+            if (timerTimeFaceCheck >= SettingData.getInstance().getTowerCraneData().checkFaceInterval) {
+                timerTimeFaceCheck = 0;
+                Log.e(Constant.LogTag, "timerTimeFaceCheck");
+                new AlertDialog.Builder(activity)
+                        .setTitle(R.string.batch_process_notification)
+                        .setMessage(activity.getString(R.string.check_fail))
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                uiFaceCheck.show();
+                            }
+                        }).setCancelable(false).create().show();
+            }
+
+            //数据上传
+            timerTimeUpload = timerTimeUpload + intervalTime;
+            if (timerTimeUpload >= SettingData.getInstance().getTowerCraneData().uploadInterval) {
+                timerTimeUpload = 0;
+                Log.e(Constant.LogTag, "timerTimeUpload");
+            }
+
+            //心跳包
+            timerTimeHeart = timerTimeHeart + intervalTime;
+            if (timerTimeHeart >= SettingData.getInstance().getTowerCraneData().heartInterval) {
+                timerTimeHeart = 0;
+                Log.e(Constant.LogTag, "timerTimeHeart");
+                NetManager.getInstance().sendHeart();
+            }
         }
     };
 
@@ -176,9 +242,12 @@ public class MainActivity extends BaseActivity {
             uis[i].onUICreate(this);
         }
 
-        timerTimeTotal = 0;
+        intervalTime = Math.min(Constant.SIGNAL_DATA_UPDATE_INTERVAL, SettingData.getInstance().getTowerCraneData().checkFaceInterval);
+        intervalTime = Math.min(intervalTime, SettingData.getInstance().getTowerCraneData().csvSaveInterval);
+        intervalTime = Math.min(intervalTime, SettingData.getInstance().getTowerCraneData().readDataInterval);
+        intervalTime = Math.min(intervalTime, SettingData.getInstance().getTowerCraneData().uploadInterval);
         //开启时间信息更新定时器
-        timerUpdateTowerCraneRunInfo.schedule(timerTaskUpdateTowerCraneRunInfo, 0, Constant.TOWER_RUN_DATE_UPDATE_INTERVAL);
+        timer.schedule(timerTask, 0, intervalTime * 1000);
 
         ((LinearLayout) activity.findViewById(R.id.layout_setting)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,15 +277,14 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onDestroy() {
         for (int i = 0; i < uis.length; i++) {
             uis[i].onUIDestroy();
         }
 
-        if (timerTaskUpdateTowerCraneRunInfo != null) {// 停止timer
-            timerTaskUpdateTowerCraneRunInfo.cancel();
+        if (timer != null) {// 停止timer
+            timer.cancel();
         }
 
         super.onDestroy();

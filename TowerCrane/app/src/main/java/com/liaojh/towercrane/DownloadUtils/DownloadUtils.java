@@ -29,23 +29,27 @@ public class DownloadUtils {
     private long downloadId;
     private String name;
     private String pathstr;
+    private Boolean downloading = false;
 
-    public DownloadUtils(Context context, String url, String name) {
+    public DownloadUtils(Context context) {
         this.mContext = context;
-        downloadAPK(url, name);
-        this.name = name;
     }
 
     //下载apk
-    private void downloadAPK(String url, String name) {
+    public void downloadAPK(String url, String apkName) {
+        if (downloading) {
+            return;
+        }
+        downloading = true;
+        name = apkName;
         //创建下载任务
         DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
         //移动网络情况下是否允许漫游
         request.setAllowedOverRoaming(false);
         //在通知栏中显示，默认就是显示的
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        request.setTitle("通知标题，随意修改");
-        request.setDescription("新版***下载中...");
+        request.setTitle("塔吊程序更新");
+        request.setDescription("新版程序下载中...");
         request.setVisibleInDownloadsUi(true);
 
         //设置下载的路径
@@ -53,16 +57,16 @@ public class DownloadUtils {
         request.setDestinationUri(Uri.fromFile(file));
         pathstr = file.getAbsolutePath();
         //获取DownloadManager
-        if (downloadManager == null)
+        if (downloadManager == null) {
             downloadManager = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+        }
         //将下载请求加入下载队列，加入下载队列后会给该任务返回一个long型的id，通过该id可以取消任务，重启任务、获取下载的文件等等
         if (downloadManager != null) {
             downloadId = downloadManager.enqueue(request);
         }
 
         //注册广播接收者，监听下载状态
-        mContext.registerReceiver(receiver,
-                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        mContext.registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     //广播监听下载的各个状态
@@ -96,12 +100,14 @@ public class DownloadUtils {
                     //下载完成安装APK
                     installAPK();
                     cursor.close();
+                    downloading = false;
                     break;
                 //下载失败
                 case DownloadManager.STATUS_FAILED:
                     Toast.makeText(mContext, "下载失败", Toast.LENGTH_SHORT).show();
                     cursor.close();
                     mContext.unregisterReceiver(receiver);
+                    downloading = false;
                     break;
             }
         }

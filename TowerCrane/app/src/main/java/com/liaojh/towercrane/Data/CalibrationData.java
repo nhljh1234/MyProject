@@ -47,14 +47,14 @@ public class CalibrationData {
         m_key_low_error_work = key_low_error_work;
         m_key_high_error_work = key_high_error_work;
 
-        updateValue();
+        readLocalData();
 
         m_type = type;
 
         mathAB();
     }
 
-    public void updateValue() {
+    public void readLocalData() {
         demarcate_1 = LocalStorage.getInstance().getSp().getFloat(m_key_demarcate_1, 5);
         demarcate_2 = LocalStorage.getInstance().getSp().getFloat(m_key_demarcate_2, 100);
         measure_1 = LocalStorage.getInstance().getSp().getFloat(m_key_measure_1, 0);

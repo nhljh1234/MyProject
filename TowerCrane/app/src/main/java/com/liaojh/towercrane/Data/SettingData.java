@@ -27,6 +27,23 @@ public class SettingData {
     private CalibrationData amplitude;
     private CalibrationData turnAround;
     private CalibrationData height;
+    private TowerCraneData towerCraneData;
+
+    private CalibrationData buildData(String key, int type) {
+        return new CalibrationData(
+                m_base_key_demarcate_1 + key,
+                m_base_key_demarcate_2 + key,
+                m_base_key_measure_1 + key,
+                m_base_key_measure_2 + key,
+                m_base_key_low_warn + key,
+                m_base_key_low_error + key,
+                m_base_key_high_warn + key,
+                m_base_key_high_error + key,
+                m_base_key_low_error_work + key,
+                m_base_key_high_error_work + key,
+                type
+        );
+    }
 
     public static SettingData getInstance() {
         if (instance == null) {
@@ -74,19 +91,11 @@ public class SettingData {
         return height;
     }
 
-    private CalibrationData buildData(String key, int type) {
-        return new CalibrationData(
-                m_base_key_demarcate_1 + key,
-                m_base_key_demarcate_2 + key,
-                m_base_key_measure_1 + key,
-                m_base_key_measure_2 + key,
-                m_base_key_low_warn + key,
-                m_base_key_low_error + key,
-                m_base_key_high_warn + key,
-                m_base_key_high_error + key,
-                m_base_key_low_error_work + key,
-                m_base_key_high_error_work + key,
-                type
-        );
+    //塔吊数据
+    public TowerCraneData getTowerCraneData() {
+        if (towerCraneData == null) {
+            towerCraneData = new TowerCraneData();
+        }
+        return towerCraneData;
     }
 }

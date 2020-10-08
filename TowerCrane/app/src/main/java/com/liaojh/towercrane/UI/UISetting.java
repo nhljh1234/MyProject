@@ -19,7 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 
 public class UISetting implements InterfaceDialog {
     private LinearLayout layoutSetting;
-    private Button btnWeight, btnWind, btnAmplitude, btnTurnAround, btnHeight, btnSetCamera, btnClearFace, btnRegister, btnBack;
+    private Button btnWeight, btnWind, btnAmplitude, btnTurnAround, btnHeight, btnSetCamera, btnClearFace, btnRegister, btnBack, btnSetTowerData;
     private MainActivity m_activity;
     private int showType = -1;
 
@@ -59,6 +59,7 @@ public class UISetting implements InterfaceDialog {
         btnClearFace = activityIn.findViewById(R.id.btn_setting_clear_face);
         btnRegister = activityIn.findViewById(R.id.btn_setting_face_register);
         btnBack = activityIn.findViewById(R.id.btn_setting_back);
+        btnSetTowerData = activityIn.findViewById(R.id.btn_setting_tower_data);
 
         btnWeight.setOnClickListener(this);
         btnWind.setOnClickListener(this);
@@ -69,6 +70,7 @@ public class UISetting implements InterfaceDialog {
         btnClearFace.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+        btnSetTowerData.setOnClickListener(this);
 
         m_activity = activityIn;
     }
@@ -146,6 +148,10 @@ public class UISetting implements InterfaceDialog {
                 hide();
                 break;
             case R.id.btn_setting_back:
+                hide();
+                break;
+            case R.id.btn_setting_tower_data:
+                m_activity.uiSetTowerData.show();
                 hide();
                 break;
         }

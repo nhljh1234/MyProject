@@ -100,7 +100,7 @@ public class UISetCalibration implements InterfaceDialog {
                 m_calibrationData.saveLowErrorWork(lowErrorControl) &&
                 m_calibrationData.saveHighErrorWork(highErrorControl);
 
-        m_calibrationData.updateValue();
+        m_calibrationData.readLocalData();
 
         if (success) {
             m_activity.showToast("保存成功");

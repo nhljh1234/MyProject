@@ -12,6 +12,7 @@ import com.liaojh.towercrane.SerialPort.SerialUtil;
 public class UpdateManager {
     private static UpdateManager instance;
     private MainActivity m_activity;
+    private DownloadUtils downloadUtils;
 
     private UpdateManager() {
 
@@ -30,11 +31,12 @@ public class UpdateManager {
 
     public void init(MainActivity activity) {
         m_activity = activity;
+        downloadUtils = new DownloadUtils(m_activity);
     }
 
     public void onReceiveNewVersion(int version, String address) {
         if (version > Constant.Version && m_activity != null) {
-            new DownloadUtils(m_activity, address, "qq.apk");
+            downloadUtils.downloadAPK(address, "qq.apk");
         }
     }
 }

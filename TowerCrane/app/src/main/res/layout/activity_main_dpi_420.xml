@@ -3510,6 +3510,15 @@
                     android:layout_width="150dp"
                     android:layout_height="30dp"
                     android:text="@string/set_camera" />
+
+                <Button
+                    style="@style/InputBoxStyle"
+                    android:id="@+id/btn_setting_tower_data"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:text="@string/set_tower" />
             </LinearLayout>
 
             <LinearLayout
@@ -4377,6 +4386,614 @@
                         android:layout_height="30dp"
                         android:text="@string/register" />
 
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_set_tower_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_status_un_select"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/setting_tower_data"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_specifications"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_specifications"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_monitor_number"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_monitor_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_tower_number"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_tower_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_back_arm_length"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_back_arm_length"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_big_arm_length"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_big_arm_length"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_tower_high"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_tower_high"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_pos_x"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_pos_x"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_pos_y"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_pos_y"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_magnification"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_magnification"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_volume"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_volume"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_check_face_interval"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_check_face_interval"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="number"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_upload_interval"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_upload_interval"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="number"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_read_data_interval"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_read_data_interval"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="number"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_csv_save_interval"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_csv_save_interval"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="number"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="300dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/setting_heart_interval"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_setting_heart_interval"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:inputType="number"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        style="@style/InputBoxStyle"
+                        android:id="@+id/btn_tower_setting_change"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="50dp"
+                        android:text="@string/high_calibration_sure"
+                        android:textSize="12sp" />
+
+                    <Button
+                        style="@style/InputBoxStyle"
+                        android:id="@+id/btn_tower_setting_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:text="@string/high_calibration_back"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
             </LinearLayout>

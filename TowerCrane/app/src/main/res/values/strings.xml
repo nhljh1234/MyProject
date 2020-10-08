@@ -99,6 +99,7 @@
     <string name="change_height">修改高度定标</string>
     <string name="setting_back">返回</string>
     <string name="set_camera">设置摄像头</string>
+    <string name="set_tower">设置塔吊数据</string>
     <string name="setting_clear_face">清除人脸数据</string>
     <string name="setting_register_face">注册人脸数据</string>
     <string name="measure_1">当值1:</string>
@@ -213,4 +214,26 @@
     <string name="batch_process_path_is_not_dir">路径 \n%s\n 不是文件夹</string>
     <string name="batch_process_processing_please_wait">处理中，请稍等</string>
     <string name="batch_process_finished_info">处理完成！\n处理总数 =  %d \n成功数 = %d \n失败数 = %d \n处理失败的图片已保存在文件夹 \' %s \'</string>
+
+    <string name="setting_tower_data">塔吊数据</string>
+    <string name="setting_specifications">设备规格:</string>
+    <string name="setting_monitor_number">设备编号:</string>
+    <string name="setting_tower_number">塔吊规格:</string>
+    <string name="setting_back_arm_length">后臂长:</string>
+    <string name="setting_big_arm_length">大臂长:</string>
+    <string name="setting_tower_high">塔吊高:</string>
+    <string name="setting_pos_x">坐标X:</string>
+    <string name="setting_pos_y">坐标Y:</string>
+    <string name="setting_magnification">倍率:</string>
+    <string name="setting_volume">音量:</string>
+    <string name="setting_check_face_interval">人脸检测间隔:</string>
+    <string name="setting_upload_interval">数据上传间隔:</string>
+    <string name="setting_read_data_interval">串口数据读取间隔:</string>
+    <string name="setting_csv_save_interval">csv数据写入间隔:</string>
+    <string name="setting_heart_interval">心跳包间隔:</string>
+
+    <string name="main_specifications">设备规格:</string>
+    <string name="main_monitor_number">设备编号:</string>
+    <string name="main_tower_number">塔吊规格:</string>
+    <string name="main_magnification">倍率:</string>
 </resources>

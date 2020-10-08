@@ -32,46 +32,23 @@ public class UITopBar implements InterfaceUI {
     LinearLayout layoutBtnSetting, layoutBtnOutputControl, layoutBtnNotice;
     ImageView imageSignal;
 
-    @SuppressLint("HandlerLeak")
-    final Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (Integer.parseInt(msg.obj.toString()) == Constant.HANDLER_TYPE_UPDATE_TIME_INFO) {
-                //获取时间
-                String timeString = String.format("%s %s", Tool.getTimeString(), Tool.getDayString());
-                textTimeInfo.setText(timeString);
-
-                //更新网络
-                Boolean haveSignal = judgeHaveSignal();
-                if (haveSignal) {
-                    imageSignal.setImageDrawable(m_activity.getDrawable(R.drawable.network));
-                    textSignalStatus.setText(m_activity.getString(R.string.text_signal_normal));
-                } else {
-                    imageSignal.setImageDrawable(m_activity.getDrawable(R.drawable.network_unavailable));
-                    textSignalStatus.setText(m_activity.getString(R.string.text_signal_error));
-                }
-            }
-            super.handleMessage(msg);
-        }
-    };
-
-    //更新主界面时间
-    private Timer timerUpdateTimeAndSignal = new Timer();
-    private TimerTask timerTaskUpdateTimeAndSignal = new TimerTask() {
-        @Override
-        public void run() {
-            Message message = new Message();
-            message.obj = Constant.HANDLER_TYPE_UPDATE_TIME_INFO;
-            handler.sendMessage(message);
-        }
-    };
-
-    private Boolean judgeHaveSignal() {
-        return NetManager.getInstance().judgeHaveSignal();
-    }
-
     @Override
     public void onTowerCraneRunDateUpdate(TowerCraneRunData towerCraneRunData) {
 
+    }
+
+    public void updateInfo() {
+        //获取时间
+        String timeString = String.format("%s %s", Tool.getTimeString(), Tool.getDayString());
+        textTimeInfo.setText(timeString);
+
+        if (NetManager.getInstance().judgeHaveSignal()) {
+            imageSignal.setImageDrawable(m_activity.getDrawable(R.drawable.network));
+            textSignalStatus.setText(m_activity.getString(R.string.text_signal_normal));
+        } else {
+            imageSignal.setImageDrawable(m_activity.getDrawable(R.drawable.network_unavailable));
+            textSignalStatus.setText(m_activity.getString(R.string.text_signal_error));
+        }
     }
 
     @Override
@@ -90,8 +67,6 @@ public class UITopBar implements InterfaceUI {
         layoutBtnSetting.setOnClickListener(this);
         layoutBtnOutputControl.setOnClickListener(this);
         layoutBtnNotice.setOnClickListener(this);
-        //开启时间信息更新定时器
-        timerUpdateTimeAndSignal.schedule(timerTaskUpdateTimeAndSignal, 0, Constant.SIGNAL_DATA_UPDATE_INTERVAL);
     }
 
     @Override
@@ -101,9 +76,6 @@ public class UITopBar implements InterfaceUI {
 
     @Override
     public void onUIDestroy() {
-        if (timerUpdateTimeAndSignal != null) {// 停止timer
-            timerUpdateTimeAndSignal.cancel();
-        }
     }
 
     @Override

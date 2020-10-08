@@ -48,14 +48,8 @@ public class Constant {
             "J6闭合", "J6开启",  "J7闭合", "J7开启",  "J8闭合", "J8开启"
     };
 
-    //csv数据写入间隔
-    public static int CSV_DATA_WRITE_INTERVAL = 1000 * 10;
-
-    //塔吊数据读取间隔
-    public static int TOWER_RUN_DATE_UPDATE_INTERVAL = 1000;
-
     //网络数据获取间隔
-    public static int SIGNAL_DATA_UPDATE_INTERVAL = 1000;
+    public static int SIGNAL_DATA_UPDATE_INTERVAL = 1;
 
     public static String LogTag = "test log";
 
@@ -76,9 +70,9 @@ public class Constant {
 
     public static String CsvDataDirName = "csv_data";
 
-    public static String APP_ID = "7s8skgqES6JBy79xHW5bmcxrRBUVufFAyHAq71vBSwud";
+    public static String APP_ID = "2i39BTFEN2a9vMaLijVUnApgh8VrTfdM62QR6Gqe4Ju3";
 
-    public static String SDK_KEY = "3A3KeQMjKdB8MJBC7PNXpyGktpEHh9nwTJ5qNZdnwC2y";
+    public static String SDK_KEY = "3yYGqGYBBYZUP9FSdAbht78z4sbbcJhZQ6DSiMMxMrWv";
 
     //版本号
     public static int Version = 1;

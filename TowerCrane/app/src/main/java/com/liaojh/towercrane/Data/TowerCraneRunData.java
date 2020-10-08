@@ -16,36 +16,30 @@ public class TowerCraneRunData {
     Calendar calendar = Calendar.getInstance();
     double second = (double) calendar.get(Calendar.SECOND);
 
-    //后臂长
-    public double backArmLength = 10.0;
-    //大臂长
-    public double bigArmLength = 55.0;
-    //最高高度
-    public double maxHeight = 80.0;
     //钢丝绳
-    public double wireRope = Math.random();
+    public float wireRope = (float)Math.random();
     //荷载
-    public double load = Math.random();
+    public float load = (float)Math.random();
     //高度
-    public double height = second / 60 * maxHeight;
+    public float height = (float)second / 60;
     //回转
-    public double turnAround = (second / 60 - 0.5) * 360;
+    public float turnAround = (float)(second / 60 - 0.5) * 360;
     //力矩
-    public double torque = Math.random();
+    public float torque = (float)Math.random();
     //载重
-    public double weight = Math.random();
+    public float weight = (float)Math.random();
     //风力
     public int windPower = (int) (Math.random() * 10);
     //幅度
-    public double amplitude = second / 60 * bigArmLength;
+    public float amplitude = (float)second / 60;
     //钢丝绳损伤位置
-    public double cordHarmPos = Math.random();
+    public float cordHarmPos = (float)Math.random();
     //钢丝绳当前位置
-    public double cordPos = Math.random();
+    public float cordPos = (float)Math.random();
     //钢丝绳损伤量
-    public double cordHarmNumber = Math.random();
+    public float cordHarmNumber = (float)Math.random();
     //当前位置最大载重
-    public double nowPosMaxWeight = Math.random();
+    public float nowPosMaxWeight = (float)Math.random();
 
     public String getWireRopeStr() {
         return String.format("%.1f", wireRope);
@@ -94,19 +88,6 @@ public class TowerCraneRunData {
     public String getNowPosMaxWeight() {
         return String.format("%.2f", nowPosMaxWeight);
     }
-
-    public String getBackArmLength() {
-        return String.format("%.1f", backArmLength);
-    }
-
-    public String getBigArmLength() {
-        return String.format("%.1f", bigArmLength);
-    }
-
-    public String getMaxHeight() {
-        return String.format("%.1f", maxHeight);
-    }
-
 
     public Boolean judgeWireRopeIsWaring() {
         return wireRope < 0.5;
@@ -214,10 +195,10 @@ public class TowerCraneRunData {
     }
 
     public double getAmplitudeScale() {
-        return amplitude / bigArmLength;
+        return amplitude;
     }
 
     public double getHeightScale() {
-        return height / maxHeight;
+        return height;
     }
 }
