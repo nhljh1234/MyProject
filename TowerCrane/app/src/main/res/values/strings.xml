@@ -87,8 +87,8 @@
     <string name="turn_around_waring">变频器通讯异常(#049)</string>
     <string name="register_back">返回</string>
     <string name="big">放大</string>
-    <string name="user_name">管理员：</string>
-    <string name="password">密码：</string>
+    <string name="user_name">管理员:</string>
+    <string name="password">密码:</string>
     <string name="login_sure">登录</string>
     <string name="login_back">返回</string>
     <string name="login_error">密码错误</string>
@@ -105,8 +105,8 @@
     <string name="measure_2">当值2:</string>
     <string name="demarcate_1">标值1:</string>
     <string name="demarcate_2">标值2:</string>
-    <string name="low_error">低报警值:</string>
-    <string name="low_warn">低预警值:</string>
+    <string name="low_error">低报警差值:</string>
+    <string name="low_warn">低预警差值:</string>
     <string name="high_error">高报警差值:</string>
     <string name="high_warn">高预警差值:</string>
     <string name="low_error_control">低报警控制:</string>
@@ -117,17 +117,18 @@
     <string name="camera_add">添加</string>
     <string name="camera_change">修改</string>
     <string name="camera_manager_back">返回</string>
-    <string name="camera_name">设备名</string>
-    <string name="camera_user_name">用户名</string>
-    <string name="camera_user_password">密码</string>
-    <string name="camera_user_ipAddress">ip地址</string>
-    <string name="camera_user_port">端口</string>
-    <string name="camera_rtsp_address">rtsp码流地址</string>
+    <string name="camera_name">设备名:</string>
+    <string name="camera_user_name">用户名:</string>
+    <string name="camera_user_password">密码:</string>
+    <string name="camera_user_ipAddress">ip地址:</string>
+    <string name="camera_user_port">端口:</string>
+    <string name="camera_rtsp_address">rtsp码流地址:</string>
     <string name="camera_list">摄像头列表</string>
     <string name="camera_list_add">添加摄像头</string>
     <string name="camera_list_back">返回</string>
     <string name="camera_item_change">修改</string>
     <string name="camera_item_delete">删除</string>
+    <string name="register_face_user_name">注册用户名:</string>
     <string name="face_register_success">注册成功</string>
 
     <!--配置、功能选择界面-->

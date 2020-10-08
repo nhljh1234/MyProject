@@ -1,10 +1,6 @@
 package com.liaojh.towercrane.Data;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.util.Log;
-
-import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Manager.LocalStorage;
 
 //定标数据
@@ -28,10 +24,10 @@ public class CalibrationData {
     private float low_error;//低报警值
     private float high_warn;//高预警差值
     private float high_error;//高报警差值
-    private Boolean low_error_work;//低预警值控制
-    private Boolean high_error_work;//高预警值控制
+    private int low_error_work;//低预警值控制
+    private int high_error_work;//高预警值控制
 
-    private Constant.CALIBRATION_TYPE m_type;
+    private int m_type;
 
     private float mathA; //函数 y = ax + b
     private float mathB; //函数 y = ax + b
@@ -39,7 +35,7 @@ public class CalibrationData {
     @SuppressLint("CommitPrefEdits")
     public CalibrationData(String key_demarcate_1, String key_demarcate_2, String key_measure_1, String key_measure_2,
                            String key_low_warn, String key_low_error, String key_high_warn, String key_high_error,
-                           String key_low_error_work, String key_high_error_work, Constant.CALIBRATION_TYPE type) {
+                           String key_low_error_work, String key_high_error_work, int type) {
         m_key_demarcate_1 = key_demarcate_1;
         m_key_demarcate_2 = key_demarcate_2;
         m_key_measure_1 = key_measure_1;
@@ -67,8 +63,8 @@ public class CalibrationData {
         low_error = LocalStorage.getInstance().getSp().getFloat(m_key_low_error, 0);
         high_warn = LocalStorage.getInstance().getSp().getFloat(m_key_high_warn, 0);
         high_error = LocalStorage.getInstance().getSp().getFloat(m_key_high_error, 0);
-        low_error_work = LocalStorage.getInstance().getSp().getBoolean(m_key_low_error_work, true);
-        high_error_work = LocalStorage.getInstance().getSp().getBoolean(m_key_high_error_work, true);
+        low_error_work = LocalStorage.getInstance().getSp().getInt(m_key_low_error_work, 0);
+        high_error_work = LocalStorage.getInstance().getSp().getInt(m_key_high_error_work, 0);
     }
 
     //计算a和b的值
@@ -77,7 +73,7 @@ public class CalibrationData {
         mathB = demarcate_1 - measure_1 * mathA;
     }
 
-    public Constant.CALIBRATION_TYPE getType() {
+    public int getType() {
         return m_type;
     }
 
@@ -121,13 +117,13 @@ public class CalibrationData {
         return LocalStorage.getInstance().getSpe().commit();
     }
 
-    public Boolean saveLowErrorWork(Boolean value) {
-        LocalStorage.getInstance().getSpe().putBoolean(m_key_low_error_work, value);
+    public Boolean saveLowErrorWork(int value) {
+        LocalStorage.getInstance().getSpe().putInt(m_key_low_error_work, value);
         return LocalStorage.getInstance().getSpe().commit();
     }
 
-    public Boolean saveHighErrorWork(Boolean value) {
-        LocalStorage.getInstance().getSpe().putBoolean(m_key_high_error_work, value);
+    public Boolean saveHighErrorWork(int value) {
+        LocalStorage.getInstance().getSpe().putInt(m_key_high_error_work, value);
         return LocalStorage.getInstance().getSpe().commit();
     }
 
@@ -135,43 +131,51 @@ public class CalibrationData {
         return measure * mathA + mathB;
     }
 
-    public String getDemarcate_1() {
+    public String getDemarcateStr_1() {
         return String.format("%.1f", demarcate_1);
     }
 
-    public String getDemarcate_2() {
+    public String getDemarcateStr_2() {
         return String.format("%.1f", demarcate_2);
     }
 
-    public String getMeasure_1() {
+    public String getMeasureStr_1() {
         return String.format("%.1f", measure_1);
     }
 
-    public String getMeasure_2() {
+    public String getMeasureStr_2() {
         return String.format("%.1f", measure_2);
     }
 
-    public String getLowWarn() {
+    public String getLowWarnStr() {
         return String.format("%.1f", low_warn);
     }
 
-    public String getLowError() {
+    public String getLowErrorStr() {
         return String.format("%.1f", low_error);
     }
 
-    public String getHighWarn() {
+    public String getHighWarnStr() {
         return String.format("%.1f", high_warn);
     }
 
-    public String getHighError() {
+    public String getHighErrorStr() {
         return String.format("%.1f", high_error);
     }
 
-    public Boolean getLowErrorWork() {
+    public String getLowErrorControlStr() {
+        return Constant.CALIBRATION_CONTROL[low_error_work];
+    }
+
+    public String getHighErrorControlStr() {
+        return Constant.CALIBRATION_CONTROL[high_error_work];
+    }
+
+    public int getLowErrorControl() {
         return low_error_work;
     }
 
-    public Boolean getHighErrorWork() {
+    public int getHighErrorControl() {
         return high_error_work;
     }
 }

@@ -178,39 +178,39 @@ public class TowerCraneRunData {
     }
 
     //判断上下行，根据高度值对应
-    public Constant.Status_Up_Or_Down getUpDownStatus() {
+    public int getUpDownStatus() {
         if (oldData != null) {
             if (height > oldData.height) {
-                return Constant.Status_Up_Or_Down.Up;
+                return Constant.RUN_STATUS_RISE_UP;
             } else if (height < oldData.height) {
-                return Constant.Status_Up_Or_Down.Down;
+                return Constant.RUN_STATUS_RISE_DOWN;
             }
         }
-        return Constant.Status_Up_Or_Down.Normal;
+        return Constant.RUN_STATUS_RISE_NORMAL;
     }
 
     //判断左转还是右转，根据回转值对应
-    public Constant.Status_Left_Or_Right getLeftRightStatus() {
+    public int getLeftRightStatus() {
         if (oldData != null) {
             if (turnAround > oldData.turnAround) {
-                return Constant.Status_Left_Or_Right.Right;
+                return Constant.RUN_STATUS_TURN_RIGHT;
             } else if (turnAround < oldData.turnAround) {
-                return Constant.Status_Left_Or_Right.Left;
+                return Constant.RUN_STATUS_TURN_LEFT;
             }
         }
-        return Constant.Status_Left_Or_Right.Normal;
+        return Constant.RUN_STATUS_TURN_NORMAL;
     }
 
     //判断前进还是后退，根据幅度值对应
-    public Constant.Status_Front_Or_Back getFrontBackStatus() {
+    public int getFrontBackStatus() {
         if (oldData != null) {
             if (amplitude > oldData.amplitude) {
-                return Constant.Status_Front_Or_Back.Front;
+                return Constant.RUN_STATUS_HEAD_FRONT;
             } else if (amplitude < oldData.amplitude) {
-                return Constant.Status_Front_Or_Back.Back;
+                return Constant.RUN_STATUS_HEAD_BACK;
             }
         }
-        return Constant.Status_Front_Or_Back.Normal;
+        return Constant.RUN_STATUS_HEAD_NORMAL;
     }
 
     public double getAmplitudeScale() {

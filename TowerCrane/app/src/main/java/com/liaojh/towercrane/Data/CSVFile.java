@@ -27,10 +27,10 @@ import com.liaojh.towercrane.Manager.USBManager;
 import androidx.documentfile.provider.DocumentFile;
 
 public class CSVFile {
-    private Constant.CSV_FILE_TYPE m_csvFileType;
+    private int m_csvFileType;
     private UsbFile csvFile;
 
-    public CSVFile(String fileName, Constant.CSV_FILE_TYPE csvFileType) {
+    public CSVFile(String fileName, int csvFileType) {
         m_csvFileType = csvFileType;
 
         UsbFile usbFile = USBManager.getInstance().getUsbRootFolder();
@@ -73,14 +73,19 @@ public class CSVFile {
             if (csvFile == null) {
                 csvFile = csvDir.createFile(fileName);
                 String str = "";
-                if (m_csvFileType == Constant.CSV_FILE_TYPE.Base) {
-                    str = "时间,高度\r\n";
-                } else if (m_csvFileType == Constant.CSV_FILE_TYPE.Static) {
-                    str = "时间\r\n";
-                } else if (m_csvFileType == Constant.CSV_FILE_TYPE.Switch) {
-                    str = "时间\r\n";
-                } else if (m_csvFileType == Constant.CSV_FILE_TYPE.Loop) {
-                    str = "时间\r\n";
+                switch (m_csvFileType) {
+                    case Constant.CSV_TYPE_BASE:
+                        str = "时间,高度\r\n";
+                        break;
+                    case Constant.CSV_TYPE_STATIC:
+                        str = "时间\r\n";
+                        break;
+                    case Constant.CSV_TYPE_SWITCH:
+                        str = "时间\r\n";
+                        break;
+                    case Constant.CSV_TYPE_LOOP:
+                        str = "时间\r\n";
+                        break;
                 }
                 csvFile.write(0, ByteBuffer.wrap(str.getBytes()));
                 csvFile.flush();

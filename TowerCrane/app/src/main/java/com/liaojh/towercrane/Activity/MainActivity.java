@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity {
     @SuppressLint("HandlerLeak")
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            if (msg.obj == Constant.Handler_Type.UpdateTowerCraneInfo) {
+            if (Integer.parseInt(msg.obj.toString()) == Constant.HANDLER_TYPE_UPDATE_TOWER_INFO) {
                 TowerCraneRunData towerCraneRunData = towerCraneRunDataFactory.getRunData();
                 if (oldData != null) {
                     towerCraneRunData.setOldData(oldData);
@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity {
         @Override
         public void run() {
             Message message = new Message();
-            message.obj = Constant.Handler_Type.UpdateTowerCraneInfo;
+            message.obj = Constant.HANDLER_TYPE_UPDATE_TOWER_INFO;
             handler.sendMessage(message);
         }
     };

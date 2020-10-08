@@ -62,6 +62,6 @@ public class CSVFileManager {
             }
             baseDataList.add(str);
         }
-        return new CSVFile(baseFileName, Constant.CSV_FILE_TYPE.Base).write(baseDataList);
+        return new CSVFile(baseFileName, Constant.CSV_TYPE_BASE).write(baseDataList);
     }
 }

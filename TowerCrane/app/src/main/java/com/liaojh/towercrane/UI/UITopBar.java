@@ -35,7 +35,7 @@ public class UITopBar implements InterfaceUI {
     @SuppressLint("HandlerLeak")
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            if (msg.obj == Constant.Handler_Type.UpdateTimeInfo) {
+            if (Integer.parseInt(msg.obj.toString()) == Constant.HANDLER_TYPE_UPDATE_TIME_INFO) {
                 //获取时间
                 String timeString = String.format("%s %s", Tool.getTimeString(), Tool.getDayString());
                 textTimeInfo.setText(timeString);
@@ -60,7 +60,7 @@ public class UITopBar implements InterfaceUI {
         @Override
         public void run() {
             Message message = new Message();
-            message.obj = Constant.Handler_Type.UpdateTimeInfo;
+            message.obj = Constant.HANDLER_TYPE_UPDATE_TIME_INFO;
             handler.sendMessage(message);
         }
     };

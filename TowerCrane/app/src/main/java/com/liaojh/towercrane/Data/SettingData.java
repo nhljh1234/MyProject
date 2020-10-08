@@ -41,40 +41,40 @@ public class SettingData {
 
     public CalibrationData getWeight() {
         if (weight == null) {
-            weight = buildData(key_weight, Constant.CALIBRATION_TYPE.Weight);
+            weight = buildData(key_weight, Constant.CALIBRATION_TYPE_HEIGHT);
         }
         return weight;
     }
 
     public CalibrationData getWind() {
         if (wind == null) {
-            wind = buildData(key_wind, Constant.CALIBRATION_TYPE.Wind);
+            wind = buildData(key_wind, Constant.CALIBRATION_TYPE_WIND);
         }
         return wind;
     }
 
     public CalibrationData getAmplitude() {
         if (amplitude == null) {
-            amplitude = buildData(key_amplitude, Constant.CALIBRATION_TYPE.Amplitude);
+            amplitude = buildData(key_amplitude, Constant.CALIBRATION_TYPE_AMPLITUDE);
         }
         return amplitude;
     }
 
     public CalibrationData getTurnAround() {
         if (turnAround == null) {
-            turnAround = buildData(key_turnAround, Constant.CALIBRATION_TYPE.TurnAround);
+            turnAround = buildData(key_turnAround, Constant.CALIBRATION_TYPE_TURN_AROUND);
         }
         return turnAround;
     }
 
     public CalibrationData getHeight() {
         if (height == null) {
-            height = buildData(key_height, Constant.CALIBRATION_TYPE.Height);
+            height = buildData(key_height, Constant.CALIBRATION_TYPE_HEIGHT);
         }
         return height;
     }
 
-    private CalibrationData buildData(String key, Constant.CALIBRATION_TYPE type) {
+    private CalibrationData buildData(String key, int type) {
         return new CalibrationData(
                 m_base_key_demarcate_1 + key,
                 m_base_key_demarcate_2 + key,

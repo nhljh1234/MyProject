@@ -1350,11 +1350,10 @@
 
                                 <Button
                                     android:id="@+id/button_big"
-                                    android:layout_width="60dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:layout_gravity="bottom|right"
-                                    android:text="@string/big"
-                                    tools:text="@string/big" />
+                                    android:background="@drawable/big" />
                             </FrameLayout>
 
                         </LinearLayout>
@@ -3365,43 +3364,56 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/button_small"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom|right"
+                android:background="@drawable/small" />
+
         </FrameLayout>
 
         <LinearLayout
             android:id="@+id/layout_login"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_black"
+            android:background="@color/color_status_un_select"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:visibility="invisible">
 
             <LinearLayout
-                android:layout_width="400dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                style="@style/InputBoxStyle"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="150dp"
+                android:gravity="left|center_vertical">
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="15sp"
                     android:text="@string/password"
-                    android:textColor="@color/color_label_blue"
-                    android:textSize="20sp" />
+                    android:textColor="@android:color/widget_edittext_dark" />
 
                 <EditText
                     android:id="@+id/edit_password"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/color_label_blue" />
+                    android:textSize="15sp"
+                    android:inputType="numberDecimal"
+                    android:background="@null"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@android:color/widget_edittext_dark" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="400dp"
+                android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
@@ -3410,16 +3422,19 @@
 
                 <Button
                     android:id="@+id/btn_login_sure"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
+                    style="@style/InputBoxStyle"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
                     android:alpha="1"
                     android:text="@string/login_sure" />
 
                 <Button
                     android:id="@+id/btn_login_back"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="20dp"
+                    style="@style/InputBoxStyle"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
                     android:alpha="1"
                     android:text="@string/login_back" />
 
@@ -3431,7 +3446,7 @@
             android:id="@+id/layout_setting"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_black"
+            android:background="@color/color_status_un_select"
             android:orientation="horizontal"
             android:visibility="invisible">
 
@@ -3443,39 +3458,57 @@
                 android:orientation="vertical">
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_change_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/change_weight" />
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_change_wind"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/change_wind" />
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_change_amplitude"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/change_amplitude" />
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_change_turn_around"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/change_turn_around" />
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_change_height"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/change_height" />
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_change_camera"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/set_camera" />
             </LinearLayout>
 
@@ -3488,15 +3521,21 @@
                 android:orientation="vertical">
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_clear_face"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/setting_clear_face" />
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_face_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/setting_register_face" />
             </LinearLayout>
 
@@ -3508,9 +3547,12 @@
                 android:orientation="vertical">
 
                 <Button
+                    style="@style/InputBoxStyle"
                     android:id="@+id/btn_setting_back"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
                     android:text="@string/login_back" />
             </LinearLayout>
         </LinearLayout>
@@ -3519,7 +3561,7 @@
             android:id="@+id/layout_set_calibration"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_black"
+            android:background="@color/color_status_un_select"
             android:orientation="horizontal"
             android:visibility="invisible">
 
@@ -3532,13 +3574,12 @@
                 <TextView
                     android:id="@+id/text_calibration_title"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="5"
                     android:gravity="center"
-                    android:text="TextView"
+                    android:layout_marginBottom="5dp"
                     android:textColor="@android:color/background_light"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -3553,309 +3594,289 @@
                         android:orientation="vertical">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
                                 android:text="@string/measure_1"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                             <EditText
                                 android:id="@+id/edit_calibration_measure_1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
                                 android:ems="10"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="5dp"
                                 android:inputType="numberDecimal"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="@string/measure_2"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
-
-                            <EditText
-                                android:id="@+id/edit_calibration_measure_2"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:inputType="numberDecimal"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="@string/low_warn"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
-
-                            <EditText
-                                android:id="@+id/edit_calibration_low_warn"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:inputType="numberDecimal"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="@string/low_error_control"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <Switch
-                                    android:id="@+id/switch_low_error_control"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:gravity="left" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:text="@string/high_error_control"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <Switch
-                                    android:id="@+id/switch_high_error_control"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:gravity="left" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
                                 android:text="@string/demarcate_1"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                             <EditText
                                 android:id="@+id/edit_calibration_demarcate_1"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
+                                android:background="@null"
                                 android:ems="10"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="5dp"
                                 android:inputType="numberDecimal"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
+                                android:text="@string/measure_2"
+                                android:textColor="@android:color/widget_edittext_dark" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_measure_2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:ems="10"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="5dp"
+                                android:inputType="numberDecimal"
+                                android:textColor="@android:color/widget_edittext_dark" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
                                 android:text="@string/demarcate_2"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                             <EditText
                                 android:id="@+id/edit_calibration_demarcate_2"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
+                                android:background="@null"
                                 android:ems="10"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="5dp"
                                 android:inputType="numberDecimal"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
+                                android:text="@string/low_warn"
+                                android:textColor="@android:color/widget_edittext_dark" />
+
+                            <EditText
+                                android:id="@+id/edit_calibration_low_warn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:ems="10"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="5dp"
+                                android:inputType="numberDecimal"
+                                android:textColor="@android:color/widget_edittext_dark" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
                                 android:text="@string/low_error"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                             <EditText
                                 android:id="@+id/edit_calibration_low_error"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
+                                android:background="@null"
                                 android:ems="10"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="5dp"
                                 android:inputType="numberDecimal"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
                                 android:text="@string/high_warn"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                             <EditText
                                 android:id="@+id/edit_calibration_high_warn"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
+                                android:background="@null"
                                 android:ems="10"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="5dp"
                                 android:inputType="numberDecimal"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
                                 android:text="@string/high_error"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                             <EditText
                                 android:id="@+id/edit_calibration_high_error"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
+                                android:background="@null"
                                 android:ems="10"
+                                android:textSize="15sp"
+                                android:layout_marginLeft="5dp"
                                 android:inputType="numberDecimal"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                android:textColor="@android:color/widget_edittext_dark" />
 
                         </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
+                                android:text="@string/low_error_control"
+                                android:textColor="@android:color/widget_edittext_dark" />
+
+                            <TextView
+                                android:id="@+id/text_low_error_control"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
+                                android:textColor="@android:color/widget_edittext_dark" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            style="@style/InputBoxStyle"
+                            android:layout_width="300dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginTop="5dp"
+                            android:gravity="left|center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
+                                android:text="@string/high_error_control"
+                                android:textColor="@android:color/widget_edittext_dark" />
+
+                            <TextView
+                                android:id="@+id/text_high_error_control"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:textSize="15sp"
+                                android:textColor="@android:color/widget_edittext_dark" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -3864,10 +3885,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="5"
+                    android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <Button
+                        style="@style/InputBoxStyle"
                         android:id="@+id/btn_calibration_change"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -3876,6 +3899,7 @@
                         android:textSize="12sp" />
 
                     <Button
+                        style="@style/InputBoxStyle"
                         android:id="@+id/btn_calibration_back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -3910,7 +3934,7 @@
                     android:gravity="center"
                     android:text="@string/camera_manager"
                     android:textColor="@android:color/background_light"
-                    android:textSize="30sp" />
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -3931,52 +3955,31 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:gravity="right"
-                                android:text="@string/camera_name"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="600dp"
+                                android:layout_height="40dp"
+                                android:gravity="left|center_vertical">
 
-                            <EditText
-                                android:id="@+id/edit_camera_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/camera_name"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
 
-                        </LinearLayout>
+                                <EditText
+                                    android:id="@+id/edit_camera_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:gravity="right"
-                                android:text="@string/camera_user_name"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
-
-                            <EditText
-                                android:id="@+id/edit_camera_user_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -3987,52 +3990,31 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:gravity="right"
-                                android:text="@string/camera_user_password"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="600dp"
+                                android:layout_height="40dp"
+                                android:gravity="left|center_vertical">
 
-                            <EditText
-                                android:id="@+id/edit_camera_user_password"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/camera_user_name"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
 
-                        </LinearLayout>
+                                <EditText
+                                    android:id="@+id/edit_camera_user_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:gravity="right"
-                                android:text="@string/camera_user_ipAddress"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
-
-                            <EditText
-                                android:id="@+id/edit_camera_user_ipAddress"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -4043,24 +4025,31 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:gravity="right"
-                                android:text="@string/camera_user_port"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="600dp"
+                                android:layout_height="40dp"
+                                android:gravity="left|center_vertical">
 
-                            <EditText
-                                android:id="@+id/edit_camera_user_port"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/camera_user_password"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_camera_user_password"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -4071,24 +4060,101 @@
                             android:gravity="center"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="2"
-                                android:gravity="right"
-                                android:text="@string/camera_rtsp_address"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="600dp"
+                                android:layout_height="40dp"
+                                android:gravity="left|center_vertical">
 
-                            <EditText
-                                android:id="@+id/edit_camera_rtsp_address"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-                                android:layout_weight="1"
-                                android:ems="10"
-                                android:textColor="@color/color_label_blue"
-                                android:textSize="20sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/camera_user_ipAddress"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_camera_user_ipAddress"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="600dp"
+                                android:layout_height="40dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/camera_user_port"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_camera_user_port"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="600dp"
+                                android:layout_height="40dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:text="@string/camera_rtsp_address"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                                <EditText
+                                    android:id="@+id/edit_camera_rtsp_address"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@null"
+                                    android:ems="10"
+                                    android:layout_marginLeft="5dp"
+                                    android:textColor="@android:color/widget_edittext_dark"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
 
                         </LinearLayout>
 
@@ -4104,17 +4170,19 @@
                     android:orientation="horizontal">
 
                     <Button
+                        style="@style/InputBoxStyle"
                         android:id="@+id/btn_add_camera"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         android:layout_marginRight="50dp"
                         android:text="@string/camera_add"
                         android:textSize="12sp" />
 
                     <Button
+                        style="@style/InputBoxStyle"
                         android:id="@+id/btn_camera_manager_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         android:layout_marginLeft="50dp"
                         android:text="@string/camera_manager_back"
                         android:textSize="12sp" />
@@ -4128,7 +4196,7 @@
             android:id="@+id/layout_camera_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/color_black"
+            android:background="@color/color_status_un_select"
             android:orientation="horizontal"
             android:visibility="invisible">
 
@@ -4140,13 +4208,12 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="5"
                     android:gravity="center"
                     android:text="@string/camera_list"
                     android:textColor="@android:color/background_light"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -4162,23 +4229,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <Button
+                        style="@style/InputBoxStyle"
                         android:id="@+id/btn_camera_list_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         android:layout_marginRight="50dp"
                         android:text="@string/camera_list_add"
                         android:textSize="12sp" />
 
                     <Button
+                        style="@style/InputBoxStyle"
                         android:id="@+id/btn_camera_list_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         android:layout_marginLeft="50dp"
                         android:text="@string/camera_list_back"
                         android:textSize="12sp" />
@@ -4189,41 +4257,41 @@
         </LinearLayout>
 
         <LinearLayout
-        android:id="@+id/layout_face_check"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_black"
-        android:orientation="horizontal"
-        android:visibility="invisible">
-
-        <LinearLayout
+            android:id="@+id/layout_face_check"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:background="@color/color_black"
+            android:orientation="horizontal"
+            android:visibility="invisible">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <TextureView
-                    android:id="@+id/texture_view_face_check"
-                    android:layout_width="300dp"
+                <FrameLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center" />
+                    android:orientation="horizontal">
 
-                <com.arcsoft.arcfacedemo.widget.FaceRectView
-                    android:id="@+id/single_camera_face_rect_view"
-                    android:layout_width="300dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center" />
+                    <TextureView
+                        android:id="@+id/texture_view_face_check"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center" />
 
-            </FrameLayout>
+                    <com.arcsoft.arcfacedemo.widget.FaceRectView
+                        android:id="@+id/single_camera_face_rect_view"
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center" />
+
+                </FrameLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout_face_register"
@@ -4261,29 +4329,52 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/edit_face_register_user_name"
+                    <LinearLayout
+                        style="@style/InputBoxStyle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:textColor="@color/color_label_blue"
-                        android:ems="10"
-                        android:inputType="textPersonName" />
+                        android:layout_height="30dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left|center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="@string/register_face_user_name"
+                            android:textColor="@android:color/widget_edittext_dark"
+                            android:textSize="15sp" />
+
+                        <EditText
+                            android:id="@+id/edit_face_register_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:ems="10"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@android:color/widget_edittext_dark"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="5"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btn_face_register"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/InputBoxStyle"
+                        android:layout_width="70dp"
+                        android:layout_height="30dp"
                         android:text="@string/register" />
 
                 </LinearLayout>

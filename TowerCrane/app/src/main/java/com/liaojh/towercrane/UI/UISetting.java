@@ -21,25 +21,28 @@ public class UISetting implements InterfaceDialog {
     private LinearLayout layoutSetting;
     private Button btnWeight, btnWind, btnAmplitude, btnTurnAround, btnHeight, btnSetCamera, btnClearFace, btnRegister, btnBack;
     private MainActivity m_activity;
-    private Constant.SETTING_TYPE showType;
+    private int showType = -1;
 
     public void show() {
-        showSetting(showType == null ? Constant.SETTING_TYPE.Normal : showType);
+        showSetting(showType == -1 ? Constant.SETTING_TYPE_NORMAL : showType);
     }
 
     public void hide() {
         layoutSetting.setVisibility(View.GONE);
     }
 
-    public void showSetting(Constant.SETTING_TYPE type) {
+    public void showSetting(int type) {
         showType = type;
         layoutSetting.setVisibility(View.VISIBLE);
-        if (type == Constant.SETTING_TYPE.Normal) {
-            btnClearFace.setVisibility(View.GONE);
-            btnRegister.setVisibility(View.GONE);
-        } else {
-            btnClearFace.setVisibility(View.VISIBLE);
-            btnRegister.setVisibility(View.VISIBLE);
+        switch (type) {
+            case Constant.SETTING_TYPE_NORMAL:
+                btnClearFace.setVisibility(View.GONE);
+                btnRegister.setVisibility(View.GONE);
+                break;
+            case Constant.SETTING_TYPE_SUPER:
+                btnClearFace.setVisibility(View.VISIBLE);
+                btnRegister.setVisibility(View.VISIBLE);
+                break;
         }
     }
 
@@ -134,9 +137,7 @@ public class UISetting implements InterfaceDialog {
                                     FaceServer.getInstance().clearAllFaces(m_activity);
                                     m_activity.showToast("清除成功");
                                 }
-                            })
-                            .setNegativeButton(R.string.cancel, null)
-                            .create();
+                            }).setNegativeButton(R.string.cancel, null).create();
                     dialog.show();
                 }
                 break;

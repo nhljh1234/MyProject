@@ -8,61 +8,45 @@ import com.liaojh.towercrane.Manager.VideoManager;
 import java.sql.Struct;
 
 public class Constant {
-    public enum InterfaceType {
-        Normal,
-    }
+    //handler类型
+    public static final int HANDLER_TYPE_UPDATE_TIME_INFO = 1;
+    public static final int HANDLER_TYPE_UPDATE_TOWER_INFO = 2;
 
-    public enum Handler_Type {
-        UpdateTimeInfo,
-        UpdateTowerCraneInfo,
-        SearchFinish,
-        IPError,
-        CheckFace,
-    }
+    //运行状态
+    public static final int RUN_STATUS_RISE_UP = 3;
+    public static final int RUN_STATUS_RISE_DOWN = 4;
+    public static final int RUN_STATUS_RISE_NORMAL = 5;
 
-    public enum Status_Up_Or_Down {
-        Up,
-        Down,
-        Normal,
-    }
+    public static final int RUN_STATUS_TURN_LEFT = 3;
+    public static final int RUN_STATUS_TURN_RIGHT = 4;
+    public static final int RUN_STATUS_TURN_NORMAL = 6;
 
-    public enum Status_Left_Or_Right {
-        Left,
-        Right,
-        Normal,
-    }
+    public static final int RUN_STATUS_HEAD_FRONT = 7;
+    public static final int RUN_STATUS_HEAD_BACK = 8;
+    public static final int RUN_STATUS_HEAD_NORMAL = 9;
 
-    public enum Status_Front_Or_Back {
-        Front,
-        Back,
-        Normal,
-    }
+    //csv数据类型
+    public static final int CSV_TYPE_BASE = 10;
+    public static final int CSV_TYPE_STATIC = 11;
+    public static final int CSV_TYPE_SWITCH = 12;
+    public static final int CSV_TYPE_LOOP = 13;
 
-    public enum Status_Run {
-        Stop,
-        StopCar,
-        Normal,
-    }
+    //定标数据类型
+    public static final int CALIBRATION_TYPE_WEIGHT = 10;
+    public static final int CALIBRATION_TYPE_WIND = 11;
+    public static final int CALIBRATION_TYPE_AMPLITUDE = 12;
+    public static final int CALIBRATION_TYPE_TURN_AROUND = 13;
+    public static final int CALIBRATION_TYPE_HEIGHT = 14;
 
-    public enum CSV_FILE_TYPE {
-        Base, //基础数据
-        Static, //静态数据
-        Switch, //开关机数据
-        Loop, //循环数据
-    }
+    //设置界面类型
+    public static final int SETTING_TYPE_NORMAL = 15;
+    public static final int SETTING_TYPE_SUPER = 16;
 
-    public enum CALIBRATION_TYPE {
-        Weight,
-        Wind,
-        Amplitude,
-        TurnAround,
-        Height,
-    }
-
-    public enum SETTING_TYPE {
-        Normal,
-        Super,
-    }
+    //定标选项
+    public static String[] CALIBRATION_CONTROL = new String[] {
+            "NC", "J1闭合", "J1开启", "J2闭合", "J2开启", "J3闭合", "J3开启", "J4闭合", "J4开启", "J5闭合", "J5开启",
+            "J6闭合", "J6开启",  "J7闭合", "J7开启",  "J8闭合", "J8开启"
+    };
 
     //csv数据写入间隔
     public static int CSV_DATA_WRITE_INTERVAL = 1000 * 10;

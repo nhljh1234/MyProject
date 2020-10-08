@@ -1,0 +1,30 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        style="@style/InputBoxStyle"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="150dp"
+        android:gravity="left|center_vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"
+            android:text="@string/password"
+            android:textColor="@android:color/widget_edittext_dark" />
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="15sp"
+            android:inputType="numberDecimal"
+            android:background="@null"
+            android:textColor="@android:color/widget_edittext_dark" />
+    </LinearLayout>
+
+</merge>

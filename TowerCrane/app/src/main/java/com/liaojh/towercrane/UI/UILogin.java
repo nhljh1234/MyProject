@@ -74,10 +74,10 @@ public class UILogin implements InterfaceDialog {
             case R.id.btn_login_sure:
                 if (editPassword.getText().toString().equals(Constant.Password)) {
                     hide();
-                    m_activity.uiSetting.showSetting(Constant.SETTING_TYPE.Normal);
+                    m_activity.uiSetting.showSetting(Constant.SETTING_TYPE_NORMAL);
                 } else if (editPassword.getText().toString().equals(Constant.SuperPassword)) {
                     hide();
-                    m_activity.uiSetting.showSetting(Constant.SETTING_TYPE.Super);
+                    m_activity.uiSetting.showSetting(Constant.SETTING_TYPE_SUPER);
                 } else {
                     m_activity.showToast(m_activity.getResources().getString(R.string.login_error));
                 }

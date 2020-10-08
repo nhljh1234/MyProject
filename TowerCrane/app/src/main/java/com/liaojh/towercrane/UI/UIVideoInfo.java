@@ -52,6 +52,8 @@ public class UIVideoInfo implements InterfaceUI {
 
     private Button buttonBig;
 
+    private Button buttonSmall;
+
     private void selectInfoUpdate(int index, int pageIndex) {
         if (pageIndex == selectPageIndex && index == selectIndex) {
             return;
@@ -125,6 +127,7 @@ public class UIVideoInfo implements InterfaceUI {
         frameLayoutFullVideo = m_activity.findViewById(R.id.frame_layout_full_video);
 
         buttonBig = m_activity.findViewById(R.id.button_big);
+        buttonSmall = m_activity.findViewById(R.id.button_small);
 
         layoutBtnLeft.setOnClickListener(this);
         layoutBtnRight.setOnClickListener(this);
@@ -133,6 +136,7 @@ public class UIVideoInfo implements InterfaceUI {
         layoutVideo_3.setOnClickListener(this);
         layoutVideo_4.setOnClickListener(this);
         buttonBig.setOnClickListener(this);
+        buttonSmall.setOnClickListener(this);
         surfaceViewVideoFullScreen.setOnClickListener(this);
         frameLayoutFullVideo.setOnClickListener(this);
 
@@ -217,8 +221,7 @@ public class UIVideoInfo implements InterfaceUI {
                 videoDataSelect.stop();
                 VideoManager.getInstance().getFullScreenVideoData().play(videoDataSelect.getUri());
                 break;
-            case R.id.surface_view_full_screen:
-            case R.id.frame_layout_full_video:
+            case R.id.button_small:
                 if (videoDataSelect == null) {
                     break;
                 }

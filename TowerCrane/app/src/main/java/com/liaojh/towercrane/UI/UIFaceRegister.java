@@ -356,7 +356,7 @@ public class UIFaceRegister implements InterfaceDialog, ViewTreeObserver.OnGloba
                                         public void onClick(DialogInterface dialog, int which) {
                                             hide();
                                         }
-                                    }).setNegativeButton(R.string.cancel, null).create().show();
+                                    }).setCancelable(false).create().show();
                         }
                     });
                 }

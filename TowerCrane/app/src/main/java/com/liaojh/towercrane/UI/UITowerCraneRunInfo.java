@@ -127,17 +127,17 @@ public class UITowerCraneRunInfo implements InterfaceUI {
         updateLayoutWaringInfo(towerCraneRunData.judgeWindPowerIsWaring(), textWindPower, layoutWindPower, textLabelWindPower);
         updateLayoutWaringInfo(towerCraneRunData.judgeAmplitudeIsWaring(), textAmplitude, layoutAmplitude, textLabelAmplitude);
 
-        updateLayoutStatusInfo(towerCraneRunData.getUpDownStatus() == Constant.Status_Up_Or_Down.Up,
+        updateLayoutStatusInfo(towerCraneRunData.getUpDownStatus() == Constant.RUN_STATUS_RISE_UP,
                 textUp, layoutUp, imageUp, R.drawable.shangxing_sel, R.drawable.shangxing);
-        updateLayoutStatusInfo(towerCraneRunData.getUpDownStatus() == Constant.Status_Up_Or_Down.Down,
+        updateLayoutStatusInfo(towerCraneRunData.getUpDownStatus() == Constant.RUN_STATUS_RISE_DOWN,
                 textDown, layoutDown, imageDown, R.drawable.xiaxing_sel, R.drawable.xiaxing);
-        updateLayoutStatusInfo(towerCraneRunData.getLeftRightStatus() == Constant.Status_Left_Or_Right.Left,
+        updateLayoutStatusInfo(towerCraneRunData.getLeftRightStatus() == Constant.RUN_STATUS_TURN_LEFT,
                 textLeft, layoutLeft, imageLeft, R.drawable.zuozhaun_sel, R.drawable.zuozhaun);
-        updateLayoutStatusInfo(towerCraneRunData.getLeftRightStatus() == Constant.Status_Left_Or_Right.Right,
+        updateLayoutStatusInfo(towerCraneRunData.getLeftRightStatus() == Constant.RUN_STATUS_TURN_RIGHT,
                 textRight, layoutRight, imageRight, R.drawable.youzhuan_sel, R.drawable.youzhuan);
-        updateLayoutStatusInfo(towerCraneRunData.getFrontBackStatus() == Constant.Status_Front_Or_Back.Front,
+        updateLayoutStatusInfo(towerCraneRunData.getFrontBackStatus() == Constant.RUN_STATUS_HEAD_FRONT,
                 textFront, layoutFront, imageFront, R.drawable.qianxing_sel, R.drawable.qianxing);
-        updateLayoutStatusInfo(towerCraneRunData.getFrontBackStatus() == Constant.Status_Front_Or_Back.Back,
+        updateLayoutStatusInfo(towerCraneRunData.getFrontBackStatus() == Constant.RUN_STATUS_HEAD_BACK,
                 textBack, layoutBack, imageBack, R.drawable.houxing_sel, R.drawable.houxing);
 
         Boolean cordIsHarm = towerCraneRunData.judgeCordIsHarm();

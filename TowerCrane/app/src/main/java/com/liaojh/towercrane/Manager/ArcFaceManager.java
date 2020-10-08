@@ -37,17 +37,6 @@ public class ArcFaceManager {
 
     }
 
-    private void dirInit() {
-        try {
-            FileOutputStream outputStream = new FileOutputStream(m_activity.getExternalFilesDir("register") + "/test.jpg");
-            ((BitmapDrawable) m_activity.getDrawable(R.drawable.face_test)).getBitmap().compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-            outputStream.flush();
-            outputStream.close();
-        } catch (IOException e) {
-
-        }
-    }
-
     public static ArcFaceManager getInstance() {
         if (instance == null) {
             synchronized (SerialUtil.class) {
@@ -66,7 +55,6 @@ public class ArcFaceManager {
         if (activeCode == ErrorInfo.MOK || activeCode == ErrorInfo.MERR_ASF_ALREADY_ACTIVATED) {
             //本地人脸库初始化
             FaceServer.getInstance().init(activity);
-            //dirInit();
             //startRegisterFace();
             return true;
         }

@@ -260,7 +260,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                                         public void onClick(DialogInterface dialog, int which) {
                                             hide();
                                         }
-                                    }).setNegativeButton(R.string.cancel, null).create().show();
+                                    }).setCancelable(false).create().show();
                         } else {
                             faceHelper.setName(requestId, activity.getString(R.string.recognize_failed_notice, "无注册数据"));
                             retryRecognizeDelayed(requestId);
@@ -320,7 +320,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                                     public void onClick(DialogInterface dialog, int which) {
                                         hide();
                                     }
-                                }).setNegativeButton(R.string.cancel, null).create().show();
+                                }).setCancelable(false).create().show();
                     } else {
                         requestFeatureStatusMap.put(requestId, RequestFeatureStatus.TO_RETRY);
                     }
