@@ -20,7 +20,7 @@ public class UpdateManager {
 
     public static UpdateManager getInstance() {
         if (instance == null) {
-            synchronized (SerialUtil.class) {
+            synchronized (UpdateManager.class) {
                 if (instance == null) {
                     instance = new UpdateManager();
                 }

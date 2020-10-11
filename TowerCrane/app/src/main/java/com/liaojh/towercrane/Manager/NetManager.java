@@ -37,7 +37,7 @@ public class NetManager {
 
     public static NetManager getInstance() {
         if (instance == null) {
-            synchronized (SerialUtil.class) {
+            synchronized (NetManager.class) {
                 if (instance == null) {
                     instance = new NetManager();
                 }

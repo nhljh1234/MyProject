@@ -5,6 +5,7 @@ import com.liaojh.towercrane.Data.SettingData;
 import com.liaojh.towercrane.Manager.ArcFaceManager;
 import com.liaojh.towercrane.Manager.CSVFileManager;
 import com.liaojh.towercrane.Manager.NetManager;
+import com.liaojh.towercrane.Manager.SoundManager;
 import com.liaojh.towercrane.Manager.USBManager;
 import com.liaojh.towercrane.Manager.UpdateManager;
 import com.liaojh.towercrane.SerialPort.SerialUtil;
@@ -109,6 +110,7 @@ public class MainActivity extends BaseActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA,
             Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
+            Manifest.permission.RECORD_AUDIO,
     };
 
     private static final int ACTION_REQUEST_PERMISSIONS = 1;
@@ -217,6 +219,7 @@ public class MainActivity extends BaseActivity {
         LocalStorage.getInstance().init(this);
         NetManager.getInstance().connect();
         UpdateManager.getInstance().init(this);
+        SoundManager.getInstance().init(this);
 
         buglyInit();
 

@@ -22,3 +22,5 @@
 
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+
+-keep class cn.yunzhisheng.tts.offline.lib.** {*;}

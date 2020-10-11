@@ -19,7 +19,7 @@ public class LocalStorage {
 
     public static LocalStorage getInstance() {
         if (instance == null) {
-            synchronized (SerialUtil.class) {
+            synchronized (LocalStorage.class) {
                 if (instance == null) {
                     instance = new LocalStorage();
                 }

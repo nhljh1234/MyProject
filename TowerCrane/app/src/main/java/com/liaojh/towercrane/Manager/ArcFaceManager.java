@@ -39,7 +39,7 @@ public class ArcFaceManager {
 
     public static ArcFaceManager getInstance() {
         if (instance == null) {
-            synchronized (SerialUtil.class) {
+            synchronized (ArcFaceManager.class) {
                 if (instance == null) {
                     instance = new ArcFaceManager();
                     m_executorService = Executors.newSingleThreadExecutor();

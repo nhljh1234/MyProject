@@ -30,7 +30,7 @@ public class USBManager {
 
     public static USBManager getInstance() {
         if (instance == null) {
-            synchronized (SerialUtil.class) {
+            synchronized (USBManager.class) {
                 if (instance == null) {
                     instance = new USBManager();
                 }

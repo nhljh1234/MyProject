@@ -31,7 +31,7 @@ public class VideoManager {
 
     public static VideoManager getInstance() {
         if (instance == null) {
-            synchronized (SerialUtil.class) {
+            synchronized (VideoManager.class) {
                 if (instance == null) {
                     instance = new VideoManager();
                 }

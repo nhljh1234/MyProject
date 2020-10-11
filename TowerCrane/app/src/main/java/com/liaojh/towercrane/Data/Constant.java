@@ -78,6 +78,10 @@ public class Constant {
 
     public static String BUGLY_APP_KEY = "ec1a4cfd-bf63-4502-b667-adb0939853ca";
 
+    public static String SOUND_APP_KEY = "w2oyk3iumk7b237t6fefjhppvnwutmj5ylsckiif";
+
+    public static String SOUND_APP_SECRET = "645a1f079ab071b584f5cb9bfb4cfb79";
+
     //版本号
     public static int Version = 1;
 }

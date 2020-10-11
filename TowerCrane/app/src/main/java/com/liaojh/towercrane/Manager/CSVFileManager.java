@@ -20,7 +20,7 @@ public class CSVFileManager {
 
     public static CSVFileManager getInstance() {
         if (instance == null) {
-            synchronized (SerialUtil.class) {
+            synchronized (CSVFileManager.class) {
                 if (instance == null) {
                     instance = new CSVFileManager();
                 }
