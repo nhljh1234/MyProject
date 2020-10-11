@@ -33,6 +33,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -46,6 +47,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.liaojh.towercrane.R;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.Set;
 import java.util.Timer;
@@ -193,6 +195,19 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    private void buglyInit() {
+        //bugly初始化
+        Context context = getApplicationContext();
+        // 获取当前包名
+        String packageName = context.getPackageName();
+        // 获取当前进程名
+        String processName = Tool.getProcessName(android.os.Process.myPid());
+        // 设置是否为上报进程
+        CrashReport.UserStrategy strategy = new CrashReport.UserStrategy(context);
+        strategy.setUploadProcess(processName == null || processName.equals(packageName));
+        CrashReport.initCrashReport(getApplicationContext(), Constant.BUGLY_APP_ID, true);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,6 +217,8 @@ public class MainActivity extends BaseActivity {
         LocalStorage.getInstance().init(this);
         NetManager.getInstance().connect();
         UpdateManager.getInstance().init(this);
+
+        buglyInit();
 
         int DPI = Tool.getDPI(this);
         switch (DPI) {

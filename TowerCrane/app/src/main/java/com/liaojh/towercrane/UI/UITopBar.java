@@ -24,6 +24,7 @@ import java.util.TimerTask;
 import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
 import com.liaojh.towercrane.Tool.Tool;
+import com.tencent.bugly.crashreport.CrashReport;
 
 public class UITopBar implements InterfaceUI {
     private MainActivity m_activity;
@@ -85,7 +86,8 @@ public class UITopBar implements InterfaceUI {
                 m_activity.uiLogin.show();
                 break;
             case R.id.layout_btn_output_control:
-                UpdateManager.getInstance().onReceiveNewVersion(2, "https://729c93f0b85ca2e0830a29dfc831d189.dlied1.cdntips.net/dlied1.qq.com/qqweb/QQ_1/android_apk/Androidqq_8.4.8.4810_537065343.apk?mkey=5f7d47171b9a3f96&f=0f9e&cip=27.154.25.99&proto=https&access_type=$header_ApolloNet");
+                //UpdateManager.getInstance().onReceiveNewVersion(2, "https://729c93f0b85ca2e0830a29dfc831d189.dlied1.cdntips.net/dlied1.qq.com/qqweb/QQ_1/android_apk/Androidqq_8.4.8.4810_537065343.apk?mkey=5f7d47171b9a3f96&f=0f9e&cip=27.154.25.99&proto=https&access_type=$header_ApolloNet");
+                //CrashReport.testJavaCrash();
                 break;
             case R.id.layout_btn_notice:
                 m_activity.uiFaceCheck.show();

@@ -70,9 +70,13 @@ public class Constant {
 
     public static String CsvDataDirName = "csv_data";
 
-    public static String APP_ID = "2i39BTFEN2a9vMaLijVUnApgh8VrTfdM62QR6Gqe4Ju3";
+    public static String FACE_APP_ID = "2i39BTFEN2a9vMaLijVUnApgh8VrTfdM62QR6Gqe4Ju3";
 
-    public static String SDK_KEY = "3yYGqGYBBYZUP9FSdAbht78z4sbbcJhZQ6DSiMMxMrWv";
+    public static String FACE_SDK_KEY = "3yYGqGYBBYZUP9FSdAbht78z4sbbcJhZQ6DSiMMxMrWv";
+
+    public static String BUGLY_APP_ID = "a5e518088b";
+
+    public static String BUGLY_APP_KEY = "ec1a4cfd-bf63-4502-b667-adb0939853ca";
 
     //版本号
     public static int Version = 1;

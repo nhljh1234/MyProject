@@ -51,7 +51,7 @@ public class ArcFaceManager {
 
     public Boolean active(MainActivity activity) {
         m_activity = activity;
-        int activeCode = FaceEngine.activeOnline(activity, Constant.APP_ID, Constant.SDK_KEY);
+        int activeCode = FaceEngine.activeOnline(activity, Constant.FACE_APP_ID, Constant.FACE_SDK_KEY);
         if (activeCode == ErrorInfo.MOK || activeCode == ErrorInfo.MERR_ASF_ALREADY_ACTIVATED) {
             //本地人脸库初始化
             FaceServer.getInstance().init(activity);
