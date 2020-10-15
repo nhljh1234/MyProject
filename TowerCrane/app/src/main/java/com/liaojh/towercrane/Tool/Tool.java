@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigInteger;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -188,6 +189,11 @@ public class Tool {
             str = "0" + str;
         }
         return str;
+    }
+
+    //byte[]转10进制
+    public static int byteToInt(byte[] bytes, int radix){
+        return Integer.parseInt(new BigInteger(1, bytes).toString(radix));// 这里的1代表正数
     }
 
     //hex检验

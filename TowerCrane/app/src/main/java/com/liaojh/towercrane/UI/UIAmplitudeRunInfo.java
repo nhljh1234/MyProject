@@ -41,7 +41,7 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
     private void updateTextWaringInfo(Boolean isWaring, TextView view) {
         if (isWaring) {
             view.setTextColor(activity.getResources().getColor(R.color.color_label_red));
-            view.setText(activity.getString(R.string.text_waring));
+            view.setText(activity.getString(R.string.text_error));
         } else {
             view.setTextColor(activity.getResources().getColor(R.color.color_label_blue));
             view.setText(activity.getString(R.string.text_normal));
@@ -60,7 +60,7 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
         imageTurnSpeed = (ImageView) activity.findViewById(R.id.image_amplitude_turn_speed);
         imageTemperature = (ImageView) activity.findViewById(R.id.image_amplitude_temperature);
 
-        textStatus = (TextView) activity.findViewById(R.id.text_amplitude_status);
+        textStatus = (TextView) activity.findViewById(R.id.text_amplitude_status_run);
         textGeneratrix = (TextView) activity.findViewById(R.id.text_amplitude_generatrix);
         textOutputVoltage = (TextView) activity.findViewById(R.id.text_amplitude_output_voltage);
         textOutputElectricity = (TextView) activity.findViewById(R.id.text_amplitude_output_electricity);

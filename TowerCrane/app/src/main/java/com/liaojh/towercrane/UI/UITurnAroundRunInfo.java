@@ -41,7 +41,7 @@ public class UITurnAroundRunInfo implements InterfaceUI {
     private void updateTextWaringInfo(Boolean isWaring, TextView view) {
         if (isWaring) {
             view.setTextColor(activity.getResources().getColor(R.color.color_label_red));
-            view.setText(activity.getString(R.string.text_waring));
+            view.setText(activity.getString(R.string.text_error));
         } else {
             view.setTextColor(activity.getResources().getColor(R.color.color_label_blue));
             view.setText(activity.getString(R.string.text_normal));
@@ -60,7 +60,7 @@ public class UITurnAroundRunInfo implements InterfaceUI {
         imageTurnSpeed = activity.findViewById(R.id.image_turn_around_turn_speed);
         imageTemperature = activity.findViewById(R.id.image_turn_around_temperature);
 
-        textStatus = activity.findViewById(R.id.text_turn_around_status);
+        textStatus = activity.findViewById(R.id.text_turn_around_status_run);
         textGeneratrix = activity.findViewById(R.id.text_turn_around_generatrix);
         textOutputVoltage = activity.findViewById(R.id.text_turn_around_output_voltage);
         textOutputElectricity = activity.findViewById(R.id.text_turn_around_output_electricity);

@@ -1454,156 +1454,119 @@
                                     android:layout_marginTop="4dp"
                                     android:layout_marginBottom="2dp"
                                     android:layout_weight="1"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
 
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
+                                    <FrameLayout
+                                        android:layout_width="45dp"
                                         android:layout_height="match_parent"
-                                        android:layout_weight="1"
-                                        android:gravity="right"
-                                        android:orientation="horizontal">
+                                        android:layout_marginRight="3dp">
 
-                                        <FrameLayout
-                                            android:layout_width="45dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_marginRight="6dp">
+                                        <ImageView
+                                            android:layout_width="40dp"
+                                            android:layout_height="20dp"
+                                            android:layout_gravity="center_horizontal"
+                                            android:layout_marginBottom="8dp"
+                                            android:scaleType="fitXY"
+                                            app:srcCompat="@drawable/yibiaopan_blue" />
 
-                                            <ImageView
-                                                android:id="@+id/image_up_down_status"
-                                                android:layout_width="40dp"
-                                                android:layout_height="20dp"
-                                                android:layout_gravity="center_horizontal"
-                                                android:layout_marginBottom="8dp"
-                                                android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_blue" />
+                                        <TextView
+                                            android:id="@+id/up_down_status"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom|center_horizontal"
+                                            android:text="@string/up_down_status"
+                                            android:textSize="6sp" />
 
-                                            <TextView
-                                                android:id="@+id/up_down_status"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/up_down_status"
-                                                android:textSize="5sp" />
+                                        <TextView
+                                            android:id="@+id/text_up_down_status_stop"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom|center_horizontal"
+                                            android:layout_marginBottom="8dp"
+                                            android:text="停车"
+                                            android:textColor="@color/color_label_blue"
+                                            android:textSize="6sp" />
 
-                                            <TextView
-                                                android:id="@+id/text_up_down_status"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="bottom|center_horizontal"
-                                                android:layout_marginBottom="9dp"
-                                                android:text="停止"
-                                                android:textSize="5sp" />
+                                        <TextView
+                                            android:id="@+id/text_up_down_status_run"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom|center_horizontal"
+                                            android:layout_marginBottom="16dp"
+                                            android:text="停止"
+                                            android:textColor="@color/color_label_blue"
+                                            android:textSize="6sp" />
 
-                                        </FrameLayout>
+                                    </FrameLayout>
 
-                                        <FrameLayout
-                                            android:layout_width="45dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_marginRight="3dp">
-
-                                            <ImageView
-                                                android:id="@+id/image_up_down_brake_check"
-                                                android:layout_width="40dp"
-                                                android:layout_height="20dp"
-                                                android:layout_gravity="center_horizontal"
-                                                android:layout_marginBottom="8dp"
-                                                android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
-
-                                            <TextView
-                                                android:id="@+id/up_down_brake_check"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/up_down_brake_check"
-                                                android:textSize="5sp" />
-
-                                            <TextView
-                                                android:id="@+id/text_up_down_brake_check"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="bottom|center_horizontal"
-                                                android:layout_marginBottom="9dp"
-                                                android:text="停止"
-                                                android:textSize="5sp" />
-
-                                        </FrameLayout>
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
+                                    <FrameLayout
+                                        android:layout_width="45dp"
                                         android:layout_height="match_parent"
-                                        android:layout_weight="1"
-                                        android:orientation="horizontal">
+                                        android:layout_marginLeft="3dp"
+                                        android:layout_marginRight="3dp">
 
-                                        <FrameLayout
-                                            android:layout_width="45dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_marginLeft="3dp">
+                                        <ImageView
+                                            android:layout_width="40dp"
+                                            android:layout_height="20dp"
+                                            android:layout_gravity="center_horizontal"
+                                            android:layout_marginBottom="8dp"
+                                            android:scaleType="fitXY"
+                                            app:srcCompat="@drawable/yibiaopan_blue" />
 
-                                            <ImageView
-                                                android:id="@+id/image_up_down_generatrix"
-                                                android:layout_width="40dp"
-                                                android:layout_height="20dp"
-                                                android:layout_gravity="center_horizontal"
-                                                android:layout_marginBottom="8dp"
-                                                android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_blue" />
+                                        <TextView
+                                            android:id="@+id/up_down_generatrix"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom|center_horizontal"
+                                            android:text="@string/up_down_generatrix"
+                                            android:textSize="6sp" />
 
-                                            <TextView
-                                                android:id="@+id/up_down_generatrix"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/up_down_generatrix"
-                                                android:textSize="5sp" />
+                                        <TextView
+                                            android:id="@+id/text_up_down_generatrix"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom|center_horizontal"
+                                            android:layout_marginBottom="9dp"
+                                            android:text="停止"
+                                            android:textColor="@color/color_label_blue"
+                                            android:textSize="6sp" />
 
-                                            <TextView
-                                                android:id="@+id/text_up_down_generatrix"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="bottom|center_horizontal"
-                                                android:layout_marginBottom="9dp"
-                                                android:text="停止"
-                                                android:textSize="5sp" />
+                                    </FrameLayout>
 
-                                        </FrameLayout>
+                                    <FrameLayout
+                                        android:layout_width="45dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginLeft="3dp">
 
-                                        <FrameLayout
-                                            android:layout_width="45dp"
-                                            android:layout_height="match_parent"
-                                            android:layout_marginLeft="6dp">
+                                        <ImageView
+                                            android:layout_width="40dp"
+                                            android:layout_height="20dp"
+                                            android:layout_gravity="center_horizontal"
+                                            android:layout_marginBottom="8dp"
+                                            android:scaleType="fitXY"
+                                            app:srcCompat="@drawable/yibiaopan_blue" />
 
-                                            <ImageView
-                                                android:id="@+id/image_up_down_output_voltage"
-                                                android:layout_width="40dp"
-                                                android:layout_height="20dp"
-                                                android:layout_gravity="center_horizontal"
-                                                android:layout_marginBottom="8dp"
-                                                android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                        <TextView
+                                            android:id="@+id/up_down_output_voltage"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom|center_horizontal"
+                                            android:text="@string/up_down_output_voltage"
+                                            android:textSize="6sp" />
 
-                                            <TextView
-                                                android:id="@+id/up_down_output_voltage"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="bottom|center_horizontal"
-                                                android:text="@string/up_down_output_voltage"
-                                                android:textSize="5sp" />
+                                        <TextView
+                                            android:id="@+id/text_up_down_output_voltage"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="bottom|center_horizontal"
+                                            android:layout_marginBottom="9dp"
+                                            android:text="停止"
+                                            android:textColor="@color/color_label_blue"
+                                            android:textSize="6sp" />
 
-                                            <TextView
-                                                android:id="@+id/text_up_down_output_voltage"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="bottom|center_horizontal"
-                                                android:layout_marginBottom="9dp"
-                                                android:text="停止"
-                                                android:textSize="5sp" />
+                                    </FrameLayout>
 
-                                        </FrameLayout>
-
-                                    </LinearLayout>
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1627,7 +1590,6 @@
                                             android:layout_marginRight="6dp">
 
                                             <ImageView
-                                                android:id="@+id/image_up_down_output_electricity"
                                                 android:layout_width="40dp"
                                                 android:layout_height="20dp"
                                                 android:layout_gravity="center_horizontal"
@@ -1641,7 +1603,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/up_down_output_electricity"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_up_down_output_electricity"
@@ -1650,7 +1612,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -1660,13 +1623,12 @@
                                             android:layout_marginRight="3dp">
 
                                             <ImageView
-                                                android:id="@+id/image_up_down_run_frequency"
                                                 android:layout_width="40dp"
                                                 android:layout_height="20dp"
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_marginBottom="8dp"
                                                 android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                                app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
                                                 android:id="@+id/up_down_run_frequency"
@@ -1674,7 +1636,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/up_down_run_frequency"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_up_down_run_frequency"
@@ -1683,7 +1645,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -1701,7 +1664,6 @@
                                             android:layout_marginLeft="3dp">
 
                                             <ImageView
-                                                android:id="@+id/image_up_down_turn_speed"
                                                 android:layout_width="40dp"
                                                 android:layout_height="20dp"
                                                 android:layout_gravity="center_horizontal"
@@ -1715,7 +1677,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/up_down_turn_speed"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_up_down_turn_speed"
@@ -1724,7 +1686,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -1734,13 +1697,12 @@
                                             android:layout_marginLeft="6dp">
 
                                             <ImageView
-                                                android:id="@+id/image_up_down_temperature"
                                                 android:layout_width="40dp"
                                                 android:layout_height="20dp"
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_marginBottom="8dp"
                                                 android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                                app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
                                                 android:id="@+id/up_down_temperature"
@@ -1748,7 +1710,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/up_down_temperature"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_up_down_temperature"
@@ -1757,7 +1719,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -1792,7 +1755,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_up_slow_down"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_up_slow_down"
@@ -1801,7 +1764,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1817,7 +1780,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_down_destination"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_down_destination"
@@ -1826,7 +1789,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1842,7 +1805,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_load_50"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_load_50"
@@ -1851,7 +1814,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1867,7 +1830,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_brake"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_brake"
@@ -1876,7 +1839,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1892,7 +1855,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_limit_switch"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_limit_switch"
@@ -1901,7 +1864,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
                             </LinearLayout>
 
@@ -1924,7 +1887,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_down_slow_down"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_down_slow_down"
@@ -1933,7 +1896,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1949,7 +1912,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_load_100"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_load_100"
@@ -1958,7 +1921,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1974,7 +1937,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_load_25"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_load_25"
@@ -1983,7 +1946,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -1999,7 +1962,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_run_slow_down"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_run_slow_down"
@@ -2008,7 +1971,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2039,7 +2002,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_up_destination"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_up_destination"
@@ -2048,7 +2011,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2064,7 +2027,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_load_90"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_load_90"
@@ -2073,7 +2036,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2089,7 +2052,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_brake_unit"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_brake_unit"
@@ -2098,7 +2061,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2114,7 +2077,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/up_down_brake_open"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_up_down_brake_open"
@@ -2123,7 +2086,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2250,16 +2213,27 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/amplitude_status"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
-                                                android:id="@+id/text_amplitude_status"
+                                                android:id="@+id/text_amplitude_status_stop"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:layout_marginBottom="9dp"
+                                                android:layout_marginBottom="8dp"
+                                                android:text="停车"
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
+
+                                            <TextView
+                                                android:id="@+id/text_amplitude_status_run"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="bottom|center_horizontal"
+                                                android:layout_marginBottom="16dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2284,7 +2258,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/amplitude_generatrix"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_amplitude_generatrix"
@@ -2293,7 +2267,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2309,7 +2284,7 @@
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_marginBottom="8dp"
                                                 android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                                app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
                                                 android:id="@+id/amplitude_output_voltage"
@@ -2317,7 +2292,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/amplitude_output_voltage"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_amplitude_output_voltage"
@@ -2326,7 +2301,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2369,7 +2345,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/amplitude_output_electricity"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_amplitude_output_electricity"
@@ -2378,7 +2354,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2394,7 +2371,7 @@
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_marginBottom="8dp"
                                                 android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                                app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
                                                 android:id="@+id/amplitude_run_frequency"
@@ -2402,7 +2379,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/amplitude_run_frequency"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_amplitude_run_frequency"
@@ -2411,7 +2388,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2443,7 +2421,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/amplitude_turn_speed"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_amplitude_turn_speed"
@@ -2452,7 +2430,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2468,7 +2447,7 @@
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_marginBottom="8dp"
                                                 android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                                app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
                                                 android:id="@+id/amplitude_temperature"
@@ -2476,7 +2455,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/amplitude_temperature"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_amplitude_temperature"
@@ -2485,7 +2464,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2526,7 +2506,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_front_slow_down"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_front_slow_down"
@@ -2535,7 +2515,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2551,7 +2531,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_back_destination"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_back_destination"
@@ -2560,7 +2540,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2576,7 +2556,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_torque_80"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_torque_80"
@@ -2585,7 +2565,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2622,7 +2602,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_back_slow_down"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_back_slow_down"
@@ -2631,7 +2611,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2647,7 +2627,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_torque_100"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_torque_100"
@@ -2656,7 +2636,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2672,7 +2652,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_brake_unit"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_brake_unit"
@@ -2681,7 +2661,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2718,7 +2698,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_front_destination"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_front_destination"
@@ -2727,7 +2707,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2743,7 +2723,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_torque_90"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_torque_90"
@@ -2752,7 +2732,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2768,7 +2748,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/amplitude_run_slow_down"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_amplitude_run_slow_downn"
@@ -2777,7 +2757,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -2903,16 +2883,27 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/turn_around_status"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
-                                                android:id="@+id/text_turn_around_status"
+                                                android:id="@+id/text_turn_around_status_stop"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
-                                                android:layout_marginBottom="9dp"
+                                                android:layout_marginBottom="8dp"
+                                                android:text="停车"
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
+
+                                            <TextView
+                                                android:id="@+id/text_turn_around_status_run"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="bottom|center_horizontal"
+                                                android:layout_marginBottom="16dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2937,7 +2928,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/turn_around_generatrix"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_turn_around_generatrix"
@@ -2946,7 +2937,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -2962,7 +2954,7 @@
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_marginBottom="8dp"
                                                 android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                                app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
                                                 android:id="@+id/turn_around_output_voltage"
@@ -2970,7 +2962,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/turn_around_output_voltage"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_turn_around_output_voltage"
@@ -2979,7 +2971,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -3022,7 +3015,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/turn_around_output_electricity"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_turn_around_output_electricity"
@@ -3031,7 +3024,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -3047,7 +3041,7 @@
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_marginBottom="8dp"
                                                 android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                                app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
                                                 android:id="@+id/turn_around_run_frequency"
@@ -3055,7 +3049,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/turn_around_run_frequency"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_turn_around_run_frequency"
@@ -3064,7 +3058,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -3096,7 +3091,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/turn_around_turn_speed"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_turn_around_turn_speed"
@@ -3105,7 +3100,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -3121,7 +3117,7 @@
                                                 android:layout_gravity="center_horizontal"
                                                 android:layout_marginBottom="8dp"
                                                 android:scaleType="fitXY"
-                                                app:srcCompat="@drawable/yibiaopan_red" />
+                                                app:srcCompat="@drawable/yibiaopan_blue" />
 
                                             <TextView
                                                 android:id="@+id/turn_around_temperature"
@@ -3129,7 +3125,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:text="@string/turn_around_temperature"
-                                                android:textSize="5sp" />
+                                                android:textSize="6sp" />
 
                                             <TextView
                                                 android:id="@+id/text_turn_around_temperature"
@@ -3138,7 +3134,8 @@
                                                 android:layout_gravity="bottom|center_horizontal"
                                                 android:layout_marginBottom="9dp"
                                                 android:text="停止"
-                                                android:textSize="5sp" />
+                                                android:textColor="@color/color_label_blue"
+                                                android:textSize="6sp" />
 
                                         </FrameLayout>
 
@@ -3179,7 +3176,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/turn_around_left_destination"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_turn_around_left_destination"
@@ -3188,7 +3185,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -3204,7 +3201,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/turn_around_run_slow_down"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_turn_around_run_slow_down"
@@ -3213,7 +3210,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -3256,7 +3253,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/turn_around_right_destination"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_turn_around_right_destination"
@@ -3265,7 +3262,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -3314,7 +3311,7 @@
                                         android:layout_marginLeft="6dp"
                                         android:text="@string/turn_around_brake_unit"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
 
                                     <TextView
                                         android:id="@+id/text_turn_around_brake_unit"
@@ -3323,7 +3320,7 @@
                                         android:layout_gravity="center_vertical"
                                         android:text="正常"
                                         android:textColor="@android:color/background_dark"
-                                        android:textSize="5sp" />
+                                        android:textSize="6sp" />
                                 </LinearLayout>
 
                                 <LinearLayout

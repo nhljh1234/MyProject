@@ -1,7 +1,9 @@
 package com.liaojh.towercrane.Activity;
 
+import com.kongqw.serialportlibrary.SerialPort;
 import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.SettingData;
+import com.liaojh.towercrane.Data.TowerCraneData;
 import com.liaojh.towercrane.Manager.ArcFaceManager;
 import com.liaojh.towercrane.Manager.CSVFileManager;
 import com.liaojh.towercrane.Manager.NetManager;
@@ -10,7 +12,6 @@ import com.liaojh.towercrane.Manager.USBManager;
 import com.liaojh.towercrane.Manager.UpdateManager;
 import com.liaojh.towercrane.SerialPort.SerialUtil;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
-import com.liaojh.towercrane.Data.TowerCraneRunDataFactory;
 import com.liaojh.towercrane.Manager.LocalStorage;
 import com.liaojh.towercrane.Tool.Tool;
 import com.liaojh.towercrane.UI.InterfaceUI;
@@ -33,15 +34,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -50,7 +47,6 @@ import android.widget.LinearLayout;
 import com.liaojh.towercrane.R;
 import com.tencent.bugly.crashreport.CrashReport;
 
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -115,8 +111,6 @@ public class MainActivity extends BaseActivity {
 
     private static final int ACTION_REQUEST_PERMISSIONS = 1;
 
-    private TowerCraneRunDataFactory towerCraneRunDataFactory = new TowerCraneRunDataFactory();
-
     //更新主界面时间
     private Timer timer = new Timer();
     private TimerTask timerTask = new TimerTask() {
@@ -135,20 +129,7 @@ public class MainActivity extends BaseActivity {
             if (timerTimeReadData >= SettingData.getInstance().getTowerCraneData().readDataInterval) {
                 timerTimeReadData = 0;
                 Log.e(Constant.LogTag, "timerTimeReadData");
-                final TowerCraneRunData towerCraneRunData = towerCraneRunDataFactory.getRunData();
-                if (oldData != null) {
-                    towerCraneRunData.setOldData(oldData);
-                }
-                CSVFileManager.getInstance().addData(towerCraneRunData);
-                oldData = towerCraneRunData;
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (int i = 0; i < uis.length; i++) {
-                            uis[i].onTowerCraneRunDateUpdate(towerCraneRunData);
-                        }
-                    }
-                });
+                SerialUtil.getInstance().test();
             }
 
             //更新信号
@@ -223,31 +204,32 @@ public class MainActivity extends BaseActivity {
 
         buglyInit();
 
-        int DPI = Tool.getDPI(this);
-        switch (DPI) {
-            case 120:
-                setContentView(R.layout.activity_main_dpi_120);
-                break;
-            case 180:
-                setContentView(R.layout.activity_main_dpi_180);
-                break;
-            case 240:
-                setContentView(R.layout.activity_main_dpi_240);
-                break;
-            case 420:
-                setContentView(R.layout.activity_main_dpi_420);
-                break;
-            case 480:
-                setContentView(R.layout.activity_main_dpi_480);
-                break;
-            default:
-                if (DPI > 320) {
-                    setContentView(R.layout.activity_main_dpi_420);
-                } else {
-                    setContentView(R.layout.activity_main_dpi_240);
-                }
-                break;
-        }
+        setContentView(R.layout.activity_main_dpi_420);
+//        int DPI = Tool.getDPI(this);
+//        switch (DPI) {
+//            case 120:
+//                setContentView(R.layout.activity_main_dpi_120);
+//                break;
+//            case 180:
+//                setContentView(R.layout.activity_main_dpi_180);
+//                break;
+//            case 240:
+//                setContentView(R.layout.activity_main_dpi_240);
+//                break;
+//            case 420:
+//                setContentView(R.layout.activity_main_dpi_420);
+//                break;
+//            case 480:
+//                setContentView(R.layout.activity_main_dpi_480);
+//                break;
+//            default:
+//                if (DPI > 320) {
+//                    setContentView(R.layout.activity_main_dpi_420);
+//                } else {
+//                    setContentView(R.layout.activity_main_dpi_240);
+//                }
+//                break;
+//        }
 
         if (!checkPermissions(NEEDED_PERMISSIONS)) {
             ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
@@ -293,7 +275,7 @@ public class MainActivity extends BaseActivity {
             uis[i].onUIStart();
         }
 
-        SerialUtil.getInstance().connect("ttyS1");
+        SerialUtil.getInstance().connect("ttyS1", this);
     }
 
 
@@ -321,5 +303,21 @@ public class MainActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
 
         }
+    }
+
+    public void onReceiveTowerData(final TowerCraneRunData towerCraneRunData) {
+        if (oldData != null) {
+            towerCraneRunData.setOldData(oldData);
+        }
+        CSVFileManager.getInstance().addData(towerCraneRunData);
+        oldData = towerCraneRunData;
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < uis.length; i++) {
+                    uis[i].onTowerCraneRunDateUpdate(towerCraneRunData);
+                }
+            }
+        });
     }
 }

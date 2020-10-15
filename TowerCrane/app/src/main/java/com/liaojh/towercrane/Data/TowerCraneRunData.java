@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class TowerCraneRunData {
     private TowerCraneRunData oldData;
 
-    public TowerCraneLiftData towerCraneLiftData = new TowerCraneLiftData();
+    public TowerCraneLiftData towerCraneLiftData;
 
     public TowerCraneAmplitudeData towerCraneAmplitudeData = new TowerCraneAmplitudeData();
 

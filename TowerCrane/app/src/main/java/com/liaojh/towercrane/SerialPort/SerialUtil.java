@@ -5,13 +5,19 @@ import android.util.Log;
 import com.kongqw.serialportlibrary.SerialPortManager;
 import com.kongqw.serialportlibrary.listener.OnOpenSerialPortListener;
 import com.kongqw.serialportlibrary.listener.OnSerialPortDataListener;
+import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.Data.TowerCraneRunData;
+import com.liaojh.towercrane.Manager.SerialDataManager;
+import com.liaojh.towercrane.Tool.Tool;
 
 import java.io.File;
 
 public class SerialUtil {
     private SerialPortManager mSerialPortManager = new SerialPortManager();
     private static SerialUtil instance = null;
+    private MainActivity m_activity;
+
 
     private SerialUtil() {
 
@@ -30,7 +36,6 @@ public class SerialUtil {
         }
         return instance;
     }
-
 
     private OnSerialPortDataListener onSerialPortDataListener = new OnSerialPortDataListener() {
         @Override
@@ -62,7 +67,8 @@ public class SerialUtil {
      * @param PortName 设备节点名称
      * @return
      */
-    public void connect(final String PortName) {
+    public void connect(final String PortName, MainActivity activity) {
+        m_activity = activity;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -76,11 +82,24 @@ public class SerialUtil {
      * @param val
      */
     public void write(final String val) {
+        byte[] bytes = Tool.hexStrToBytes(val);
+    }
+
+    public void write(final byte[] bytes) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                mSerialPortManager.sendBytes(val.getBytes());
+                mSerialPortManager.sendBytes(bytes);
             }
         });
+    }
+
+    public void test() {
+        TowerCraneRunData testData = new TowerCraneRunData();
+        String data = "0B03440000000100000000000013E80000000000020157000000004810002900000000000000000000000000010000006500000000000000000000000000002710000013880000FA20";
+        testData.towerCraneLiftData = SerialDataManager.getInstance().handleLiftData(Tool.hexStrToBytes(data));
+        if (m_activity != null) {
+            m_activity.onReceiveTowerData(testData);
+        }
     }
 }

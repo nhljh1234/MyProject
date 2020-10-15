@@ -54,7 +54,7 @@
     <string name="up_down_brake_unit">制动单元故障：</string>
     <string name="up_down_run_slow_down">慢速运行：</string>
     <string name="up_down_brake_open">制动器未打开：</string>
-    <string name="text_waring">异常</string>
+    <string name="text_error">异常</string>
     <string name="text_normal">正常</string>
     <string name="amplitude_status">运行状态</string>
     <string name="amplitude_generatrix">母线电压</string>
