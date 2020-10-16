@@ -31,11 +31,11 @@ public class TowerCraneLiftData {
     //下降终点限位到
     public int downDestination = Constant.STATUS_NORMAL;
     //力矩110%限位到
-    public int force_110 = Constant.STATUS_NORMAL;
+    public int torque_110 = Constant.STATUS_NORMAL;
     //力矩100%限位到
-    public int force_100 = Constant.STATUS_NORMAL;
+    public int torque_100 = Constant.STATUS_NORMAL;
     //力矩90%限位到
-    public int force_90 = Constant.STATUS_NORMAL;
+    public int torque_90 = Constant.STATUS_NORMAL;
     //载重量100%限位到
     public int load_100 = Constant.STATUS_NORMAL;
     //载重量90%限位到
@@ -51,7 +51,7 @@ public class TowerCraneLiftData {
     //慢速运行
     public int slowDown = Constant.STATUS_NORMAL;
     //力矩80%限位到
-    public int force_80 = Constant.STATUS_NORMAL;
+    public int torque_80 = Constant.STATUS_NORMAL;
     //制动器未打开
     public int brakeOpen = Constant.STATUS_NORMAL;
     //限位开关屏蔽到

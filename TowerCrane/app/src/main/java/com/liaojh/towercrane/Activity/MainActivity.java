@@ -196,58 +196,57 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        USBManager.getInstance().init(this);
-        LocalStorage.getInstance().init(this);
-        NetManager.getInstance().connect();
-        UpdateManager.getInstance().init(this);
-        SoundManager.getInstance().init(this);
-
-        buglyInit();
-
-        setContentView(R.layout.activity_main_dpi_420);
-//        int DPI = Tool.getDPI(this);
-//        switch (DPI) {
-//            case 120:
-//                setContentView(R.layout.activity_main_dpi_120);
-//                break;
-//            case 180:
-//                setContentView(R.layout.activity_main_dpi_180);
-//                break;
-//            case 240:
-//                setContentView(R.layout.activity_main_dpi_240);
-//                break;
-//            case 420:
-//                setContentView(R.layout.activity_main_dpi_420);
-//                break;
-//            case 480:
-//                setContentView(R.layout.activity_main_dpi_480);
-//                break;
-//            default:
-//                if (DPI > 320) {
-//                    setContentView(R.layout.activity_main_dpi_420);
-//                } else {
-//                    setContentView(R.layout.activity_main_dpi_240);
-//                }
-//                break;
-//        }
-
-        if (!checkPermissions(NEEDED_PERMISSIONS)) {
-            ActivityCompat.requestPermissions(this, NEEDED_PERMISSIONS, ACTION_REQUEST_PERMISSIONS);
+        int DPI = Tool.getDPI(this);
+        switch (DPI) {
+            case 120:
+                setContentView(R.layout.activity_main_dpi_120);
+                break;
+            case 180:
+                setContentView(R.layout.activity_main_dpi_180);
+                break;
+            case 240:
+                setContentView(R.layout.activity_main_dpi_240);
+                break;
+            case 420:
+                setContentView(R.layout.activity_main_dpi_420);
+                break;
+            case 480:
+                setContentView(R.layout.activity_main_dpi_480);
+                break;
+            default:
+                if (DPI > 320) {
+                    setContentView(R.layout.activity_main_dpi_420);
+                } else {
+                    setContentView(R.layout.activity_main_dpi_240);
+                }
+                break;
         }
 
         //去掉头部
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //人脸识别
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //保持亮屏
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-
-        for (int i = 0; i < uis.length; i++) {
-            uis[i].onUICreate(this);
-        }
+        USBManager.getInstance().init(this);
+        LocalStorage.getInstance().init(this);
+        NetManager.getInstance().connect();
+        UpdateManager.getInstance().init(this);
+        SoundManager.getInstance().init(this);
+        buglyInit();
+        ArcFaceManager.getInstance().active(this);
 
         intervalTime = Math.min(Constant.SIGNAL_DATA_UPDATE_INTERVAL, SettingData.getInstance().getTowerCraneData().checkFaceInterval);
         intervalTime = Math.min(intervalTime, SettingData.getInstance().getTowerCraneData().csvSaveInterval);
         intervalTime = Math.min(intervalTime, SettingData.getInstance().getTowerCraneData().readDataInterval);
         intervalTime = Math.min(intervalTime, SettingData.getInstance().getTowerCraneData().uploadInterval);
+
+        for (int i = 0; i < uis.length; i++) {
+            uis[i].onUICreate(this);
+        }
+
         //开启时间信息更新定时器
         timer.schedule(timerTask, 0, intervalTime * 1000);
 
@@ -257,14 +256,6 @@ public class MainActivity extends BaseActivity {
                 uiLogin.show();
             }
         });
-
-        //人脸识别
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //保持亮屏
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        //初始化
-        ArcFaceManager.getInstance().active(this);
     }
 
     @Override

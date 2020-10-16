@@ -236,4 +236,6 @@
     <string name="main_monitor_number">设备编号:</string>
     <string name="main_tower_number">塔吊规格:</string>
     <string name="main_magnification">倍率:</string>
+
+    <string name="check_permission_fail">不给于权限无法开启应用</string>
 </resources>

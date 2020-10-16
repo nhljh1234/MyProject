@@ -14,13 +14,12 @@ import com.liaojh.towercrane.Data.TowerCraneAmplitudeData;
 import com.liaojh.towercrane.Data.TowerCraneLiftData;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
 
+import org.w3c.dom.Text;
+
 public class UIAmplitudeRunInfo implements InterfaceUI {
     private Activity activity;
 
-    private ImageView imageStatus, imageGeneratrix, imageOutputVoltage, imageOutputElectricity, imageRunFrequency, imageTurnSpeed,
-            imageTemperature;
-
-    private TextView textStatus, textGeneratrix, textOutputVoltage, textOutputElectricity, textRunFrequency, textTurnSpeed,
+    private TextView textStatusRun, textStatusStop, textGeneratrix, textOutputVoltage, textOutputElectricity, textRunFrequency, textTurnSpeed,
             textTemperature;
 
     private TextView textFrontSlowDown, textBackSlowDown, textFrontDestination, textBackDestination, textTorque100, textTorque90, textTorque80,
@@ -28,18 +27,8 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
 
     private TextView textUpDownCommunicationStatus;
 
-    private void updateImageWaringInfo(Boolean isWaring, ImageView imageView, TextView textView) {
-        if (isWaring) {
-            imageView.setImageDrawable(activity.getDrawable(R.drawable.yibiaopan_red));
-            textView.setTextColor(activity.getResources().getColor(R.color.color_label_red));
-        } else {
-            imageView.setImageDrawable(activity.getDrawable(R.drawable.yibiaopan_blue));
-            textView.setTextColor(activity.getResources().getColor(R.color.color_label_blue));
-        }
-    }
-
-    private void updateTextWaringInfo(Boolean isWaring, TextView view) {
-        if (isWaring) {
+    private void updateTextWaringInfo(Boolean warning, TextView view) {
+        if (warning) {
             view.setTextColor(activity.getResources().getColor(R.color.color_label_red));
             view.setText(activity.getString(R.string.text_error));
         } else {
@@ -52,15 +41,8 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
     public void onUICreate(MainActivity activityIn) {
         activity = activityIn;
 
-        imageStatus = (ImageView) activity.findViewById(R.id.image_amplitude_status);
-        imageGeneratrix = (ImageView) activity.findViewById(R.id.image_amplitude_generatrix);
-        imageOutputVoltage = (ImageView) activity.findViewById(R.id.image_amplitude_output_voltage);
-        imageOutputElectricity = (ImageView) activity.findViewById(R.id.image_amplitude_output_electricity);
-        imageRunFrequency = (ImageView) activity.findViewById(R.id.image_amplitude_run_frequency);
-        imageTurnSpeed = (ImageView) activity.findViewById(R.id.image_amplitude_turn_speed);
-        imageTemperature = (ImageView) activity.findViewById(R.id.image_amplitude_temperature);
-
-        textStatus = (TextView) activity.findViewById(R.id.text_amplitude_status_run);
+        textStatusRun = (TextView) activity.findViewById(R.id.text_amplitude_status_run);
+        textStatusStop = (TextView) activity.findViewById(R.id.text_amplitude_status_stop);
         textGeneratrix = (TextView) activity.findViewById(R.id.text_amplitude_generatrix);
         textOutputVoltage = (TextView) activity.findViewById(R.id.text_amplitude_output_voltage);
         textOutputElectricity = (TextView) activity.findViewById(R.id.text_amplitude_output_electricity);
@@ -95,15 +77,8 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
     public void onTowerCraneRunDateUpdate(TowerCraneRunData towerCraneRunData) {
         TowerCraneAmplitudeData towerCraneAmplitudeData = towerCraneRunData.towerCraneAmplitudeData;
 
-        updateImageWaringInfo(towerCraneAmplitudeData.judgeStatusIsWaring(), imageStatus, textStatus);
-        updateImageWaringInfo(towerCraneAmplitudeData.judgeGeneratrixVoltageIsWaring(), imageGeneratrix, textGeneratrix);
-        updateImageWaringInfo(towerCraneAmplitudeData.judgeOutputVoltageIsWaring(), imageOutputVoltage, textOutputVoltage);
-        updateImageWaringInfo(towerCraneAmplitudeData.judgeOutputElectricityIsWaring(), imageOutputElectricity, textOutputElectricity);
-        updateImageWaringInfo(towerCraneAmplitudeData.judgeRunFrequencyIsWaring(), imageRunFrequency, textRunFrequency);
-        updateImageWaringInfo(towerCraneAmplitudeData.judgeTurnSpeedIsWaring(), imageTurnSpeed, textTurnSpeed);
-        updateImageWaringInfo(towerCraneAmplitudeData.judgeTemperatureIsWaring(), imageTemperature, textTemperature);
-
-        textStatus.setText(towerCraneAmplitudeData.getStatusStr());
+        textStatusRun.setText(towerCraneAmplitudeData.getStatusRunStr());
+        textStatusStop.setText(towerCraneAmplitudeData.getStatusStopStr());
         textGeneratrix.setText(towerCraneAmplitudeData.getGeneratrixVoltageStr());
         textOutputVoltage.setText(towerCraneAmplitudeData.getOutputVoltageStr());
         textOutputElectricity.setText(towerCraneAmplitudeData.getOutputElectricityStr());
@@ -121,11 +96,7 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
         updateTextWaringInfo(towerCraneAmplitudeData.judgeBrakeUnitIsWaring(), textBrakeUnit);
         updateTextWaringInfo(towerCraneAmplitudeData.judgeRunSlowDownIsWaring(), textRunSlowDown);
 
-        if (towerCraneAmplitudeData.judgeCommunicationIsWaring()) {
-            textUpDownCommunicationStatus.setVisibility(View.VISIBLE);
-        } else {
-            textUpDownCommunicationStatus.setVisibility(View.INVISIBLE);
-        }
+        textUpDownCommunicationStatus.setText(towerCraneAmplitudeData.getWarnOrErrorStr());
     }
 
     @Override

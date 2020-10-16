@@ -43,13 +43,19 @@ import com.arcsoft.face.enums.DetectFaceOrientPriority;
 import com.arcsoft.face.enums.DetectMode;
 import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.Data.Constant;
+import com.liaojh.towercrane.Data.SettingData;
 import com.liaojh.towercrane.Data.TowerCraneRunData;
 import com.liaojh.towercrane.Manager.ArcFaceManager;
+import com.liaojh.towercrane.Manager.CSVFileManager;
+import com.liaojh.towercrane.Manager.NetManager;
 import com.liaojh.towercrane.R;
+import com.liaojh.towercrane.SerialPort.SerialUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -77,7 +83,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     /**
      * 出错重试最大次数
      */
-    private static final int MAX_RETRY_TIME = 5;
+    private static final int MAX_RETRY_TIME = 3;
     private CameraHelper cameraHelper;
     private DrawHelper drawHelper;
     private Camera.Size previewSize;
@@ -122,6 +128,33 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
      * 识别阈值
      */
     private static final float SIMILAR_THRESHOLD = 0.8F;
+    /**
+     * 人脸识别时间
+     */
+    private static final int CHECK_TIME = 30;
+
+    //更新主界面时间
+    private Timer timer;
+    private TimerTask timerTask = new TimerTask() {
+        @Override
+        public void run() {
+            m_activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    new AlertDialog.Builder(m_activity)
+                            .setTitle(R.string.batch_process_notification)
+                            .setMessage(m_activity.getString(R.string.check_fail))
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    fail();
+                                }
+                            }).setCancelable(false).create().show();
+                    timer.cancel();
+                }
+            });
+        }
+    };
 
     @Override
     public void show() {
@@ -130,6 +163,9 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         requestFeatureStatusMap = new ConcurrentHashMap<>();
         extractErrorRetryMap = new ConcurrentHashMap<>();
         delayFaceTaskCompositeDisposable = new CompositeDisposable();
+        //开启时间信息更新定时器
+        timer = new Timer();
+        timer.schedule(timerTask, CHECK_TIME * 1000, CHECK_TIME * 1000);
     }
 
     @Override
@@ -139,6 +175,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         requestFeatureStatusMap = new ConcurrentHashMap<>();
         extractErrorRetryMap = new ConcurrentHashMap<>();
         delayFaceTaskCompositeDisposable = new CompositeDisposable();
+        timer.cancel();
     }
 
     @Override
@@ -177,7 +214,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         inputManger.hideSoftInputFromWindow(view.getWindowToken(), 0);
         switch (view.getId()) {
             case R.id.layout_face_check:
-                hide();
+                //hide();
                 break;
         }
     }
@@ -187,6 +224,10 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         previewView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
         initEngine();
         initCamera();
+    }
+
+    private void fail() {
+        hide();
     }
 
     /**
@@ -318,7 +359,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        hide();
+                                        fail();
                                     }
                                 }).setCancelable(false).create().show();
                     } else {
