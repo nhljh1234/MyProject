@@ -71,7 +71,7 @@ public class TowerCraneData {
         posY = LocalStorage.getInstance().getSp().getFloat(SAVE_KEY_TOWER_CRANE_DATA_POS_Y, 0);
         magnification = LocalStorage.getInstance().getSp().getFloat(SAVE_KEY_TOWER_CRANE_DATA_MAGNIFICATION, 2);
         volume = LocalStorage.getInstance().getSp().getFloat(SAVE_KEY_TOWER_CRANE_DATA_VOLUME, 30);
-        checkFaceInterval = LocalStorage.getInstance().getSp().getInt(SAVE_KEY_TOWER_CRANE_DATA_FACE_CHECK_INTERVAL, 60) * 60;
+        checkFaceInterval = LocalStorage.getInstance().getSp().getInt(SAVE_KEY_TOWER_CRANE_DATA_FACE_CHECK_INTERVAL, 3600);
         uploadInterval = LocalStorage.getInstance().getSp().getInt(SAVE_KEY_TOWER_CRANE_DATA_UPLOAD_INTERVAL, 20);
         readDataInterval = LocalStorage.getInstance().getSp().getInt(SAVE_KEY_TOWER_CRANE_DATA_READ_DATA_INTERVAL, 1);
         csvSaveInterval = LocalStorage.getInstance().getSp().getInt(SAVE_KEY_TOWER_CRANE_DATA_CSV_SAVE_INTERVAL, 10);
@@ -129,7 +129,7 @@ public class TowerCraneData {
     }
 
     public Boolean saveCheckFaceInterval(int checkFaceInterval) {
-        checkFaceInterval = Math.max(checkFaceInterval, 60);
+        checkFaceInterval = Math.max(checkFaceInterval, 3600);
         LocalStorage.getInstance().getSpe().putInt(SAVE_KEY_TOWER_CRANE_DATA_FACE_CHECK_INTERVAL, checkFaceInterval);
         return LocalStorage.getInstance().getSpe().commit();
     }
@@ -200,7 +200,7 @@ public class TowerCraneData {
     }
 
     public String getCheckFaceIntervalStr() {
-        return String.format("%d", checkFaceInterval);
+        return String.format("%d", checkFaceInterval / 60);
     }
 
     public String getUploadIntervalStr() {

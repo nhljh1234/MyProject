@@ -50,7 +50,7 @@ public class UISetTowerData implements InterfaceDialog {
                 SettingData.getInstance().getTowerCraneData().savePosY(Float.parseFloat(editPosY.getText().toString())) &&
                 SettingData.getInstance().getTowerCraneData().saveMagnification(Float.parseFloat(editMagnification.getText().toString())) &&
                 SettingData.getInstance().getTowerCraneData().saveVolume(Float.parseFloat(editVolume.getText().toString())) &&
-                SettingData.getInstance().getTowerCraneData().saveCheckFaceInterval(Integer.parseInt(editCheckFaceInterval.getText().toString())) &&
+                SettingData.getInstance().getTowerCraneData().saveCheckFaceInterval(Integer.parseInt(editCheckFaceInterval.getText().toString()) * 60) &&
                 SettingData.getInstance().getTowerCraneData().saveUploadInterval(Integer.parseInt(editUploadInterval.getText().toString())) &&
                 SettingData.getInstance().getTowerCraneData().saveReadDataInterval(Integer.parseInt(editReadDataInterval.getText().toString())) &&
                 SettingData.getInstance().getTowerCraneData().saveCsvSaveInterval(Integer.parseInt(editCsvSaveInterval.getText().toString())) &&
