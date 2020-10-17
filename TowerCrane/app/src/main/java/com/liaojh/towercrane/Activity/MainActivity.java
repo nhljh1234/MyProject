@@ -187,6 +187,9 @@ public class MainActivity extends BaseActivity {
             case 120:
                 setContentView(R.layout.activity_main_dpi_120);
                 break;
+            case 160:
+                setContentView(R.layout.activity_main_dpi_160);
+                break;
             case 180:
                 setContentView(R.layout.activity_main_dpi_180);
                 break;

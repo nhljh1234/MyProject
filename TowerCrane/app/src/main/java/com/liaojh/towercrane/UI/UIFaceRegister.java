@@ -55,7 +55,7 @@ import androidx.appcompat.app.AlertDialog;
 public class UIFaceRegister implements InterfaceDialog, ViewTreeObserver.OnGlobalLayoutListener {
     private LinearLayout layoutFaceRegister;
     private FaceRectView faceRectView;
-    private Button btnRegister;
+    private Button btnRegister, btnBack;
     private EditText editUserName;
     private TextureView previewView;
 
@@ -105,6 +105,7 @@ public class UIFaceRegister implements InterfaceDialog, ViewTreeObserver.OnGloba
         m_activity = activity;
 
         layoutFaceRegister = activity.findViewById(R.id.layout_face_register);
+        layoutFaceRegister.setOnClickListener(this);
 
         faceRectView = activity.findViewById(R.id.single_camera_face_rect_view_register);
 
@@ -116,6 +117,9 @@ public class UIFaceRegister implements InterfaceDialog, ViewTreeObserver.OnGloba
 
         btnRegister = activity.findViewById(R.id.btn_face_register);
         btnRegister.setOnClickListener(this);
+
+        btnBack = activity.findViewById(R.id.btn_face_register_back);
+        btnBack.setOnClickListener(this);
     }
 
     @Override
@@ -142,7 +146,7 @@ public class UIFaceRegister implements InterfaceDialog, ViewTreeObserver.OnGloba
             case R.id.btn_face_register:
                 register();
                 break;
-            case R.id.layout_face_register:
+            case R.id.btn_face_register_back:
                 hide();
                 break;
         }

@@ -58,6 +58,7 @@ public class VideoData {
                         break;
                     case MediaPlayer.Event.EncounteredError:
                         m_activity.showToast(m_uri + "连接失败");
+                        play(m_uri);
                         break;
                 }
             }

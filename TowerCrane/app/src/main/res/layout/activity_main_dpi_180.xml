@@ -4261,13 +4261,13 @@
 
                     <TextureView
                         android:id="@+id/texture_view_face_check"
-                        android:layout_width="700dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center" />
 
                     <com.arcsoft.arcfacedemo.widget.FaceRectView
                         android:id="@+id/single_camera_face_rect_view"
-                        android:layout_width="700dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center" />
 
@@ -4296,7 +4296,7 @@
             android:visibility="invisible">
 
             <LinearLayout
-                android:layout_width="700dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -4346,9 +4346,9 @@
                             android:id="@+id/edit_face_register_user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
                             android:background="@null"
                             android:ems="10"
-                            android:layout_marginLeft="12dp"
                             android:textColor="@android:color/widget_edittext_dark"
                             android:textSize="35sp" />
 
@@ -4369,6 +4369,13 @@
                         android:layout_width="163dp"
                         android:layout_height="70dp"
                         android:text="@string/register" />
+
+                    <Button
+                        android:id="@+id/btn_face_register_back"
+                        style="@style/InputBoxStyle"
+                        android:layout_width="163dp"
+                        android:layout_height="70dp"
+                        android:text="@string/login_back" />
 
                 </LinearLayout>
 
