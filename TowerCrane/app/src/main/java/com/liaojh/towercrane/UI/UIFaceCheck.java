@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import com.yf.rk3399_gpio_jni.yf_gpio_manager;
@@ -75,6 +76,8 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
 
     private MainActivity m_activity;
 
+    private Button btnBack;
+
     private static final int MAX_DETECT_NUM = 1;
     /**
      * 失败重试间隔时间（ms）
@@ -83,7 +86,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     /**
      * 出错重试最大次数
      */
-    private static final int MAX_RETRY_TIME = 3;
+    private static final int MAX_RETRY_TIME = 5;
     private CameraHelper cameraHelper;
     private DrawHelper drawHelper;
     private Camera.Size previewSize;
@@ -131,16 +134,11 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     /**
      * 人脸识别时间
      */
-    private static final int CHECK_TIME = 30;
+    private static final int CHECK_TIME = 10;
 
     //更新主界面时间
     private Timer timer;
-    private TimerTask timerTask = new TimerTask() {
-        @Override
-        public void run() {
-            fail();
-        }
-    };
+    private TimerTask timerTask;
 
     @Override
     public void show() {
@@ -150,7 +148,17 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         extractErrorRetryMap = new ConcurrentHashMap<>();
         delayFaceTaskCompositeDisposable = new CompositeDisposable();
         //开启时间信息更新定时器
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
         timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                fail();
+            }
+        };
         timer.schedule(timerTask, CHECK_TIME * 1000, CHECK_TIME * 1000);
     }
 
@@ -162,6 +170,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         extractErrorRetryMap = new ConcurrentHashMap<>();
         delayFaceTaskCompositeDisposable = new CompositeDisposable();
         timer.cancel();
+        timer = null;
     }
 
     @Override
@@ -172,6 +181,9 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
 
         layoutCheckFace = m_activity.findViewById(R.id.layout_face_check);
         layoutCheckFace.setOnClickListener(this);
+
+        btnBack = m_activity.findViewById(R.id.btn_close_face_check);
+        btnBack.setOnClickListener(this);
 
         previewView = activity.findViewById(R.id.texture_view_face_check);
         //在布局结束后才做初始化操作
@@ -202,6 +214,9 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
             case R.id.layout_face_check:
                 //hide();
                 break;
+            case R.id.btn_close_face_check:
+                hide();
+                break;
         }
     }
 
@@ -228,6 +243,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 hide();
+                                m_activity.uiTopBar.setRealNameStatus(false);
                             }
                         }).setCancelable(false).create().show();
                 timer.cancel();

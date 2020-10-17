@@ -4271,6 +4271,15 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center" />
 
+                    <Button
+                        style="@style/InputBoxStyle"
+                        android:id="@+id/btn_close_face_check"
+                        android:layout_margin="5dp"
+                        android:layout_gravity="right|top"
+                        android:layout_width="50dp"
+                        android:layout_height="30dp"
+                        android:text="@string/login_back" />
+
                 </FrameLayout>
 
             </LinearLayout>
