@@ -84,7 +84,10 @@ public class TowerCraneAmplitudeData {
     }
     //运行频率
     public String getRunFrequencyStr() {
-        return String.format("%sHz", "" + frequency);
+        if (direction == Constant.DIRECTION_FORWARD) {
+            return String.format("%sHz", "" + frequency);
+        }
+        return String.format("-%sHz", "" + frequency);
     }
     //电机转速
     public String getTurnSpeedStr() {
