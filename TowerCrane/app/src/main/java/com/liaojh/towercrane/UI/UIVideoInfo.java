@@ -74,8 +74,8 @@ public class UIVideoInfo implements InterfaceUI {
         textTest.setVisibility(View.VISIBLE);
         if (videoList.size() == 0) {
             textViewList.get(0).setText("无视频");
-            layoutList.get(0).setBackgroundColor(m_activity.getResources().getColor(R.color.color_video_layout_select));
-            textViewList.get(0).setTextColor(m_activity.getResources().getColor(R.color.color_video_text_select));
+            layoutList.get(0).setBackgroundColor(m_activity.getColor(R.color.color_video_layout_select));
+            textViewList.get(0).setTextColor(m_activity.getColor(R.color.color_video_text_select));
             textTest.setText("搜索中。。。");
             return;
         }
@@ -90,15 +90,15 @@ public class UIVideoInfo implements InterfaceUI {
             VideoData videoData = videoList.get(videoIndex - 1);
             textViewList.get(i).setText(videoData.m_videoSaveData.name);
             if (videoIndex == selectIndex) {
-                layoutList.get(i).setBackgroundColor(m_activity.getResources().getColor(R.color.color_video_layout_select));
-                textViewList.get(i).setTextColor(m_activity.getResources().getColor(R.color.color_video_text_select));
+                layoutList.get(i).setBackgroundColor(m_activity.getColor(R.color.color_video_layout_select));
+                textViewList.get(i).setTextColor(m_activity.getColor(R.color.color_video_text_select));
                 //textTest.setText(videoData.videoName);
                 videoDataSelect = videoData;
                 //播放
                 videoData.play(null);
             } else {
-                layoutList.get(i).setBackgroundColor(m_activity.getResources().getColor(R.color.color_video_layout_un_select));
-                textViewList.get(i).setTextColor(m_activity.getResources().getColor(R.color.color_video_text_un_select));
+                layoutList.get(i).setBackgroundColor(m_activity.getColor(R.color.color_video_layout_un_select));
+                textViewList.get(i).setTextColor(m_activity.getColor(R.color.color_video_text_un_select));
             }
         }
     }

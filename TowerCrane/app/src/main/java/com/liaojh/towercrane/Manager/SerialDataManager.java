@@ -48,9 +48,9 @@ public class SerialDataManager {
         //运行情况
         int runStatus = Tool.byteToInt(new byte[] { bytes[count], bytes[count + 1]}, 10);
         if (runStatus == 0) {
-            towerCraneLiftData.runStatus = Constant.STATUS_RUN;
+            towerCraneLiftData.status = Constant.STATUS_STOP;
         } else if (runStatus == 1) {
-            towerCraneLiftData.runStatus = Constant.STATUS_STOP;
+            towerCraneLiftData.status = Constant.STATUS_RUN;
         } else {
             Log.e(Constant.LogTag, "handleLiftData error, run status error");
         }
@@ -159,9 +159,9 @@ public class SerialDataManager {
         //运行情况
         int runStatus = Tool.byteToInt(new byte[] { bytes[count], bytes[count + 1]}, 10);
         if (runStatus == 0) {
-            towerCraneAmplitudeData.runStatus = Constant.STATUS_RUN;
+            towerCraneAmplitudeData.status = Constant.STATUS_STOP;
         } else if (runStatus == 1) {
-            towerCraneAmplitudeData.runStatus = Constant.STATUS_STOP;
+            towerCraneAmplitudeData.status = Constant.STATUS_RUN;
         } else {
             Log.e(Constant.LogTag, "handleLiftData error, run status error");
         }
@@ -270,9 +270,9 @@ public class SerialDataManager {
         //运行情况
         int runStatus = Tool.byteToInt(new byte[] { bytes[count], bytes[count + 1]}, 10);
         if (runStatus == 0) {
-            towerCraneTurnAroundData.runStatus = Constant.STATUS_RUN;
+            towerCraneTurnAroundData.status = Constant.STATUS_STOP;
         } else if (runStatus == 1) {
-            towerCraneTurnAroundData.runStatus = Constant.STATUS_STOP;
+            towerCraneTurnAroundData.status = Constant.STATUS_RUN;
         } else {
             Log.e(Constant.LogTag, "handleLiftData error, run status error");
         }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.R;
 
 import com.liaojh.towercrane.Data.TowerCraneAmplitudeData;
@@ -18,19 +19,21 @@ import com.liaojh.towercrane.Data.TowerCraneTurnAroundData;
 public class UITurnAroundRunInfo implements InterfaceUI {
     private Activity activity;
 
-    private TextView textStatusRun, textStatusStop, textGeneratrix, textOutputVoltage, textOutputElectricity, textRunFrequency, textTurnSpeed,
+    private TextView textStatus, textGeneratrix, textOutputVoltage, textOutputElectricity, textRunFrequency, textTurnSpeed,
             textTemperature;
 
     private TextView textLeftDestination, textRightDestination, textBrakeUnit, textRunSlowDown;
 
     private TextView textUpDownCommunicationStatus;
 
+    private ImageView imageStatus;
+
     private void updateTextWaringInfo(Boolean warning, TextView view) {
         if (warning) {
-            view.setTextColor(activity.getResources().getColor(R.color.color_label_red));
+            view.setTextColor(activity.getColor(R.color.color_label_red));
             view.setText(activity.getString(R.string.text_error));
         } else {
-            view.setTextColor(activity.getResources().getColor(R.color.color_label_blue));
+            view.setTextColor(activity.getColor(R.color.color_label_blue));
             view.setText(activity.getString(R.string.text_normal));
         }
     }
@@ -40,8 +43,7 @@ public class UITurnAroundRunInfo implements InterfaceUI {
     public void onUICreate(MainActivity activityIn) {
         activity = activityIn;
 
-        textStatusRun = activity.findViewById(R.id.text_turn_around_status_run);
-        textStatusStop = activity.findViewById(R.id.text_turn_around_status_stop);
+        textStatus = activity.findViewById(R.id.text_turn_around_status);
         textGeneratrix = activity.findViewById(R.id.text_turn_around_generatrix);
         textOutputVoltage = activity.findViewById(R.id.text_turn_around_output_voltage);
         textOutputElectricity = activity.findViewById(R.id.text_turn_around_output_electricity);
@@ -55,6 +57,8 @@ public class UITurnAroundRunInfo implements InterfaceUI {
         textRunSlowDown = activity.findViewById(R.id.text_turn_around_run_slow_down);
 
         textUpDownCommunicationStatus = activity.findViewById(R.id.text_turn_around_waring);
+
+        imageStatus = activity.findViewById(R.id.image_turn_around_status);
     }
 
     @Override
@@ -71,8 +75,15 @@ public class UITurnAroundRunInfo implements InterfaceUI {
     public void onTowerCraneRunDateUpdate(TowerCraneRunData towerCraneRunData) {
         TowerCraneTurnAroundData towerCraneTurnAroundData = towerCraneRunData.towerCraneTurnAroundData;
 
-        textStatusRun.setText(towerCraneTurnAroundData.getStatusRunStr());
-        textStatusStop.setText(towerCraneTurnAroundData.getStatusStopStr());
+        textStatus.setText(towerCraneTurnAroundData.getStatusStr());
+        if (towerCraneTurnAroundData.status == Constant.STATUS_STOP) {
+            textStatus.setTextColor(activity.getColor(R.color.color_label_red));
+            imageStatus.setImageDrawable(activity.getDrawable(R.drawable.yibiaopan_red));
+        } else {
+            textStatus.setTextColor(activity.getColor(R.color.color_label_blue));
+            imageStatus.setImageDrawable(activity.getDrawable(R.drawable.yibiaopan_blue));
+        }
+
         textGeneratrix.setText(towerCraneTurnAroundData.getGeneratrixVoltageStr());
         textOutputVoltage.setText(towerCraneTurnAroundData.getOutputVoltageStr());
         textOutputElectricity.setText(towerCraneTurnAroundData.getOutputElectricityStr());

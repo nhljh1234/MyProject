@@ -87,12 +87,12 @@ public class UITowerCraneRunInfo implements InterfaceUI {
     private void updateLayoutWaringInfo(Boolean isWaring, TextView textNumber, LinearLayout layout, TextView textLabel) {
         if (isWaring) {
             layout.setBackground(m_activity.getDrawable(R.drawable.frame_red));
-            textNumber.setTextColor(m_activity.getResources().getColor(R.color.color_number_waring));
-            textLabel.setTextColor(m_activity.getResources().getColor(R.color.color_number_waring));
+            textNumber.setTextColor(m_activity.getColor(R.color.color_number_waring));
+            textLabel.setTextColor(m_activity.getColor(R.color.color_number_waring));
         } else {
             layout.setBackground(m_activity.getDrawable(R.drawable.frame_gray));
-            textNumber.setTextColor(m_activity.getResources().getColor(R.color.color_number));
-            textLabel.setTextColor(m_activity.getResources().getColor(R.color.color_number_label));
+            textNumber.setTextColor(m_activity.getColor(R.color.color_number));
+            textLabel.setTextColor(m_activity.getColor(R.color.color_number_label));
         }
     }
 
@@ -100,11 +100,11 @@ public class UITowerCraneRunInfo implements InterfaceUI {
         if (isSelect) {
             image.setImageDrawable(m_activity.getDrawable(selectImgId));
             layout.setBackground(m_activity.getDrawable(R.drawable.frame_full_green));
-            text.setTextColor(m_activity.getResources().getColor(R.color.color_status_select));
+            text.setTextColor(m_activity.getColor(R.color.color_status_select));
         } else {
             image.setImageDrawable(m_activity.getDrawable(unSelectImgId));
             layout.setBackground(m_activity.getDrawable(R.drawable.frame_gray));
-            text.setTextColor(m_activity.getResources().getColor(R.color.color_status_un_select));
+            text.setTextColor(m_activity.getColor(R.color.color_status_un_select));
         }
     }
 

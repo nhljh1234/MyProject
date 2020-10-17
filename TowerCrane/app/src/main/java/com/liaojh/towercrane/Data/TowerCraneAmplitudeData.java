@@ -3,7 +3,7 @@ package com.liaojh.towercrane.Data;
 //幅度变频器数据
 public class TowerCraneAmplitudeData {
     //运行状态
-    public int runStatus = Constant.STATUS_RUN;
+    public int status = Constant.STATUS_RUN;
     //正转还是反转
     public int direction = Constant.DIRECTION_FORWARD;
     //运行赫兹
@@ -67,15 +67,8 @@ public class TowerCraneAmplitudeData {
     public int errorCode;
 
     //运行状态
-    public String getStatusRunStr() {
-        return runStatus == Constant.STATUS_RUN ? "运行" : "停止";
-    }
-    //停车状态
-    public String getStatusStopStr() {
-        if (statusStop == Constant.STATUS_ERROR) {
-            return "停车";
-        }
-        return "运行";
+    public String getStatusStr() {
+        return status == Constant.STATUS_RUN ? "运行" : "停止";
     }
     //母线电压
     public String getGeneratrixVoltageStr() {

@@ -120,7 +120,6 @@ public class MainActivity extends BaseActivity {
             timerTimeCsvData = timerTimeCsvData + intervalTime;
             if (timerTimeCsvData >= SettingData.getInstance().getTowerCraneData().csvSaveInterval) {
                 timerTimeCsvData = 0;
-                Log.e(Constant.LogTag, "timerTimeCsvData");
                 CSVFileManager.getInstance().saveData();
             }
 
@@ -128,7 +127,6 @@ public class MainActivity extends BaseActivity {
             timerTimeReadData = timerTimeReadData + intervalTime;
             if (timerTimeReadData >= SettingData.getInstance().getTowerCraneData().readDataInterval) {
                 timerTimeReadData = 0;
-                Log.e(Constant.LogTag, "timerTimeReadData");
                 SerialUtil.getInstance().test();
             }
 
@@ -136,7 +134,6 @@ public class MainActivity extends BaseActivity {
             timerTimeSignalUpdate = timerTimeSignalUpdate + intervalTime;
             if (timerTimeSignalUpdate >= Constant.SIGNAL_DATA_UPDATE_INTERVAL) {
                 timerTimeSignalUpdate = 0;
-                Log.e(Constant.LogTag, "timerTimeSignalUpdate");
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -149,30 +146,19 @@ public class MainActivity extends BaseActivity {
             timerTimeFaceCheck = timerTimeFaceCheck + intervalTime;
             if (timerTimeFaceCheck >= SettingData.getInstance().getTowerCraneData().checkFaceInterval) {
                 timerTimeFaceCheck = 0;
-                Log.e(Constant.LogTag, "timerTimeFaceCheck");
-                new AlertDialog.Builder(activity)
-                        .setTitle(R.string.batch_process_notification)
-                        .setMessage(activity.getString(R.string.check_fail))
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                uiFaceCheck.show();
-                            }
-                        }).setCancelable(false).create().show();
+                uiTopBar.setRealNameStatus(false);
             }
 
             //数据上传
             timerTimeUpload = timerTimeUpload + intervalTime;
             if (timerTimeUpload >= SettingData.getInstance().getTowerCraneData().uploadInterval) {
                 timerTimeUpload = 0;
-                Log.e(Constant.LogTag, "timerTimeUpload");
             }
 
             //心跳包
             timerTimeHeart = timerTimeHeart + intervalTime;
             if (timerTimeHeart >= SettingData.getInstance().getTowerCraneData().heartInterval) {
                 timerTimeHeart = 0;
-                Log.e(Constant.LogTag, "timerTimeHeart");
                 NetManager.getInstance().sendHeart();
             }
         }

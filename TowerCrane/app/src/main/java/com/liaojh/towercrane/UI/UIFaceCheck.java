@@ -19,7 +19,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.Switch;
-
+import com.yf.rk3399_gpio_jni.yf_gpio_manager;
 import com.arcsoft.arcfacedemo.faceserver.CompareResult;
 import com.arcsoft.arcfacedemo.faceserver.FaceServer;
 import com.arcsoft.arcfacedemo.model.DrawInfo;
@@ -138,21 +138,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     private TimerTask timerTask = new TimerTask() {
         @Override
         public void run() {
-            m_activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    new AlertDialog.Builder(m_activity)
-                            .setTitle(R.string.batch_process_notification)
-                            .setMessage(m_activity.getString(R.string.check_fail))
-                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    fail();
-                                }
-                            }).setCancelable(false).create().show();
-                    timer.cancel();
-                }
-            });
+            fail();
         }
     };
 
@@ -226,8 +212,29 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         initCamera();
     }
 
-    private void fail() {
+    private void success() {
         hide();
+        m_activity.uiTopBar.setRealNameStatus(true);
+    }
+
+    private void fail() {
+        m_activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                new AlertDialog.Builder(m_activity)
+                        .setTitle(R.string.batch_process_notification)
+                        .setMessage(m_activity.getString(R.string.check_fail))
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                hide();
+                            }
+                        }).setCancelable(false).create().show();
+                timer.cancel();
+            }
+        });
+        //输出低电平
+        yf_gpio_manager.getInstance().outputLowValue();
     }
 
     /**
@@ -299,7 +306,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            hide();
+                                            success();
                                         }
                                     }).setCancelable(false).create().show();
                         } else {
@@ -353,15 +360,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                         // 在尝试最大次数后，特征提取仍然失败，则认为识别未通过
                         requestFeatureStatusMap.put(requestId, RequestFeatureStatus.FAILED);
                         cameraHelper.stop();
-                        new AlertDialog.Builder(m_activity)
-                                .setTitle(R.string.batch_process_notification)
-                                .setMessage(m_activity.getString(R.string.check_fail))
-                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        fail();
-                                    }
-                                }).setCancelable(false).create().show();
+                        fail();
                     } else {
                         requestFeatureStatusMap.put(requestId, RequestFeatureStatus.TO_RETRY);
                     }

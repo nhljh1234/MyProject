@@ -17,7 +17,7 @@ import com.liaojh.towercrane.Data.TowerCraneRunData;
 public class UIUpDownRunInfo implements InterfaceUI {
     private Activity activity;
 
-    private TextView textStatusRun, textStatusStop, textGeneratrix, textOutputVoltage, textOutputElectricity, textRunFrequency,
+    private TextView textStatus, textGeneratrix, textOutputVoltage, textOutputElectricity, textRunFrequency,
             textTurnSpeed, textTemperature;
 
     private TextView textUpSlowDown, textDownSlowDown, textUpDestination, textDownDestination, textLoad_100, textLoad_90, textLoad_50,
@@ -25,12 +25,14 @@ public class UIUpDownRunInfo implements InterfaceUI {
 
     private TextView textUpDownCommunicationStatus;
 
+    private ImageView imageStatus;
+
     private void updateTextWaringInfo(Boolean warning, TextView view) {
         if (warning) {
-            view.setTextColor(activity.getResources().getColor(R.color.color_label_red));
+            view.setTextColor(activity.getColor(R.color.color_label_red));
             view.setText(activity.getString(R.string.text_error));
         } else {
-            view.setTextColor(activity.getResources().getColor(R.color.color_label_blue));
+            view.setTextColor(activity.getColor(R.color.color_label_blue));
             view.setText(activity.getString(R.string.text_normal));
         }
     }
@@ -39,8 +41,7 @@ public class UIUpDownRunInfo implements InterfaceUI {
     public void onUICreate(MainActivity activityIn) {
         activity = activityIn;
 
-        textStatusRun = activity.findViewById(R.id.text_up_down_status_run);
-        textStatusStop = activity.findViewById(R.id.text_up_down_status_stop);
+        textStatus = activity.findViewById(R.id.text_up_down_status);
         textGeneratrix = activity.findViewById(R.id.text_up_down_generatrix);
         textOutputVoltage = activity.findViewById(R.id.text_up_down_output_voltage);
         textOutputElectricity = activity.findViewById(R.id.text_up_down_output_electricity);
@@ -63,6 +64,8 @@ public class UIUpDownRunInfo implements InterfaceUI {
         textLimitSwitch = activity.findViewById(R.id.text_up_down_limit_switch);
 
         textUpDownCommunicationStatus = activity.findViewById(R.id.text_up_down_waring);
+
+        imageStatus = activity.findViewById(R.id.image_up_down_status);
     }
 
     @Override
@@ -79,8 +82,15 @@ public class UIUpDownRunInfo implements InterfaceUI {
     public void onTowerCraneRunDateUpdate(TowerCraneRunData towerCraneRunData) {
         TowerCraneLiftData towerCraneLiftData = towerCraneRunData.towerCraneLiftData;
 
-        textStatusRun.setText(towerCraneLiftData.getStatusRunStr());
-        textStatusStop.setText(towerCraneLiftData.getStatusStopStr());
+        textStatus.setText(towerCraneLiftData.getStatusStr());
+        if (towerCraneLiftData.status == Constant.STATUS_STOP) {
+            textStatus.setTextColor(activity.getColor(R.color.color_label_red));
+            imageStatus.setImageDrawable(activity.getDrawable(R.drawable.yibiaopan_red));
+        } else {
+            textStatus.setTextColor(activity.getColor(R.color.color_label_blue));
+            imageStatus.setImageDrawable(activity.getDrawable(R.drawable.yibiaopan_blue));
+        }
+
         textGeneratrix.setText(towerCraneLiftData.getGeneratrixVoltageStr());
         textOutputVoltage.setText(towerCraneLiftData.getOutputVoltageStr());
         textOutputElectricity.setText(towerCraneLiftData.getOutputElectricityStr());

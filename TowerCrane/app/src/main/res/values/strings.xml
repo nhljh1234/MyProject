@@ -40,7 +40,7 @@
     <string name="up_down_output_electricity">输出电流</string>
     <string name="up_down_run_frequency">运行频率</string>
     <string name="up_down_turn_speed">电机转速</string>
-    <string name="up_down_temperature">变温器温度</string>
+    <string name="up_down_temperature">变频器温度</string>
     <string name="up_down_up_slow_down">上升减速限位：</string>
     <string name="up_down_down_destination">下降终点限位：</string>
     <string name="up_down_load_25">载重量25%限位：</string>
@@ -62,7 +62,7 @@
     <string name="amplitude_output_electricity">输出电流</string>
     <string name="amplitude_run_frequency">运行频率</string>
     <string name="amplitude_turn_speed">电机转速</string>
-    <string name="amplitude_temperature">变温器温度</string>
+    <string name="amplitude_temperature">变频器温度</string>
     <string name="amplitude_front_slow_down">前进减速限位：</string>
     <string name="amplitude_back_destination">后退终点限位：</string>
     <string name="amplitude_front_destination">前进终点限位：</string>
@@ -78,7 +78,7 @@
     <string name="turn_around_output_electricity">输出电流</string>
     <string name="turn_around_run_frequency">运行频率</string>
     <string name="turn_around_turn_speed">电机转速</string>
-    <string name="turn_around_temperature">变温器温度</string>
+    <string name="turn_around_temperature">变频器温度</string>
     <string name="turn_around_left_destination">左旋终点限位：</string>
     <string name="turn_around_right_destination">左旋终点限位：</string>
     <string name="turn_around_brake_unit">制动单元故障：</string>
@@ -226,11 +226,11 @@
     <string name="setting_pos_y">坐标Y:</string>
     <string name="setting_magnification">倍率:</string>
     <string name="setting_volume">音量:</string>
-    <string name="setting_check_face_interval">人脸检测间隔:</string>
-    <string name="setting_upload_interval">数据上传间隔:</string>
-    <string name="setting_read_data_interval">串口数据读取间隔:</string>
-    <string name="setting_csv_save_interval">csv数据写入间隔:</string>
-    <string name="setting_heart_interval">心跳包间隔:</string>
+    <string name="setting_check_face_interval">人脸检测间隔(m):</string>
+    <string name="setting_upload_interval">数据上传间隔(s):</string>
+    <string name="setting_read_data_interval">串口数据读取间隔(s):</string>
+    <string name="setting_csv_save_interval">csv数据写入间隔(s):</string>
+    <string name="setting_heart_interval">心跳包间隔(s):</string>
 
     <string name="main_specifications">设备规格:</string>
     <string name="main_monitor_number">设备编号:</string>
@@ -238,4 +238,6 @@
     <string name="main_magnification">倍率:</string>
 
     <string name="check_permission_fail">不给于权限无法开启应用</string>
+    <string name="have_real_name">已实名认证</string>
+    <string name="have_not_real_name">未实名认证</string>
 </resources>

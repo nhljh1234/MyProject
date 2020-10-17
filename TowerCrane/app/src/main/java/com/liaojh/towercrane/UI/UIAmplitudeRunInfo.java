@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
+import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.R;
 
 import com.liaojh.towercrane.Data.TowerCraneAmplitudeData;
@@ -19,7 +20,7 @@ import org.w3c.dom.Text;
 public class UIAmplitudeRunInfo implements InterfaceUI {
     private Activity activity;
 
-    private TextView textStatusRun, textStatusStop, textGeneratrix, textOutputVoltage, textOutputElectricity, textRunFrequency, textTurnSpeed,
+    private TextView textStatus, textGeneratrix, textOutputVoltage, textOutputElectricity, textRunFrequency, textTurnSpeed,
             textTemperature;
 
     private TextView textFrontSlowDown, textBackSlowDown, textFrontDestination, textBackDestination, textTorque100, textTorque90, textTorque80,
@@ -27,12 +28,14 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
 
     private TextView textUpDownCommunicationStatus;
 
+    private ImageView imageStatus;
+
     private void updateTextWaringInfo(Boolean warning, TextView view) {
         if (warning) {
-            view.setTextColor(activity.getResources().getColor(R.color.color_label_red));
+            view.setTextColor(activity.getColor(R.color.color_label_red));
             view.setText(activity.getString(R.string.text_error));
         } else {
-            view.setTextColor(activity.getResources().getColor(R.color.color_label_blue));
+            view.setTextColor(activity.getColor(R.color.color_label_blue));
             view.setText(activity.getString(R.string.text_normal));
         }
     }
@@ -41,26 +44,27 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
     public void onUICreate(MainActivity activityIn) {
         activity = activityIn;
 
-        textStatusRun = (TextView) activity.findViewById(R.id.text_amplitude_status_run);
-        textStatusStop = (TextView) activity.findViewById(R.id.text_amplitude_status_stop);
-        textGeneratrix = (TextView) activity.findViewById(R.id.text_amplitude_generatrix);
-        textOutputVoltage = (TextView) activity.findViewById(R.id.text_amplitude_output_voltage);
-        textOutputElectricity = (TextView) activity.findViewById(R.id.text_amplitude_output_electricity);
-        textRunFrequency = (TextView) activity.findViewById(R.id.text_amplitude_run_frequency);
-        textTurnSpeed = (TextView) activity.findViewById(R.id.text_amplitude_turn_speed);
-        textTemperature = (TextView) activity.findViewById(R.id.text_amplitude_temperature);
+        textStatus = activity.findViewById(R.id.text_amplitude_status);
+        textGeneratrix = activity.findViewById(R.id.text_amplitude_generatrix);
+        textOutputVoltage = activity.findViewById(R.id.text_amplitude_output_voltage);
+        textOutputElectricity = activity.findViewById(R.id.text_amplitude_output_electricity);
+        textRunFrequency = activity.findViewById(R.id.text_amplitude_run_frequency);
+        textTurnSpeed = activity.findViewById(R.id.text_amplitude_turn_speed);
+        textTemperature = activity.findViewById(R.id.text_amplitude_temperature);
 
-        textFrontSlowDown = (TextView) activity.findViewById(R.id.text_amplitude_front_slow_down);
-        textBackSlowDown = (TextView) activity.findViewById(R.id.text_amplitude_back_slow_down);
-        textFrontDestination = (TextView) activity.findViewById(R.id.text_amplitude_front_destination);
-        textBackDestination = (TextView) activity.findViewById(R.id.text_amplitude_back_destination);
-        textTorque100 = (TextView) activity.findViewById(R.id.text_amplitude_torque_100);
-        textTorque90 = (TextView) activity.findViewById(R.id.text_amplitude_torque_90);
-        textTorque80 = (TextView) activity.findViewById(R.id.text_amplitude_torque_80);
-        textBrakeUnit = (TextView) activity.findViewById(R.id.text_amplitude_brake_unit);
-        textRunSlowDown = (TextView) activity.findViewById(R.id.text_amplitude_run_slow_downn);
+        textFrontSlowDown = activity.findViewById(R.id.text_amplitude_front_slow_down);
+        textBackSlowDown = activity.findViewById(R.id.text_amplitude_back_slow_down);
+        textFrontDestination = activity.findViewById(R.id.text_amplitude_front_destination);
+        textBackDestination = activity.findViewById(R.id.text_amplitude_back_destination);
+        textTorque100 = activity.findViewById(R.id.text_amplitude_torque_100);
+        textTorque90 = activity.findViewById(R.id.text_amplitude_torque_90);
+        textTorque80 = activity.findViewById(R.id.text_amplitude_torque_80);
+        textBrakeUnit = activity.findViewById(R.id.text_amplitude_brake_unit);
+        textRunSlowDown = activity.findViewById(R.id.text_amplitude_run_slow_downn);
 
-        textUpDownCommunicationStatus = (TextView) activity.findViewById(R.id.text_amplitude_waring);
+        textUpDownCommunicationStatus = activity.findViewById(R.id.text_amplitude_waring);
+
+        imageStatus = activity.findViewById(R.id.image_amplitude_status);
     }
 
     @Override
@@ -77,8 +81,15 @@ public class UIAmplitudeRunInfo implements InterfaceUI {
     public void onTowerCraneRunDateUpdate(TowerCraneRunData towerCraneRunData) {
         TowerCraneAmplitudeData towerCraneAmplitudeData = towerCraneRunData.towerCraneAmplitudeData;
 
-        textStatusRun.setText(towerCraneAmplitudeData.getStatusRunStr());
-        textStatusStop.setText(towerCraneAmplitudeData.getStatusStopStr());
+        textStatus.setText(towerCraneAmplitudeData.getStatusStr());
+        if (towerCraneAmplitudeData.status == Constant.STATUS_STOP) {
+            textStatus.setTextColor(activity.getColor(R.color.color_label_red));
+            imageStatus.setImageDrawable(activity.getDrawable(R.drawable.yibiaopan_red));
+        } else {
+            textStatus.setTextColor(activity.getColor(R.color.color_label_blue));
+            imageStatus.setImageDrawable(activity.getDrawable(R.drawable.yibiaopan_blue));
+        }
+
         textGeneratrix.setText(towerCraneAmplitudeData.getGeneratrixVoltageStr());
         textOutputVoltage.setText(towerCraneAmplitudeData.getOutputVoltageStr());
         textOutputElectricity.setText(towerCraneAmplitudeData.getOutputElectricityStr());
