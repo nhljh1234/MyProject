@@ -62,6 +62,12 @@ public class Constant {
             "J6闭合", "J6开启",  "J7闭合", "J7开启",  "J8闭合", "J8开启"
     };
 
+    //输出控制选项
+    public static String[] OUTPUT_CONTROL = new String[] {
+            "NC", "K1动作", "K1恢复", "K2动作", "K2恢复", "K3动作", "K3恢复", "K4动作", "K4恢复", "K5动作", "K5恢复",
+            "K6动作", "K6恢复", "K7动作", "K7恢复", "K8动作", "K8恢复"
+    };
+
     public static HashMap<String, String> ERROR_CODE = new HashMap<String, String>() {
         {
             put("W_1", "系统没有准备好");

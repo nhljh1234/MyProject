@@ -129,7 +129,8 @@ public class TowerCraneData {
     }
 
     public Boolean saveCheckFaceInterval(int checkFaceInterval) {
-        checkFaceInterval = Math.max(checkFaceInterval, 3600);
+        //checkFaceInterval = Math.max(checkFaceInterval, 3600);
+        checkFaceInterval = Math.max(checkFaceInterval, 60);
         LocalStorage.getInstance().getSpe().putInt(SAVE_KEY_TOWER_CRANE_DATA_FACE_CHECK_INTERVAL, checkFaceInterval);
         return LocalStorage.getInstance().getSpe().commit();
     }

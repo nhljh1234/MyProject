@@ -28,6 +28,7 @@ public class SettingData {
     private CalibrationData turnAround;
     private CalibrationData height;
     private TowerCraneData towerCraneData;
+    private OutputControlData outputControlData;
 
     private CalibrationData buildData(String key, int type) {
         return new CalibrationData(
@@ -97,5 +98,13 @@ public class SettingData {
             towerCraneData = new TowerCraneData();
         }
         return towerCraneData;
+    }
+
+    //塔吊数据
+    public OutputControlData getOutputControlData() {
+        if (outputControlData == null) {
+            outputControlData = new OutputControlData();
+        }
+        return outputControlData;
     }
 }
