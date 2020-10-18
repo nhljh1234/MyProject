@@ -134,7 +134,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     /**
      * 人脸识别时间
      */
-    private static final int CHECK_TIME = 10;
+    private static final int CHECK_TIME = 20;
 
     //更新主界面时间
     private Timer timer;
@@ -156,7 +156,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                fail();
+                close();
             }
         };
         timer.schedule(timerTask, CHECK_TIME * 1000, CHECK_TIME * 1000);
@@ -230,6 +230,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     private void success() {
         hide();
         m_activity.uiTopBar.setRealNameStatus(true);
+        m_activity.showToast("人脸验证成功");
     }
 
     private void fail() {
@@ -244,13 +245,22 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                             public void onClick(DialogInterface dialog, int which) {
                                 hide();
                                 m_activity.uiTopBar.setRealNameStatus(false);
+                                m_activity.showToast("人脸验证失败");
                             }
                         }).setCancelable(false).create().show();
-                timer.cancel();
             }
         });
         //输出低电平
         yf_gpio_manager.getInstance().outputLowValue();
+    }
+
+    private void close() {
+        m_activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                hide();
+            }
+        });
     }
 
     /**
@@ -316,15 +326,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
                             requestFeatureStatusMap.put(requestId, RequestFeatureStatus.SUCCEED);
                             faceHelper.setName(requestId, activity.getString(R.string.recognize_success_notice, compareResult.getUserName()));
                             cameraHelper.stop();
-                            new AlertDialog.Builder(activity)
-                                    .setTitle(R.string.batch_process_notification)
-                                    .setMessage(compareResult.getUserName() + activity.getResources().getString(R.string.check_success))
-                                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            success();
-                                        }
-                                    }).setCancelable(false).create().show();
+                            success();
                         } else {
                             faceHelper.setName(requestId, activity.getString(R.string.recognize_failed_notice, "无注册数据"));
                             retryRecognizeDelayed(requestId);
