@@ -139,6 +139,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     //更新主界面时间
     private Timer timer;
     private TimerTask timerTask;
+    private AlertDialog alertDialog;
 
     @Override
     public void show() {
@@ -228,26 +229,59 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
     }
 
     private void success() {
-        hide();
-        m_activity.uiTopBar.setRealNameStatus(true);
-        m_activity.showToast("人脸验证成功");
+        m_activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (alertDialog != null) {
+                    alertDialog.dismiss();
+                }
+                m_activity.uiTopBar.setRealNameStatus(true);
+                alertDialog = new AlertDialog.Builder(m_activity)
+                        .setTitle(R.string.batch_process_notification)
+                        .setMessage(m_activity.getString(R.string.check_success))
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                hide();
+                            }
+                        }).setCancelable(false).create();
+                alertDialog.show();
+            }
+        });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    if (layoutCheckFace.getVisibility() == View.INVISIBLE) {
+                        return;
+                    }
+                    close();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     private void fail() {
         m_activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                new AlertDialog.Builder(m_activity)
+                if (alertDialog != null) {
+                    alertDialog.dismiss();
+                }
+                m_activity.uiTopBar.setRealNameStatus(false);
+                alertDialog = new AlertDialog.Builder(m_activity)
                         .setTitle(R.string.batch_process_notification)
                         .setMessage(m_activity.getString(R.string.check_fail))
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 hide();
-                                m_activity.uiTopBar.setRealNameStatus(false);
-                                m_activity.showToast("人脸验证失败");
                             }
-                        }).setCancelable(false).create().show();
+                        }).setCancelable(false).create();
+                alertDialog.show();
             }
         });
         //输出低电平
@@ -259,6 +293,10 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
             @Override
             public void run() {
                 hide();
+                if (alertDialog != null) {
+                    alertDialog.hide();
+                    alertDialog = null;
+                }
             }
         });
     }
