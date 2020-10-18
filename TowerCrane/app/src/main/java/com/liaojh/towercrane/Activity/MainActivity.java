@@ -106,17 +106,6 @@ public class MainActivity extends BaseActivity {
     //取所有定时器里面最小的时间
     private int intervalTime = 1;
 
-    private static final String[] NEEDED_PERMISSIONS = new String[]{
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,
-            Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,
-            Manifest.permission.RECORD_AUDIO,
-    };
-
-    private static final int ACTION_REQUEST_PERMISSIONS = 1;
-
     //更新主界面时间
     private Timer timer = new Timer();
     private TimerTask timerTask = new TimerTask() {
@@ -236,7 +225,9 @@ public class MainActivity extends BaseActivity {
         UpdateManager.getInstance().init(this);
         SoundManager.getInstance().init(this);
         buglyInit();
-        ArcFaceManager.getInstance().active(this);
+        if (!ArcFaceManager.getInstance().active(this)) {
+            showToast("人脸识别SDK初始化失败");
+        }
 
         intervalTime = Math.min(Constant.SIGNAL_DATA_UPDATE_INTERVAL, SettingData.getInstance().getTowerCraneData().checkFaceInterval);
         intervalTime = Math.min(intervalTime, SettingData.getInstance().getTowerCraneData().csvSaveInterval);
@@ -246,9 +237,6 @@ public class MainActivity extends BaseActivity {
         for (int i = 0; i < uis.length; i++) {
             uis[i].onUICreate(this);
         }
-
-        //开启时间信息更新定时器
-        timer.schedule(timerTask, 0, intervalTime * 1000);
 
         ((LinearLayout) activity.findViewById(R.id.layout_setting)).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,6 +253,9 @@ public class MainActivity extends BaseActivity {
         for (int i = 0; i < uis.length; i++) {
             uis[i].onUIStart();
         }
+
+        //开启时间信息更新定时器
+        timer.schedule(timerTask, 1000, intervalTime * 1000);
 
         SerialUtil.getInstance().connect("ttyS1", this);
     }
