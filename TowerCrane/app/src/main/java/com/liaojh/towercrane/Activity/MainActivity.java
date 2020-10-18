@@ -49,6 +49,7 @@ import android.widget.LinearLayout;
 import com.liaojh.towercrane.R;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -107,7 +108,7 @@ public class MainActivity extends BaseActivity {
     private int intervalTime = 1;
 
     //更新主界面时间
-    private Timer timer = new Timer();
+    private Timer timer;
     private TimerTask timerTask = new TimerTask() {
         @Override
         public void run() {
@@ -254,8 +255,11 @@ public class MainActivity extends BaseActivity {
             uis[i].onUIStart();
         }
 
-        //开启时间信息更新定时器
-        timer.schedule(timerTask, 1000, intervalTime * 1000);
+        if (timer == null) {
+            timer = new Timer();
+            //开启时间信息更新定时器
+            timer.schedule(timerTask, 1000, intervalTime * 1000);
+        }
 
         SerialUtil.getInstance().connect("ttyS1", this);
     }
