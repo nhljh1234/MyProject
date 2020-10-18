@@ -4991,6 +4991,589 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_notice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:background="@color/color_status_un_select" />
+
+                <ImageView
+                    android:layout_width="1050dp"
+                    android:layout_height="327dp"
+                    android:layout_gravity="center"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/notice" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_set_output_control"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_status_un_select"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginBottom="9dp"
+                    android:text="@string/output_control"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="35sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/load_control"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/layout_load_25"
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/load_25"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:id="@+id/text_load_25"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/layout_load_50"
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/load_50"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:id="@+id/text_load_50"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/layout_load_90"
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/load_90"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:id="@+id/text_load_90"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/layout_load_100"
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/load_100"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:id="@+id/text_load_100"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/torque_control"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/layout_torque_80"
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/torque_80"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:id="@+id/text_torque_80"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/layout_torque_90"
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/torque_90"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:id="@+id/text_torque_90"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/layout_torque_100"
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/torque_100"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:id="@+id/text_torque_100"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/layout_torque_110"
+                                style="@style/InputBoxStyle"
+                                android:layout_width="525dp"
+                                android:layout_height="70dp"
+                                android:layout_marginTop="9dp"
+                                android:gravity="left|center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="@string/torque_110"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+
+                                <TextView
+                                    android:id="@+id/text_torque_110"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="9dp"
+                                    android:textSize="26sp"
+                                    android:text="2.7"
+                                    android:textColor="@android:color/widget_edittext_dark" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="88dp"
+                        android:layout_height="53dp"
+                        android:background="@color/color_btn_bg"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/output_control_label"
+                            android:textSize="35sp">
+                        </TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_output_control_1"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@android:drawable/presence_invisible"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_output_control_2"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@android:drawable/presence_invisible"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_output_control_3"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@android:drawable/presence_invisible"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_output_control_4"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@android:drawable/presence_online"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_output_control_5"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@android:drawable/presence_invisible"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_output_control_6"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@android:drawable/presence_invisible"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="6"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_output_control_7"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@android:drawable/presence_invisible"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="7"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_output_control_8"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@android:drawable/presence_invisible"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="8"
+                            android:textSize="35sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center_vertical"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_output_control_save"
+                            style="@style/InputBoxStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="53dp"
+                            android:text="@string/output_control_sure"
+                            android:textSize="26sp" />
+
+                        <Button
+                            android:id="@+id/btn_output_control_back"
+                            style="@style/InputBoxStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="53dp"
+                            android:text="@string/output_control_back"
+                            android:textSize="26sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

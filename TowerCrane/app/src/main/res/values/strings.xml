@@ -114,6 +114,8 @@
     <string name="high_error_control">高报警控制:</string>
     <string name="high_calibration_sure">修改</string>
     <string name="high_calibration_back">返回</string>
+    <string name="output_control_sure">修改</string>
+    <string name="output_control_back">返回</string>
     <string name="camera_manager">摄像头管理</string>
     <string name="camera_add">添加</string>
     <string name="camera_change">修改</string>
@@ -131,6 +133,18 @@
     <string name="camera_item_delete">删除</string>
     <string name="register_face_user_name">注册用户名:</string>
     <string name="face_register_success">注册成功</string>
+    <string name="load_control">载重控制:</string>
+    <string name="load_25">25%:</string>
+    <string name="load_50">50%:</string>
+    <string name="load_90">90%:</string>
+    <string name="load_100">100%</string>
+    <string name="torque_control">力矩控制:</string>
+    <string name="torque_80">25%:</string>
+    <string name="torque_90">50%:</string>
+    <string name="torque_100">90%:</string>
+    <string name="torque_110">100%:</string>
+    <string name="output_control">输出控制</string>
+    <string name="output_control_label">控制</string>
 
     <!--配置、功能选择界面-->
     <string name="page_preview">人脸属性检测（视频）</string>
@@ -205,8 +219,8 @@
     <string name="batch_process_notification_register">请将需要注册的图片放在\nsdcard/arcfacedemo/register\n目录下</string>
     <string name="batch_process_no_face_need_to_delete">无人脸需要删除</string>
     <string name="batch_process_confirm_delete">确认删除这%d张图片及人脸特征？</string>
-    <string name="check_success">打卡成功</string>
-    <string name="check_fail">打卡失败</string>
+    <string name="check_success">人脸核验成功</string>
+    <string name="check_fail">人脸核验失败</string>
     <string name="batch_process_batch_register">批量注册</string>
     <string name="batch_process_notification">提示</string>
     <string name="batch_process_clear_faces">清空人脸库</string>
@@ -238,6 +252,6 @@
     <string name="main_magnification">倍率:</string>
 
     <string name="check_permission_fail">不给于权限无法开启应用</string>
-    <string name="have_real_name">已实名认证</string>
-    <string name="have_not_real_name">未实名认证</string>
+    <string name="have_real_name">已实名验证</string>
+    <string name="have_not_real_name">未实名验证</string>
 </resources>

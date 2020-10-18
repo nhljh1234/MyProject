@@ -21,7 +21,9 @@ import com.liaojh.towercrane.UI.UICameraList;
 import com.liaojh.towercrane.UI.UIFaceCheck;
 import com.liaojh.towercrane.UI.UIFaceRegister;
 import com.liaojh.towercrane.UI.UILogin;
+import com.liaojh.towercrane.UI.UINotice;
 import com.liaojh.towercrane.UI.UISetCalibration;
+import com.liaojh.towercrane.UI.UISetOutputControl;
 import com.liaojh.towercrane.UI.UISetTowerData;
 import com.liaojh.towercrane.UI.UISetting;
 import com.liaojh.towercrane.UI.UITopBar;
@@ -62,6 +64,8 @@ public class MainActivity extends BaseActivity {
     public UIFaceCheck uiFaceCheck = new UIFaceCheck();
     public UIFaceRegister uiFaceRegister = new UIFaceRegister();
     public UISetTowerData uiSetTowerData = new UISetTowerData();
+    public UINotice uiNotice = new UINotice();
+    public UISetOutputControl uiSetOutputControl = new UISetOutputControl();
 
     private InterfaceUI[] uis = new InterfaceUI[]{
             uiTopBar,
@@ -78,6 +82,8 @@ public class MainActivity extends BaseActivity {
             uiFaceCheck,
             uiFaceRegister,
             uiSetTowerData,
+            uiNotice,
+            uiSetOutputControl,
     };
 
     final private MainActivity activity = this;
@@ -146,7 +152,12 @@ public class MainActivity extends BaseActivity {
             timerTimeFaceCheck = timerTimeFaceCheck + intervalTime;
             if (timerTimeFaceCheck >= SettingData.getInstance().getTowerCraneData().checkFaceInterval) {
                 timerTimeFaceCheck = 0;
-                uiTopBar.setRealNameStatus(false);
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        uiTopBar.setRealNameStatus(false);
+                    }
+                });
             }
 
             //数据上传
