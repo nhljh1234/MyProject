@@ -170,8 +170,10 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
         requestFeatureStatusMap = new ConcurrentHashMap<>();
         extractErrorRetryMap = new ConcurrentHashMap<>();
         delayFaceTaskCompositeDisposable = new CompositeDisposable();
-        timer.cancel();
-        timer = null;
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 
     @Override
@@ -253,7 +255,7 @@ public class UIFaceCheck implements InterfaceDialog, ViewTreeObserver.OnGlobalLa
             public void run() {
                 try {
                     Thread.sleep(1000);
-                    if (layoutCheckFace.getVisibility() == View.INVISIBLE) {
+                    if (layoutCheckFace.getVisibility() != View.VISIBLE) {
                         return;
                     }
                     close();
