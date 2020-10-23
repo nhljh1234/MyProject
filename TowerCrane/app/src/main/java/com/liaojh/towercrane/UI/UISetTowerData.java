@@ -73,7 +73,7 @@ public class UISetTowerData implements InterfaceDialog {
 
     @Override
     public void hide() {
-        layoutSetTower.setVisibility(View.INVISIBLE);
+        layoutSetTower.setVisibility(View.GONE);
     }
 
     @Override

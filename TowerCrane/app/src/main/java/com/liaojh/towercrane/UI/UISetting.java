@@ -6,9 +6,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
-import com.arcsoft.arcfacedemo.faceserver.FaceServer;
-import com.liaojh.towercrane.Activity.BaseActivity;
 import com.liaojh.towercrane.Activity.MainActivity;
 import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.SettingData;
@@ -28,7 +25,7 @@ public class UISetting implements InterfaceDialog {
     }
 
     public void hide() {
-        layoutSetting.setVisibility(View.GONE);
+        layoutSetting.setVisibility(View.INVISIBLE);
     }
 
     public void showSetting(int type) {
@@ -126,22 +123,7 @@ public class UISetting implements InterfaceDialog {
                 hide();
                 break;
             case R.id.btn_setting_clear_face:
-                int faceNum = FaceServer.getInstance().getFaceNumber(m_activity);
-                if (faceNum == 0) {
-                    m_activity.showToast(m_activity.getString(R.string.batch_process_no_face_need_to_delete));
-                } else {
-                    AlertDialog dialog = new AlertDialog.Builder(m_activity)
-                            .setTitle(R.string.batch_process_notification)
-                            .setMessage(m_activity.getString(R.string.batch_process_confirm_delete, faceNum))
-                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    FaceServer.getInstance().clearAllFaces(m_activity);
-                                    m_activity.showToast("清除成功");
-                                }
-                            }).setNegativeButton(R.string.cancel, null).create();
-                    dialog.show();
-                }
+
                 break;
             case R.id.btn_setting_face_register:
                 m_activity.uiFaceRegister.show();

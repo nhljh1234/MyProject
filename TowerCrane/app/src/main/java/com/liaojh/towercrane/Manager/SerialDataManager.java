@@ -20,7 +20,7 @@ public class SerialDataManager {
 
     public static SerialDataManager getInstance() {
         if (instance == null) {
-            synchronized (ArcFaceManager.class) {
+            synchronized (SerialDataManager.class) {
                 if (instance == null) {
                     instance = new SerialDataManager();
                 }

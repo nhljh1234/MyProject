@@ -45,7 +45,7 @@ public class UISetOutputControl implements InterfaceDialog {
 
     @Override
     public void hide() {
-        layoutOutputControl.setVisibility(View.INVISIBLE);
+        layoutOutputControl.setVisibility(View.GONE);
     }
 
     @Override

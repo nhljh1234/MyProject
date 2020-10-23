@@ -1,10 +1,7 @@
 package com.liaojh.towercrane.Activity;
 
-import com.kongqw.serialportlibrary.SerialPort;
 import com.liaojh.towercrane.Data.Constant;
 import com.liaojh.towercrane.Data.SettingData;
-import com.liaojh.towercrane.Data.TowerCraneData;
-import com.liaojh.towercrane.Manager.ArcFaceManager;
 import com.liaojh.towercrane.Manager.CSVFileManager;
 import com.liaojh.towercrane.Manager.NetManager;
 import com.liaojh.towercrane.Manager.SoundManager;
@@ -32,16 +29,10 @@ import com.liaojh.towercrane.UI.UITurnAroundRunInfo;
 import com.liaojh.towercrane.UI.UIUpDownRunInfo;
 import com.liaojh.towercrane.UI.UIVideoInfo;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -49,7 +40,6 @@ import android.widget.LinearLayout;
 import com.liaojh.towercrane.R;
 import com.tencent.bugly.crashreport.CrashReport;
 
-import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -178,6 +168,11 @@ public class MainActivity extends BaseActivity {
         CrashReport.initCrashReport(getApplicationContext(), Constant.BUGLY_APP_ID, true);
     }
 
+    static {
+        System.loadLibrary("wxface");
+        System.loadLibrary("TenniS");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -226,9 +221,6 @@ public class MainActivity extends BaseActivity {
         UpdateManager.getInstance().init(this);
         SoundManager.getInstance().init(this);
         buglyInit();
-        if (!ArcFaceManager.getInstance().active(this)) {
-            showToast("人脸识别SDK初始化失败");
-        }
 
         intervalTime = Math.min(Constant.SIGNAL_DATA_UPDATE_INTERVAL, SettingData.getInstance().getTowerCraneData().checkFaceInterval);
         intervalTime = Math.min(intervalTime, SettingData.getInstance().getTowerCraneData().csvSaveInterval);

@@ -31,7 +31,7 @@ public class UILogin implements InterfaceDialog {
     }
 
     public void hide() {
-        layoutLogin.setVisibility(View.GONE);
+        layoutLogin.setVisibility(View.INVISIBLE);
     }
 
     @Override

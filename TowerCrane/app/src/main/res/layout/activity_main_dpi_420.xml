@@ -4265,12 +4265,6 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center" />
 
-                    <com.arcsoft.arcfacedemo.widget.FaceRectView
-                        android:id="@+id/single_camera_face_rect_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center" />
-
                     <Button
                         style="@style/InputBoxStyle"
                         android:id="@+id/btn_close_face_check"
@@ -4308,12 +4302,6 @@
 
                     <TextureView
                         android:id="@+id/texture_view_face_register"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center" />
-
-                    <com.arcsoft.arcfacedemo.widget.FaceRectView
-                        android:id="@+id/single_camera_face_rect_view_register"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center" />

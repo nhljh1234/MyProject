@@ -3,9 +3,6 @@ package com.yf.rk3399_gpio_jni;
 import android.util.Log;
 
 import com.liaojh.towercrane.Data.Constant;
-import com.liaojh.towercrane.Manager.ArcFaceManager;
-
-import java.util.concurrent.Executors;
 
 public class yf_gpio_manager {
     private static yf_gpio_manager instance;

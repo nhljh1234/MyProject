@@ -17,7 +17,7 @@ public class UINotice implements InterfaceDialog {
 
     @Override
     public void hide() {
-        layoutNotice.setVisibility(View.INVISIBLE);
+        layoutNotice.setVisibility(View.GONE);
     }
 
     @Override

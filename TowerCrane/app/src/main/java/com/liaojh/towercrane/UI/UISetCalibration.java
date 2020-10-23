@@ -116,7 +116,7 @@ public class UISetCalibration implements InterfaceDialog {
 
     @Override
     public void hide() {
-        layoutSetCalibration.setVisibility(View.INVISIBLE);
+        layoutSetCalibration.setVisibility(View.GONE);
         m_calibrationData = null;
     }
 
